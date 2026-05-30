@@ -419,7 +419,7 @@ export default function Page() {
   }, [])
 
   return (
-    <div dir="rtl" className={`min-h-screen antialiased ${fontClass}`} style={{ backgroundColor: '#080808', color: '#ffffff' }}>
+    <div dir="rtl" className={`min-h-screen antialiased ${fontClass}`} style={{ backgroundColor: '#080808', color: '#ffffff', overflowX: 'hidden', maxWidth: '100vw' }}>
       <style>{`
         @keyframes march {
           0%   { background-position: 0 0; }

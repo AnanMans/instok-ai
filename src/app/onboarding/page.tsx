@@ -1007,7 +1007,7 @@ export default function Page() {
   , [customColors]) // eslint-disable-line
 
   return (
-    <div style={{ minHeight: '100vh', background: '#080808', display: 'flex', justifyContent: 'center' }}>
+    <div style={{ minHeight: '100vh', background: '#080808', display: 'flex', justifyContent: 'center', overflowX: 'hidden', maxWidth: '100vw' }}>
       <style>{`
         *{box-sizing:border-box}
         input,button,textarea{font-family:inherit}
@@ -1112,7 +1112,7 @@ export default function Page() {
             <div style={{ flexShrink: 0, padding: '8px 16px 20px', borderTop: '1px solid rgba(255,255,255,0.06)', background: '#080808', position: 'sticky', bottom: 0, zIndex: 10 }}>
 
               {/* Mood palettes */}
-              <div className="palette-scroll" style={{ display: 'flex', gap: '6px', overflowX: 'auto', marginBottom: '6px', paddingBottom: '2px' }}>
+              <div className="palette-scroll" style={{ display: 'flex', gap: '6px', overflowX: 'auto', marginBottom: '6px', paddingBottom: '2px', WebkitOverflowScrolling: 'touch' }}>
                 {MOOD_PALETTES.map((p, i) => {
                   const isSel = selectedPalette === i
                   return (
