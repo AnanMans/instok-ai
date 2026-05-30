@@ -511,20 +511,20 @@ export default function Page() {
                   <span style={{ fontSize: '13px', fontWeight: 700, color: '#fff' }}>{userEmail[0].toUpperCase()}</span>
                 </button>
                 {dropdownOpen && (
-                  <div style={{ position: 'absolute', top: 'calc(100% + 8px)', right: 0, background: '#1a1a1a', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', overflow: 'hidden', minWidth: '180px', boxShadow: '0 8px 32px rgba(0,0,0,0.5)', zIndex: 200 }}>
+                  <div style={{ position: 'absolute', top: 'calc(100% + 8px)', left: 0, background: '#1a1a1a', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '12px', overflow: 'hidden', minWidth: '180px', boxShadow: '0 8px 32px rgba(0,0,0,0.7)', zIndex: 200 }}>
                     <button
                       onClick={() => { setDropdownOpen(false); router.push('/dashboard') }}
-                      style={{ width: '100%', padding: '11px 16px', background: 'none', border: 'none', color: 'rgba(255,255,255,0.8)', fontSize: '13px', fontWeight: 500, cursor: 'pointer', textAlign: 'right', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: '8px' }}
-                      onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.06)')}
+                      style={{ width: '100%', padding: '11px 16px', background: 'none', border: 'none', color: '#fff', fontSize: '13px', fontWeight: 500, cursor: 'pointer', textAlign: 'start', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: '8px' }}
+                      onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.08)')}
                       onMouseLeave={e => (e.currentTarget.style.background = 'none')}>
                       <span>📊</span>
                       {ar ? 'لوحة التحكم' : 'Dashboard'}
                     </button>
-                    <div style={{ height: '1px', background: 'rgba(255,255,255,0.07)', margin: '0 12px' }} />
+                    <div style={{ height: '1px', background: 'rgba(255,255,255,0.08)', margin: '0 12px' }} />
                     <button
                       onClick={async () => { setDropdownOpen(false); await supabase.auth.signOut(); setUserEmail(null) }}
-                      style={{ width: '100%', padding: '11px 16px', background: 'none', border: 'none', color: 'rgba(255,80,80,0.85)', fontSize: '13px', fontWeight: 500, cursor: 'pointer', textAlign: 'right', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: '8px' }}
-                      onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,80,80,0.07)')}
+                      style={{ width: '100%', padding: '11px 16px', background: 'none', border: 'none', color: '#ff6b6b', fontSize: '13px', fontWeight: 500, cursor: 'pointer', textAlign: 'start', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: '8px' }}
+                      onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,107,107,0.1)')}
                       onMouseLeave={e => (e.currentTarget.style.background = 'none')}>
                       <span>🚪</span>
                       {ar ? 'تسجيل خروج' : 'Logout'}
