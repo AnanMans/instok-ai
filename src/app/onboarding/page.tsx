@@ -1078,7 +1078,7 @@ export default function Page() {
 
         {/* ── Step 4: WOW Moment — full-screen hero layout ─────────────────── */}
         {step === 4 && (
-          <div key={step} className="step-enter" style={{ height: '100dvh', display: 'flex', flexDirection: 'column', background: '#080808', position: 'relative', overflow: 'hidden' }}>
+          <div key={step} className="step-enter" style={{ height: '100dvh', display: 'flex', flexDirection: 'column', background: '#080808', position: 'relative', overflow: 'hidden', overflowX: 'hidden', width: '100%', maxWidth: '100vw' }}>
 
             {/* Back button */}
             <button onClick={goBack} style={{ position: 'absolute', top: '14px', right: '16px', zIndex: 20, background: 'none', border: 'none', color: 'rgba(255,255,255,0.3)', fontSize: '12px', cursor: 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: '3px', padding: '4px' }}>
@@ -1102,7 +1102,7 @@ export default function Page() {
               </div>
 
               {/* Phone mockup */}
-              <div style={{ width: '100%', maxWidth: '320px', margin: '0 auto', aspectRatio: '9/16', borderRadius: '28px', overflow: 'hidden', border: '2px solid rgba(255,255,255,0.15)', boxShadow: '0 25px 60px rgba(0,0,0,0.6)' }}>
+              <div style={{ width: '240px', height: '420px', borderRadius: '24px', overflow: 'hidden', margin: '0 auto', flexShrink: 0, border: '2px solid rgba(255,255,255,0.15)', boxShadow: '0 20px 40px rgba(0,0,0,0.5)' }}>
                 {renderStorePreview(effectiveArchetype, displayBrand, customColors, lang ?? 'ar', uploadedImage, t, categories)}
               </div>
 
@@ -1237,7 +1237,7 @@ export default function Page() {
                 <div style={{ height: '100%', width: `${progressPct}%`, background: 'linear-gradient(90deg,#7c3aed,#4f46e5)', transition: 'width 0.5s ease' }} />
               </div>
             )}
-            <div key={step} className="step-enter" style={{ padding: '24px', paddingTop: showProgress ? '27px' : '24px', paddingBottom: '40px' }}>
+            <div key={step} className="step-enter" style={{ padding: '24px', paddingTop: showProgress ? '27px' : '24px', paddingBottom: step === 2 ? '120px' : '40px' }}>
               {showBack && (
                 <button onClick={goBack}
                   style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.35)', fontSize: '13px', cursor: 'pointer', padding: '4px 0', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '4px', fontFamily: 'inherit' }}>
@@ -1351,7 +1351,10 @@ export default function Page() {
                     {uploadedImage ? <img src={uploadedImage} alt="" style={{ width: 60, height: 60, objectFit: 'cover', borderRadius: 10 }} /> : <><span style={{ fontSize: '24px' }}>📷</span><span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.35)' }}>{t.s2ImgBtn}</span></>}
                   </button>
 
-                  <button onClick={canNext ? goNext : undefined} style={{ ...btnP, opacity: canNext ? 1 : 0.4, cursor: canNext ? 'pointer' : 'default' }}>
+                  <button
+                    onClick={canNext ? goNext : undefined}
+                    onTouchEnd={canNext ? (e) => { e.preventDefault(); goNext() } : undefined}
+                    style={{ ...btnP, opacity: canNext ? 1 : 0.4, cursor: canNext ? 'pointer' : 'default', display: 'block', width: '100%', touchAction: 'manipulation' }}>
                     {t.s2CTA}
                   </button>
                 </>
