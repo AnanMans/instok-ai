@@ -457,9 +457,6 @@ function renderStorePreview(
 
   switch (archetype) {
     case 'luxury': {
-      const nameParts = name.trim().split(/\s+/)
-      const nameLine1 = nameParts[0] || name
-      const nameLine2 = nameParts.slice(1).join(' ') || (lang === 'ar' ? 'أتيليه' : 'ATELIER')
       return (
         <div style={{ display: 'flex', flexDirection: 'column', height: '100%', background: '#050505' }}>
           <div style={{ height: '18px', background: '#050505', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 12px', flexShrink: 0 }}>
@@ -472,8 +469,9 @@ function renderStorePreview(
           </div>
           {/* Hero: dark bg, name two lines large, gold divider, italic thin slogan */}
           <div style={{ background: `linear-gradient(160deg, #0d0d0d, ${getDarkVariant(c0)})`, padding: '20px 16px 14px', textAlign: 'center', flexShrink: 0 }}>
-            <div style={{ fontSize: '18px', fontWeight: 200, color: c0, letterSpacing: '0.1em', lineHeight: 1.05, textTransform: 'uppercase', ...nameStyle }}>{nameLine1}</div>
-            <div style={{ fontSize: '14px', fontWeight: 200, color: c0, letterSpacing: '0.1em', lineHeight: 1.05, textTransform: 'uppercase', marginBottom: '10px', ...nameStyle }}>{nameLine2}</div>
+            <div style={{ fontSize: name.length > 12 ? '13px' : name.length > 8 ? '16px' : '20px', fontWeight: 200, color: c0, letterSpacing: '0.08em', lineHeight: 1.2, textTransform: 'uppercase', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '100%', marginBottom: '10px' }}>
+              {name}
+            </div>
             <div style={{ width: '36px', height: '1px', background: c0, margin: '0 auto 10px', opacity: 0.45 }} />
             <div style={{ fontSize: '7px', color: heroText, fontStyle: 'italic', fontWeight: 300, opacity: 0.45, letterSpacing: '0.04em' }}>{slogan}</div>
           </div>
@@ -649,8 +647,8 @@ function renderStorePreview(
           <div style={{ background: c2, padding: '16px 12px 14px', textAlign: 'center', position: 'relative', overflow: 'hidden', flexShrink: 0 }}>
             <div style={{ position: 'absolute', top: '-10px', right: '-10px', width: '80px', height: '80px', background: c0, opacity: 0.15, borderRadius: '50%' }} />
             <div style={{ fontSize: '7px', color: heroOnC2, opacity: 0.55, letterSpacing: '0.22em', textTransform: 'uppercase', marginBottom: '2px', fontWeight: 600 }}>DROP 001</div>
-            <div style={{ fontSize: (name.split(' ')[0] || name).length > 8 ? '18px' : '28px', fontWeight: 900, color: heroOnC2, lineHeight: 1, letterSpacing: '-0.03em', textTransform: 'uppercase', marginBottom: '5px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '100%' }}>
-              {name.split(' ')[0] || name}
+            <div style={{ fontSize: name.length > 10 ? '16px' : name.length > 6 ? '22px' : '28px', fontWeight: 900, color: heroOnC2, lineHeight: 1, letterSpacing: '-0.03em', textTransform: 'uppercase', marginBottom: '5px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '100%' }}>
+              {name}
             </div>
             <div style={{ fontSize: '7px', color: heroOnC2, opacity: 0.5, marginBottom: '10px', letterSpacing: '0.12em', textTransform: 'uppercase' }}>{slogan}</div>
             <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: ctaBtnBg, padding: '5px 14px' }}>
@@ -1078,7 +1076,7 @@ export default function Page() {
 
         {/* ── Step 4: WOW Moment — full-screen hero layout ─────────────────── */}
         {step === 4 && (
-          <div key={step} className="step-enter" style={{ height: '100dvh', display: 'flex', flexDirection: 'column', background: '#080808', position: 'relative', overflow: 'hidden', overflowX: 'hidden', width: '100vw', maxWidth: '100vw', left: 0, right: 0 }}>
+          <div key={step} className="step-enter" style={{ height: '100vh', display: 'flex', flexDirection: 'column', background: '#080808', position: 'relative', overflow: 'hidden', overflowX: 'hidden', width: '100vw', maxWidth: '100vw', left: 0, right: 0, WebkitOverflowScrolling: 'touch' }}>
 
             {/* Back button */}
             <button onClick={goBack} style={{ position: 'absolute', top: '14px', right: '16px', zIndex: 20, background: 'none', border: 'none', color: 'rgba(255,255,255,0.3)', fontSize: '12px', cursor: 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: '3px', padding: '4px' }}>
@@ -1102,7 +1100,7 @@ export default function Page() {
               </div>
 
               {/* Phone mockup */}
-              <div style={{ width: '240px', height: '420px', borderRadius: '24px', overflow: 'hidden', margin: '0 auto', flexShrink: 0, border: '2px solid rgba(255,255,255,0.15)', boxShadow: '0 20px 40px rgba(0,0,0,0.5)' }}>
+              <div style={{ width: '240px', height: '420px', maxWidth: '100%', overflowX: 'hidden', borderRadius: '24px', overflow: 'hidden', margin: '0 auto', flexShrink: 0, border: '2px solid rgba(255,255,255,0.15)', boxShadow: '0 20px 40px rgba(0,0,0,0.5)' }}>
                 {renderStorePreview(effectiveArchetype, displayBrand, customColors, lang ?? 'ar', uploadedImage, t, categories)}
               </div>
 
