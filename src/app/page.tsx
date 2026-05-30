@@ -407,6 +407,8 @@ function LuxuryMiniPreview() {
 export default function Page() {
   const [lang, setLang] = useState<Lang>('ar')
   const [userEmail, setUserEmail] = useState<string | null>(null)
+  const [dropdownOpen, setDropdownOpen] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
   const t = CONTENT[lang]
   const fontClass = lang === 'ar' ? cairo.className : inter.className
@@ -417,6 +419,17 @@ export default function Page() {
       setUserEmail(session?.user?.email ?? null)
     })
   }, [])
+
+  useEffect(() => {
+    if (!dropdownOpen) return
+    function handleClickOutside(e: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setDropdownOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [dropdownOpen])
 
   return (
     <div dir="rtl" className={`min-h-screen antialiased ${fontClass}`} style={{ backgroundColor: '#080808', color: '#ffffff', overflowX: 'hidden', maxWidth: '100vw' }}>
@@ -491,15 +504,33 @@ export default function Page() {
               {t.nav.langLabel}
             </button>
             {userEmail ? (
-              <div className="flex items-center gap-2">
-                <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'linear-gradient(135deg,#7c3aed,#4f46e5)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              <div ref={dropdownRef} style={{ position: 'relative' }}>
+                <button
+                  onClick={() => setDropdownOpen(o => !o)}
+                  style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'linear-gradient(135deg,#7c3aed,#4f46e5)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, border: 'none', cursor: 'pointer', padding: 0 }}>
                   <span style={{ fontSize: '13px', fontWeight: 700, color: '#fff' }}>{userEmail[0].toUpperCase()}</span>
-                </div>
-                <button onClick={() => router.push('/dashboard')}
-                  className="text-sm font-semibold px-4 py-2 rounded-lg text-white transition-opacity hover:opacity-90"
-                  style={{ background: 'linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%)' }}>
-                  {ar ? 'لوحة التحكم' : 'לוח הבקרה'}
                 </button>
+                {dropdownOpen && (
+                  <div style={{ position: 'absolute', top: 'calc(100% + 8px)', right: 0, background: '#1a1a1a', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', overflow: 'hidden', minWidth: '180px', boxShadow: '0 8px 32px rgba(0,0,0,0.5)', zIndex: 200 }}>
+                    <button
+                      onClick={() => { setDropdownOpen(false); router.push('/dashboard') }}
+                      style={{ width: '100%', padding: '11px 16px', background: 'none', border: 'none', color: 'rgba(255,255,255,0.8)', fontSize: '13px', fontWeight: 500, cursor: 'pointer', textAlign: 'right', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: '8px' }}
+                      onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.06)')}
+                      onMouseLeave={e => (e.currentTarget.style.background = 'none')}>
+                      <span>📊</span>
+                      {ar ? 'لوحة التحكم' : 'Dashboard'}
+                    </button>
+                    <div style={{ height: '1px', background: 'rgba(255,255,255,0.07)', margin: '0 12px' }} />
+                    <button
+                      onClick={async () => { setDropdownOpen(false); await supabase.auth.signOut(); setUserEmail(null) }}
+                      style={{ width: '100%', padding: '11px 16px', background: 'none', border: 'none', color: 'rgba(255,80,80,0.85)', fontSize: '13px', fontWeight: 500, cursor: 'pointer', textAlign: 'right', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: '8px' }}
+                      onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,80,80,0.07)')}
+                      onMouseLeave={e => (e.currentTarget.style.background = 'none')}>
+                      <span>🚪</span>
+                      {ar ? 'تسجيل خروج' : 'Logout'}
+                    </button>
+                  </div>
+                )}
               </div>
             ) : (
               <button onClick={() => router.push('/onboarding')}
