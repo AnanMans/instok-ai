@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef, useMemo } from 'react'
+import { useRouter } from 'next/navigation'
 import { Cairo, Heebo } from 'next/font/google'
 import { createBrowserClient } from '@supabase/ssr'
 
@@ -848,6 +849,7 @@ function renderStorePreview(
 
 // ── Page ───────────────────────────────────────────────────────────────────────
 export default function Page() {
+  const router = useRouter()
   const [lang, setLang] = useState<Lang | null>(null)
   const [step, setStep] = useState(0)
   const [brandName, setBrandName] = useState('')
@@ -910,13 +912,23 @@ export default function Page() {
       setStep(2)
     }
 
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
       if (session?.user?.email) setUserEmail(session.user.email)
-      if (session && stepParam !== '2') {
-        setStep(2)
+      if (session) {
+        const { data: existing } = await supabase
+          .from('stores')
+          .select('slug')
+          .eq('owner_id', session.user.id)
+          .limit(1)
+          .single()
+        if (existing?.slug) {
+          router.replace('/dashboard')
+          return
+        }
+        if (stepParam !== '2') setStep(2)
       }
     })
-  }, [])
+  }, []) // eslint-disable-line
 
   const goNext = () => setStep(s => s + 1)
   const goBack = () => setStep(s => s - 1)
