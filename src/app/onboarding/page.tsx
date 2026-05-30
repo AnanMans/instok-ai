@@ -902,10 +902,16 @@ export default function Page() {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
-    const urlLang = params.get('lang') as Lang | null
-    const urlStep = params.get('step')
-    if (urlLang === 'ar' || urlLang === 'he') setLang(urlLang)
-    if (urlStep === '2') setStep(2)
+    const stepParam = params.get('step')
+    if (stepParam === '2') {
+      setStep(2)
+    }
+
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session && stepParam !== '2') {
+        setStep(2)
+      }
+    })
   }, [])
 
   const goNext = () => setStep(s => s + 1)

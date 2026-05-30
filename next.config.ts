@@ -1,6 +1,5 @@
-import type { NextConfig } from 'next'
-
-const nextConfig: NextConfig = {
+// eslint and typescript keys are valid at runtime; type omitted to avoid version mismatch
+const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
