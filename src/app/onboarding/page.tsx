@@ -469,7 +469,7 @@ function renderStorePreview(
           </div>
           {/* Hero: dark bg, name two lines large, gold divider, italic thin slogan */}
           <div style={{ background: `linear-gradient(160deg, #0d0d0d, ${getDarkVariant(c0)})`, padding: '20px 16px 14px', textAlign: 'center', flexShrink: 0 }}>
-            <div style={{ fontSize: name.length > 12 ? '13px' : name.length > 8 ? '16px' : '20px', fontWeight: 200, color: c0, letterSpacing: '0.08em', lineHeight: 1.2, textTransform: 'uppercase', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '100%', marginBottom: '10px' }}>
+            <div style={{ fontSize: name.length > 14 ? '11px' : name.length > 10 ? '13px' : name.length > 6 ? '16px' : '20px', fontWeight: 200, color: c0, letterSpacing: '0.05em', lineHeight: 1.3, textTransform: 'uppercase', width: '100%', textAlign: 'center', wordBreak: 'break-word', whiteSpace: 'normal', marginBottom: '10px' }}>
               {name}
             </div>
             <div style={{ width: '36px', height: '1px', background: c0, margin: '0 auto 10px', opacity: 0.45 }} />
@@ -647,7 +647,7 @@ function renderStorePreview(
           <div style={{ background: c2, padding: '16px 12px 14px', textAlign: 'center', position: 'relative', overflow: 'hidden', flexShrink: 0 }}>
             <div style={{ position: 'absolute', top: '-10px', right: '-10px', width: '80px', height: '80px', background: c0, opacity: 0.15, borderRadius: '50%' }} />
             <div style={{ fontSize: '7px', color: heroOnC2, opacity: 0.55, letterSpacing: '0.22em', textTransform: 'uppercase', marginBottom: '2px', fontWeight: 600 }}>DROP 001</div>
-            <div style={{ fontSize: name.length > 10 ? '16px' : name.length > 6 ? '22px' : '28px', fontWeight: 900, color: heroOnC2, lineHeight: 1, letterSpacing: '-0.03em', textTransform: 'uppercase', marginBottom: '5px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '100%' }}>
+            <div style={{ fontSize: name.length > 10 ? '16px' : name.length > 6 ? '22px' : '28px', fontWeight: 900, color: heroOnC2, lineHeight: 1.1, letterSpacing: '-0.02em', textTransform: 'uppercase', width: '100%', textAlign: 'center', wordBreak: 'break-word', whiteSpace: 'normal', marginBottom: '5px' }}>
               {name}
             </div>
             <div style={{ fontSize: '7px', color: heroOnC2, opacity: 0.5, marginBottom: '10px', letterSpacing: '0.12em', textTransform: 'uppercase' }}>{slogan}</div>

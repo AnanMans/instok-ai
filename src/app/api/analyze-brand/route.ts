@@ -63,14 +63,30 @@ export async function POST(request: Request) {
     lang = body.lang ?? 'ar'
     const { brandName, category, description, vibe } = body
 
-    const prompt = `The store name is: '${brandName}' — use this EXACTLY, do not change it, do not translate it, do not suggest alternatives.
-Generate ONLY: slogan, colors, vibe, direction, archetype.
-Based on: category=${category || 'general'}, description=${description || 'not provided'}, vibe=${vibe || 'minimal'}, language=${lang === 'ar' ? 'Arabic' : 'Hebrew'}.
-Return ONLY valid JSON: { storeName: '${brandName}', slogan, colors (3 hex strings matching the vibe), vibe (2-3 words in given language), direction (one sentence in given language), archetype (one string from: luxury, gaming, creator, beauty, streetwear, minimal, restaurant, tech) }
+    const prompt = `You are a store identity generator.
 
-Make slogan emotional and specific to their business, not generic.
-Colors must match the vibe: luxury=gold/black, streetwear=bold colors, minimal=neutral, tech=blue/dark, feminine=pink/rose, bold=strong contrasts.
-Also determine the best store archetype from: luxury, gaming, creator, beauty, streetwear, minimal, restaurant, tech — base it on category and vibe.`
+IMPORTANT RULES:
+- The store name is: "${brandName}" — this is JUST A NAME, ignore what it means
+- Base the identity ONLY on: category="${category || 'general'}", description="${description || 'not provided'}", vibe="${vibe || 'minimal'}"
+- DO NOT use the store name meaning to decide the archetype or colors
+- Example: if name is "جمال" (beauty) but category is "cars" — generate a CAR store identity, NOT beauty
+
+Generate store identity in ${lang === 'ar' ? 'Arabic' : 'Hebrew'} language.
+
+Return ONLY valid JSON, no other text:
+{
+  "storeName": "${brandName}",
+  "slogan": "short catchy slogan based on category and description",
+  "colors": ["#hexcolor1", "#hexcolor2", "#hexcolor3"],
+  "vibe": "2-3 words describing the feel",
+  "direction": "one sentence describing the store direction",
+  "archetype": "one of: luxury, gaming, creator, beauty, streetwear, minimal, restaurant, tech"
+}
+
+Category: ${category || 'general'}
+Description: ${description || 'not provided'}
+Vibe: ${vibe || 'minimal'}
+Language: ${lang === 'ar' ? 'Arabic' : 'Hebrew'}`
     console.log('[analyze-brand] prompt:', prompt)
 
     const res = await fetch('https://api.anthropic.com/v1/messages', {
