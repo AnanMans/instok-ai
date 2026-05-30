@@ -491,7 +491,7 @@ function renderStorePreview(
           </div>
           {/* Footer: COLLECTION 2026 */}
           <div style={{ background: '#050505', padding: '10px 12px', borderTop: `1px solid ${c0}12`, display: 'flex', justifyContent: 'center', flexShrink: 0 }}>
-            <span style={{ fontSize: '6px', color: c0, opacity: 0.3, letterSpacing: '4px', textTransform: 'uppercase' }}>COLLECTION 2026</span>
+            <span style={{ fontSize: '6px', color: c0, opacity: 0.3, letterSpacing: '4px', textTransform: 'uppercase' }}>{lang === 'ar' ? 'مجموعة ٢٠٢٦' : 'קולקציה 2026'}</span>
           </div>
         </div>
       )
@@ -510,11 +510,11 @@ function renderStorePreview(
           </div>
           <div style={{ background: `linear-gradient(135deg,#0d0020,${c2},${c0}40)`, padding: '18px 10px 16px', position: 'relative', overflow: 'hidden', flexShrink: 0 }}>
             <div style={{ position: 'absolute', inset: 0, background: `repeating-linear-gradient(0deg,transparent,transparent 8px,${c0}08 8px,${c0}08 9px)` }} />
-            <div style={{ fontSize: '7px', color: c0, letterSpacing: '0.15em', marginBottom: '4px', textTransform: 'uppercase', fontWeight: 700, position: 'relative', zIndex: 1 }}>LEVEL UP</div>
+            <div style={{ fontSize: '7px', color: c0, letterSpacing: '0.15em', marginBottom: '4px', textTransform: 'uppercase', fontWeight: 700, position: 'relative', zIndex: 1 }}>{lang === 'ar' ? 'ارتقِ بمستواك' : 'עלה רמה'}</div>
             <div style={{ fontSize: nameSz, fontWeight: 900, color: heroText, marginBottom: '3px', textShadow: `0 0 20px ${c0}`, position: 'relative', zIndex: 1, ...nameStyle }}>{name}</div>
             <div style={{ fontSize: '7.5px', color: heroText, opacity: 0.5, marginBottom: '10px', position: 'relative', zIndex: 1 }}>{slogan}</div>
             <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: c0, borderRadius: '4px', padding: '4px 12px', boxShadow: `0 0 12px ${c0}80`, position: 'relative', zIndex: 1 }}>
-              <span style={{ fontSize: '8px', fontWeight: 800, color: ctaText, textAlign: 'center' }}>PLAY NOW ▶</span>
+              <span style={{ fontSize: '8px', fontWeight: 800, color: ctaText, textAlign: 'center' }}>{lang === 'ar' ? 'العب الآن ▶' : 'שחק עכשיו ▶'}</span>
             </div>
           </div>
           <div style={{ flex: 1, background: darkCardBg, padding: '6px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5px', overflow: 'hidden' }}>
@@ -524,7 +524,7 @@ function renderStorePreview(
                   <img src={src} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} alt="" />
                   {i === 0 && (
                     <div style={{ position: 'absolute', top: '3px', right: '3px', background: 'rgba(239,68,68,0.92)', borderRadius: '3px', padding: '1px 4px' }}>
-                      <span style={{ fontSize: '6px', fontWeight: 800, color: '#fff' }}>HOT 🔥</span>
+                      <span style={{ fontSize: '6px', fontWeight: 800, color: '#fff' }}>{lang === 'ar' ? '🔥 رائج' : '🔥 חם'}</span>
                     </div>
                   )}
                 </div>
@@ -559,7 +559,7 @@ function renderStorePreview(
             <span style={{ fontSize: '8px', color: navText }}>✦</span>
           </div>
           <div style={{ background: `linear-gradient(160deg,${c0}18,${c1}12)`, padding: '18px 12px 14px', flexShrink: 0 }}>
-            <div style={{ fontSize: '7px', color: c0, marginBottom: '4px', fontWeight: 600, letterSpacing: '0.08em', ...nameStyle }}>BY {name.toUpperCase()}</div>
+            <div style={{ fontSize: '7px', color: c0, marginBottom: '4px', fontWeight: 600, letterSpacing: '0.08em', ...nameStyle }}>{lang === 'ar' ? 'بقلم' : 'של'} {name}</div>
             <div style={{ fontSize: '14px', fontWeight: 900, color: heroText, marginBottom: '4px', lineHeight: 1.1 }}>{slogan}</div>
             <div style={{ fontSize: '7.5px', color: heroText, opacity: 0.6, marginBottom: '12px' }}>{lang === 'ar' ? 'منتجات حصرية' : 'מוצרים בלעדיים'}</div>
             <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: c0, borderRadius: '20px', padding: '5px 14px' }}>
@@ -584,7 +584,7 @@ function renderStorePreview(
               <span style={{ fontSize: '8px', fontWeight: 700, color: ctaText }}>+ {lang === 'ar' ? 'تابع' : 'עקוב'}</span>
             </div>
             <div style={{ flex: 1, border: `1px solid ${c0}`, borderRadius: '20px', padding: '5px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <span style={{ fontSize: '8px', color: navText, fontWeight: 600 }}>💬 DM</span>
+              <span style={{ fontSize: '8px', color: navText, fontWeight: 600 }}>{lang === 'ar' ? '💬 راسل' : '💬 שלח הודעה'}</span>
             </div>
           </div>
         </div>
@@ -654,7 +654,7 @@ function renderStorePreview(
             </div>
             <div style={{ fontSize: '7px', color: heroOnC2, opacity: 0.5, marginBottom: '10px', letterSpacing: '0.12em', textTransform: 'uppercase' }}>{slogan}</div>
             <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: ctaBtnBg, padding: '5px 14px' }}>
-              <span style={{ fontSize: '8px', fontWeight: 900, color: ctaBtnText, letterSpacing: '0.08em', textAlign: 'center' }}>SHOP DROP →</span>
+              <span style={{ fontSize: '8px', fontWeight: 900, color: ctaBtnText, letterSpacing: '0.08em', textAlign: 'center' }}>{lang === 'ar' ? 'تسوّق الجديد →' : 'קנה את החדש →'}</span>
             </div>
           </div>
           <div style={{ flex: 1, background: '#111', padding: '6px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5px', overflow: 'hidden' }}>
@@ -804,14 +804,14 @@ function renderStorePreview(
             <div style={{ display: 'flex', alignItems: 'center', gap: '5px', marginBottom: '4px', position: 'relative', zIndex: 1 }}>
               <span style={{ fontSize: nameSz, fontWeight: 800, color: heroText, lineHeight: 1.1, ...nameStyle }}>{name}</span>
               <div style={{ background: '#ef4444', borderRadius: '3px', padding: '1px 5px', flexShrink: 0 }}>
-                <span style={{ fontSize: '6px', fontWeight: 800, color: '#fff' }}>NEW</span>
+                <span style={{ fontSize: '6px', fontWeight: 800, color: '#fff' }}>{lang === 'ar' ? 'جديد' : 'חדש'}</span>
               </div>
             </div>
             <div style={{ fontSize: '7.5px', color: c0, fontFamily: 'monospace', marginBottom: '10px', position: 'relative', zIndex: 1, letterSpacing: '0.04em' }}>
               {lang === 'ar' ? '• 4K  • ذكاء اصطناعي  • سريع' : '• 4K  • AI  • מהיר'}
             </div>
             <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: c0, borderRadius: '6px', padding: '5px 12px', position: 'relative', zIndex: 1 }}>
-              <span style={{ fontSize: '8px', fontWeight: 700, color: ctaText, textAlign: 'center' }}>Explore →</span>
+              <span style={{ fontSize: '8px', fontWeight: 700, color: ctaText, textAlign: 'center' }}>{lang === 'ar' ? 'استكشف →' : 'גלה עוד →'}</span>
             </div>
           </div>
           {/* Products: cards with SPEC badge on top corner */}
@@ -821,7 +821,7 @@ function renderStorePreview(
                 <div style={{ flex: 1, overflow: 'hidden', minHeight: '70px', position: 'relative' }}>
                   <img src={src} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} alt="" />
                   <div style={{ position: 'absolute', top: '3px', left: '3px', background: c0, borderRadius: '3px', padding: '1px 5px' }}>
-                    <span style={{ fontSize: '6px', fontWeight: 700, color: ctaText }}>SPEC</span>
+                    <span style={{ fontSize: '6px', fontWeight: 700, color: ctaText }}>{lang === 'ar' ? 'مميز' : 'מיוחד'}</span>
                   </div>
                 </div>
                 <div style={{ padding: '4px 5px', flexShrink: 0 }}>
@@ -875,6 +875,7 @@ export default function Page() {
   const [whatsappPhone, setWhatsappPhone] = useState('')
   const [savedSlug, setSavedSlug] = useState('')
   const [storeSaving, setStoreSaving] = useState(false)
+  const [userEmail, setUserEmail] = useState<string | null>(null)
 
   const imgInputRef = useRef<HTMLInputElement>(null)
   const t = T[lang ?? 'ar']
@@ -908,6 +909,7 @@ export default function Page() {
     }
 
     supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session?.user?.email) setUserEmail(session.user.email)
       if (session && stepParam !== '2') {
         setStep(2)
       }
@@ -1076,7 +1078,7 @@ export default function Page() {
 
         {/* ── Step 4: WOW Moment — full-screen hero layout ─────────────────── */}
         {step === 4 && (
-          <div key={step} className="step-enter" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: '#080808', position: 'relative' }}>
+          <div key={step} className="step-enter" style={{ height: '100dvh', display: 'flex', flexDirection: 'column', background: '#080808', position: 'relative', overflow: 'hidden' }}>
 
             {/* Back button */}
             <button onClick={goBack} style={{ position: 'absolute', top: '14px', right: '16px', zIndex: 20, background: 'none', border: 'none', color: 'rgba(255,255,255,0.3)', fontSize: '12px', cursor: 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: '3px', padding: '4px' }}>
@@ -1084,10 +1086,10 @@ export default function Page() {
             </button>
 
             {/* Phone hero area — flex: 1, fills most of screen */}
-            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '36px 0 12px' }}>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '44px 0 6px', overflow: 'hidden', minHeight: 0 }}>
 
               {/* DNA badge — floating above phone */}
-              <div style={{ textAlign: 'center', marginBottom: '10px' }}>
+              <div style={{ textAlign: 'center', marginBottom: '6px' }}>
                 <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: '#111', border: '1px solid rgba(124,58,237,0.5)', borderRadius: '20px', padding: '7px 16px', boxShadow: '0 4px 24px rgba(0,0,0,0.6)' }}>
                   <span style={{ fontSize: '12px', fontWeight: 600, background: 'linear-gradient(135deg,#c4b5fd,#7c3aed)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                     {t.s4DNALabel}
@@ -1100,42 +1102,17 @@ export default function Page() {
               </div>
 
               {/* Phone mockup */}
-              <div style={{ width: '280px', borderRadius: '28px', border: '2px solid rgba(255,255,255,0.15)', overflow: 'hidden', boxShadow: '0 25px 60px rgba(0,0,0,0.5)', height: '460px', margin: '0 auto' }}>
+              <div style={{ width: 'min(300px, calc(100vw - 60px))', borderRadius: '28px', border: '2px solid rgba(255,255,255,0.15)', overflow: 'hidden', boxShadow: '0 25px 60px rgba(0,0,0,0.5)', height: 'min(460px, calc(100dvh - 240px))', margin: '0 auto' }}>
                 {renderStorePreview(effectiveArchetype, displayBrand, customColors, lang ?? 'ar', uploadedImage, t, categories)}
               </div>
 
-              {/* Social proof — store thumbnails */}
-              <div style={{ marginTop: '14px', textAlign: 'center' }}>
-                <div style={{ fontSize: '9px', color: 'rgba(255,255,255,0.25)', marginBottom: '8px' }}>
-                  {lang === 'he' ? 'חנויות שנוצרו על ידי אנשים כמוך' : 'متاجر أنشأها أصحابها مثلك'}
-                </div>
-                <div style={{ display: 'flex', gap: '6px', justifyContent: 'center' }}>
-                  {[
-                    { arch: 'beauty',     c: '#e11d74', label: lang === 'he' ? 'יופי' : 'جمال' },
-                    { arch: 'gaming',     c: '#7c3aed', label: lang === 'he' ? 'גיימינג' : 'غيمنج' },
-                    { arch: 'restaurant', c: '#f97316', label: lang === 'he' ? 'מסעדה' : 'مطعم' },
-                  ].map(item => (
-                    <div key={item.arch} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
-                      <div style={{ width: '48px', height: '72px', borderRadius: '10px', overflow: 'hidden', border: `1px solid ${item.c}40`, background: `${item.c}18` }}>
-                        <div style={{ height: '10px', background: `${item.c}30` }} />
-                        <div style={{ height: '26px', background: `${item.c}20` }} />
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2px', padding: '3px' }}>
-                          <div style={{ height: '16px', background: `${item.c}35`, borderRadius: '2px' }} />
-                          <div style={{ height: '16px', background: `${item.c}35`, borderRadius: '2px' }} />
-                        </div>
-                      </div>
-                      <span style={{ fontSize: '7px', color: 'rgba(255,255,255,0.3)' }}>{item.label}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
             </div>
 
-            {/* Controls panel — compact, bottom */}
-            <div style={{ flexShrink: 0, padding: '14px 20px 28px', borderTop: '1px solid rgba(255,255,255,0.06)', background: 'linear-gradient(180deg,rgba(8,8,8,0) 0%,#080808 14px)' }}>
+            {/* Controls panel — compact, sticky bottom */}
+            <div style={{ flexShrink: 0, padding: '8px 16px 20px', borderTop: '1px solid rgba(255,255,255,0.06)', background: '#080808', position: 'sticky', bottom: 0, zIndex: 10 }}>
 
               {/* Mood palettes */}
-              <div className="palette-scroll" style={{ display: 'flex', gap: '6px', overflowX: 'auto', marginBottom: '10px', paddingBottom: '2px' }}>
+              <div className="palette-scroll" style={{ display: 'flex', gap: '6px', overflowX: 'auto', marginBottom: '6px', paddingBottom: '2px' }}>
                 {MOOD_PALETTES.map((p, i) => {
                   const isSel = selectedPalette === i
                   return (
@@ -1155,7 +1132,7 @@ export default function Page() {
               </div>
 
               {/* Manual color toggle */}
-              <div style={{ marginBottom: '12px' }}>
+              <div style={{ marginBottom: '6px' }}>
                 <button onClick={() => setShowCustomColors(v => !v)}
                   style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.3)', fontSize: '11px', cursor: 'pointer', fontFamily: 'inherit', padding: 0, display: 'flex', alignItems: 'center', gap: '4px' }}>
                   {t.s4CustomManual} <span style={{ fontSize: '9px' }}>{showCustomColors ? '▲' : '▼'}</span>
@@ -1175,7 +1152,7 @@ export default function Page() {
               </div>
 
               {/* Style direction buttons */}
-              <div style={{ display: 'flex', gap: '6px', marginBottom: '14px' }}>
+              <div style={{ display: 'flex', gap: '6px', marginBottom: '8px' }}>
                 {[
                   { label: t.s4Luxe,    arch: 'luxury' },
                   { label: t.s4Simple,  arch: 'minimal' },
@@ -1193,7 +1170,7 @@ export default function Page() {
 
               {/* Confirm button — prominent + pulsing */}
               <button onClick={handleConfirmStore} disabled={storeSaving}
-                style={{ ...btnP, background: `linear-gradient(135deg,${c0},${c0}cc)`, padding: '17px 24px', animation: storeSaving ? 'none' : 'btnPulse 2.5s ease-in-out infinite', marginBottom: '10px', opacity: storeSaving ? 0.7 : 1, cursor: storeSaving ? 'default' : 'pointer' }}>
+                style={{ ...btnP, background: `linear-gradient(135deg,${c0},${c0}cc)`, padding: '17px 24px', animation: storeSaving ? 'none' : 'btnPulse 2.5s ease-in-out infinite', marginBottom: '8px', opacity: storeSaving ? 0.7 : 1, cursor: storeSaving ? 'default' : 'pointer' }}>
                 {storeSaving ? (lang === 'ar' ? 'جاري الحفظ...' : 'שומר...') : t.s4Confirm}
               </button>
 
@@ -1269,6 +1246,18 @@ export default function Page() {
               {/* ── Step 1: Auth ─────────────────────────────────────────── */}
               {step === 1 && (
                 <>
+                  {userEmail && (
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px', background: 'rgba(124,58,237,0.08)', border: '1px solid rgba(124,58,237,0.2)', borderRadius: '12px', padding: '10px 14px' }}>
+                      <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.6)' }}>
+                        {lang === 'ar' ? 'مرحباً' : 'שלום'}{' '}
+                        <span style={{ color: '#c4b5fd', fontWeight: 600 }}>{userEmail}</span>
+                      </span>
+                      <button onClick={async () => { await supabase.auth.signOut(); setUserEmail(null) }}
+                        style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.35)', fontSize: '12px', cursor: 'pointer', fontFamily: 'inherit', padding: '0 0 0 12px' }}>
+                        {lang === 'ar' ? 'خروج' : 'יציאה'}
+                      </button>
+                    </div>
+                  )}
                   <h1 style={{ fontSize: '28px', fontWeight: 800, color: '#fff', marginBottom: '6px', letterSpacing: '-0.025em' }}>{t.s1Title}</h1>
                   <p style={{ color: 'rgba(255,255,255,0.38)', fontSize: '14px', marginBottom: '32px' }}>{t.s1Sub}</p>
 

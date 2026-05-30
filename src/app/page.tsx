@@ -3,6 +3,12 @@
 import { useState, useEffect, useRef, type ReactNode } from 'react'
 import { useRouter } from 'next/navigation'
 import { Inter, Cairo } from 'next/font/google'
+import { createBrowserClient } from '@supabase/ssr'
+
+const supabase = createBrowserClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+)
 
 const inter = Inter({ subsets: ['latin'], display: 'swap', variable: '--font-inter' })
 const cairo = Cairo({
@@ -155,9 +161,9 @@ const CONTENT = {
     nav: { cta: 'התחל בחינם', langLabel: 'عر' },
     hero: {
       badge: 'מופעל על ידי AI — בונה את החנות שלך אוטומטית',
-      h1a: 'הפוך את הרעיון שלך',
-      h1b: 'לעסק אמיתי עם בינה מלאכותית',
-      sub: 'מדף האינסטגרם או טיקטוק שלך — ה-AI בונה את החנות המלאה שלך תוך דקות. ללא ידע טכני. ללא סיבוך.',
+      h1a: 'הפוך את האינסטגרם והוואטסאפ שלך',
+      h1b: 'לעסק אמיתי תוך דקות',
+      sub: 'אלפי מוכרים בוואטסאפ ואינסטגרם בלי חנות אמיתית — Instok משנה את זה תוך דקות',
       cta: 'התחל בחינם',
       ctaSub: 'לא נדרש כרטיס אשראי',
       storeLabel: 'החנות שלך',
@@ -362,11 +368,11 @@ function LuxuryMiniPreview() {
         <span style={{ fontSize: '11px', fontWeight: 700, color: '#d4a912', letterSpacing: '0.1em' }}>LUXE HOUSE</span>
       </div>
       <div style={{ background: 'linear-gradient(160deg,#0f0a02,#1a1002)', padding: '14px 12px 12px', textAlign: 'center', borderBottom: '1px solid rgba(184,150,12,0.15)', flexShrink: 0 }}>
-        <div style={{ fontSize: '6px', letterSpacing: '0.2em', color: 'rgba(184,150,12,0.6)', marginBottom: '3px', textTransform: 'uppercase' }}>COLLECTION 2026</div>
+        <div style={{ fontSize: '6px', letterSpacing: '0.2em', color: 'rgba(184,150,12,0.6)', marginBottom: '3px', textTransform: 'uppercase' }}>مجموعة ٢٠٢٦</div>
         <div style={{ fontSize: '13px', fontWeight: 800, color: '#d4a912', marginBottom: '3px' }}>LUXE HOUSE</div>
         <div style={{ fontSize: '6px', color: 'rgba(212,169,18,0.4)', marginBottom: '8px' }}>الفخامة الحقيقية</div>
         <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(184,150,12,0.5)', padding: '3px 11px' }}>
-          <span style={{ fontSize: '6px', fontWeight: 600, color: '#d4a912', letterSpacing: '0.1em' }}>SHOP NOW</span>
+          <span style={{ fontSize: '6px', fontWeight: 600, color: '#d4a912', letterSpacing: '0.1em' }}>تسوّق الآن</span>
         </div>
       </div>
       <div style={{ flex: 1, background: '#0a0705', padding: '6px', display: 'flex', gap: '5px', overflow: 'hidden' }}>
@@ -390,7 +396,7 @@ function LuxuryMiniPreview() {
         </div>
       </div>
       <div style={{ background: '#060403', padding: '7px 11px', borderTop: '1px solid rgba(184,150,12,0.15)', display: 'flex', justifyContent: 'center', flexShrink: 0 }}>
-        <span style={{ fontSize: '6px', color: 'rgba(184,150,12,0.5)', letterSpacing: '0.1em' }}>EXPLORE FULL COLLECTION</span>
+        <span style={{ fontSize: '6px', color: 'rgba(184,150,12,0.5)', letterSpacing: '0.1em' }}>استكشف المجموعة الكاملة</span>
       </div>
     </div>
   )
@@ -400,10 +406,17 @@ function LuxuryMiniPreview() {
 
 export default function Page() {
   const [lang, setLang] = useState<Lang>('ar')
+  const [userEmail, setUserEmail] = useState<string | null>(null)
   const router = useRouter()
   const t = CONTENT[lang]
   const fontClass = lang === 'ar' ? cairo.className : inter.className
   const ar = lang === 'ar'
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUserEmail(session?.user?.email ?? null)
+    })
+  }, [])
 
   return (
     <div dir="rtl" className={`min-h-screen antialiased ${fontClass}`} style={{ backgroundColor: '#080808', color: '#ffffff' }}>
@@ -477,11 +490,24 @@ export default function Page() {
               onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.color = 'rgba(255,255,255,0.45)' }}>
               {t.nav.langLabel}
             </button>
-            <button onClick={() => router.push('/onboarding')}
-              className="text-sm font-semibold px-4 py-2 rounded-lg text-white transition-opacity hover:opacity-90"
-              style={{ background: 'linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%)' }}>
-              {t.nav.cta}
-            </button>
+            {userEmail ? (
+              <div className="flex items-center gap-2">
+                <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'linear-gradient(135deg,#7c3aed,#4f46e5)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <span style={{ fontSize: '13px', fontWeight: 700, color: '#fff' }}>{userEmail[0].toUpperCase()}</span>
+                </div>
+                <button onClick={() => router.push('/dashboard')}
+                  className="text-sm font-semibold px-4 py-2 rounded-lg text-white transition-opacity hover:opacity-90"
+                  style={{ background: 'linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%)' }}>
+                  {ar ? 'لوحة التحكم' : 'לוח הבקרה'}
+                </button>
+              </div>
+            ) : (
+              <button onClick={() => router.push('/onboarding')}
+                className="text-sm font-semibold px-4 py-2 rounded-lg text-white transition-opacity hover:opacity-90"
+                style={{ background: 'linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%)' }}>
+                {t.nav.cta}
+              </button>
+            )}
           </div>
         </div>
       </nav>
