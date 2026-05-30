@@ -1005,7 +1005,7 @@ export default function Page() {
   , [customColors]) // eslint-disable-line
 
   return (
-    <div style={{ minHeight: '100vh', background: '#080808', display: 'flex', justifyContent: 'center', overflowX: 'hidden', maxWidth: '100vw', width: '100vw', position: 'relative' }}>
+    <div style={{ minHeight: '100vh', background: '#080808', display: 'flex', justifyContent: 'center', overflowX: 'clip', maxWidth: '100%', width: '100%', position: 'relative' }}>
       <style>{`
         *{box-sizing:border-box}
         input,button,textarea{font-family:inherit}
@@ -1076,7 +1076,7 @@ export default function Page() {
 
         {/* ── Step 4: WOW Moment — full-screen hero layout ─────────────────── */}
         {step === 4 && (
-          <div key={step} className="step-enter" style={{ height: '100vh', display: 'flex', flexDirection: 'column', background: '#080808', position: 'relative', overflow: 'hidden', overflowX: 'hidden', width: '100vw', maxWidth: '100vw', left: 0, right: 0, WebkitOverflowScrolling: 'touch' }}>
+          <div key={step} className="step-enter" style={{ height: '100vh', display: 'flex', flexDirection: 'column', background: '#080808', position: 'relative', overflowX: 'clip', width: '100%', maxWidth: '100%', WebkitOverflowScrolling: 'touch' }}>
 
             {/* Back button */}
             <button onClick={goBack} style={{ position: 'absolute', top: '14px', right: '16px', zIndex: 20, background: 'none', border: 'none', color: 'rgba(255,255,255,0.3)', fontSize: '12px', cursor: 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: '3px', padding: '4px' }}>
@@ -1084,10 +1084,10 @@ export default function Page() {
             </button>
 
             {/* Phone hero area — flex: 1, fills most of screen */}
-            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '44px 0 6px', overflow: 'hidden', minHeight: 0 }}>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '44px 0 6px', overflow: 'hidden', minHeight: 0, minWidth: 0, maxWidth: '100%' }}>
 
               {/* DNA badge — floating above phone */}
-              <div style={{ textAlign: 'center', marginBottom: '6px' }}>
+              <div style={{ textAlign: 'center', marginBottom: '6px', minWidth: 0, maxWidth: '100%' }}>
                 <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: '#111', border: '1px solid rgba(124,58,237,0.5)', borderRadius: '20px', padding: '7px 16px', boxShadow: '0 4px 24px rgba(0,0,0,0.6)' }}>
                   <span style={{ fontSize: '12px', fontWeight: 600, background: 'linear-gradient(135deg,#c4b5fd,#7c3aed)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                     {t.s4DNALabel}
@@ -1100,18 +1100,18 @@ export default function Page() {
               </div>
 
               {/* Phone mockup */}
-              <div style={{ width: '240px', height: '420px', maxWidth: '100%', overflowX: 'hidden', borderRadius: '24px', overflow: 'hidden', margin: '0 auto', flexShrink: 0, border: '2px solid rgba(255,255,255,0.15)', boxShadow: '0 20px 40px rgba(0,0,0,0.5)' }}>
+              <div style={{ width: '240px', height: '420px', maxWidth: '100%', minWidth: 0, overflowX: 'hidden', borderRadius: '24px', overflow: 'hidden', margin: '0 auto', flexShrink: 0, border: '2px solid rgba(255,255,255,0.15)', boxShadow: '0 20px 40px rgba(0,0,0,0.5)' }}>
                 {renderStorePreview(effectiveArchetype, displayBrand, customColors, lang ?? 'ar', uploadedImage, t, categories)}
               </div>
 
             </div>
 
             {/* Controls panel — compact, sticky bottom */}
-            <div style={{ flexShrink: 0, padding: '8px 16px 20px', borderTop: '1px solid rgba(255,255,255,0.06)', background: '#080808', position: 'sticky', bottom: 0, zIndex: 10 }}>
+            <div style={{ flexShrink: 0, padding: '8px 16px 20px', borderTop: '1px solid rgba(255,255,255,0.06)', background: '#080808', position: 'sticky', bottom: 0, zIndex: 10, minWidth: 0, maxWidth: '100%' }}>
 
               {/* Mood palettes */}
-              <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch', maxWidth: '100%', paddingBottom: '4px', marginBottom: '6px' }}>
-              <div className="palette-scroll" style={{ display: 'flex', gap: '6px', minWidth: 'max-content' }}>
+              <div style={{ display: 'flex', gap: '8px', overflowX: 'auto', overflowY: 'hidden', width: '100%', minWidth: 0, maxWidth: '100%', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', paddingBottom: '4px', marginBottom: '6px' }}>
+              <div className="palette-scroll" style={{ display: 'flex', gap: '6px', minWidth: 0 }}>
                 {MOOD_PALETTES.map((p, i) => {
                   const isSel = selectedPalette === i
                   return (
@@ -1152,7 +1152,7 @@ export default function Page() {
               </div>
 
               {/* Style direction buttons */}
-              <div style={{ display: 'flex', gap: '6px', marginBottom: '8px' }}>
+              <div style={{ display: 'flex', gap: '6px', marginBottom: '8px', width: '100%', minWidth: 0, maxWidth: '100%', overflowX: 'auto' }}>
                 {[
                   { label: t.s4Luxe,    arch: 'luxury' },
                   { label: t.s4Simple,  arch: 'minimal' },

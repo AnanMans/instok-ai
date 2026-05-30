@@ -27,7 +27,7 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col" style={{ overflowX: 'hidden', maxWidth: '100vw' }}>{children}</body>
+      <body className="min-h-full flex flex-col" style={{ overflowX: 'clip', width: '100%', maxWidth: '100%', margin: 0 }}>{children}</body>
     </html>
   );
 }
