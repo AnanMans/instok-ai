@@ -1007,7 +1007,7 @@ export default function Page() {
   , [customColors]) // eslint-disable-line
 
   return (
-    <div style={{ minHeight: '100vh', background: '#080808', display: 'flex', justifyContent: 'center', overflowX: 'hidden', maxWidth: '100vw' }}>
+    <div style={{ minHeight: '100vh', background: '#080808', display: 'flex', justifyContent: 'center', overflowX: 'hidden', maxWidth: '100vw', width: '100%', position: 'relative' }}>
       <style>{`
         *{box-sizing:border-box}
         input,button,textarea{font-family:inherit}
@@ -1102,7 +1102,7 @@ export default function Page() {
               </div>
 
               {/* Phone mockup */}
-              <div style={{ width: 'min(300px, calc(100vw - 60px))', borderRadius: '28px', border: '2px solid rgba(255,255,255,0.15)', overflow: 'hidden', boxShadow: '0 25px 60px rgba(0,0,0,0.5)', height: 'min(460px, calc(100dvh - 240px))', margin: '0 auto' }}>
+              <div style={{ width: '100%', maxWidth: '320px', margin: '0 auto', aspectRatio: '9/16', borderRadius: '28px', overflow: 'hidden', border: '2px solid rgba(255,255,255,0.15)', boxShadow: '0 25px 60px rgba(0,0,0,0.6)' }}>
                 {renderStorePreview(effectiveArchetype, displayBrand, customColors, lang ?? 'ar', uploadedImage, t, categories)}
               </div>
 
@@ -1112,23 +1112,25 @@ export default function Page() {
             <div style={{ flexShrink: 0, padding: '8px 16px 20px', borderTop: '1px solid rgba(255,255,255,0.06)', background: '#080808', position: 'sticky', bottom: 0, zIndex: 10 }}>
 
               {/* Mood palettes */}
-              <div className="palette-scroll" style={{ display: 'flex', gap: '6px', overflowX: 'auto', marginBottom: '6px', paddingBottom: '2px', WebkitOverflowScrolling: 'touch' }}>
+              <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch', maxWidth: '100%', paddingBottom: '4px', marginBottom: '6px' }}>
+              <div className="palette-scroll" style={{ display: 'flex', gap: '6px', minWidth: 'max-content' }}>
                 {MOOD_PALETTES.map((p, i) => {
                   const isSel = selectedPalette === i
                   return (
                     <button key={i} onClick={() => { setCustomColors(p.colors); setSelectedPalette(i); setShowCustomColors(false) }}
-                      style={{ flexShrink: 0, display: 'flex', alignItems: 'center', gap: '5px', padding: '5px 10px', borderRadius: '20px', border: isSel ? '1.5px solid rgba(124,58,237,0.7)' : '1.5px solid rgba(255,255,255,0.1)', background: isSel ? 'rgba(124,58,237,0.12)' : 'rgba(255,255,255,0.04)', cursor: 'pointer', boxShadow: isSel ? '0 0 12px rgba(124,58,237,0.3)' : 'none', fontFamily: 'inherit' }}>
+                      style={{ flexShrink: 0, display: 'flex', alignItems: 'center', gap: '4px', padding: '4px 8px', borderRadius: '20px', border: isSel ? '1.5px solid rgba(124,58,237,0.7)' : '1.5px solid rgba(255,255,255,0.1)', background: isSel ? 'rgba(124,58,237,0.12)' : 'rgba(255,255,255,0.04)', cursor: 'pointer', boxShadow: isSel ? '0 0 12px rgba(124,58,237,0.3)' : 'none', fontFamily: 'inherit', touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}>
                       <div style={{ display: 'flex', gap: '2px' }}>
                         {p.colors.map((col, ci) => (
-                          <div key={ci} style={{ width: '8px', height: '8px', borderRadius: '50%', background: col, border: '1px solid rgba(255,255,255,0.15)', flexShrink: 0 }} />
+                          <div key={ci} style={{ width: '7px', height: '7px', borderRadius: '50%', background: col, border: '1px solid rgba(255,255,255,0.15)', flexShrink: 0 }} />
                         ))}
                       </div>
-                      <span style={{ fontSize: '11px', color: isSel ? '#c4b5fd' : 'rgba(255,255,255,0.45)', fontWeight: isSel ? 600 : 400, whiteSpace: 'nowrap' }}>
+                      <span style={{ fontSize: '10px', color: isSel ? '#c4b5fd' : 'rgba(255,255,255,0.45)', fontWeight: isSel ? 600 : 400, whiteSpace: 'nowrap' }}>
                         {lang === 'he' ? p.he : p.ar}
                       </span>
                     </button>
                   )
                 })}
+              </div>
               </div>
 
               {/* Manual color toggle */}
@@ -1161,7 +1163,7 @@ export default function Page() {
                   const isSel = selectedArchetype === item.arch
                   return (
                     <button key={item.arch} onClick={() => { setArchetypeHistory(h => [...h, selectedArchetype]); setSelectedArchetype(selectedArchetype === item.arch ? '' : item.arch) }}
-                      style={{ flex: 1, padding: '8px 4px', borderRadius: '10px', border: isSel ? `1px solid ${c0}` : '1px solid rgba(255,255,255,0.1)', background: isSel ? `${c0}18` : 'transparent', color: isSel ? '#c4b5fd' : 'rgba(255,255,255,0.4)', fontSize: '11px', cursor: 'pointer', fontFamily: 'inherit', textAlign: 'center', fontWeight: isSel ? 600 : 400, transition: 'all 0.15s' }}>
+                      style={{ flex: 1, padding: '8px 4px', borderRadius: '10px', border: isSel ? `1px solid ${c0}` : '1px solid rgba(255,255,255,0.1)', background: isSel ? `${c0}18` : 'transparent', color: isSel ? '#c4b5fd' : 'rgba(255,255,255,0.4)', fontSize: '11px', cursor: 'pointer', fontFamily: 'inherit', textAlign: 'center', fontWeight: isSel ? 600 : 400, transition: 'all 0.15s', touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}>
                       {item.label}
                     </button>
                   )
@@ -1170,7 +1172,7 @@ export default function Page() {
 
               {/* Confirm button — prominent + pulsing */}
               <button onClick={handleConfirmStore} disabled={storeSaving}
-                style={{ ...btnP, background: `linear-gradient(135deg,${c0},${c0}cc)`, padding: '17px 24px', animation: storeSaving ? 'none' : 'btnPulse 2.5s ease-in-out infinite', marginBottom: '8px', opacity: storeSaving ? 0.7 : 1, cursor: storeSaving ? 'default' : 'pointer' }}>
+                style={{ ...btnP, background: `linear-gradient(135deg,${c0},${c0}cc)`, padding: '14px 20px', animation: storeSaving ? 'none' : 'btnPulse 2.5s ease-in-out infinite', marginBottom: '8px', opacity: storeSaving ? 0.7 : 1, cursor: storeSaving ? 'default' : 'pointer', touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}>
                 {storeSaving ? (lang === 'ar' ? 'جاري الحفظ...' : 'שומר...') : t.s4Confirm}
               </button>
 
@@ -1178,12 +1180,12 @@ export default function Page() {
               <div style={{ display: 'flex', gap: '8px', alignItems: 'stretch' }}>
                 {archetypeHistory.length > 0 && (
                   <button onClick={handleBackArchetype}
-                    style={{ flexShrink: 0, background: 'none', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '14px', padding: '13px 14px', color: 'rgba(255,255,255,0.35)', fontSize: '13px', cursor: 'pointer', fontFamily: 'inherit', whiteSpace: 'nowrap', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                    style={{ flexShrink: 0, background: 'none', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '14px', padding: '10px 12px', color: 'rgba(255,255,255,0.35)', fontSize: '13px', cursor: 'pointer', fontFamily: 'inherit', whiteSpace: 'nowrap', display: 'flex', alignItems: 'center', gap: '4px', touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}>
                     ← {lang === 'he' ? 'הקודם' : 'السابق'}
                   </button>
                 )}
                 <button onClick={handleRetryArchetype}
-                  style={{ flex: 1, background: 'none', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '14px', padding: '13px 24px', color: 'rgba(255,255,255,0.45)', fontSize: '14px', fontWeight: 500, cursor: 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'border-color 0.15s' }}>
+                  style={{ flex: 1, background: 'none', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '14px', padding: '10px 16px', color: 'rgba(255,255,255,0.45)', fontSize: '13px', fontWeight: 500, cursor: 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'border-color 0.15s', touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}>
                   {t.s4Retry}
                 </button>
               </div>
@@ -1317,7 +1319,7 @@ export default function Page() {
                       const Icon = CAT_ICONS[i]; const sel = categories.includes(cat)
                       return (
                         <button key={cat} onClick={() => setCategories(p => sel ? p.filter(x => x !== cat) : [...p, cat])}
-                          style={{ background: sel ? 'rgba(124,58,237,0.2)' : '#111', border: sel ? '1.5px solid rgba(124,58,237,0.6)' : '1.5px solid rgba(255,255,255,0.08)', borderRadius: '12px', padding: '10px 6px', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '5px', color: sel ? '#c4b5fd' : 'rgba(255,255,255,0.5)', transition: 'all 0.15s', fontFamily: 'inherit' }}>
+                          style={{ background: sel ? 'rgba(124,58,237,0.2)' : '#111', border: sel ? '1.5px solid rgba(124,58,237,0.6)' : '1.5px solid rgba(255,255,255,0.08)', borderRadius: '12px', padding: '10px 6px', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '5px', color: sel ? '#c4b5fd' : 'rgba(255,255,255,0.5)', transition: 'all 0.15s', fontFamily: 'inherit', touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}>
                           <Icon />
                           <span style={{ fontSize: '10px', fontWeight: sel ? 600 : 400, textAlign: 'center', lineHeight: 1.2 }}>{cat}</span>
                         </button>
@@ -1331,7 +1333,7 @@ export default function Page() {
                       const sel = vibe === v.id
                       return (
                         <button key={v.id} onClick={() => setVibe(sel ? '' : v.id)}
-                          style={{ background: sel ? 'rgba(124,58,237,0.2)' : '#111', border: sel ? '1.5px solid rgba(124,58,237,0.6)' : '1.5px solid rgba(255,255,255,0.08)', borderRadius: '12px', padding: '10px 8px', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', fontFamily: 'inherit', transition: 'all 0.15s' }}>
+                          style={{ background: sel ? 'rgba(124,58,237,0.2)' : '#111', border: sel ? '1.5px solid rgba(124,58,237,0.6)' : '1.5px solid rgba(255,255,255,0.08)', borderRadius: '12px', padding: '10px 8px', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', fontFamily: 'inherit', transition: 'all 0.15s', touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}>
                           <span style={{ fontSize: '16px' }}>{v.icon}</span>
                           <span style={{ fontSize: '12px', color: sel ? '#c4b5fd' : 'rgba(255,255,255,0.55)', fontWeight: sel ? 600 : 400 }}>{v.label}</span>
                         </button>
