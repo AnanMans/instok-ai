@@ -129,6 +129,8 @@ const T = {
     s6AreasHelper: 'اكتب المناطق اللي بتوصّل إلها',
     s6AddressPH: 'عنوانك الكامل',
     s6CourierPH: 'اكتب اسم شركة الشحن',
+    s6WaLabel: 'رقم واتساب للطلبات 📱',
+    s6WaPH: '+972501234567',
     s7Title: 'متجرك صار حقيقي! 🎉',
     s7WA: 'شارك على واتساب',
     s7IG: 'شارك على انستغرام',
@@ -232,6 +234,8 @@ const T = {
     s6AreasHelper: 'כתוב את האזורים',
     s6AddressPH: 'הכתובת המלאה שלך',
     s6CourierPH: 'כתוב את שם חברת המשלוח',
+    s6WaLabel: 'מספר וואטסאפ להזמנות 📱',
+    s6WaPH: '+972501234567',
     s7Title: 'החנות שלך הפכה לאמיתית! 🎉',
     s7WA: 'שתף בוואטסאפ',
     s7IG: 'שתף באינסטגרם',
@@ -935,7 +939,7 @@ export default function Page() {
   }
 
   const computedSlug = (brandName || brandData?.storeName || 'mystore').split(' ')[0].toLowerCase().replace(/[^\w]/g, '') || 'mystore'
-  const storeUrl = `instok.ai/${savedSlug || computedSlug}`
+  const storeUrl = `instok-ai.vercel.app/store/${savedSlug || computedSlug}`
 
   const c0 = customColors[0] ?? '#7c3aed'
   const c1 = customColors[1] ?? '#f59e0b'
@@ -1221,7 +1225,7 @@ export default function Page() {
                   {copied ? t.s7Copied : t.s7Copy}
                 </button>
               </div>
-              <button style={{ ...btnP, marginBottom: '16px' }}>{t.s7Go}</button>
+              <a href={`/store/${savedSlug || computedSlug}`} style={{ ...btnP, marginBottom: '16px', textDecoration: 'none' }}>{t.s7Go}</a>
               <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.3)' }}>{t.s7Hint}</p>
             </div>
           </>
@@ -1427,6 +1431,8 @@ export default function Page() {
                       {delivery === 'courier' && <input type="text" placeholder={t.s6CourierPH} value={deliveryCourier} onChange={e => setDeliveryCourier(e.target.value)} style={{ ...inp, marginTop: '8px' }} />}
                     </div>
                   </div>
+                  <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', marginBottom: '8px', fontWeight: 500 }}>{t.s6WaLabel}</p>
+                  <input type="tel" placeholder={t.s6WaPH} value={whatsappPhone} onChange={e => setWhatsappPhone(e.target.value)} style={{ ...inp, marginBottom: '24px', direction: 'ltr', textAlign: 'right' }} dir="ltr" />
                   <button onClick={canNext ? goNext : undefined} style={{ ...btnP, opacity: canNext ? 1 : 0.4, cursor: canNext ? 'pointer' : 'default' }}>{t.next}</button>
                 </>
               )}
