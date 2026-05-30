@@ -969,6 +969,7 @@ export default function Page() {
           delivery,
           deliveryAreas,
           payments: payments.join(', '),
+          lang: lang ?? 'ar',
         }),
       })
       const data = await res.json()

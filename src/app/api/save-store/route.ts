@@ -1,5 +1,4 @@
-import { createServerClient } from '@supabase/ssr'
-import { cookies } from 'next/headers'
+import { createClient } from '@supabase/supabase-js'
 
 function generateSlug(name: string): string {
   const base = name
@@ -14,39 +13,18 @@ function generateSlug(name: string): string {
 
 export async function POST(request: Request) {
   try {
-    const cookieStore = await cookies()
-    const supabase = createServerClient(
+    const supabase = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-      {
-        cookies: {
-          getAll() { return cookieStore.getAll() },
-          setAll(cookiesToSet) {
-            cookiesToSet.forEach(({ name, value, options }) =>
-              cookieStore.set(name, value, options)
-            )
-          },
-        },
-      }
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
     )
-
-    const { data: { user } } = await supabase.auth.getUser()
 
     const body = await request.json() as {
       brandName: string; slogan: string; colors: string[]; archetype: string
       vibe: string; category: string; description: string; whatsappNumber: string
-      delivery: string; deliveryAreas: string; payments: string
+      delivery: string; deliveryAreas: string; payments: string; lang: string
     }
 
     const slug = generateSlug(body.brandName)
-
-    if (user) {
-      await supabase.from('profiles').upsert({
-        id: user.id,
-        whatsapp_number: body.whatsappNumber,
-        updated_at: new Date().toISOString(),
-      })
-    }
 
     const storePayload: Record<string, unknown> = {
       slug,
@@ -61,14 +39,16 @@ export async function POST(request: Request) {
       delivery_type: body.delivery,
       delivery_areas: body.deliveryAreas,
       payment_methods: body.payments,
+      lang: body.lang,
     }
-    if (user) storePayload.owner_id = user.id
 
-    const { data: store } = await supabase
+    const { data: store, error } = await supabase
       .from('stores')
       .insert(storePayload)
       .select()
       .single()
+
+    if (error) console.error('[save-store] insert error:', error)
 
     return Response.json({ storeId: store?.id, slug: store?.slug ?? slug })
   } catch (err) {
