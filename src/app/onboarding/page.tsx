@@ -468,7 +468,7 @@ function renderStorePreview(
           </div>
           {/* Nav: centered name only, small caps, letterSpacing 3px, thin */}
           <div style={{ height: '34px', background: '#050505', display: 'flex', alignItems: 'center', justifyContent: 'center', borderBottom: `1px solid ${c0}18`, flexShrink: 0 }}>
-            <span style={{ fontSize: '8px', fontWeight: 300, color: c0, letterSpacing: '3px', textTransform: 'uppercase', opacity: 0.8 }}>{name}</span>
+            <span style={{ fontSize: name.length > 12 ? '8px' : '10px', fontWeight: 300, color: c0, letterSpacing: '3px', textTransform: 'uppercase', opacity: 0.8, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '80%' }}>{name}</span>
           </div>
           {/* Hero: dark bg, name two lines large, gold divider, italic thin slogan */}
           <div style={{ background: `linear-gradient(160deg, #0d0d0d, ${getDarkVariant(c0)})`, padding: '20px 16px 14px', textAlign: 'center', flexShrink: 0 }}>
@@ -506,7 +506,7 @@ function renderStorePreview(
           </div>
           <div style={{ height: '34px', background: navBg, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 10px', borderBottom: `1px solid ${c0}60`, flexShrink: 0 }}>
             <span style={{ fontSize: '7px', color: '#0f0', background: 'rgba(0,255,0,0.1)', padding: '2px 6px', borderRadius: '4px', fontWeight: 700 }}>🔴 LIVE</span>
-            <span style={{ fontSize: nameSz, fontWeight: 800, color: navText, textShadow: `0 0 10px ${c0}`, ...nameStyle }}>{name}</span>
+            <span style={{ fontSize: nameSz, fontWeight: 800, color: navText, textShadow: `0 0 10px ${c0}`, ...nameStyle, maxWidth: '60%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{name}</span>
           </div>
           <div style={{ background: `linear-gradient(135deg,#0d0020,${c2},${c0}40)`, padding: '18px 10px 16px', position: 'relative', overflow: 'hidden', flexShrink: 0 }}>
             <div style={{ position: 'absolute', inset: 0, background: `repeating-linear-gradient(0deg,transparent,transparent 8px,${c0}08 8px,${c0}08 9px)` }} />
@@ -555,7 +555,7 @@ function renderStorePreview(
           </div>
           <div style={{ height: '34px', background: navBg, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 10px', borderBottom: `1px solid ${c0}20`, flexShrink: 0 }}>
             <LogoCircle />
-            <span style={{ fontSize: nameSz, fontWeight: 700, color: navText, ...nameStyle }}>{name}</span>
+            <span style={{ fontSize: nameSz, fontWeight: 700, color: navText, ...nameStyle, maxWidth: '60%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{name}</span>
             <span style={{ fontSize: '8px', color: navText }}>✦</span>
           </div>
           <div style={{ background: `linear-gradient(160deg,${c0}18,${c1}12)`, padding: '18px 12px 14px', flexShrink: 0 }}>
@@ -599,7 +599,7 @@ function renderStorePreview(
           </div>
           <div style={{ height: '34px', background: navBg, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 10px', borderBottom: `1px solid ${c0}30`, flexShrink: 0 }}>
             <LogoCircle />
-            <span style={{ fontSize: nameSz, fontWeight: 700, color: navText, fontStyle: 'italic', ...nameStyle }}>{name}</span>
+            <span style={{ fontSize: nameSz, fontWeight: 700, color: navText, fontStyle: 'italic', ...nameStyle, maxWidth: '60%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{name}</span>
             <span style={{ fontSize: '8px', color: navText }}>✿</span>
           </div>
           <div style={{ background: `linear-gradient(160deg,${c0}20,${c1}15)`, padding: '20px 12px 14px', textAlign: 'center', flexShrink: 0 }}>
@@ -643,13 +643,13 @@ function renderStorePreview(
             <span style={{ fontSize: '7px', color: '#fff', opacity: 0.4 }}>●●●</span>
           </div>
           <div style={{ height: '34px', background: navBg, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 10px', flexShrink: 0 }}>
-            <span style={{ fontSize: nameSz, color: navText, fontWeight: 900, letterSpacing: '0.05em', textTransform: 'uppercase', ...nameStyle }}>{name}</span>
+            <span style={{ fontSize: nameSz, color: navText, fontWeight: 900, letterSpacing: '0.05em', textTransform: 'uppercase', ...nameStyle, maxWidth: '60%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{name}</span>
             <LogoCircle />
           </div>
           <div style={{ background: c2, padding: '16px 12px 14px', textAlign: 'center', position: 'relative', overflow: 'hidden', flexShrink: 0 }}>
             <div style={{ position: 'absolute', top: '-10px', right: '-10px', width: '80px', height: '80px', background: c0, opacity: 0.15, borderRadius: '50%' }} />
             <div style={{ fontSize: '7px', color: heroOnC2, opacity: 0.55, letterSpacing: '0.22em', textTransform: 'uppercase', marginBottom: '2px', fontWeight: 600 }}>DROP 001</div>
-            <div style={{ fontSize: '36px', fontWeight: 900, color: heroOnC2, lineHeight: 0.85, letterSpacing: '-0.03em', textTransform: 'uppercase', marginBottom: '5px', ...nameStyle, overflow: 'hidden' }}>
+            <div style={{ fontSize: (name.split(' ')[0] || name).length > 8 ? '18px' : '28px', fontWeight: 900, color: heroOnC2, lineHeight: 1, letterSpacing: '-0.03em', textTransform: 'uppercase', marginBottom: '5px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '100%' }}>
               {name.split(' ')[0] || name}
             </div>
             <div style={{ fontSize: '7px', color: heroOnC2, opacity: 0.5, marginBottom: '10px', letterSpacing: '0.12em', textTransform: 'uppercase' }}>{slogan}</div>
@@ -691,7 +691,7 @@ function renderStorePreview(
           </div>
           <div style={{ height: '34px', background: navBg, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 10px', borderBottom: `1px solid ${c0}20`, flexShrink: 0 }}>
             <LogoCircle />
-            <span style={{ fontSize: nameSz, fontWeight: 500, color: navText, letterSpacing: '0.05em', ...nameStyle }}>{name}</span>
+            <span style={{ fontSize: nameSz, fontWeight: 500, color: navText, letterSpacing: '0.05em', ...nameStyle, maxWidth: '60%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{name}</span>
             <span style={{ fontSize: '10px', color: navText, opacity: 0.4 }}>≡</span>
           </div>
           <div style={{ background: `${c0}08`, padding: '28px 12px 20px', textAlign: 'center', flexShrink: 0 }}>
@@ -735,7 +735,7 @@ function renderStorePreview(
           <div style={{ height: '34px', background: navBg, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 10px', borderBottom: `1px solid ${c0}30`, flexShrink: 0 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
               <span style={{ fontSize: '10px' }}>🍕</span>
-              <span style={{ fontSize: nameSz, fontWeight: 700, color: navText, ...nameStyle }}>{name}</span>
+              <span style={{ fontSize: nameSz, fontWeight: 700, color: navText, ...nameStyle, maxWidth: '60%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{name}</span>
             </div>
             <div style={{ background: '#22c55e', borderRadius: '6px', padding: '2px 6px' }}>
               <span style={{ fontSize: '6px', fontWeight: 700, color: '#fff' }}>30 min</span>
@@ -792,7 +792,7 @@ function renderStorePreview(
           {/* Nav: store name + v2.0 badge with dark blue accent */}
           <div style={{ height: '34px', background: navBg, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 10px', borderBottom: `1px solid ${c0}20`, flexShrink: 0 }}>
             <LogoCircle />
-            <span style={{ fontSize: nameSz, fontWeight: 700, color: navText, ...nameStyle }}>{name}</span>
+            <span style={{ fontSize: nameSz, fontWeight: 700, color: navText, ...nameStyle, maxWidth: '60%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{name}</span>
             <div style={{ background: '#1e3a8a', borderRadius: '4px', padding: '2px 5px' }}>
               <span style={{ fontSize: '6px', fontWeight: 700, color: '#93c5fd' }}>v2.0</span>
             </div>
@@ -1007,7 +1007,7 @@ export default function Page() {
   , [customColors]) // eslint-disable-line
 
   return (
-    <div style={{ minHeight: '100vh', background: '#080808', display: 'flex', justifyContent: 'center', overflowX: 'hidden', maxWidth: '100vw', width: '100%', position: 'relative' }}>
+    <div style={{ minHeight: '100vh', background: '#080808', display: 'flex', justifyContent: 'center', overflowX: 'hidden', maxWidth: '100vw', width: '100vw', position: 'relative' }}>
       <style>{`
         *{box-sizing:border-box}
         input,button,textarea{font-family:inherit}
@@ -1078,7 +1078,7 @@ export default function Page() {
 
         {/* ── Step 4: WOW Moment — full-screen hero layout ─────────────────── */}
         {step === 4 && (
-          <div key={step} className="step-enter" style={{ height: '100dvh', display: 'flex', flexDirection: 'column', background: '#080808', position: 'relative', overflow: 'hidden', overflowX: 'hidden', width: '100%', maxWidth: '100vw' }}>
+          <div key={step} className="step-enter" style={{ height: '100dvh', display: 'flex', flexDirection: 'column', background: '#080808', position: 'relative', overflow: 'hidden', overflowX: 'hidden', width: '100vw', maxWidth: '100vw', left: 0, right: 0 }}>
 
             {/* Back button */}
             <button onClick={goBack} style={{ position: 'absolute', top: '14px', right: '16px', zIndex: 20, background: 'none', border: 'none', color: 'rgba(255,255,255,0.3)', fontSize: '12px', cursor: 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: '3px', padding: '4px' }}>
