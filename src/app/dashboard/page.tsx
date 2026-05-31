@@ -53,6 +53,9 @@ export default function Dashboard() {
   const [uploadingImg, setUploadingImg] = useState(false)
   const [uploadError, setUploadError] = useState('')
   const fileRef = useRef<HTMLInputElement>(null)
+  const [pendingFile, setPendingFile] = useState<File | null>(null)
+  const [aiLoading, setAiLoading] = useState(false)
+  const [aiSuggestion, setAiSuggestion] = useState<{ price_min: number; price_max: number } | null>(null)
 
   const [waInput, setWaInput] = useState('')
   const [waSaving, setWaSaving] = useState(false)
@@ -98,9 +101,33 @@ export default function Dashboard() {
     ? `تفضلوا متجري على Instok: ${storeUrl}`
     : `הנה החנות שלי באינסטוק: ${storeUrl}`
 
+  const handleGenerateProduct = async () => {
+    if (!pendingFile) return
+    setAiLoading(true)
+    try {
+      const fd = new FormData()
+      fd.append('file', pendingFile)
+      const res = await fetch('/api/generate-product', { method: 'POST', body: fd })
+      const data = await res.json()
+      if (data.error) return
+      setForm(f => ({
+        ...f,
+        name: ar ? (data.name_ar ?? '') : (data.name_he ?? ''),
+        description: ar ? (data.description_ar ?? '') : (data.description_he ?? ''),
+      }))
+      setAiSuggestion({ price_min: data.price_min, price_max: data.price_max })
+    } catch (err) {
+      console.error('[generate-product]', err)
+    } finally {
+      setAiLoading(false)
+    }
+  }
+
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file || !store) return
+    setPendingFile(file)
+    setAiSuggestion(null)
     setUploadingImg(true)
     setUploadError('')
     try {
@@ -140,6 +167,8 @@ export default function Dashboard() {
       if (data.error) { setFormError(data.error); return }
       setProducts(p => [data.product, ...p])
       setForm({ name: '', price: '', description: '', image_url: '' })
+      setPendingFile(null)
+      setAiSuggestion(null)
       setUploadError('')
     } catch (err) {
       setFormError(String(err))
@@ -363,13 +392,20 @@ export default function Dashboard() {
               onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
               style={inp}
             />
-            <input
-              type="number"
-              placeholder={ar ? 'السعر بالشيكل *' : 'מחיר בשקלים *'}
-              value={form.price}
-              onChange={e => setForm(f => ({ ...f, price: e.target.value }))}
-              style={{ ...inp, direction: 'ltr' }}
-            />
+            <div>
+              <input
+                type="number"
+                placeholder={ar ? 'السعر بالشيكل *' : 'מחיר בשקלים *'}
+                value={form.price}
+                onChange={e => setForm(f => ({ ...f, price: e.target.value }))}
+                style={{ ...inp, direction: 'ltr' }}
+              />
+              {aiSuggestion && (
+                <p style={{ fontSize: '11px', color: '#a78bfa', marginTop: '5px', paddingRight: '2px' }}>
+                  {ar ? `السعر المقترح: ₪${aiSuggestion.price_min} - ₪${aiSuggestion.price_max}` : `מחיר מוצע: ₪${aiSuggestion.price_min} - ₪${aiSuggestion.price_max}`}
+                </p>
+              )}
+            </div>
             <textarea
               placeholder={ar ? 'وصف المنتج (اختياري)' : 'תיאור המוצר (אופציונלי)'}
               value={form.description}
@@ -388,12 +424,21 @@ export default function Dashboard() {
                 </div>
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <p style={{ fontSize: '12px', color: '#22c55e', marginBottom: '6px', fontWeight: 500 }}>{ar ? 'تم رفع الصورة ✓' : 'התמונה הועלתה ✓'}</p>
-                  <button
-                    type="button"
-                    onClick={() => { setForm(f => ({ ...f, image_url: '' })); setUploadError(''); if (fileRef.current) fileRef.current.value = '' }}
-                    style={{ background: 'none', border: '1px solid rgba(255,100,100,0.3)', borderRadius: '8px', padding: '3px 10px', color: 'rgba(255,100,100,0.7)', fontSize: '11px', cursor: 'pointer', fontFamily: 'inherit' }}>
-                    {ar ? 'إزالة' : 'הסר'}
-                  </button>
+                  <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                    <button
+                      type="button"
+                      onClick={handleGenerateProduct}
+                      disabled={aiLoading}
+                      style={{ background: aiLoading ? 'rgba(124,58,237,0.15)' : `linear-gradient(135deg,${c0}33,${c0}22)`, border: `1px solid ${c0}55`, borderRadius: '8px', padding: '4px 10px', color: aiLoading ? 'rgba(255,255,255,0.4)' : '#c4b5fd', fontSize: '11px', fontWeight: 600, cursor: aiLoading ? 'default' : 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                      {aiLoading ? <><span style={{ display: 'inline-block', width: '10px', height: '10px', border: '1.5px solid rgba(196,181,253,0.3)', borderTopColor: '#c4b5fd', borderRadius: '50%', animation: 'spin 0.7s linear infinite' }} />{ar ? 'جاري التحليل...' : 'מנתח...'}</> : <>✨ {ar ? 'ولّد بالذكاء الاصطناعي' : 'צור עם AI'}</>}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => { setForm(f => ({ ...f, image_url: '' })); setUploadError(''); setPendingFile(null); setAiSuggestion(null); if (fileRef.current) fileRef.current.value = '' }}
+                      style={{ background: 'none', border: '1px solid rgba(255,100,100,0.3)', borderRadius: '8px', padding: '4px 10px', color: 'rgba(255,100,100,0.7)', fontSize: '11px', cursor: 'pointer', fontFamily: 'inherit' }}>
+                      {ar ? 'إزالة' : 'הסר'}
+                    </button>
+                  </div>
                 </div>
               </div>
             ) : (
