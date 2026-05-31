@@ -4,7 +4,8 @@ export async function POST(request: Request) {
   try {
     const body = await request.json() as {
       storeId: string
-      whatsappNumber: string
+      whatsappNumber?: string
+      description?: string
     }
 
     if (!body.storeId) return Response.json({ error: 'Missing storeId' }, { status: 400 })
@@ -12,13 +13,17 @@ export async function POST(request: Request) {
     const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
     const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, key)
 
-    const normalizedWa = body.whatsappNumber
-      .replace(/\D/g, '')
-      .replace(/^0/, '972')
+    const updates: Record<string, unknown> = {}
+    if (body.whatsappNumber !== undefined) {
+      updates.whatsapp_number = body.whatsappNumber.replace(/\D/g, '').replace(/^0/, '972')
+    }
+    if (body.description !== undefined) {
+      updates.description = body.description
+    }
 
     const { error } = await supabase
       .from('stores')
-      .update({ whatsapp_number: normalizedWa })
+      .update(updates)
       .eq('id', body.storeId)
 
     if (error) {

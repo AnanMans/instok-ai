@@ -21,6 +21,7 @@ type Store = {
   archetype: string
   colors: string[]
   whatsapp_number: string
+  description?: string
   lang?: string
 }
 
@@ -58,6 +59,11 @@ export default function Dashboard() {
   const [waSaved, setWaSaved] = useState(false)
   const [waError, setWaError] = useState('')
 
+  const [descInput, setDescInput] = useState('')
+  const [descSaving, setDescSaving] = useState(false)
+  const [descSaved, setDescSaved] = useState(false)
+  const [descError, setDescError] = useState('')
+
   useEffect(() => {
     supabase.auth.getSession().then(async ({ data: { session } }) => {
       if (!session) { router.replace('/'); return }
@@ -78,6 +84,7 @@ export default function Dashboard() {
       setStore(storeData)
       setProducts(prods ?? [])
       setWaInput(storeData.whatsapp_number ?? '')
+      setDescInput(storeData.description ?? '')
       setLoading(false)
     })
   }, []) // eslint-disable-line
@@ -161,6 +168,29 @@ export default function Dashboard() {
       setWaError(String(err))
     } finally {
       setWaSaving(false)
+    }
+  }
+
+  const handleUpdateDesc = async () => {
+    if (!store) return
+    setDescSaving(true)
+    setDescError('')
+    setDescSaved(false)
+    try {
+      const res = await fetch('/api/update-store', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ storeId: store.id, description: descInput.trim() }),
+      })
+      const data = await res.json()
+      if (data.error) { setDescError(data.error); return }
+      setStore(s => s ? { ...s, description: descInput.trim() } : s)
+      setDescSaved(true)
+      setTimeout(() => setDescSaved(false), 2500)
+    } catch (err) {
+      setDescError(String(err))
+    } finally {
+      setDescSaving(false)
     }
   }
 
@@ -258,6 +288,28 @@ export default function Dashboard() {
             </button>
           </div>
           {waError && <p style={{ fontSize: '12px', color: '#f87171', marginTop: '8px' }}>{waError}</p>}
+
+          <div style={{ height: '1px', background: 'rgba(255,255,255,0.07)', margin: '16px 0' }} />
+
+          <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)', marginBottom: '8px' }}>
+            {ar ? 'نبذة عن متجرك — ستظهر للزبائن ✍️' : 'תיאור החנות — יוצג ללקוחות ✍️'}
+          </p>
+          <textarea
+            placeholder={ar ? 'اكتب وصفاً قصيراً عن متجرك...' : 'כתוב תיאור קצר על החנות שלך...'}
+            value={descInput}
+            onChange={e => { setDescInput(e.target.value); setDescSaved(false) }}
+            rows={3}
+            style={{ ...inp, resize: 'none', marginBottom: '8px' }}
+          />
+          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <button
+              onClick={handleUpdateDesc}
+              disabled={descSaving}
+              style={{ background: descSaved ? '#22c55e' : `linear-gradient(135deg,${c0},${c0}cc)`, border: 'none', borderRadius: '12px', padding: '9px 20px', color: '#fff', fontSize: '13px', fontWeight: 700, cursor: descSaving ? 'default' : 'pointer', fontFamily: 'inherit', opacity: descSaving ? 0.6 : 1, transition: 'background 0.2s' }}>
+              {descSaving ? '...' : descSaved ? '✓' : (ar ? 'حفظ' : 'שמור')}
+            </button>
+          </div>
+          {descError && <p style={{ fontSize: '12px', color: '#f87171', marginTop: '6px' }}>{descError}</p>}
         </div>
 
         {/* ── Products section ───────────────────────────────── */}
