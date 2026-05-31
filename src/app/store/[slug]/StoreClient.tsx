@@ -156,7 +156,7 @@ function getHeroStyles(archetype: string, colors: string[]) {
   const c1 = colors[1] ?? '#f59e0b'
   switch (archetype) {
     case 'luxury':
-      return { background: `linear-gradient(160deg, #050505, #0d0d0d)`, color: c0, accent: c0 }
+      return { background: `linear-gradient(160deg, #050505, ${c0}22, #0d0a00)`, color: c0, accent: c0 }
     case 'gaming':
       return { background: `linear-gradient(135deg, #050510, #0d002a)`, color: c0, accent: c0 }
     case 'beauty':
@@ -188,7 +188,7 @@ export default function StoreClient({ store, products: rawProducts }: { store: S
   const products = rawProducts.length > 0 ? rawProducts : (demoByLang[lang] ?? demoByLang.ar)
 
   const hero = getHeroStyles(archetype, colors)
-  const isDark = !['beauty', 'minimal'].includes(archetype)
+  const isDark = archetype !== 'minimal'
 
   const [cartCount, setCartCount] = useState(0)
   const [drawerProduct, setDrawerProduct] = useState<Product | null>(null)
@@ -212,7 +212,7 @@ export default function StoreClient({ store, products: rawProducts }: { store: S
   const cardBg = isDark ? '#111' : '#f8f8f8'
   const cardText = isDark ? '#fff' : '#111'
   const cardSub = isDark ? 'rgba(255,255,255,0.45)' : 'rgba(0,0,0,0.45)'
-  const pageBg = isDark ? '#080808' : '#f5f5f5'
+  const pageBg = archetype === 'minimal' ? '#f5f5f5' : '#080808'
 
   const paymentMethods = store.payment_methods ? store.payment_methods.split(',').map(s => s.trim()).filter(Boolean) : []
 
@@ -228,13 +228,15 @@ export default function StoreClient({ store, products: rawProducts }: { store: S
       `}</style>
 
       {/* Navbar */}
-      <nav style={{ position: 'sticky', top: 0, zIndex: 50, background: navBg, backdropFilter: 'blur(12px)', borderBottom: `1px solid ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'}`, padding: '0 16px', height: '56px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <nav dir="rtl" style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50, background: navBg, backdropFilter: 'blur(12px)', borderBottom: `1px solid ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'}`, padding: '0 16px', height: '56px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        {/* Logo + name — right side in RTL */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <div style={{ width: '34px', height: '34px', borderRadius: '50%', background: `linear-gradient(135deg,${c0},${colors[1] ?? '#f59e0b'})`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
             <span style={{ fontSize: '14px', fontWeight: 800, color: '#fff' }}>{(store.name?.[0] ?? '?').toUpperCase()}</span>
           </div>
           <span style={{ fontSize: '15px', fontWeight: 700, color: navText }}>{store.name}</span>
         </div>
+        {/* Cart — left side in RTL */}
         <div style={{ position: 'relative' }}>
           <span style={{ fontSize: '22px', cursor: 'pointer' }}>🛒</span>
           {cartCount > 0 && (
@@ -244,7 +246,7 @@ export default function StoreClient({ store, products: rawProducts }: { store: S
       </nav>
 
       {/* Hero */}
-      <div style={{ background: hero.background, padding: '20px 20px 16px', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
+      <div style={{ background: hero.background, padding: '76px 20px 20px', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
         {archetype === 'gaming' && (
           <div style={{ position: 'absolute', inset: 0, background: `repeating-linear-gradient(0deg,transparent,transparent 20px,${c0}08 20px,${c0}08 21px)`, pointerEvents: 'none' }} />
         )}
@@ -272,7 +274,7 @@ export default function StoreClient({ store, products: rawProducts }: { store: S
                 <img
                   src={p.image_url || imgFallback}
                   alt={p.name}
-                  onError={e => { (e.target as HTMLImageElement).src = imgFallback }}
+                  onError={e => { (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop' }}
                   style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                 />
               </div>
@@ -309,7 +311,7 @@ export default function StoreClient({ store, products: rawProducts }: { store: S
               <img
                 src={drawerProduct.image_url || imgFallback}
                 alt={drawerProduct.name}
-                onError={e => { (e.target as HTMLImageElement).src = imgFallback }}
+                onError={e => { (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop' }}
                 style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
               />
             </div>
