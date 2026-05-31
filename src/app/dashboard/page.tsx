@@ -156,7 +156,7 @@ export default function Dashboard() {
 
       {/* Navbar */}
       <nav style={{ borderBottom: '1px solid rgba(255,255,255,0.07)', padding: '0 20px', height: '56px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, background: '#080808', zIndex: 50 }}>
-        <span style={{ fontSize: '15px', fontWeight: 700 }}>Instok<span style={{ color: '#8b5cf6' }}>.ai</span></span>
+        <a href="/" style={{ fontSize: '15px', fontWeight: 700, color: 'inherit', textDecoration: 'none' }}>Instok<span style={{ color: '#8b5cf6' }}>.ai</span></a>
         <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
           <a href={`/store/${store?.slug}`} target="_blank" rel="noopener noreferrer"
             style={{ fontSize: '12px', color: '#c4b5fd', textDecoration: 'none', border: '1px solid rgba(124,58,237,0.3)', borderRadius: '8px', padding: '5px 12px' }}>

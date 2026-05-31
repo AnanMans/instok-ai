@@ -296,7 +296,7 @@ export default function StoreClient({ store, products: rawProducts }: { store: S
             {paymentMethods.includes('cash') && <span style={{ background: isDark ? '#1a1a1a' : '#f0f0f0', border: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.1)'}`, borderRadius: '20px', padding: '4px 12px', fontSize: '12px', color: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.5)' }}>{lang === 'ar' ? 'دفع عند الاستلام' : 'תשלום במסירה'}</span>}
           </div>
         )}
-        <a href="https://instok-ai.vercel.app" target="_blank" rel="noopener noreferrer" style={{ fontSize: '11px', color: isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.25)', textDecoration: 'none' }}>
+        <a href="/" style={{ fontSize: '11px', color: isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.25)', textDecoration: 'none' }}>
           {lang === 'ar' ? 'مدعوم بـ Instok.ai' : 'מופעל על ידי Instok.ai'}
         </a>
       </div>
