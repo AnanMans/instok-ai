@@ -84,17 +84,20 @@ export default function Dashboard() {
     if (!file || !store) return
     setUploadingImg(true)
     setUploadError('')
-    const ext = file.name.split('.').pop()
-    const path = `${store.id}/${Date.now()}.${ext}`
-    const { data, error } = await supabase.storage.from('product-images').upload(path, file, { upsert: true })
-    if (error) {
-      console.error('[dashboard] upload error:', error)
-      setUploadError(error.message)
-      setUploadingImg(false)
-      return
+    try {
+      const fd = new FormData()
+      fd.append('file', file)
+      fd.append('storeId', store.id)
+      const res = await fetch('/api/upload-image', { method: 'POST', body: fd })
+      const data = await res.json()
+      if (data.error) {
+        setUploadError(data.error)
+      } else {
+        setForm(f => ({ ...f, image_url: data.url }))
+      }
+    } catch (err) {
+      setUploadError(String(err))
     }
-    const { data: { publicUrl } } = supabase.storage.from('product-images').getPublicUrl(data.path)
-    setForm(f => ({ ...f, image_url: publicUrl }))
     setUploadingImg(false)
   }
 
