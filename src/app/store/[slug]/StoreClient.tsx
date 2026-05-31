@@ -30,10 +30,38 @@ type Product = {
 
 const KNOWN = ['luxury', 'gaming', 'beauty', 'streetwear', 'restaurant', 'tech', 'minimal', 'creator']
 
+// ── Color helpers (match onboarding preview exactly) ──────────────────────────
+
+function getTextColor(bgHex: string): string {
+  const hex = bgHex.replace('#', '')
+  const r = parseInt(hex.substring(0, 2), 16)
+  const g = parseInt(hex.substring(2, 4), 16)
+  const b = parseInt(hex.substring(4, 6), 16)
+  const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255
+  return luminance > 0.5 ? '#000000' : '#ffffff'
+}
+
+function getDarkVariant(hex: string): string {
+  const h = hex.replace('#', '')
+  const r = Math.max(0, parseInt(h.substring(0, 2), 16) - 60)
+  const g = Math.max(0, parseInt(h.substring(2, 4), 16) - 60)
+  const b = Math.max(0, parseInt(h.substring(4, 6), 16) - 60)
+  return '#' + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('')
+}
+
+function getLightVariant(hex: string): string {
+  const h = hex.replace('#', '')
+  const r = Math.min(255, parseInt(h.substring(0, 2), 16) + 80)
+  const g = Math.min(255, parseInt(h.substring(2, 4), 16) + 80)
+  const b = Math.min(255, parseInt(h.substring(4, 6), 16) + 80)
+  return '#' + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('')
+}
+
 // ── Per-archetype design tokens ────────────────────────────────────────────────
 
 type ArchCfg = {
   pageBg: string
+  heroBg: string
   navBg: string
   navBorder: string
   navTextColor: string
@@ -53,20 +81,25 @@ type ArchCfg = {
   pillColor: string
 }
 
-function getConfig(archetype: string, c0: string, c1: string): ArchCfg {
+function getConfig(archetype: string, c0: string, c1: string, c2: string): ArchCfg {
+  const navBg = getDarkVariant(c0)
+  const navText = getTextColor(navBg)
+  const lightBg = getLightVariant(c2)
+
   switch (archetype) {
     case 'luxury':
       return {
-        pageBg: '#060604',
-        navBg: '#060604',
-        navBorder: `${c0}25`,
+        pageBg: '#050505',
+        heroBg: `linear-gradient(160deg, #0d0d0d, ${getDarkVariant(c0)})`,
+        navBg: '#050505',
+        navBorder: `${c0}18`,
         navTextColor: c0,
         textColor: c0,
         mutedColor: `${c0}60`,
-        sectionBg: '#0d0c08',
-        sectionBorder: `${c0}18`,
-        cardBg: '#0d0c08',
-        cardBorder: `${c0}28`,
+        sectionBg: '#0a0a0a',
+        sectionBorder: `${c0}15`,
+        cardBg: `${c0}08`,
+        cardBorder: `${c0}15`,
         cardRadius: '2px',
         nameStyle: { fontWeight: 300, letterSpacing: '0.12em', textTransform: 'uppercase' as const, fontSize: '11px', color: 'rgba(255,255,255,0.7)' },
         priceStyle: { fontWeight: 300, color: c0, fontSize: '14px', letterSpacing: '0.06em' },
@@ -77,16 +110,17 @@ function getConfig(archetype: string, c0: string, c1: string): ArchCfg {
       }
     case 'gaming':
       return {
-        pageBg: '#03030f',
-        navBg: '#06061a',
-        navBorder: `${c0}50`,
-        navTextColor: '#fff',
+        pageBg: '#050510',
+        heroBg: `linear-gradient(135deg, #0d0020, ${c2}, ${c0}40)`,
+        navBg,
+        navBorder: `${c0}60`,
+        navTextColor: navText,
         textColor: '#fff',
         mutedColor: 'rgba(255,255,255,0.4)',
-        sectionBg: '#08081e',
+        sectionBg: navBg,
         sectionBorder: `${c0}30`,
-        cardBg: '#0a0a20',
-        cardBorder: `${c0}60`,
+        cardBg: `${c0}18`,
+        cardBorder: `${c0}30`,
         cardRadius: '8px',
         cardExtra: { boxShadow: `0 0 12px ${c0}25` },
         nameStyle: { fontWeight: 700, fontSize: '12px', color: '#fff', letterSpacing: '0.02em' },
@@ -98,36 +132,38 @@ function getConfig(archetype: string, c0: string, c1: string): ArchCfg {
       }
     case 'beauty':
       return {
-        pageBg: '#fdf2f8',
-        navBg: '#fff',
-        navBorder: '#f9d5eb',
-        navTextColor: '#4a1942',
-        textColor: '#4a1942',
-        mutedColor: '#b07fa0',
-        sectionBg: '#fff',
-        sectionBorder: '#f9d5eb',
-        cardBg: '#fff',
-        cardBorder: '#fce4f3',
-        cardRadius: '24px',
-        cardExtra: { boxShadow: '0 4px 20px rgba(200,100,160,0.1)' },
-        nameStyle: { fontWeight: 500, fontSize: '12px', color: '#4a1942', letterSpacing: '0.01em' },
-        priceStyle: { fontWeight: 700, color: c0 || '#d4529a', fontSize: '14px' },
-        sectionTitleColor: '#b07fa0',
-        pillBg: '#fce4f3',
-        pillBorder: '#f9d5eb',
-        pillColor: '#9c3a7a',
+        pageBg: lightBg,
+        heroBg: `linear-gradient(160deg, ${c0}20, ${c1}15)`,
+        navBg,
+        navBorder: `${c0}30`,
+        navTextColor: navText,
+        textColor: getTextColor(lightBg),
+        mutedColor: getTextColor(lightBg) === '#000000' ? 'rgba(0,0,0,0.45)' : 'rgba(255,255,255,0.45)',
+        sectionBg: lightBg,
+        sectionBorder: `${c0}20`,
+        cardBg: `${lightBg}cc`,
+        cardBorder: `${c0}20`,
+        cardRadius: '16px',
+        cardExtra: { boxShadow: `0 4px 20px ${c0}12` },
+        nameStyle: { fontWeight: 500, fontSize: '12px', color: getTextColor(lightBg), letterSpacing: '0.01em' },
+        priceStyle: { fontWeight: 700, color: c0, fontSize: '14px' },
+        sectionTitleColor: `${c0}80`,
+        pillBg: `${c0}18`,
+        pillBorder: `${c0}30`,
+        pillColor: c0,
       }
     case 'streetwear':
       return {
-        pageBg: '#000',
-        navBg: '#000',
+        pageBg: '#0a0a0a',
+        heroBg: c2,
+        navBg,
         navBorder: 'rgba(255,255,255,0.08)',
-        navTextColor: '#fff',
+        navTextColor: navText,
         textColor: '#fff',
         mutedColor: 'rgba(255,255,255,0.35)',
-        sectionBg: '#0a0a0a',
+        sectionBg: '#111',
         sectionBorder: 'rgba(255,255,255,0.06)',
-        cardBg: '#0a0a0a',
+        cardBg: '#111',
         cardBorder: 'transparent',
         cardRadius: '0px',
         cardExtra: { borderLeft: `3px solid ${c0}` },
@@ -141,9 +177,10 @@ function getConfig(archetype: string, c0: string, c1: string): ArchCfg {
     case 'minimal':
       return {
         pageBg: '#fff',
-        navBg: '#fff',
-        navBorder: '#e8e8e8',
-        navTextColor: '#111',
+        heroBg: `${c0}08`,
+        navBg,
+        navBorder: `${c0}20`,
+        navTextColor: navText,
         textColor: '#111',
         mutedColor: '#999',
         sectionBg: '#fafafa',
@@ -152,7 +189,7 @@ function getConfig(archetype: string, c0: string, c1: string): ArchCfg {
         cardBorder: '#efefef',
         cardRadius: '4px',
         nameStyle: { fontWeight: 500, fontSize: '11px', color: '#555', letterSpacing: '0.08em', textTransform: 'uppercase' as const },
-        priceStyle: { fontWeight: 600, color: c0 || '#111', fontSize: '13px' },
+        priceStyle: { fontWeight: 600, color: c0, fontSize: '13px' },
         sectionTitleColor: '#bbb',
         pillBg: '#f5f5f5',
         pillBorder: '#e8e8e8',
@@ -160,75 +197,78 @@ function getConfig(archetype: string, c0: string, c1: string): ArchCfg {
       }
     case 'restaurant':
       return {
-        pageBg: '#1a0500',
-        navBg: '#120300',
-        navBorder: `${c0}25`,
-        navTextColor: c0 || '#f59e0b',
-        textColor: '#fff',
-        mutedColor: 'rgba(255,255,255,0.4)',
-        sectionBg: '#200800',
-        sectionBorder: `${c0}20`,
-        cardBg: '#1e0600',
-        cardBorder: `${c0}30`,
+        pageBg: navBg,
+        heroBg: `linear-gradient(135deg, ${getDarkVariant(c0)}, ${c0}55)`,
+        navBg,
+        navBorder: `${c0}30`,
+        navTextColor: navText,
+        textColor: navText,
+        mutedColor: getTextColor(navBg) === '#ffffff' ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.4)',
+        sectionBg: navBg,
+        sectionBorder: `${c0}18`,
+        cardBg: `${c0}12`,
+        cardBorder: `${c0}18`,
         cardRadius: '12px',
-        nameStyle: { fontWeight: 600, fontSize: '13px', color: '#fff', letterSpacing: '0.01em' },
-        priceStyle: { fontWeight: 800, color: c0 || '#f59e0b', fontSize: '18px' },
+        nameStyle: { fontWeight: 600, fontSize: '13px', color: navText, letterSpacing: '0.01em' },
+        priceStyle: { fontWeight: 800, color: c0, fontSize: '18px' },
         sectionTitleColor: `${c0}80`,
         pillBg: `${c0}18`,
         pillBorder: `${c0}35`,
-        pillColor: c0 || '#f59e0b',
+        pillColor: c0,
       }
     case 'tech':
       return {
-        pageBg: '#000814',
-        navBg: '#000d1f',
-        navBorder: `${c0}30`,
-        navTextColor: '#e0f2ff',
-        textColor: '#e0f2ff',
-        mutedColor: 'rgba(200,230,255,0.35)',
-        sectionBg: '#000d1f',
-        sectionBorder: `${c0}25`,
-        cardBg: '#000d1f',
-        cardBorder: `${c0}35`,
+        pageBg: navBg,
+        heroBg: `linear-gradient(160deg, ${getDarkVariant(c0)}, ${getDarkVariant(c1)})`,
+        navBg,
+        navBorder: `${c0}20`,
+        navTextColor: navText,
+        textColor: navText,
+        mutedColor: getTextColor(navBg) === '#ffffff' ? 'rgba(255,255,255,0.35)' : 'rgba(0,0,0,0.35)',
+        sectionBg: navBg,
+        sectionBorder: `${c0}20`,
+        cardBg: `${c0}18`,
+        cardBorder: `${c0}20`,
         cardRadius: '6px',
         cardExtra: { boxShadow: `0 0 16px ${c0}15` },
-        nameStyle: { fontWeight: 500, fontSize: '11px', color: '#9ecff0', letterSpacing: '0.03em', fontFamily: 'monospace' },
-        priceStyle: { fontWeight: 700, color: c0 || '#38bdf8', fontSize: '15px' },
+        nameStyle: { fontWeight: 500, fontSize: '11px', color: navText, letterSpacing: '0.03em', fontFamily: 'monospace' },
+        priceStyle: { fontWeight: 700, color: c0, fontSize: '15px' },
         sectionTitleColor: `${c0}70`,
         pillBg: `${c0}15`,
         pillBorder: `${c0}30`,
-        pillColor: c0 || '#38bdf8',
+        pillColor: c0,
       }
     case 'creator':
     default:
       return {
-        pageBg: '#0f0a1e',
-        navBg: '#130d24',
-        navBorder: `${c0}30`,
-        navTextColor: '#fff',
-        textColor: '#fff',
-        mutedColor: 'rgba(255,255,255,0.45)',
-        sectionBg: '#130d24',
-        sectionBorder: `${c0}25`,
-        cardBg: '#1a1030',
+        pageBg: lightBg,
+        heroBg: `linear-gradient(160deg, ${c0}18, ${c1}12)`,
+        navBg,
+        navBorder: `${c0}20`,
+        navTextColor: navText,
+        textColor: getTextColor(lightBg),
+        mutedColor: getTextColor(lightBg) === '#000000' ? 'rgba(0,0,0,0.45)' : 'rgba(255,255,255,0.45)',
+        sectionBg: lightBg,
+        sectionBorder: `${c0}20`,
+        cardBg: `${lightBg}ee`,
         cardBorder: 'transparent',
-        cardRadius: '16px',
-        cardExtra: { borderTop: `3px solid ${c0}` },
-        nameStyle: { fontWeight: 600, fontSize: '12px', color: '#e0d4ff', letterSpacing: '0.01em' },
+        cardRadius: '8px',
+        cardExtra: { boxShadow: '0 2px 8px rgba(0,0,0,0.08)' },
+        nameStyle: { fontWeight: 600, fontSize: '12px', color: getTextColor(lightBg), letterSpacing: '0.01em' },
         priceStyle: { fontWeight: 700, color: c0, fontSize: '14px' },
         sectionTitleColor: `${c0}80`,
         pillBg: `${c0}20`,
         pillBorder: `${c0}40`,
-        pillColor: '#e0d4ff',
+        pillColor: c0,
       }
   }
 }
 
 // ── Hero sections ───────────────────────────────────────────────────────────────
 
-function LuxuryHero({ store, c0, ar }: { store: Store; c0: string; ar: boolean }) {
+function LuxuryHero({ store, c0, heroBg, ar }: { store: Store; c0: string; heroBg: string; ar: boolean }) {
   return (
-    <div style={{ background: '#060604', paddingTop: '56px', textAlign: 'center', position: 'relative' }}>
+    <div style={{ background: heroBg, paddingTop: '56px', textAlign: 'center', position: 'relative' }}>
       <div style={{ padding: '60px 32px 20px' }}>
         <div style={{ width: '40px', height: '1px', background: c0, margin: '0 auto 28px', opacity: 0.5 }} />
         <p style={{ fontSize: '10px', letterSpacing: '0.35em', color: `${c0}70`, textTransform: 'uppercase', marginBottom: '20px', fontWeight: 300 }}>
@@ -247,14 +287,14 @@ function LuxuryHero({ store, c0, ar }: { store: Store; c0: string; ar: boolean }
           {ar ? 'استكشف المجموعة' : 'גלה את הקולקציה'}
         </a>
       </div>
-      <div style={{ height: '32px', background: 'linear-gradient(to bottom, #060604, #060604)' }} />
+      <div style={{ height: '32px' }} />
     </div>
   )
 }
 
-function GamingHero({ store, c0, c1, ar }: { store: Store; c0: string; c1: string; ar: boolean }) {
+function GamingHero({ store, c0, c1, heroBg, ar }: { store: Store; c0: string; c1: string; heroBg: string; ar: boolean }) {
   return (
-    <div style={{ background: `linear-gradient(135deg, #03030f 0%, #0a0820 50%, #03030f 100%)`, paddingTop: '56px', position: 'relative', overflow: 'hidden' }}>
+    <div style={{ background: heroBg, paddingTop: '56px', position: 'relative', overflow: 'hidden' }}>
       {/* Scanline texture */}
       <div style={{ position: 'absolute', inset: 0, background: `repeating-linear-gradient(0deg, transparent, transparent 3px, ${c0}05 3px, ${c0}05 4px)`, pointerEvents: 'none' }} />
       {/* Glow orbs */}
@@ -278,46 +318,47 @@ function GamingHero({ store, c0, c1, ar }: { store: Store; c0: string; c1: strin
   )
 }
 
-function BeautyHero({ store, c0, c1, ar }: { store: Store; c0: string; c1: string; ar: boolean }) {
+function BeautyHero({ store, c0, c1, heroBg, ar }: { store: Store; c0: string; c1: string; heroBg: string; ar: boolean }) {
   return (
-    <div style={{ background: 'linear-gradient(160deg, #fdf2f8 0%, #fff0f9 50%, #fdf2f8 100%)', paddingTop: '56px' }}>
+    <div style={{ background: heroBg, paddingTop: '56px' }}>
       <div style={{ padding: '48px 24px 40px', textAlign: 'center' }}>
-        <div style={{ width: '56px', height: '56px', borderRadius: '50%', background: `linear-gradient(135deg, ${c0 || '#e879ad'}, ${c1 || '#f9a8d4'})`, margin: '0 auto 20px', boxShadow: `0 8px 32px ${c0 || '#e879ad'}40`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ width: '56px', height: '56px', borderRadius: '50%', background: `linear-gradient(135deg, ${c0}, ${c1})`, margin: '0 auto 20px', boxShadow: `0 8px 32px ${c0}40`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <span style={{ fontSize: '22px' }}>✿</span>
         </div>
-        <h1 style={{ fontSize: '28px', fontWeight: 700, color: '#4a1942', fontStyle: 'italic', marginBottom: '10px', letterSpacing: '-0.01em', lineHeight: 1.2 }}>
+        <h1 style={{ fontSize: '28px', fontWeight: 700, color: getTextColor(c0), fontStyle: 'italic', marginBottom: '10px', letterSpacing: '-0.01em', lineHeight: 1.2 }}>
           {store.name}
         </h1>
         {store.slogan && (
-          <p style={{ fontSize: '13px', color: '#b07fa0', marginBottom: '28px', lineHeight: 1.6 }}>{store.slogan}</p>
+          <p style={{ fontSize: '13px', color: `${c0}aa`, marginBottom: '28px', lineHeight: 1.6 }}>{store.slogan}</p>
         )}
-        <a href="#products" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: `linear-gradient(135deg, ${c0 || '#e879ad'}, ${c1 || '#f9a8d4'})`, color: '#fff', borderRadius: '50px', padding: '13px 32px', fontSize: '14px', fontWeight: 700, textDecoration: 'none', boxShadow: `0 8px 24px ${c0 || '#e879ad'}40` }}>
+        <a href="#products" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: `linear-gradient(135deg, ${c0}, ${c1})`, color: getTextColor(c0), borderRadius: '50px', padding: '13px 32px', fontSize: '14px', fontWeight: 700, textDecoration: 'none', boxShadow: `0 8px 24px ${c0}40` }}>
           {ar ? 'تسوّقي الآن ✿' : 'קני עכשיו ✿'}
         </a>
       </div>
-      <div style={{ height: '24px', background: 'linear-gradient(to bottom, #fdf2f8, #fdf2f8)' }} />
+      <div style={{ height: '24px' }} />
     </div>
   )
 }
 
-function StreetwearHero({ store, c0, ar }: { store: Store; c0: string; ar: boolean }) {
+function StreetwearHero({ store, c0, heroBg, ar }: { store: Store; c0: string; heroBg: string; ar: boolean }) {
   const nameLen = store.name.length
   const nameFontSize = nameLen > 12 ? '36px' : nameLen > 8 ? '48px' : '56px'
+  const heroTextColor = getTextColor(heroBg.startsWith('#') ? heroBg : '#000')
   return (
-    <div style={{ background: '#000', paddingTop: '56px', borderBottom: `3px solid ${c0}` }}>
+    <div style={{ background: heroBg, paddingTop: '56px', borderBottom: `3px solid ${c0}` }}>
       <div style={{ padding: '40px 20px 32px' }}>
-        <div style={{ fontSize: '9px', color: 'rgba(255,255,255,0.3)', letterSpacing: '0.4em', textTransform: 'uppercase', marginBottom: '12px' }}>
+        <div style={{ fontSize: '9px', color: heroTextColor, opacity: 0.4, letterSpacing: '0.4em', textTransform: 'uppercase', marginBottom: '12px' }}>
           {ar ? 'الموسم الجديد — DROP 001' : 'SEASON DROP 001'}
         </div>
-        <h1 style={{ fontSize: nameFontSize, fontWeight: 900, color: '#fff', lineHeight: 0.95, letterSpacing: '-0.03em', textTransform: 'uppercase', marginBottom: '20px', wordBreak: 'break-word' }}>
+        <h1 style={{ fontSize: nameFontSize, fontWeight: 900, color: heroTextColor, lineHeight: 0.95, letterSpacing: '-0.03em', textTransform: 'uppercase', marginBottom: '20px', wordBreak: 'break-word' }}>
           {store.name}
         </h1>
         {store.slogan && (
-          <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', letterSpacing: '0.15em', marginBottom: '28px' }}>
+          <p style={{ fontSize: '12px', color: heroTextColor, opacity: 0.5, textTransform: 'uppercase', letterSpacing: '0.15em', marginBottom: '28px' }}>
             {store.slogan}
           </p>
         )}
-        <a href="#products" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: c0, color: '#fff', padding: '12px 28px', fontSize: '12px', fontWeight: 900, textDecoration: 'none', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+        <a href="#products" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: heroTextColor, color: heroBg.startsWith('#') ? heroBg : '#000', padding: '12px 28px', fontSize: '12px', fontWeight: 900, textDecoration: 'none', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
           {ar ? 'تسوّق الدروب →' : 'SHOP THE DROP →'}
         </a>
       </div>
@@ -325,9 +366,9 @@ function StreetwearHero({ store, c0, ar }: { store: Store; c0: string; ar: boole
   )
 }
 
-function MinimalHero({ store, c0, ar }: { store: Store; c0: string; ar: boolean }) {
+function MinimalHero({ store, c0, heroBg, ar }: { store: Store; c0: string; heroBg: string; ar: boolean }) {
   return (
-    <div style={{ background: '#fff', paddingTop: '56px', borderBottom: '1px solid #efefef' }}>
+    <div style={{ background: heroBg, paddingTop: '56px', borderBottom: '1px solid #efefef' }}>
       <div style={{ padding: '56px 32px 48px', textAlign: 'center' }}>
         <p style={{ fontSize: '10px', color: '#bbb', letterSpacing: '0.3em', textTransform: 'uppercase', marginBottom: '16px' }}>
           {ar ? 'متجر أونلاين' : 'ONLINE STORE'}
@@ -347,17 +388,17 @@ function MinimalHero({ store, c0, ar }: { store: Store; c0: string; ar: boolean 
   )
 }
 
-function RestaurantHero({ store, c0, ar }: { store: Store; c0: string; ar: boolean }) {
+function RestaurantHero({ store, c0, heroBg, ar }: { store: Store; c0: string; heroBg: string; ar: boolean }) {
   return (
-    <div style={{ background: `linear-gradient(160deg, #1a0500 0%, #2d0a00 60%, #1a0500 100%)`, paddingTop: '56px', position: 'relative', overflow: 'hidden' }}>
+    <div style={{ background: heroBg, paddingTop: '56px', position: 'relative', overflow: 'hidden' }}>
       <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3px', background: `linear-gradient(90deg, transparent, ${c0 || '#f59e0b'}, transparent)` }} />
       <div style={{ padding: '44px 24px 36px', textAlign: 'center' }}>
         <div style={{ fontSize: '36px', marginBottom: '14px' }}>🍽️</div>
-        <h1 style={{ fontSize: '30px', fontWeight: 800, color: c0 || '#f59e0b', marginBottom: '8px', lineHeight: 1.2 }}>
+        <h1 style={{ fontSize: '30px', fontWeight: 800, color: c0, marginBottom: '8px', lineHeight: 1.2 }}>
           {store.name}
         </h1>
         {store.slogan && (
-          <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.45)', marginBottom: '28px', fontStyle: 'italic' }}>{store.slogan}</p>
+          <p style={{ fontSize: '13px', color: `${c0}80`, marginBottom: '28px', fontStyle: 'italic' }}>{store.slogan}</p>
         )}
         <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', flexWrap: 'wrap' }}>
           <a href="#products" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: '#22c55e', color: '#fff', borderRadius: '20px', padding: '11px 24px', fontSize: '13px', fontWeight: 700, textDecoration: 'none' }}>
@@ -372,9 +413,9 @@ function RestaurantHero({ store, c0, ar }: { store: Store; c0: string; ar: boole
   )
 }
 
-function TechHero({ store, c0, ar }: { store: Store; c0: string; ar: boolean }) {
+function TechHero({ store, c0, heroBg, ar }: { store: Store; c0: string; heroBg: string; ar: boolean }) {
   return (
-    <div style={{ background: 'linear-gradient(160deg, #000814 0%, #000d25 50%, #000814 100%)', paddingTop: '56px', position: 'relative', overflow: 'hidden' }}>
+    <div style={{ background: heroBg, paddingTop: '56px', position: 'relative', overflow: 'hidden' }}>
       <div style={{ position: 'absolute', inset: 0, background: `radial-gradient(ellipse 60% 50% at 50% 100%, ${c0 || '#0ea5e9'}18, transparent)`, pointerEvents: 'none' }} />
       <div style={{ padding: '44px 24px 36px', position: 'relative', zIndex: 1 }}>
         <div style={{ fontSize: '10px', color: c0 || '#38bdf8', letterSpacing: '0.2em', fontFamily: 'monospace', marginBottom: '16px', opacity: 0.8 }}>
@@ -394,9 +435,9 @@ function TechHero({ store, c0, ar }: { store: Store; c0: string; ar: boolean }) 
   )
 }
 
-function CreatorHero({ store, c0, c1, ar }: { store: Store; c0: string; c1: string; ar: boolean }) {
+function CreatorHero({ store, c0, c1, heroBg, ar }: { store: Store; c0: string; c1: string; heroBg: string; ar: boolean }) {
   return (
-    <div style={{ background: `linear-gradient(135deg, #0f0a1e 0%, ${c0}30 50%, #1a0f35 100%)`, paddingTop: '56px', position: 'relative', overflow: 'hidden' }}>
+    <div style={{ background: heroBg, paddingTop: '56px', position: 'relative', overflow: 'hidden' }}>
       <div style={{ position: 'absolute', top: '30px', right: '20px', width: '100px', height: '100px', background: c1, borderRadius: '50%', filter: 'blur(50px)', opacity: 0.2 }} />
       <div style={{ padding: '44px 24px 36px', textAlign: 'center', position: 'relative', zIndex: 1 }}>
         <div style={{ display: 'inline-block', background: `linear-gradient(135deg, ${c0}, ${c1})`, borderRadius: '50px', padding: '4px 16px', fontSize: '11px', fontWeight: 700, color: '#fff', marginBottom: '18px' }}>
@@ -425,8 +466,9 @@ export default function StoreClient({ store, products }: { store: Store; product
   const colors = Array.isArray(store.colors) ? store.colors : ['#7c3aed', '#f59e0b', '#0f172a']
   const c0 = colors[0] ?? '#7c3aed'
   const c1 = colors[1] ?? '#f59e0b'
+  const c2 = colors[2] ?? '#0f172a'
   const archetype = KNOWN.includes(store.archetype ?? '') ? (store.archetype ?? 'minimal') : 'minimal'
-  const cfg = getConfig(archetype, c0, c1)
+  const cfg = getConfig(archetype, c0, c1, c2)
 
   const [cartCount, setCartCount] = useState(0)
   const [drawerProduct, setDrawerProduct] = useState<Product | null>(null)
@@ -450,7 +492,7 @@ export default function StoreClient({ store, products }: { store: Store; product
 
   const imgFallback = 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop'
 
-  const isLight = archetype === 'beauty' || archetype === 'minimal'
+  const isLight = getTextColor(cfg.pageBg) === '#000000'
 
   return (
     <div dir="rtl" className={fontClass} style={{ minHeight: '100vh', background: cfg.pageBg, color: cfg.textColor, overflowX: 'hidden', paddingBottom: waNumber ? '80px' : '0' }}>
@@ -483,14 +525,14 @@ export default function StoreClient({ store, products }: { store: Store; product
       </nav>
 
       {/* ── Hero ───────────────────────────────────────────────── */}
-      {archetype === 'luxury'     && <LuxuryHero     store={store} c0={c0}           ar={ar} />}
-      {archetype === 'gaming'     && <GamingHero     store={store} c0={c0} c1={c1}   ar={ar} />}
-      {archetype === 'beauty'     && <BeautyHero     store={store} c0={c0} c1={c1}   ar={ar} />}
-      {archetype === 'streetwear' && <StreetwearHero store={store} c0={c0}           ar={ar} />}
-      {archetype === 'minimal'    && <MinimalHero    store={store} c0={c0}           ar={ar} />}
-      {archetype === 'restaurant' && <RestaurantHero store={store} c0={c0}           ar={ar} />}
-      {archetype === 'tech'       && <TechHero       store={store} c0={c0}           ar={ar} />}
-      {archetype === 'creator'    && <CreatorHero    store={store} c0={c0} c1={c1}   ar={ar} />}
+      {archetype === 'luxury'     && <LuxuryHero     store={store} c0={c0}           heroBg={cfg.heroBg} ar={ar} />}
+      {archetype === 'gaming'     && <GamingHero     store={store} c0={c0} c1={c1}   heroBg={cfg.heroBg} ar={ar} />}
+      {archetype === 'beauty'     && <BeautyHero     store={store} c0={c0} c1={c1}   heroBg={cfg.heroBg} ar={ar} />}
+      {archetype === 'streetwear' && <StreetwearHero store={store} c0={c0}           heroBg={cfg.heroBg} ar={ar} />}
+      {archetype === 'minimal'    && <MinimalHero    store={store} c0={c0}           heroBg={cfg.heroBg} ar={ar} />}
+      {archetype === 'restaurant' && <RestaurantHero store={store} c0={c0}           heroBg={cfg.heroBg} ar={ar} />}
+      {archetype === 'tech'       && <TechHero       store={store} c0={c0}           heroBg={cfg.heroBg} ar={ar} />}
+      {archetype === 'creator'    && <CreatorHero    store={store} c0={c0} c1={c1}   heroBg={cfg.heroBg} ar={ar} />}
 
       {/* ── About ──────────────────────────────────────────────── */}
       {store.description && (
