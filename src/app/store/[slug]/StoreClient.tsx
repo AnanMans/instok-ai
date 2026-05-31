@@ -264,9 +264,12 @@ export default function StoreClient({ store, products }: { store: Store; product
         )}
 
         {/* Powered by */}
-        <div style={{ textAlign: 'center', paddingTop: '8px' }}>
+        <div style={{ textAlign: 'center', paddingTop: '8px', display: 'flex', justifyContent: 'center', gap: '16px' }}>
           <a href="/" style={{ fontSize: '11px', color: 'rgba(255,255,255,0.18)', textDecoration: 'none' }}>
             {ar ? 'مدعوم بـ Instok.ai' : 'מופעל על ידי Instok.ai'}
+          </a>
+          <a href="/policy" style={{ fontSize: '11px', color: 'rgba(255,255,255,0.18)', textDecoration: 'none' }}>
+            {ar ? 'سياسة الخصوصية' : 'מדיניות פרטיות'}
           </a>
         </div>
       </div>

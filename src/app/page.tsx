@@ -155,7 +155,7 @@ const CONTENT = {
       sub: 'انضم لآلاف البائعين اللي حولوا صفحاتهم لمتاجر حقيقية',
       btn: 'ابدأ مجاناً — بدون بطاقة ائتمانية',
     },
-    footer: { copy: '© ٢٠٢٥ Instok.ai — جميع الحقوق محفوظة' },
+    footer: { copy: '© ٢٠٢٥ Instok.ai — جميع الحقوق محفوظة', policy: 'سياسة الخصوصية' },
   },
   he: {
     nav: { cta: 'התחל בחינם', langLabel: 'عر' },
@@ -195,7 +195,7 @@ const CONTENT = {
       sub: 'הצטרף לאלפי מוכרים שהפכו את הדפים שלהם לחנויות אמיתיות',
       btn: 'התחל בחינם — ללא כרטיס אשראי',
     },
-    footer: { copy: '© 2025 Instok.ai — כל הזכויות שמורות' },
+    footer: { copy: '© 2025 Instok.ai — כל הזכויות שמורות', policy: 'מדיניות פרטיות' },
   },
 }
 
@@ -881,7 +881,12 @@ export default function Page() {
           <span className="text-sm font-semibold" style={{ color: 'rgba(255,255,255,0.5)' }}>
             Instok<span style={{ color: '#8b5cf6' }}>.ai</span>
           </span>
-          <span className="text-xs" style={{ color: 'rgba(255,255,255,0.22)' }}>{t.footer.copy}</span>
+          <div className="flex items-center gap-4">
+            <a href="/policy" className="text-xs" style={{ color: 'rgba(255,255,255,0.22)', textDecoration: 'none' }}>
+              {t.footer.policy}
+            </a>
+            <span className="text-xs" style={{ color: 'rgba(255,255,255,0.22)' }}>{t.footer.copy}</span>
+          </div>
         </div>
       </footer>
     </div>
