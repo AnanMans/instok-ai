@@ -37,7 +37,7 @@ export async function POST(request: Request) {
       vibe: body.vibe,
       category: body.category,
       description: body.description,
-      whatsapp_number: body.whatsappNumber,
+      whatsapp_number: body.whatsappNumber.replace(/\D/g, '').replace(/^0/, '972'),
       delivery_type: body.delivery,
       delivery_areas: body.deliveryAreas,
       payment_methods: body.payments,

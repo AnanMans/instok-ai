@@ -73,7 +73,10 @@ export default function StoreClient({ store, products }: { store: Store; product
   const openDrawer = (p: Product) => { setDrawerProduct(p); setDrawerOpen(true) }
   const closeDrawer = () => setDrawerOpen(false)
 
-  const waNumber = store.whatsapp_number?.replace(/\D/g, '') ?? ''
+  const waNumber = store.whatsapp_number
+    ?.replace(/\D/g, '')
+    ?.replace(/^0/, '972')
+    ?? ''
   const waGeneralLink = waNumber
     ? `https://wa.me/${waNumber}?text=${encodeURIComponent(ar ? `مرحباً، أريد الاستفسار عن متجر ${store.name} 👋` : `היי, אני רוצה לשאול על החנות ${store.name} 👋`)}`
     : ''
