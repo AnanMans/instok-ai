@@ -297,25 +297,24 @@ function LuxuryHero({ store, c0, heroBg, ar }: { store: Store; c0: string; heroB
 }
 
 function GamingHero({ store, c0, c1, heroBg, ar }: { store: Store; c0: string; c1: string; heroBg: string; ar: boolean }) {
+  const ctaText = getTextColor(c0)
   return (
     <div style={{ background: heroBg, paddingTop: '56px', position: 'relative', overflow: 'hidden' }}>
-      {/* Scanline texture */}
-      <div style={{ position: 'absolute', inset: 0, background: `repeating-linear-gradient(0deg, transparent, transparent 3px, ${c0}05 3px, ${c0}05 4px)`, pointerEvents: 'none' }} />
-      {/* Glow orbs */}
-      <div style={{ position: 'absolute', top: '20px', right: '10%', width: '120px', height: '120px', background: c0, borderRadius: '50%', filter: 'blur(60px)', opacity: 0.15 }} />
+      <div style={{ position: 'absolute', inset: 0, background: `repeating-linear-gradient(0deg,transparent,transparent 8px,${c0}08 8px,${c0}08 9px)`, pointerEvents: 'none' }} />
+      <div style={{ position: 'absolute', top: '20px', right: '10%', width: '120px', height: '120px', background: c0, borderRadius: '50%', filter: 'blur(60px)', opacity: 0.2 }} />
       <div style={{ position: 'absolute', bottom: '0', left: '5%', width: '80px', height: '80px', background: c1, borderRadius: '50%', filter: 'blur(40px)', opacity: 0.1 }} />
       <div style={{ padding: '44px 24px 36px', textAlign: 'center', position: 'relative', zIndex: 1 }}>
-        <div style={{ display: 'inline-block', background: `${c0}22`, border: `1px solid ${c0}60`, borderRadius: '4px', padding: '4px 14px', fontSize: '10px', fontWeight: 700, color: c0, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '20px', boxShadow: `0 0 12px ${c0}30` }}>
-          {ar ? '▶ متجر جيمنج' : '▶ GAMING STORE'}
+        <div style={{ fontSize: '12px', color: c0, letterSpacing: '0.15em', marginBottom: '12px', textTransform: 'uppercase', fontWeight: 700 }}>
+          {ar ? 'ارتقِ بمستواك' : 'עלה רמה'}
         </div>
-        <h1 style={{ fontSize: '36px', fontWeight: 900, color: '#fff', textShadow: `0 0 30px ${c0}80, 0 0 60px ${c0}30`, marginBottom: '10px', letterSpacing: '-0.02em', lineHeight: 1.1 }}>
+        <h1 style={{ fontSize: '36px', fontWeight: 900, color: '#fff', textShadow: `0 0 20px ${c0}, 0 0 60px ${c0}30`, marginBottom: '10px', letterSpacing: '-0.02em', lineHeight: 1.1 }}>
           {store.name}
         </h1>
         {store.slogan && (
-          <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.45)', marginBottom: '28px' }}>{store.slogan}</p>
+          <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)', marginBottom: '28px' }}>{store.slogan}</p>
         )}
-        <a href="#products" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: c0, color: '#fff', borderRadius: '6px', padding: '12px 28px', fontSize: '13px', fontWeight: 800, textDecoration: 'none', boxShadow: `0 0 24px ${c0}60`, letterSpacing: '0.05em', textTransform: 'uppercase' }}>
-          {ar ? 'تسوّق الآن ▶' : 'SHOP NOW ▶'}
+        <a href="#products" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: c0, color: ctaText, borderRadius: '4px', padding: '12px 28px', fontSize: '13px', fontWeight: 800, textDecoration: 'none', boxShadow: `0 0 12px ${c0}80`, letterSpacing: '0.05em' }}>
+          {ar ? 'العب الآن ▶' : 'שחק עכשיו ▶'}
         </a>
       </div>
     </div>
@@ -418,21 +417,30 @@ function RestaurantHero({ store, c0, heroBg, ar }: { store: Store; c0: string; h
 }
 
 function TechHero({ store, c0, heroBg, ar }: { store: Store; c0: string; heroBg: string; ar: boolean }) {
+  const ctaText = getTextColor(c0)
   return (
     <div style={{ background: heroBg, paddingTop: '56px', position: 'relative', overflow: 'hidden' }}>
-      <div style={{ position: 'absolute', inset: 0, background: `radial-gradient(ellipse 60% 50% at 50% 100%, ${c0 || '#0ea5e9'}18, transparent)`, pointerEvents: 'none' }} />
+      <div style={{ position: 'absolute', top: 0, right: 0, bottom: 0, width: '55%', background: `${c0}08`, clipPath: 'polygon(20% 0,100% 0,100% 100%,0% 100%)', pointerEvents: 'none' }} />
       <div style={{ padding: '44px 24px 36px', position: 'relative', zIndex: 1 }}>
-        <div style={{ fontSize: '10px', color: c0 || '#38bdf8', letterSpacing: '0.2em', fontFamily: 'monospace', marginBottom: '16px', opacity: 0.8 }}>
-          {'// STORE_INIT: ' + store.name.toLowerCase().replace(/\s+/g, '_')}
+        <div style={{ fontSize: '11px', color: c0, letterSpacing: '0.12em', fontFamily: 'monospace', marginBottom: '14px' }}>
+          {ar ? '// التقنية الجديدة' : '// טכנולוגיה חדשה'}
         </div>
-        <h1 style={{ fontSize: '28px', fontWeight: 800, color: '#e0f2ff', fontFamily: 'monospace', marginBottom: '8px', letterSpacing: '-0.02em', lineHeight: 1.2 }}>
-          {store.name}
-        </h1>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px', flexWrap: 'wrap' }}>
+          <h1 style={{ fontSize: '28px', fontWeight: 800, color: getTextColor(heroBg.startsWith('linear') ? c0 : heroBg), fontFamily: 'monospace', lineHeight: 1.2, margin: 0 }}>
+            {store.name}
+          </h1>
+          <div style={{ background: '#ef4444', borderRadius: '4px', padding: '2px 8px', flexShrink: 0 }}>
+            <span style={{ fontSize: '11px', fontWeight: 800, color: '#fff' }}>{ar ? 'جديد' : 'חדש'}</span>
+          </div>
+        </div>
         {store.slogan && (
-          <p style={{ fontSize: '12px', color: 'rgba(200,230,255,0.4)', fontFamily: 'monospace', marginBottom: '28px' }}>{store.slogan}</p>
+          <p style={{ fontSize: '12px', color: `${c0}80`, fontFamily: 'monospace', marginBottom: '12px' }}>{store.slogan}</p>
         )}
-        <a href="#products" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: `linear-gradient(135deg, ${c0 || '#0ea5e9'}, ${c0 || '#0ea5e9'}cc)`, color: '#fff', borderRadius: '6px', padding: '12px 24px', fontSize: '12px', fontWeight: 700, textDecoration: 'none', fontFamily: 'monospace', boxShadow: `0 4px 20px ${c0 || '#0ea5e9'}40`, letterSpacing: '0.05em' }}>
-          {ar ? 'تصفح المنتجات →' : 'BROWSE →'}
+        <div style={{ fontSize: '12px', color: c0, fontFamily: 'monospace', marginBottom: '24px', letterSpacing: '0.04em' }}>
+          {ar ? '• 4K  • ذكاء اصطناعي  • سريع' : '• 4K  • AI  • מהיר'}
+        </div>
+        <a href="#products" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: c0, color: ctaText, borderRadius: '6px', padding: '12px 24px', fontSize: '13px', fontWeight: 700, textDecoration: 'none', fontFamily: 'monospace', boxShadow: `0 4px 20px ${c0}40` }}>
+          {ar ? 'استكشف →' : 'גלה עוד →'}
         </a>
       </div>
     </div>
@@ -440,20 +448,22 @@ function TechHero({ store, c0, heroBg, ar }: { store: Store; c0: string; heroBg:
 }
 
 function CreatorHero({ store, c0, c1, heroBg, ar }: { store: Store; c0: string; c1: string; heroBg: string; ar: boolean }) {
+  const ctaText = getTextColor(c0)
+  const lightBgText = getTextColor(heroBg.startsWith('#') ? heroBg : '#ffffff')
   return (
     <div style={{ background: heroBg, paddingTop: '56px', position: 'relative', overflow: 'hidden' }}>
       <div style={{ position: 'absolute', top: '30px', right: '20px', width: '100px', height: '100px', background: c1, borderRadius: '50%', filter: 'blur(50px)', opacity: 0.2 }} />
       <div style={{ padding: '44px 24px 36px', textAlign: 'center', position: 'relative', zIndex: 1 }}>
-        <div style={{ display: 'inline-block', background: `linear-gradient(135deg, ${c0}, ${c1})`, borderRadius: '50px', padding: '4px 16px', fontSize: '11px', fontWeight: 700, color: '#fff', marginBottom: '18px' }}>
-          ✦ {ar ? 'منتجات حصرية' : 'מוצרים בלעדיים'}
+        <div style={{ fontSize: '12px', color: c0, marginBottom: '8px', fontWeight: 600, letterSpacing: '0.08em' }}>
+          {ar ? `بقلم ${store.name}` : `של ${store.name}`}
         </div>
-        <h1 style={{ fontSize: '30px', fontWeight: 800, color: '#fff', marginBottom: '10px', lineHeight: 1.2 }}>
-          {store.name}
+        <h1 style={{ fontSize: '30px', fontWeight: 900, color: lightBgText, marginBottom: '6px', lineHeight: 1.1 }}>
+          {store.slogan || store.name}
         </h1>
-        {store.slogan && (
-          <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)', marginBottom: '28px', lineHeight: 1.6 }}>{store.slogan}</p>
-        )}
-        <a href="#products" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: `linear-gradient(135deg, ${c0}, ${c1})`, color: '#fff', borderRadius: '50px', padding: '13px 32px', fontSize: '14px', fontWeight: 700, textDecoration: 'none', boxShadow: `0 8px 24px ${c0}50` }}>
+        <p style={{ fontSize: '13px', color: lightBgText, opacity: 0.6, marginBottom: '24px', lineHeight: 1.6 }}>
+          {store.slogan ? store.name : (ar ? 'منتجات حصرية' : 'מוצרים בלעדיים')}
+        </p>
+        <a href="#products" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: c0, color: ctaText, borderRadius: '20px', padding: '12px 28px', fontSize: '14px', fontWeight: 700, textDecoration: 'none', boxShadow: `0 8px 24px ${c0}50` }}>
           {ar ? 'تسوّق الآن ✦' : 'קנה עכשיו ✦'}
         </a>
       </div>
@@ -512,19 +522,41 @@ export default function StoreClient({ store, products }: { store: Store; product
 
       {/* ── Navbar ─────────────────────────────────────────────── */}
       <nav dir="rtl" style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50, background: cfg.navBg, backdropFilter: 'blur(12px)', borderBottom: `1px solid ${cfg.navBorder}`, padding: '0 16px', height: '56px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <div style={{ width: '34px', height: '34px', borderRadius: archetype === 'streetwear' ? '4px' : archetype === 'minimal' ? '4px' : '50%', background: `linear-gradient(135deg,${c0},${c1})`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: (archetype === 'gaming' || archetype === 'tech') ? `0 0 10px ${c0}50` : 'none' }}>
-            <span style={{ fontSize: '13px', fontWeight: 800, color: '#fff' }}>{(store.name?.[0] ?? '?').toUpperCase()}</span>
+        {/* Left group (visual right in RTL) */}
+        {archetype === 'luxury' ? (
+          <span style={{ fontSize: '14px', fontWeight: 300, color: cfg.navTextColor, letterSpacing: '0.2em', textTransform: 'uppercase' }}>{store.name}</span>
+        ) : (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            {archetype === 'restaurant' && <span style={{ fontSize: '18px' }}>🍕</span>}
+            <div style={{ width: '34px', height: '34px', borderRadius: archetype === 'streetwear' || archetype === 'minimal' ? '4px' : '50%', background: `linear-gradient(135deg,${c0},${c1})`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: archetype === 'gaming' || archetype === 'tech' ? `0 0 10px ${c0}50` : 'none' }}>
+              <span style={{ fontSize: '13px', fontWeight: 800, color: '#fff' }}>{(store.name?.[0] ?? '?').toUpperCase()}</span>
+            </div>
+            <span style={{ fontSize: archetype === 'streetwear' ? '13px' : '15px', fontWeight: archetype === 'streetwear' ? 900 : 700, color: cfg.navTextColor, letterSpacing: archetype === 'streetwear' ? '0.05em' : '0', textTransform: archetype === 'streetwear' ? 'uppercase' : 'none' }}>
+              {store.name}
+            </span>
           </div>
-          <span style={{ fontSize: archetype === 'streetwear' ? '13px' : '15px', fontWeight: archetype === 'streetwear' ? 900 : archetype === 'luxury' ? 300 : 700, color: cfg.navTextColor, letterSpacing: archetype === 'luxury' ? '0.15em' : archetype === 'streetwear' ? '0.05em' : '0', textTransform: (archetype === 'luxury' || archetype === 'streetwear') ? 'uppercase' : 'none' }}>
-            {store.name}
-          </span>
-        </div>
-        <div style={{ position: 'relative' }}>
-          <span style={{ fontSize: '22px', cursor: 'pointer' }}>🛒</span>
-          {cartCount > 0 && (
-            <span style={{ position: 'absolute', top: '-4px', right: '-4px', background: c0, color: '#fff', fontSize: '9px', fontWeight: 800, width: '16px', height: '16px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{cartCount}</span>
+        )}
+        {/* Right group (visual left in RTL) */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          {archetype === 'gaming' && (
+            <span style={{ fontSize: '11px', color: '#0f0', background: 'rgba(0,255,0,0.1)', padding: '3px 8px', borderRadius: '4px', fontWeight: 700 }}>🔴 LIVE</span>
           )}
+          {archetype === 'restaurant' && (
+            <div style={{ background: '#22c55e', borderRadius: '6px', padding: '3px 8px' }}>
+              <span style={{ fontSize: '11px', fontWeight: 700, color: '#fff' }}>30 min</span>
+            </div>
+          )}
+          {archetype === 'tech' && (
+            <div style={{ background: '#1e3a8a', borderRadius: '4px', padding: '3px 8px' }}>
+              <span style={{ fontSize: '10px', fontWeight: 700, color: '#93c5fd' }}>v2.0</span>
+            </div>
+          )}
+          <div style={{ position: 'relative' }}>
+            <span style={{ fontSize: '22px', cursor: 'pointer', opacity: archetype === 'luxury' ? 0.4 : 1 }}>🛒</span>
+            {cartCount > 0 && (
+              <span style={{ position: 'absolute', top: '-4px', right: '-4px', background: c0, color: '#fff', fontSize: '9px', fontWeight: 800, width: '16px', height: '16px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{cartCount}</span>
+            )}
+          </div>
         </div>
       </nav>
 
@@ -644,6 +676,71 @@ export default function StoreClient({ store, products }: { store: Store; product
                 )}
               </div>
             )}
+          </div>
+        )}
+
+        {/* ── Archetype bottom bars ──────────────────────────── */}
+        {archetype === 'luxury' && (
+          <div style={{ background: cfg.pageBg, borderTop: `1px solid ${c0}12`, padding: '14px 16px', display: 'flex', justifyContent: 'center' }}>
+            <span style={{ fontSize: '10px', color: c0, opacity: 0.3, letterSpacing: '6px', textTransform: 'uppercase' }}>
+              {ar ? 'مجموعة ٢٠٢٦' : 'קולקציה 2026'}
+            </span>
+          </div>
+        )}
+
+        {archetype === 'gaming' && (
+          <div dir="ltr" style={{ background: cfg.sectionBg, borderTop: `1px solid ${c0}25`, display: 'flex' }}>
+            {(['🏠', '🎮', '📦', '👤'] as const).map((icon, i) => (
+              <div key={i} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '12px 4px 10px', borderLeft: i > 0 ? `1px solid ${c0}15` : 'none' }}>
+                <span style={{ fontSize: '20px' }}>{icon}</span>
+                <div style={{ width: i === 0 ? '20px' : '0', height: '3px', background: c0, borderRadius: '2px', marginTop: '5px', boxShadow: i === 0 ? `0 0 6px ${c0}` : 'none' }} />
+              </div>
+            ))}
+          </div>
+        )}
+
+        {archetype === 'creator' && (
+          <div style={{ background: cfg.navBg, borderTop: `1px solid ${c0}20`, padding: '12px 16px', display: 'flex', gap: '10px' }}>
+            <a href={waGeneralLink || '#'} style={{ flex: 1, background: c0, borderRadius: '20px', padding: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}>
+              <span style={{ fontSize: '13px', fontWeight: 700, color: getTextColor(c0) }}>+ {ar ? 'تابع' : 'עקוב'}</span>
+            </a>
+            <a href={waGeneralLink || '#'} target="_blank" rel="noopener noreferrer" style={{ flex: 1, border: `1px solid ${c0}`, borderRadius: '20px', padding: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}>
+              <span style={{ fontSize: '13px', color: cfg.navTextColor, fontWeight: 600 }}>💬 {ar ? 'راسل' : 'שלח הודעה'}</span>
+            </a>
+          </div>
+        )}
+
+        {archetype === 'streetwear' && (
+          <div style={{ background: '#0a0a0a', borderTop: `1px solid ${c0}30`, padding: '12px 16px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <span style={{ fontSize: '16px' }}>🔔</span>
+            <span style={{ flex: 1, fontSize: '12px', color: 'rgba(255,255,255,0.5)' }}>{ar ? 'تنبيه الدروب القادم' : 'התראת דרופ הבא'}</span>
+            <div style={{ background: c0, borderRadius: '4px', padding: '6px 14px' }}>
+              <span style={{ fontSize: '11px', fontWeight: 700, color: getTextColor(c0) }}>{ar ? 'سجّل' : 'הרשם'}</span>
+            </div>
+          </div>
+        )}
+
+        {archetype === 'minimal' && (
+          <div style={{ background: '#fff', borderTop: '1px solid #f0f0f0', padding: '14px 16px', display: 'flex', justifyContent: 'center', gap: '32px' }}>
+            {[ar ? 'الرئيسية' : 'בית', ar ? 'المتجر' : 'חנות', ar ? 'حساب' : 'פרופיל'].map((label, i) => (
+              <span key={i} style={{ fontSize: '12px', color: i === 0 ? c0 : '#ccc', fontWeight: i === 0 ? 600 : 400, borderBottom: i === 0 ? `2px solid ${c0}` : 'none', paddingBottom: '2px' }}>{label}</span>
+            ))}
+          </div>
+        )}
+
+        {archetype === 'restaurant' && (
+          <div style={{ background: cfg.navBg, borderTop: `1px solid ${c0}20`, padding: '12px 16px', display: 'flex', justifyContent: 'center' }}>
+            <span style={{ fontSize: '12px', color: cfg.navTextColor, opacity: 0.45 }}>{ar ? 'الحد الأدنى للطلب: ₪50' : 'מינימום הזמנה: ₪50'}</span>
+          </div>
+        )}
+
+        {archetype === 'tech' && (
+          <div style={{ background: cfg.navBg, borderTop: `1px solid ${c0}15`, padding: '12px 16px', display: 'flex', gap: '8px' }}>
+            {[ar ? '⚡ سريع' : '⚡ מהיר', ar ? '🔒 آمن' : '🔒 מאובטח', ar ? '✓ ضمان' : '✓ אחריות'].map((tag, i) => (
+              <div key={i} style={{ flex: 1, background: `${c0}12`, border: `1px solid ${c0}20`, borderRadius: '6px', padding: '6px 4px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <span style={{ fontSize: '11px', color: c0, textAlign: 'center' }}>{tag}</span>
+              </div>
+            ))}
           </div>
         )}
 
