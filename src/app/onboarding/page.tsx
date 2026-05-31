@@ -912,6 +912,11 @@ export default function Page() {
       setStep(2)
     }
 
+    const urlLang = params.get('lang')
+    const storedLang = localStorage.getItem('instok_lang')
+    const resolvedLang = (urlLang === 'he' || urlLang === 'ar') ? urlLang : (storedLang === 'he' || storedLang === 'ar') ? storedLang : null
+    if (resolvedLang) setLang(resolvedLang)
+
     supabase.auth.getSession().then(async ({ data: { session } }) => {
       if (session?.user?.email) setUserEmail(session.user.email)
       if (session) {
@@ -1065,12 +1070,12 @@ export default function Page() {
             </div>
             <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '14px', marginBottom: '48px', textAlign: 'center' }}>{t.langSub}</p>
             <div style={{ display: 'flex', gap: '16px', width: '100%', direction: 'ltr' }}>
-              <button onClick={() => { setLang('he'); setStep(1) }}
+              <button onClick={() => { localStorage.setItem('instok_lang', 'he'); setLang('he'); setStep(1) }}
                 style={{ flex: 1, background: '#111', border: '1.5px solid rgba(255,255,255,0.08)', borderRadius: '20px', padding: '28px 16px', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
                 <span style={{ fontSize: '18px', fontWeight: 700, color: '#fff', fontFamily: heebo.style.fontFamily }}>עברית</span>
                 <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.35)', fontFamily: heebo.style.fontFamily }}>Hebrew</span>
               </button>
-              <button onClick={() => { setLang('ar'); setStep(1) }}
+              <button onClick={() => { localStorage.setItem('instok_lang', 'ar'); setLang('ar'); setStep(1) }}
                 style={{ flex: 1, background: '#111', border: '1.5px solid rgba(255,255,255,0.08)', borderRadius: '20px', padding: '28px 16px', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
                 <span style={{ fontSize: '18px', fontWeight: 700, color: '#fff', fontFamily: cairo.style.fontFamily }}>العربية</span>
                 <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.35)', fontFamily: cairo.style.fontFamily }}>Arabic</span>
