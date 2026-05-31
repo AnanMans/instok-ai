@@ -133,11 +133,6 @@ export default function StoreClient({ store, products }: { store: Store; product
           <div style={{ position: 'absolute', inset: 0, background: `repeating-linear-gradient(0deg,transparent,transparent 24px,${c0}08 24px,${c0}08 25px)`, pointerEvents: 'none' }} />
         )}
         <div style={{ padding: '40px 24px 36px', textAlign: 'center', position: 'relative' }}>
-          {/* Archetype badge */}
-          <div style={{ display: 'inline-block', background: `${c0}22`, border: `1px solid ${c0}44`, borderRadius: '20px', padding: '4px 14px', fontSize: '11px', fontWeight: 600, color: c0, marginBottom: '16px', letterSpacing: '0.05em' }}>
-            {archetypeLabel}
-          </div>
-
           {/* Store name */}
           <h1 style={{
             fontSize: '32px',
