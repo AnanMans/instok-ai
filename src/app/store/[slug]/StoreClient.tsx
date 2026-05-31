@@ -140,6 +140,17 @@ const DEMO_PRODUCTS: Record<string, { ar: Product[]; he: Product[] }> = {
   },
 }
 
+const FALLBACK_IMAGES: Record<string, string> = {
+  luxury:     'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop',
+  gaming:     'https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?w=400&h=400&fit=crop',
+  beauty:     'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&h=400&fit=crop',
+  streetwear: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop',
+  restaurant: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&h=400&fit=crop',
+  tech:       'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop',
+  minimal:    'https://images.unsplash.com/photo-1544816155-12df9643f363?w=400&h=400&fit=crop',
+  creator:    'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400&h=400&fit=crop',
+}
+
 function getHeroStyles(archetype: string, colors: string[]) {
   const c0 = colors[0] ?? '#7c3aed'
   const c1 = colors[1] ?? '#f59e0b'
@@ -205,8 +216,10 @@ export default function StoreClient({ store, products: rawProducts }: { store: S
 
   const paymentMethods = store.payment_methods ? store.payment_methods.split(',').map(s => s.trim()).filter(Boolean) : []
 
+  const imgFallback = FALLBACK_IMAGES[archetype] ?? FALLBACK_IMAGES.minimal
+
   return (
-    <div dir={dir} className={fontClass} style={{ minHeight: '100vh', background: pageBg, overflowX: 'hidden', maxWidth: '100%' }}>
+    <div dir="rtl" className={fontClass} style={{ minHeight: '100vh', background: pageBg, overflowX: 'hidden', maxWidth: '100%' }}>
       <style>{`
         *{box-sizing:border-box}
         body{margin:0;padding:0}
@@ -231,20 +244,20 @@ export default function StoreClient({ store, products: rawProducts }: { store: S
       </nav>
 
       {/* Hero */}
-      <div style={{ background: hero.background, padding: '40px 20px 32px', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
+      <div style={{ background: hero.background, padding: '20px 20px 16px', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
         {archetype === 'gaming' && (
           <div style={{ position: 'absolute', inset: 0, background: `repeating-linear-gradient(0deg,transparent,transparent 20px,${c0}08 20px,${c0}08 21px)`, pointerEvents: 'none' }} />
         )}
-        <h1 style={{ fontSize: '28px', fontWeight: archetype === 'luxury' ? 200 : 800, color: hero.color, letterSpacing: archetype === 'luxury' ? '0.1em' : '-0.02em', textTransform: archetype === 'luxury' ? 'uppercase' : 'none', marginBottom: '8px', position: 'relative' }}>
+        <h1 style={{ fontSize: '22px', fontWeight: archetype === 'luxury' ? 200 : 800, color: hero.color, letterSpacing: archetype === 'luxury' ? '0.1em' : '-0.02em', textTransform: archetype === 'luxury' ? 'uppercase' : 'none', marginBottom: '4px', position: 'relative' }}>
           {store.name}
         </h1>
         {store.slogan && (
-          <p style={{ fontSize: '13px', color: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.5)', fontStyle: archetype === 'luxury' ? 'italic' : 'normal', marginBottom: '20px', position: 'relative' }}>
+          <p style={{ fontSize: '12px', color: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.5)', fontStyle: archetype === 'luxury' ? 'italic' : 'normal', marginBottom: '10px', position: 'relative' }}>
             {store.slogan}
           </p>
         )}
         {archetype === 'luxury' && (
-          <div style={{ width: '40px', height: '1px', background: c0, margin: '0 auto', opacity: 0.5 }} />
+          <div style={{ width: '32px', height: '1px', background: c0, margin: '0 auto', opacity: 0.5 }} />
         )}
       </div>
 
@@ -256,13 +269,12 @@ export default function StoreClient({ store, products: rawProducts }: { store: S
               onClick={() => openDrawer(p)}
               style={{ background: cardBg, borderRadius: '16px', overflow: 'hidden', cursor: 'pointer', border: `1px solid ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'}`, boxShadow: isDark ? '0 4px 20px rgba(0,0,0,0.3)' : '0 2px 12px rgba(0,0,0,0.06)', transition: 'transform 0.15s', active: undefined }}>
               <div style={{ aspectRatio: '1', overflow: 'hidden', background: isDark ? '#1a1a1a' : '#eee' }}>
-                {p.image_url ? (
-                  <img src={p.image_url} alt={p.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-                ) : (
-                  <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <span style={{ fontSize: '32px', opacity: 0.3 }}>🛍</span>
-                  </div>
-                )}
+                <img
+                  src={p.image_url || imgFallback}
+                  alt={p.name}
+                  onError={e => { (e.target as HTMLImageElement).src = imgFallback }}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                />
               </div>
               <div style={{ padding: '10px 12px' }}>
                 <p style={{ fontSize: '13px', fontWeight: 600, color: cardText, marginBottom: '4px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.name}</p>
@@ -293,11 +305,14 @@ export default function StoreClient({ store, products: rawProducts }: { store: S
           <div onClick={closeDrawer} style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(2px)' }} />
           <div className="drawer-open" style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: isDark ? '#111' : '#fff', borderRadius: '24px 24px 0 0', padding: '0 0 40px', maxHeight: '85vh', overflowY: 'auto' }}>
             <div style={{ width: '36px', height: '4px', background: isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.15)', borderRadius: '2px', margin: '12px auto 0' }} />
-            {drawerProduct.image_url && (
-              <div style={{ aspectRatio: '4/3', overflow: 'hidden', background: isDark ? '#1a1a1a' : '#f0f0f0' }}>
-                <img src={drawerProduct.image_url} alt={drawerProduct.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-              </div>
-            )}
+            <div style={{ aspectRatio: '4/3', overflow: 'hidden', background: isDark ? '#1a1a1a' : '#f0f0f0' }}>
+              <img
+                src={drawerProduct.image_url || imgFallback}
+                alt={drawerProduct.name}
+                onError={e => { (e.target as HTMLImageElement).src = imgFallback }}
+                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+              />
+            </div>
             <div style={{ padding: '20px 20px 0' }}>
               <h2 style={{ fontSize: '20px', fontWeight: 700, color: cardText, marginBottom: '6px' }}>{drawerProduct.name}</h2>
               {drawerProduct.description && <p style={{ fontSize: '13px', color: cardSub, marginBottom: '12px', lineHeight: 1.6 }}>{drawerProduct.description}</p>}
