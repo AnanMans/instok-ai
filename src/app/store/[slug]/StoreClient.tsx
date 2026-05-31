@@ -89,7 +89,7 @@ export default function StoreClient({ store, products }: { store: Store; product
   const imgFallback = 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop'
 
   return (
-    <div dir="rtl" className={fontClass} style={{ minHeight: '100vh', background: pageBg, overflowX: 'hidden', maxWidth: '100%' }}>
+    <div dir="rtl" className={fontClass} style={{ minHeight: '100vh', background: pageBg, overflowX: 'hidden', maxWidth: '100%', textAlign: 'right' }}>
       <style>{`
         *{box-sizing:border-box}
         body{margin:0;padding:0}
@@ -97,19 +97,19 @@ export default function StoreClient({ store, products }: { store: Store; product
         .drawer-open{animation:drawerUp 0.28s cubic-bezier(0.32,0.72,0,1) forwards}
       `}</style>
 
-      {/* Navbar */}
-      <nav dir="rtl" style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50, background: navBg, backdropFilter: 'blur(12px)', borderBottom: 'rgba(255,255,255,0.06)', padding: '0 16px', height: '56px', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', direction: 'rtl' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <div style={{ width: '34px', height: '34px', borderRadius: '50%', background: `linear-gradient(135deg,${c0},${colors[1] ?? '#f59e0b'})`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-            <span style={{ fontSize: '14px', fontWeight: 800, color: '#fff' }}>{(store.name?.[0] ?? '?').toUpperCase()}</span>
-          </div>
-          <span style={{ fontSize: '15px', fontWeight: 700, color: navText }}>{store.name}</span>
-        </div>
+      {/* Navbar — cart first in DOM (left), logo second (right) */}
+      <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50, background: navBg, backdropFilter: 'blur(12px)', borderBottom: '1px solid rgba(255,255,255,0.06)', padding: '0 16px', height: '56px', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
         <div style={{ position: 'relative' }}>
           <span style={{ fontSize: '22px', cursor: 'pointer' }}>🛒</span>
           {cartCount > 0 && (
             <span style={{ position: 'absolute', top: '-4px', right: '-4px', background: c0, color: '#fff', fontSize: '9px', fontWeight: 800, width: '16px', height: '16px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{cartCount}</span>
           )}
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <span style={{ fontSize: '15px', fontWeight: 700, color: navText }}>{store.name}</span>
+          <div style={{ width: '34px', height: '34px', borderRadius: '50%', background: `linear-gradient(135deg,${c0},${colors[1] ?? '#f59e0b'})`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+            <span style={{ fontSize: '14px', fontWeight: 800, color: '#fff' }}>{(store.name?.[0] ?? '?').toUpperCase()}</span>
+          </div>
         </div>
       </nav>
 
