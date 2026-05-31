@@ -92,15 +92,6 @@ export default function StoreClient({ store, products }: { store: Store; product
 
   const imgFallback = 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop'
 
-  const deliveryLabel = (type: string) => {
-    const map: Record<string, { ar: string; he: string }> = {
-      delivery: { ar: 'توصيل للباب',    he: 'משלוח עד הבית' },
-      pickup:   { ar: 'استلام من المتجر', he: 'איסוף מהחנות' },
-      both:     { ar: 'توصيل واستلام',   he: 'משלוח ואיסוף' },
-    }
-    return map[type]?.[lang] ?? type
-  }
-
   return (
     <div dir="rtl" className={fontClass} style={{ minHeight: '100vh', background: '#0a0a0a', color: '#fff', overflowX: 'hidden', paddingBottom: waNumber ? '80px' : '0' }}>
       <style>{`
@@ -216,47 +207,46 @@ export default function StoreClient({ store, products }: { store: Store; product
         )}
       </div>
 
-      {/* ── Store info ────────────────────────────────────────── */}
+      {/* ── Delivery & payment ───────────────────────────────── */}
       <div style={{ padding: '0 16px 40px', maxWidth: '600px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '12px' }}>
 
-        {/* Delivery */}
-        {(store.delivery_type || store.delivery_areas) && (
+        {(store.delivery_type || paymentMethods.length > 0) && (
           <div style={{ background: '#111', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '16px', padding: '16px 18px' }}>
-            <p style={{ fontSize: '12px', fontWeight: 700, color: 'rgba(255,255,255,0.4)', marginBottom: '8px', letterSpacing: '0.06em' }}>
-              {ar ? 'التوصيل' : 'משלוח'}
+            <p style={{ fontSize: '12px', fontWeight: 700, color: 'rgba(255,255,255,0.4)', marginBottom: '12px', letterSpacing: '0.06em' }}>
+              {ar ? 'التوصيل والدفع' : 'משלוח ותשלום'}
             </p>
-            {store.delivery_type && (
-              <p style={{ fontSize: '14px', fontWeight: 600, color: '#fff', marginBottom: store.delivery_areas ? '4px' : '0' }}>
-                🚚 {deliveryLabel(store.delivery_type)}
-              </p>
-            )}
-            {store.delivery_areas && (
-              <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)' }}>{store.delivery_areas}</p>
-            )}
-          </div>
-        )}
 
-        {/* Payment methods */}
-        {paymentMethods.length > 0 && (
-          <div style={{ background: '#111', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '16px', padding: '16px 18px' }}>
-            <p style={{ fontSize: '12px', fontWeight: 700, color: 'rgba(255,255,255,0.4)', marginBottom: '10px', letterSpacing: '0.06em' }}>
-              {ar ? 'طرق الدفع' : 'אמצעי תשלום'}
-            </p>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-              {paymentMethods.includes('bit') && (
-                <span style={{ background: `${c0}18`, border: `1px solid ${c0}33`, borderRadius: '20px', padding: '5px 14px', fontSize: '13px', fontWeight: 600, color: c0 }}>💜 Bit</span>
-              )}
-              {paymentMethods.includes('bank') && (
-                <span style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '20px', padding: '5px 14px', fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.7)' }}>
-                  🏦 {ar ? 'تحويل بنكي' : 'העברה בנקאית'}
-                </span>
-              )}
-              {paymentMethods.includes('cash') && (
-                <span style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '20px', padding: '5px 14px', fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.7)' }}>
-                  💵 {ar ? 'دفع عند الاستلام' : 'תשלום במסירה'}
-                </span>
-              )}
-            </div>
+            {store.delivery_type && (
+              <div style={{ marginBottom: paymentMethods.length > 0 ? '12px' : '0' }}>
+                <p style={{ fontSize: '14px', fontWeight: 600, color: '#fff', marginBottom: store.delivery_areas ? '4px' : '0' }}>
+                  {store.delivery_type === 'self'    && '🛵 ' + (ar ? 'توصيل للمنزل'         : 'משלוח לבית')}
+                  {store.delivery_type === 'pickup'  && '📍 ' + (ar ? 'استلام من المتجر'      : 'איסוף מהחנות')}
+                  {store.delivery_type === 'courier' && '🚚 ' + (ar ? 'شحن لجميع المناطق'    : 'משלוח לכל הארץ')}
+                  {!['self','pickup','courier'].includes(store.delivery_type) && '🚚 ' + store.delivery_type}
+                </p>
+                {store.delivery_areas && (
+                  <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)' }}>{store.delivery_areas}</p>
+                )}
+              </div>
+            )}
+
+            {paymentMethods.length > 0 && (
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                {paymentMethods.includes('bit') && (
+                  <span style={{ background: 'rgba(139,92,246,0.15)', border: '1px solid rgba(139,92,246,0.3)', borderRadius: '20px', padding: '4px 12px', fontSize: '12px', fontWeight: 600, color: '#c4b5fd' }}>💜 Bit</span>
+                )}
+                {paymentMethods.includes('bank') && (
+                  <span style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '20px', padding: '4px 12px', fontSize: '12px', fontWeight: 600, color: 'rgba(255,255,255,0.6)' }}>
+                    🏦 {ar ? 'تحويل بنكي' : 'העברה בנקאית'}
+                  </span>
+                )}
+                {paymentMethods.includes('cash') && (
+                  <span style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '20px', padding: '4px 12px', fontSize: '12px', fontWeight: 600, color: 'rgba(255,255,255,0.6)' }}>
+                    💵 {ar ? 'كاش' : 'מזומן'}
+                  </span>
+                )}
+              </div>
+            )}
           </div>
         )}
 
