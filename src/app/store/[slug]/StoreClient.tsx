@@ -160,11 +160,11 @@ function getHeroStyles(archetype: string, colors: string[]) {
     case 'gaming':
       return { background: `linear-gradient(135deg, #050510, #0d002a)`, color: c0, accent: c0 }
     case 'beauty':
-      return { background: `linear-gradient(135deg, #fff0f5, #fce7f3)`, color: '#be185d', accent: c0 }
+      return { background: `linear-gradient(135deg, #0a0505, ${c0}44)`, color: c0, accent: c0 }
     case 'streetwear':
-      return { background: `linear-gradient(135deg, #0a0a0a, #1a0a2e)`, color: '#fff', accent: c0 }
+      return { background: `linear-gradient(135deg, #0a0a0a, ${c0}22, #1a0a2e)`, color: '#fff', accent: c0 }
     case 'minimal':
-      return { background: '#ffffff', color: '#111', accent: c0 }
+      return { background: `linear-gradient(135deg, #0a0a0a, ${c0}22)`, color: c0, accent: c0 }
     case 'restaurant':
       return { background: `linear-gradient(135deg, #1a0800, #2d0f00)`, color: '#f97316', accent: '#f97316' }
     case 'tech':
@@ -188,7 +188,7 @@ export default function StoreClient({ store, products: rawProducts }: { store: S
   const products = rawProducts.length > 0 ? rawProducts : (demoByLang[lang] ?? demoByLang.ar)
 
   const hero = getHeroStyles(archetype, colors)
-  const isDark = archetype !== 'minimal'
+  const isDark = true
 
   const [cartCount, setCartCount] = useState(0)
   const [drawerProduct, setDrawerProduct] = useState<Product | null>(null)
@@ -212,7 +212,7 @@ export default function StoreClient({ store, products: rawProducts }: { store: S
   const cardBg = isDark ? '#111' : '#f8f8f8'
   const cardText = isDark ? '#fff' : '#111'
   const cardSub = isDark ? 'rgba(255,255,255,0.45)' : 'rgba(0,0,0,0.45)'
-  const pageBg = archetype === 'minimal' ? '#f5f5f5' : '#080808'
+  const pageBg = '#0a0a0a'
 
   const paymentMethods = store.payment_methods ? store.payment_methods.split(',').map(s => s.trim()).filter(Boolean) : []
 
@@ -228,7 +228,7 @@ export default function StoreClient({ store, products: rawProducts }: { store: S
       `}</style>
 
       {/* Navbar */}
-      <nav dir="rtl" style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50, background: navBg, backdropFilter: 'blur(12px)', borderBottom: `1px solid ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'}`, padding: '0 16px', height: '56px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <nav dir="rtl" style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50, background: navBg, backdropFilter: 'blur(12px)', borderBottom: `1px solid ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'}`, padding: '0 16px', height: '56px', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', direction: 'rtl' }}>
         {/* Logo + name — right side in RTL */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <div style={{ width: '34px', height: '34px', borderRadius: '50%', background: `linear-gradient(135deg,${c0},${colors[1] ?? '#f59e0b'})`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>

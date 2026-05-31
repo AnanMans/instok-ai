@@ -917,11 +917,11 @@ export default function Page() {
       if (session) {
         const { data: existing } = await supabase
           .from('stores')
-          .select('slug')
+          .select('id')
           .eq('owner_id', session.user.id)
           .limit(1)
-          .single()
-        if (existing?.slug) {
+          .maybeSingle()
+        if (existing) {
           router.replace('/dashboard')
           return
         }

@@ -57,9 +57,15 @@ export default function Dashboard() {
     supabase.auth.getSession().then(async ({ data: { session } }) => {
       if (!session) { router.replace('/'); return }
 
-      const { data: storeData } = await supabase
-        .from('stores').select('*').eq('owner_id', session.user.id).limit(1).single()
-      if (!storeData) { router.replace('/onboarding'); return }
+      const fetchStore = () => supabase
+        .from('stores').select('*').eq('owner_id', session.user.id).limit(1).maybeSingle()
+
+      let { data: storeData } = await fetchStore()
+      if (!storeData) {
+        await new Promise(r => setTimeout(r, 2000))
+        ;({ data: storeData } = await fetchStore())
+        if (!storeData) { router.replace('/onboarding'); return }
+      }
 
       const { data: prods } = await supabase
         .from('products').select('*').eq('store_id', storeData.id).order('created_at', { ascending: false })
