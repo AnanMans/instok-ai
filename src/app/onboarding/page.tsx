@@ -689,8 +689,8 @@ export default function Page() {
               </div>
 
               {/* Phone mockup */}
-              <div style={{ width: '240px', height: '420px', maxWidth: '100%', minWidth: 0, borderRadius: '24px', overflow: 'hidden', margin: '0 auto', flexShrink: 0, border: '2px solid rgba(255,255,255,0.15)', boxShadow: '0 20px 40px rgba(0,0,0,0.5)' }}>
-                <div style={{ width: '375px', transform: 'scale(0.42)', transformOrigin: 'top center', pointerEvents: 'none' }}>
+              <div style={{ width: '240px', height: '420px', overflow: 'hidden', borderRadius: '24px', position: 'relative', margin: '0 auto', flexShrink: 0, border: '2px solid rgba(255,255,255,0.15)', boxShadow: '0 20px 40px rgba(0,0,0,0.5)' }}>
+                <div style={{ position: 'absolute', top: 0, left: 0, width: '375px', height: '812px', transform: 'scale(0.64)', transformOrigin: 'top left', pointerEvents: 'none' }}>
                   <StoreTemplate store={previewStore} products={previewProducts} preview={true} />
                 </div>
               </div>
