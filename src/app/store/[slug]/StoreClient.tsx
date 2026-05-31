@@ -28,30 +28,395 @@ type Product = {
   description?: string
 }
 
-const ARCHETYPE_LABELS: Record<string, { ar: string; he: string }> = {
-  luxury:     { ar: 'فاخر',     he: 'יוקרה' },
-  gaming:     { ar: 'جيمنج',   he: 'גיימינג' },
-  beauty:     { ar: 'جمال',    he: 'יופי' },
-  streetwear: { ar: 'ستريت',   he: 'סטריט' },
-  restaurant: { ar: 'مطعم',   he: 'מסעדה' },
-  tech:       { ar: 'تقنية',   he: 'טק' },
-  minimal:    { ar: 'مينيمال', he: 'מינימל' },
-  creator:    { ar: 'إبداعي',  he: 'יצירתי' },
+const KNOWN = ['luxury', 'gaming', 'beauty', 'streetwear', 'restaurant', 'tech', 'minimal', 'creator']
+
+// ── Per-archetype design tokens ────────────────────────────────────────────────
+
+type ArchCfg = {
+  pageBg: string
+  navBg: string
+  navBorder: string
+  navTextColor: string
+  textColor: string
+  mutedColor: string
+  sectionBg: string
+  sectionBorder: string
+  cardBg: string
+  cardBorder: string
+  cardRadius: string
+  cardExtra?: React.CSSProperties
+  nameStyle: React.CSSProperties
+  priceStyle: React.CSSProperties
+  sectionTitleColor: string
+  pillBg: string
+  pillBorder: string
+  pillColor: string
 }
 
-function getHeroBg(archetype: string, c0: string, c1: string) {
+function getConfig(archetype: string, c0: string, c1: string): ArchCfg {
   switch (archetype) {
-    case 'luxury':     return `linear-gradient(160deg, #050505 0%, ${c0}30 60%, #0d0a00 100%)`
-    case 'gaming':     return `linear-gradient(135deg, #050510 0%, ${c0}40 100%)`
-    case 'beauty':     return `linear-gradient(135deg, #0a0505 0%, ${c0}55 100%)`
-    case 'streetwear': return `linear-gradient(160deg, #0a0a0a 0%, ${c0}30 70%, #1a0a2e 100%)`
-    case 'minimal':    return `linear-gradient(135deg, #0a0a0a 0%, ${c0}25 100%)`
-    case 'restaurant': return `linear-gradient(135deg, #1a0800 0%, ${c0}40 100%)`
-    case 'tech':       return `linear-gradient(135deg, #000814 0%, ${c0}35 100%)`
-    case 'creator':    return `linear-gradient(135deg, #0f0a1e 0%, ${c1}30 100%)`
-    default:           return `linear-gradient(135deg, #0a0a0a 0%, ${c0}25 100%)`
+    case 'luxury':
+      return {
+        pageBg: '#060604',
+        navBg: '#060604',
+        navBorder: `${c0}25`,
+        navTextColor: c0,
+        textColor: c0,
+        mutedColor: `${c0}60`,
+        sectionBg: '#0d0c08',
+        sectionBorder: `${c0}18`,
+        cardBg: '#0d0c08',
+        cardBorder: `${c0}28`,
+        cardRadius: '2px',
+        nameStyle: { fontWeight: 300, letterSpacing: '0.12em', textTransform: 'uppercase' as const, fontSize: '11px', color: 'rgba(255,255,255,0.7)' },
+        priceStyle: { fontWeight: 300, color: c0, fontSize: '14px', letterSpacing: '0.06em' },
+        sectionTitleColor: `${c0}70`,
+        pillBg: `${c0}15`,
+        pillBorder: `${c0}30`,
+        pillColor: c0,
+      }
+    case 'gaming':
+      return {
+        pageBg: '#03030f',
+        navBg: '#06061a',
+        navBorder: `${c0}50`,
+        navTextColor: '#fff',
+        textColor: '#fff',
+        mutedColor: 'rgba(255,255,255,0.4)',
+        sectionBg: '#08081e',
+        sectionBorder: `${c0}30`,
+        cardBg: '#0a0a20',
+        cardBorder: `${c0}60`,
+        cardRadius: '8px',
+        cardExtra: { boxShadow: `0 0 12px ${c0}25` },
+        nameStyle: { fontWeight: 700, fontSize: '12px', color: '#fff', letterSpacing: '0.02em' },
+        priceStyle: { fontWeight: 800, color: c0, fontSize: '15px', textShadow: `0 0 8px ${c0}` },
+        sectionTitleColor: c0,
+        pillBg: `${c0}20`,
+        pillBorder: `${c0}50`,
+        pillColor: c0,
+      }
+    case 'beauty':
+      return {
+        pageBg: '#fdf2f8',
+        navBg: '#fff',
+        navBorder: '#f9d5eb',
+        navTextColor: '#4a1942',
+        textColor: '#4a1942',
+        mutedColor: '#b07fa0',
+        sectionBg: '#fff',
+        sectionBorder: '#f9d5eb',
+        cardBg: '#fff',
+        cardBorder: '#fce4f3',
+        cardRadius: '24px',
+        cardExtra: { boxShadow: '0 4px 20px rgba(200,100,160,0.1)' },
+        nameStyle: { fontWeight: 500, fontSize: '12px', color: '#4a1942', letterSpacing: '0.01em' },
+        priceStyle: { fontWeight: 700, color: c0 || '#d4529a', fontSize: '14px' },
+        sectionTitleColor: '#b07fa0',
+        pillBg: '#fce4f3',
+        pillBorder: '#f9d5eb',
+        pillColor: '#9c3a7a',
+      }
+    case 'streetwear':
+      return {
+        pageBg: '#000',
+        navBg: '#000',
+        navBorder: 'rgba(255,255,255,0.08)',
+        navTextColor: '#fff',
+        textColor: '#fff',
+        mutedColor: 'rgba(255,255,255,0.35)',
+        sectionBg: '#0a0a0a',
+        sectionBorder: 'rgba(255,255,255,0.06)',
+        cardBg: '#0a0a0a',
+        cardBorder: 'transparent',
+        cardRadius: '0px',
+        cardExtra: { borderLeft: `3px solid ${c0}` },
+        nameStyle: { fontWeight: 700, fontSize: '12px', color: '#fff', letterSpacing: '0.04em', textTransform: 'uppercase' as const },
+        priceStyle: { fontWeight: 900, color: c0, fontSize: '15px' },
+        sectionTitleColor: 'rgba(255,255,255,0.3)',
+        pillBg: 'rgba(255,255,255,0.05)',
+        pillBorder: 'rgba(255,255,255,0.1)',
+        pillColor: '#fff',
+      }
+    case 'minimal':
+      return {
+        pageBg: '#fff',
+        navBg: '#fff',
+        navBorder: '#e8e8e8',
+        navTextColor: '#111',
+        textColor: '#111',
+        mutedColor: '#999',
+        sectionBg: '#fafafa',
+        sectionBorder: '#efefef',
+        cardBg: '#fff',
+        cardBorder: '#efefef',
+        cardRadius: '4px',
+        nameStyle: { fontWeight: 500, fontSize: '11px', color: '#555', letterSpacing: '0.08em', textTransform: 'uppercase' as const },
+        priceStyle: { fontWeight: 600, color: c0 || '#111', fontSize: '13px' },
+        sectionTitleColor: '#bbb',
+        pillBg: '#f5f5f5',
+        pillBorder: '#e8e8e8',
+        pillColor: '#555',
+      }
+    case 'restaurant':
+      return {
+        pageBg: '#1a0500',
+        navBg: '#120300',
+        navBorder: `${c0}25`,
+        navTextColor: c0 || '#f59e0b',
+        textColor: '#fff',
+        mutedColor: 'rgba(255,255,255,0.4)',
+        sectionBg: '#200800',
+        sectionBorder: `${c0}20`,
+        cardBg: '#1e0600',
+        cardBorder: `${c0}30`,
+        cardRadius: '12px',
+        nameStyle: { fontWeight: 600, fontSize: '13px', color: '#fff', letterSpacing: '0.01em' },
+        priceStyle: { fontWeight: 800, color: c0 || '#f59e0b', fontSize: '18px' },
+        sectionTitleColor: `${c0}80`,
+        pillBg: `${c0}18`,
+        pillBorder: `${c0}35`,
+        pillColor: c0 || '#f59e0b',
+      }
+    case 'tech':
+      return {
+        pageBg: '#000814',
+        navBg: '#000d1f',
+        navBorder: `${c0}30`,
+        navTextColor: '#e0f2ff',
+        textColor: '#e0f2ff',
+        mutedColor: 'rgba(200,230,255,0.35)',
+        sectionBg: '#000d1f',
+        sectionBorder: `${c0}25`,
+        cardBg: '#000d1f',
+        cardBorder: `${c0}35`,
+        cardRadius: '6px',
+        cardExtra: { boxShadow: `0 0 16px ${c0}15` },
+        nameStyle: { fontWeight: 500, fontSize: '11px', color: '#9ecff0', letterSpacing: '0.03em', fontFamily: 'monospace' },
+        priceStyle: { fontWeight: 700, color: c0 || '#38bdf8', fontSize: '15px' },
+        sectionTitleColor: `${c0}70`,
+        pillBg: `${c0}15`,
+        pillBorder: `${c0}30`,
+        pillColor: c0 || '#38bdf8',
+      }
+    case 'creator':
+    default:
+      return {
+        pageBg: '#0f0a1e',
+        navBg: '#130d24',
+        navBorder: `${c0}30`,
+        navTextColor: '#fff',
+        textColor: '#fff',
+        mutedColor: 'rgba(255,255,255,0.45)',
+        sectionBg: '#130d24',
+        sectionBorder: `${c0}25`,
+        cardBg: '#1a1030',
+        cardBorder: 'transparent',
+        cardRadius: '16px',
+        cardExtra: { borderTop: `3px solid ${c0}` },
+        nameStyle: { fontWeight: 600, fontSize: '12px', color: '#e0d4ff', letterSpacing: '0.01em' },
+        priceStyle: { fontWeight: 700, color: c0, fontSize: '14px' },
+        sectionTitleColor: `${c0}80`,
+        pillBg: `${c0}20`,
+        pillBorder: `${c0}40`,
+        pillColor: '#e0d4ff',
+      }
   }
 }
+
+// ── Hero sections ───────────────────────────────────────────────────────────────
+
+function LuxuryHero({ store, c0, ar }: { store: Store; c0: string; ar: boolean }) {
+  return (
+    <div style={{ background: '#060604', paddingTop: '56px', textAlign: 'center', position: 'relative' }}>
+      <div style={{ padding: '60px 32px 20px' }}>
+        <div style={{ width: '40px', height: '1px', background: c0, margin: '0 auto 28px', opacity: 0.5 }} />
+        <p style={{ fontSize: '10px', letterSpacing: '0.35em', color: `${c0}70`, textTransform: 'uppercase', marginBottom: '20px', fontWeight: 300 }}>
+          {ar ? 'مجموعة حصرية' : 'קולקציה בלעדית'}
+        </p>
+        <h1 style={{ fontSize: '22px', fontWeight: 200, color: c0, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '18px', lineHeight: 1.4 }}>
+          {store.name}
+        </h1>
+        <div style={{ width: '60px', height: '1px', background: c0, margin: '0 auto 18px', opacity: 0.35 }} />
+        {store.slogan && (
+          <p style={{ fontSize: '11px', color: `${c0}55`, fontWeight: 200, letterSpacing: '0.15em', fontStyle: 'italic', marginBottom: '32px' }}>
+            {store.slogan}
+          </p>
+        )}
+        <a href="#products" style={{ display: 'inline-block', border: `1px solid ${c0}50`, color: c0, padding: '10px 32px', fontSize: '10px', letterSpacing: '0.25em', textTransform: 'uppercase', textDecoration: 'none', fontWeight: 300 }}>
+          {ar ? 'استكشف المجموعة' : 'גלה את הקולקציה'}
+        </a>
+      </div>
+      <div style={{ height: '32px', background: 'linear-gradient(to bottom, #060604, #060604)' }} />
+    </div>
+  )
+}
+
+function GamingHero({ store, c0, c1, ar }: { store: Store; c0: string; c1: string; ar: boolean }) {
+  return (
+    <div style={{ background: `linear-gradient(135deg, #03030f 0%, #0a0820 50%, #03030f 100%)`, paddingTop: '56px', position: 'relative', overflow: 'hidden' }}>
+      {/* Scanline texture */}
+      <div style={{ position: 'absolute', inset: 0, background: `repeating-linear-gradient(0deg, transparent, transparent 3px, ${c0}05 3px, ${c0}05 4px)`, pointerEvents: 'none' }} />
+      {/* Glow orbs */}
+      <div style={{ position: 'absolute', top: '20px', right: '10%', width: '120px', height: '120px', background: c0, borderRadius: '50%', filter: 'blur(60px)', opacity: 0.15 }} />
+      <div style={{ position: 'absolute', bottom: '0', left: '5%', width: '80px', height: '80px', background: c1, borderRadius: '50%', filter: 'blur(40px)', opacity: 0.1 }} />
+      <div style={{ padding: '44px 24px 36px', textAlign: 'center', position: 'relative', zIndex: 1 }}>
+        <div style={{ display: 'inline-block', background: `${c0}22`, border: `1px solid ${c0}60`, borderRadius: '4px', padding: '4px 14px', fontSize: '10px', fontWeight: 700, color: c0, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '20px', boxShadow: `0 0 12px ${c0}30` }}>
+          {ar ? '▶ متجر جيمنج' : '▶ GAMING STORE'}
+        </div>
+        <h1 style={{ fontSize: '36px', fontWeight: 900, color: '#fff', textShadow: `0 0 30px ${c0}80, 0 0 60px ${c0}30`, marginBottom: '10px', letterSpacing: '-0.02em', lineHeight: 1.1 }}>
+          {store.name}
+        </h1>
+        {store.slogan && (
+          <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.45)', marginBottom: '28px' }}>{store.slogan}</p>
+        )}
+        <a href="#products" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: c0, color: '#fff', borderRadius: '6px', padding: '12px 28px', fontSize: '13px', fontWeight: 800, textDecoration: 'none', boxShadow: `0 0 24px ${c0}60`, letterSpacing: '0.05em', textTransform: 'uppercase' }}>
+          {ar ? 'تسوّق الآن ▶' : 'SHOP NOW ▶'}
+        </a>
+      </div>
+    </div>
+  )
+}
+
+function BeautyHero({ store, c0, c1, ar }: { store: Store; c0: string; c1: string; ar: boolean }) {
+  return (
+    <div style={{ background: 'linear-gradient(160deg, #fdf2f8 0%, #fff0f9 50%, #fdf2f8 100%)', paddingTop: '56px' }}>
+      <div style={{ padding: '48px 24px 40px', textAlign: 'center' }}>
+        <div style={{ width: '56px', height: '56px', borderRadius: '50%', background: `linear-gradient(135deg, ${c0 || '#e879ad'}, ${c1 || '#f9a8d4'})`, margin: '0 auto 20px', boxShadow: `0 8px 32px ${c0 || '#e879ad'}40`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <span style={{ fontSize: '22px' }}>✿</span>
+        </div>
+        <h1 style={{ fontSize: '28px', fontWeight: 700, color: '#4a1942', fontStyle: 'italic', marginBottom: '10px', letterSpacing: '-0.01em', lineHeight: 1.2 }}>
+          {store.name}
+        </h1>
+        {store.slogan && (
+          <p style={{ fontSize: '13px', color: '#b07fa0', marginBottom: '28px', lineHeight: 1.6 }}>{store.slogan}</p>
+        )}
+        <a href="#products" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: `linear-gradient(135deg, ${c0 || '#e879ad'}, ${c1 || '#f9a8d4'})`, color: '#fff', borderRadius: '50px', padding: '13px 32px', fontSize: '14px', fontWeight: 700, textDecoration: 'none', boxShadow: `0 8px 24px ${c0 || '#e879ad'}40` }}>
+          {ar ? 'تسوّقي الآن ✿' : 'קני עכשיו ✿'}
+        </a>
+      </div>
+      <div style={{ height: '24px', background: 'linear-gradient(to bottom, #fdf2f8, #fdf2f8)' }} />
+    </div>
+  )
+}
+
+function StreetwearHero({ store, c0, ar }: { store: Store; c0: string; ar: boolean }) {
+  const nameLen = store.name.length
+  const nameFontSize = nameLen > 12 ? '36px' : nameLen > 8 ? '48px' : '56px'
+  return (
+    <div style={{ background: '#000', paddingTop: '56px', borderBottom: `3px solid ${c0}` }}>
+      <div style={{ padding: '40px 20px 32px' }}>
+        <div style={{ fontSize: '9px', color: 'rgba(255,255,255,0.3)', letterSpacing: '0.4em', textTransform: 'uppercase', marginBottom: '12px' }}>
+          {ar ? 'الموسم الجديد — DROP 001' : 'SEASON DROP 001'}
+        </div>
+        <h1 style={{ fontSize: nameFontSize, fontWeight: 900, color: '#fff', lineHeight: 0.95, letterSpacing: '-0.03em', textTransform: 'uppercase', marginBottom: '20px', wordBreak: 'break-word' }}>
+          {store.name}
+        </h1>
+        {store.slogan && (
+          <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', letterSpacing: '0.15em', marginBottom: '28px' }}>
+            {store.slogan}
+          </p>
+        )}
+        <a href="#products" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: c0, color: '#fff', padding: '12px 28px', fontSize: '12px', fontWeight: 900, textDecoration: 'none', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+          {ar ? 'تسوّق الدروب →' : 'SHOP THE DROP →'}
+        </a>
+      </div>
+    </div>
+  )
+}
+
+function MinimalHero({ store, c0, ar }: { store: Store; c0: string; ar: boolean }) {
+  return (
+    <div style={{ background: '#fff', paddingTop: '56px', borderBottom: '1px solid #efefef' }}>
+      <div style={{ padding: '56px 32px 48px', textAlign: 'center' }}>
+        <p style={{ fontSize: '10px', color: '#bbb', letterSpacing: '0.3em', textTransform: 'uppercase', marginBottom: '16px' }}>
+          {ar ? 'متجر أونلاين' : 'ONLINE STORE'}
+        </p>
+        <h1 style={{ fontSize: '26px', fontWeight: 300, color: '#111', letterSpacing: '0.05em', marginBottom: '12px' }}>
+          {store.name}
+        </h1>
+        <div style={{ width: '32px', height: '1px', background: '#ddd', margin: '0 auto 16px' }} />
+        {store.slogan && (
+          <p style={{ fontSize: '13px', color: '#aaa', fontWeight: 300, marginBottom: '36px' }}>{store.slogan}</p>
+        )}
+        <a href="#products" style={{ display: 'inline-block', border: '1px solid #111', color: '#111', padding: '10px 28px', fontSize: '11px', letterSpacing: '0.2em', textTransform: 'uppercase', textDecoration: 'none', fontWeight: 400 }}>
+          {ar ? 'عرض المنتجات' : 'VIEW PRODUCTS'}
+        </a>
+      </div>
+    </div>
+  )
+}
+
+function RestaurantHero({ store, c0, ar }: { store: Store; c0: string; ar: boolean }) {
+  return (
+    <div style={{ background: `linear-gradient(160deg, #1a0500 0%, #2d0a00 60%, #1a0500 100%)`, paddingTop: '56px', position: 'relative', overflow: 'hidden' }}>
+      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3px', background: `linear-gradient(90deg, transparent, ${c0 || '#f59e0b'}, transparent)` }} />
+      <div style={{ padding: '44px 24px 36px', textAlign: 'center' }}>
+        <div style={{ fontSize: '36px', marginBottom: '14px' }}>🍽️</div>
+        <h1 style={{ fontSize: '30px', fontWeight: 800, color: c0 || '#f59e0b', marginBottom: '8px', lineHeight: 1.2 }}>
+          {store.name}
+        </h1>
+        {store.slogan && (
+          <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.45)', marginBottom: '28px', fontStyle: 'italic' }}>{store.slogan}</p>
+        )}
+        <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', flexWrap: 'wrap' }}>
+          <a href="#products" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: '#22c55e', color: '#fff', borderRadius: '20px', padding: '11px 24px', fontSize: '13px', fontWeight: 700, textDecoration: 'none' }}>
+            🛵 {ar ? 'اطلب توصيل' : 'הזמן משלוח'}
+          </a>
+          <a href="#products" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', border: `1px solid ${c0 || '#f59e0b'}50`, color: c0 || '#f59e0b', borderRadius: '20px', padding: '11px 24px', fontSize: '13px', fontWeight: 600, textDecoration: 'none' }}>
+            📍 {ar ? 'استلام' : 'איסוף'}
+          </a>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function TechHero({ store, c0, ar }: { store: Store; c0: string; ar: boolean }) {
+  return (
+    <div style={{ background: 'linear-gradient(160deg, #000814 0%, #000d25 50%, #000814 100%)', paddingTop: '56px', position: 'relative', overflow: 'hidden' }}>
+      <div style={{ position: 'absolute', inset: 0, background: `radial-gradient(ellipse 60% 50% at 50% 100%, ${c0 || '#0ea5e9'}18, transparent)`, pointerEvents: 'none' }} />
+      <div style={{ padding: '44px 24px 36px', position: 'relative', zIndex: 1 }}>
+        <div style={{ fontSize: '10px', color: c0 || '#38bdf8', letterSpacing: '0.2em', fontFamily: 'monospace', marginBottom: '16px', opacity: 0.8 }}>
+          {'// STORE_INIT: ' + store.name.toLowerCase().replace(/\s+/g, '_')}
+        </div>
+        <h1 style={{ fontSize: '28px', fontWeight: 800, color: '#e0f2ff', fontFamily: 'monospace', marginBottom: '8px', letterSpacing: '-0.02em', lineHeight: 1.2 }}>
+          {store.name}
+        </h1>
+        {store.slogan && (
+          <p style={{ fontSize: '12px', color: 'rgba(200,230,255,0.4)', fontFamily: 'monospace', marginBottom: '28px' }}>{store.slogan}</p>
+        )}
+        <a href="#products" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: `linear-gradient(135deg, ${c0 || '#0ea5e9'}, ${c0 || '#0ea5e9'}cc)`, color: '#fff', borderRadius: '6px', padding: '12px 24px', fontSize: '12px', fontWeight: 700, textDecoration: 'none', fontFamily: 'monospace', boxShadow: `0 4px 20px ${c0 || '#0ea5e9'}40`, letterSpacing: '0.05em' }}>
+          {ar ? 'تصفح المنتجات →' : 'BROWSE →'}
+        </a>
+      </div>
+    </div>
+  )
+}
+
+function CreatorHero({ store, c0, c1, ar }: { store: Store; c0: string; c1: string; ar: boolean }) {
+  return (
+    <div style={{ background: `linear-gradient(135deg, #0f0a1e 0%, ${c0}30 50%, #1a0f35 100%)`, paddingTop: '56px', position: 'relative', overflow: 'hidden' }}>
+      <div style={{ position: 'absolute', top: '30px', right: '20px', width: '100px', height: '100px', background: c1, borderRadius: '50%', filter: 'blur(50px)', opacity: 0.2 }} />
+      <div style={{ padding: '44px 24px 36px', textAlign: 'center', position: 'relative', zIndex: 1 }}>
+        <div style={{ display: 'inline-block', background: `linear-gradient(135deg, ${c0}, ${c1})`, borderRadius: '50px', padding: '4px 16px', fontSize: '11px', fontWeight: 700, color: '#fff', marginBottom: '18px' }}>
+          ✦ {ar ? 'منتجات حصرية' : 'מוצרים בלעדיים'}
+        </div>
+        <h1 style={{ fontSize: '30px', fontWeight: 800, color: '#fff', marginBottom: '10px', lineHeight: 1.2 }}>
+          {store.name}
+        </h1>
+        {store.slogan && (
+          <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)', marginBottom: '28px', lineHeight: 1.6 }}>{store.slogan}</p>
+        )}
+        <a href="#products" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: `linear-gradient(135deg, ${c0}, ${c1})`, color: '#fff', borderRadius: '50px', padding: '13px 32px', fontSize: '14px', fontWeight: 700, textDecoration: 'none', boxShadow: `0 8px 24px ${c0}50` }}>
+          {ar ? 'تسوّق الآن ✦' : 'קנה עכשיו ✦'}
+        </a>
+      </div>
+    </div>
+  )
+}
+
+// ── Main component ────────────────────────────────────────────────────────────
 
 export default function StoreClient({ store, products }: { store: Store; products: Product[] }) {
   const lang = (store.lang ?? 'ar') as 'ar' | 'he'
@@ -60,11 +425,8 @@ export default function StoreClient({ store, products }: { store: Store; product
   const colors = Array.isArray(store.colors) ? store.colors : ['#7c3aed', '#f59e0b', '#0f172a']
   const c0 = colors[0] ?? '#7c3aed'
   const c1 = colors[1] ?? '#f59e0b'
-  const KNOWN = ['luxury', 'gaming', 'beauty', 'streetwear', 'restaurant', 'tech', 'minimal', 'creator']
   const archetype = KNOWN.includes(store.archetype ?? '') ? (store.archetype ?? 'minimal') : 'minimal'
-
-  const heroBg = getHeroBg(archetype, c0, c1)
-  const archetypeLabel = ARCHETYPE_LABELS[archetype]?.[lang] ?? archetype
+  const cfg = getConfig(archetype, c0, c1)
 
   const [cartCount, setCartCount] = useState(0)
   const [drawerProduct, setDrawerProduct] = useState<Product | null>(null)
@@ -73,14 +435,10 @@ export default function StoreClient({ store, products }: { store: Store; product
   const openDrawer = (p: Product) => { setDrawerProduct(p); setDrawerOpen(true) }
   const closeDrawer = () => setDrawerOpen(false)
 
-  const waNumber = store.whatsapp_number
-    ?.replace(/\D/g, '')
-    ?.replace(/^0/, '972')
-    ?? ''
+  const waNumber = store.whatsapp_number?.replace(/\D/g, '')?.replace(/^0/, '972') ?? ''
   const waGeneralLink = waNumber
     ? `https://wa.me/${waNumber}?text=${encodeURIComponent(ar ? `مرحباً، أريد الاستفسار عن متجر ${store.name} 👋` : `היי, אני רוצה לשאול על החנות ${store.name} 👋`)}`
     : ''
-
   const makeWaLink = (p: Product) =>
     `https://wa.me/${waNumber}?text=${encodeURIComponent(ar
       ? `مرحباً، أريد طلب: ${p.name} — ₪${p.price}`
@@ -92,23 +450,29 @@ export default function StoreClient({ store, products }: { store: Store; product
 
   const imgFallback = 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop'
 
+  const isLight = archetype === 'beauty' || archetype === 'minimal'
+
   return (
-    <div dir="rtl" className={fontClass} style={{ minHeight: '100vh', background: '#0a0a0a', color: '#fff', overflowX: 'hidden', paddingBottom: waNumber ? '80px' : '0' }}>
+    <div dir="rtl" className={fontClass} style={{ minHeight: '100vh', background: cfg.pageBg, color: cfg.textColor, overflowX: 'hidden', paddingBottom: waNumber ? '80px' : '0' }}>
       <style>{`
         *{box-sizing:border-box}
         body{margin:0;padding:0}
         @keyframes drawerUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+        @keyframes spin{to{transform:rotate(360deg)}}
         .drawer-open{animation:drawerUp 0.28s cubic-bezier(0.32,0.72,0,1) forwards}
+        .prod-card{transition:transform 0.15s,box-shadow 0.15s}
         .prod-card:active{transform:scale(0.97)}
       `}</style>
 
-      {/* ── Navbar ────────────────────────────────────────────── */}
-      <nav dir="rtl" style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50, background: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(12px)', borderBottom: '1px solid rgba(255,255,255,0.06)', padding: '0 16px', height: '56px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      {/* ── Navbar ─────────────────────────────────────────────── */}
+      <nav dir="rtl" style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50, background: cfg.navBg, backdropFilter: 'blur(12px)', borderBottom: `1px solid ${cfg.navBorder}`, padding: '0 16px', height: '56px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <div style={{ width: '34px', height: '34px', borderRadius: '50%', background: `linear-gradient(135deg,${c0},${c1})`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-            <span style={{ fontSize: '14px', fontWeight: 800, color: '#fff' }}>{(store.name?.[0] ?? '?').toUpperCase()}</span>
+          <div style={{ width: '34px', height: '34px', borderRadius: archetype === 'streetwear' ? '4px' : archetype === 'minimal' ? '4px' : '50%', background: `linear-gradient(135deg,${c0},${c1})`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: (archetype === 'gaming' || archetype === 'tech') ? `0 0 10px ${c0}50` : 'none' }}>
+            <span style={{ fontSize: '13px', fontWeight: 800, color: '#fff' }}>{(store.name?.[0] ?? '?').toUpperCase()}</span>
           </div>
-          <span style={{ fontSize: '15px', fontWeight: 700 }}>{store.name}</span>
+          <span style={{ fontSize: archetype === 'streetwear' ? '13px' : '15px', fontWeight: archetype === 'streetwear' ? 900 : archetype === 'luxury' ? 300 : 700, color: cfg.navTextColor, letterSpacing: archetype === 'luxury' ? '0.15em' : archetype === 'streetwear' ? '0.05em' : '0', textTransform: (archetype === 'luxury' || archetype === 'streetwear') ? 'uppercase' : 'none' }}>
+            {store.name}
+          </span>
         </div>
         <div style={{ position: 'relative' }}>
           <span style={{ fontSize: '22px', cursor: 'pointer' }}>🛒</span>
@@ -118,114 +482,101 @@ export default function StoreClient({ store, products }: { store: Store; product
         </div>
       </nav>
 
-      {/* ── Hero ──────────────────────────────────────────────── */}
-      <div id="hero" style={{ background: heroBg, paddingTop: '56px', paddingBottom: '0', position: 'relative', overflow: 'hidden' }}>
-        {archetype === 'gaming' && (
-          <div style={{ position: 'absolute', inset: 0, background: `repeating-linear-gradient(0deg,transparent,transparent 24px,${c0}08 24px,${c0}08 25px)`, pointerEvents: 'none' }} />
-        )}
-        <div style={{ padding: '40px 24px 36px', textAlign: 'center', position: 'relative' }}>
-          {/* Store name */}
-          <h1 style={{
-            fontSize: '32px',
-            fontWeight: archetype === 'luxury' ? 300 : 800,
-            color: archetype === 'luxury' ? c0 : '#fff',
-            letterSpacing: archetype === 'luxury' ? '0.12em' : '-0.02em',
-            textTransform: archetype === 'luxury' ? 'uppercase' : 'none',
-            marginBottom: '10px',
-            lineHeight: 1.2,
-            wordBreak: 'break-word',
-          }}>
-            {store.name}
-          </h1>
+      {/* ── Hero ───────────────────────────────────────────────── */}
+      {archetype === 'luxury'     && <LuxuryHero     store={store} c0={c0}           ar={ar} />}
+      {archetype === 'gaming'     && <GamingHero     store={store} c0={c0} c1={c1}   ar={ar} />}
+      {archetype === 'beauty'     && <BeautyHero     store={store} c0={c0} c1={c1}   ar={ar} />}
+      {archetype === 'streetwear' && <StreetwearHero store={store} c0={c0}           ar={ar} />}
+      {archetype === 'minimal'    && <MinimalHero    store={store} c0={c0}           ar={ar} />}
+      {archetype === 'restaurant' && <RestaurantHero store={store} c0={c0}           ar={ar} />}
+      {archetype === 'tech'       && <TechHero       store={store} c0={c0}           ar={ar} />}
+      {archetype === 'creator'    && <CreatorHero    store={store} c0={c0} c1={c1}   ar={ar} />}
 
-          {/* Slogan */}
-          {store.slogan && (
-            <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.6)', marginBottom: '28px', fontStyle: archetype === 'luxury' ? 'italic' : 'normal', lineHeight: 1.5 }}>
-              {store.slogan}
-            </p>
-          )}
-
-          {/* Scroll CTA */}
-          <a href="#products" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: c0, color: '#fff', borderRadius: '14px', padding: '12px 24px', fontSize: '14px', fontWeight: 700, textDecoration: 'none', boxShadow: `0 4px 24px ${c0}55` }}>
-            {ar ? 'تسوّق الآن ↓' : 'קנה עכשיו ↓'}
-          </a>
-        </div>
-
-        {/* Bottom fade into page bg */}
-        <div style={{ height: '40px', background: 'linear-gradient(to bottom, transparent, #0a0a0a)' }} />
-      </div>
-
-      {/* ── About ─────────────────────────────────────────────── */}
+      {/* ── About ──────────────────────────────────────────────── */}
       {store.description && (
-        <div style={{ padding: '0 16px', maxWidth: '600px', margin: '0 auto 16px' }}>
-          <div style={{ background: '#111', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '16px', padding: '16px 18px' }}>
-            <p style={{ fontSize: '12px', fontWeight: 700, color: 'rgba(255,255,255,0.4)', marginBottom: '8px', letterSpacing: '0.06em' }}>
+        <div style={{ padding: '20px 16px 0', maxWidth: '600px', margin: '0 auto' }}>
+          <div style={{ background: cfg.sectionBg, border: `1px solid ${cfg.sectionBorder}`, borderRadius: '16px', padding: '16px 18px' }}>
+            <p style={{ fontSize: '11px', fontWeight: 700, color: cfg.sectionTitleColor, marginBottom: '8px', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
               {ar ? 'نبذة عنّا' : 'עלינו'}
             </p>
-            <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.65)', lineHeight: 1.7 }}>{store.description}</p>
+            <p style={{ fontSize: '13px', color: cfg.mutedColor, lineHeight: 1.7 }}>{store.description}</p>
           </div>
         </div>
       )}
 
       {/* ── Products ──────────────────────────────────────────── */}
-      <div id="products" style={{ padding: '0 16px', maxWidth: '600px', margin: '0 auto' }}>
-        <h2 style={{ fontSize: '16px', fontWeight: 700, color: 'rgba(255,255,255,0.7)', marginBottom: '14px', letterSpacing: '0.04em' }}>
+      <div id="products" style={{ padding: '20px 16px 0', maxWidth: '600px', margin: '0 auto' }}>
+        <h2 style={{ fontSize: '11px', fontWeight: 700, color: cfg.sectionTitleColor, marginBottom: '14px', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
           {ar ? 'المنتجات' : 'מוצרים'}
         </h2>
 
         {products.length === 0 ? (
-          <div style={{ textAlign: 'center', padding: '48px 24px', background: '#111', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.06)', marginBottom: '24px' }}>
-            <div style={{ fontSize: '52px', marginBottom: '14px' }}>📦</div>
-            <p style={{ fontSize: '16px', fontWeight: 700, color: 'rgba(255,255,255,0.8)', marginBottom: '6px' }}>
+          <div style={{ textAlign: 'center', padding: '48px 24px', background: cfg.sectionBg, borderRadius: '16px', border: `1px solid ${cfg.sectionBorder}`, marginBottom: '24px' }}>
+            <div style={{ fontSize: '44px', marginBottom: '12px' }}>📦</div>
+            <p style={{ fontSize: '15px', fontWeight: 700, color: cfg.textColor, marginBottom: '6px', opacity: 0.8 }}>
               {ar ? 'قريباً — المتجر يستعد للإطلاق' : 'בקרוב — החנות בהכנה'}
             </p>
-            <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.35)' }}>
+            <p style={{ fontSize: '12px', color: cfg.mutedColor }}>
               {ar ? 'تابعونا للتحديثات' : 'עקבו אחרינו לעדכונים'}
             </p>
           </div>
         ) : (
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '32px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: archetype === 'streetwear' ? '2px' : '12px', marginBottom: '24px' }}>
             {products.map(p => (
               <div key={p.id} className="prod-card"
                 onClick={() => openDrawer(p)}
-                style={{ background: '#111', borderRadius: '16px', overflow: 'hidden', cursor: 'pointer', border: '1px solid rgba(255,255,255,0.06)', boxShadow: '0 4px 20px rgba(0,0,0,0.3)', transition: 'transform 0.15s' }}>
-                <div style={{ aspectRatio: '1', overflow: 'hidden', background: '#1a1a1a' }}>
-                  <img
-                    src={p.image_url || imgFallback}
-                    alt={p.name}
-                    onError={e => { (e.target as HTMLImageElement).src = imgFallback }}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                  />
-                </div>
-                <div style={{ padding: '10px 12px' }}>
-                  <p style={{ fontSize: '13px', fontWeight: 600, color: '#fff', marginBottom: '4px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.name}</p>
-                  <p style={{ fontSize: '15px', fontWeight: 700, color: c0 }}>₪{p.price}</p>
-                </div>
+                style={{ background: cfg.cardBg, borderRadius: cfg.cardRadius, overflow: 'hidden', cursor: 'pointer', border: `1px solid ${cfg.cardBorder}`, ...cfg.cardExtra }}>
+                {/* Restaurant: horizontal layout with big price */}
+                {archetype === 'restaurant' ? (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0', height: '90px' }}>
+                    <div style={{ width: '90px', height: '90px', overflow: 'hidden', background: '#200800', flexShrink: 0 }}>
+                      <img src={p.image_url || imgFallback} alt={p.name} onError={e => { (e.target as HTMLImageElement).src = imgFallback }}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                    </div>
+                    <div style={{ padding: '10px 12px', flex: 1 }}>
+                      <p style={{ ...cfg.nameStyle, marginBottom: '4px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{p.name}</p>
+                      <p style={{ ...cfg.priceStyle }}>₪{p.price}</p>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <div style={{ aspectRatio: '1', overflow: 'hidden', background: isLight ? '#f5f5f5' : '#111' }}>
+                      <img src={p.image_url || imgFallback} alt={p.name} onError={e => { (e.target as HTMLImageElement).src = imgFallback }}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                    </div>
+                    <div style={{ padding: archetype === 'luxury' ? '12px 14px 14px' : '10px 12px' }}>
+                      {archetype === 'luxury' && (
+                        <div style={{ width: '20px', height: '1px', background: c0, marginBottom: '8px', opacity: 0.4 }} />
+                      )}
+                      <p style={{ ...cfg.nameStyle, marginBottom: '4px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.name}</p>
+                      <p style={{ ...cfg.priceStyle }}>₪{p.price}</p>
+                    </div>
+                  </>
+                )}
               </div>
             ))}
           </div>
         )}
       </div>
 
-      {/* ── Delivery & payment ───────────────────────────────── */}
+      {/* ── Delivery & payment ─────────────────────────────────── */}
       <div style={{ padding: '0 16px 40px', maxWidth: '600px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-
         {(store.delivery_type || paymentMethods.length > 0) && (
-          <div style={{ background: '#111', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '16px', padding: '16px 18px' }}>
-            <p style={{ fontSize: '12px', fontWeight: 700, color: 'rgba(255,255,255,0.4)', marginBottom: '12px', letterSpacing: '0.06em' }}>
+          <div style={{ background: cfg.sectionBg, border: `1px solid ${cfg.sectionBorder}`, borderRadius: '16px', padding: '16px 18px' }}>
+            <p style={{ fontSize: '11px', fontWeight: 700, color: cfg.sectionTitleColor, marginBottom: '12px', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
               {ar ? 'التوصيل والدفع' : 'משלוח ותשלום'}
             </p>
 
             {store.delivery_type && (
               <div style={{ marginBottom: paymentMethods.length > 0 ? '12px' : '0' }}>
-                <p style={{ fontSize: '14px', fontWeight: 600, color: '#fff', marginBottom: store.delivery_areas ? '4px' : '0' }}>
-                  {store.delivery_type === 'self'    && '🛵 ' + (ar ? 'توصيل للمنزل'         : 'משלוח לבית')}
-                  {store.delivery_type === 'pickup'  && '📍 ' + (ar ? 'استلام من المتجر'      : 'איסוף מהחנות')}
-                  {store.delivery_type === 'courier' && '🚚 ' + (ar ? 'شحن لجميع المناطق'    : 'משלוח לכל הארץ')}
-                  {!['self','pickup','courier'].includes(store.delivery_type) && '🚚 ' + store.delivery_type}
+                <p style={{ fontSize: '14px', fontWeight: 600, color: cfg.textColor, marginBottom: store.delivery_areas ? '4px' : '0' }}>
+                  {store.delivery_type === 'self'    && '🛵 ' + (ar ? 'توصيل للمنزل'      : 'משלוח לבית')}
+                  {store.delivery_type === 'pickup'  && '📍 ' + (ar ? 'استلام من المتجر'   : 'איסוף מהחנות')}
+                  {store.delivery_type === 'courier' && '🚚 ' + (ar ? 'شحن لجميع المناطق' : 'משלוח לכל הארץ')}
+                  {!['self', 'pickup', 'courier'].includes(store.delivery_type) && '🚚 ' + store.delivery_type}
                 </p>
                 {store.delivery_areas && (
-                  <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)' }}>{store.delivery_areas}</p>
+                  <p style={{ fontSize: '12px', color: cfg.mutedColor }}>{store.delivery_areas}</p>
                 )}
               </div>
             )}
@@ -233,15 +584,15 @@ export default function StoreClient({ store, products }: { store: Store; product
             {paymentMethods.length > 0 && (
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                 {paymentMethods.includes('bit') && (
-                  <span style={{ background: 'rgba(139,92,246,0.15)', border: '1px solid rgba(139,92,246,0.3)', borderRadius: '20px', padding: '4px 12px', fontSize: '12px', fontWeight: 600, color: '#c4b5fd' }}>💜 Bit</span>
+                  <span style={{ background: cfg.pillBg, border: `1px solid ${cfg.pillBorder}`, borderRadius: '20px', padding: '4px 12px', fontSize: '12px', fontWeight: 600, color: cfg.pillColor }}>💜 Bit</span>
                 )}
                 {paymentMethods.includes('bank') && (
-                  <span style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '20px', padding: '4px 12px', fontSize: '12px', fontWeight: 600, color: 'rgba(255,255,255,0.6)' }}>
+                  <span style={{ background: cfg.pillBg, border: `1px solid ${cfg.pillBorder}`, borderRadius: '20px', padding: '4px 12px', fontSize: '12px', fontWeight: 600, color: cfg.pillColor }}>
                     🏦 {ar ? 'تحويل بنكي' : 'העברה בנקאית'}
                   </span>
                 )}
                 {paymentMethods.includes('cash') && (
-                  <span style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '20px', padding: '4px 12px', fontSize: '12px', fontWeight: 600, color: 'rgba(255,255,255,0.6)' }}>
+                  <span style={{ background: cfg.pillBg, border: `1px solid ${cfg.pillBorder}`, borderRadius: '20px', padding: '4px 12px', fontSize: '12px', fontWeight: 600, color: cfg.pillColor }}>
                     💵 {ar ? 'كاش' : 'מזומן'}
                   </span>
                 )}
@@ -250,47 +601,41 @@ export default function StoreClient({ store, products }: { store: Store; product
           </div>
         )}
 
-        {/* Powered by */}
+        {/* Footer */}
         <div style={{ textAlign: 'center', paddingTop: '8px', display: 'flex', justifyContent: 'center', gap: '16px' }}>
-          <a href="/" style={{ fontSize: '11px', color: 'rgba(255,255,255,0.18)', textDecoration: 'none' }}>
+          <a href="/" style={{ fontSize: '11px', color: cfg.mutedColor, textDecoration: 'none', opacity: 0.6 }}>
             {ar ? 'مدعوم بـ Instok.ai' : 'מופעל על ידי Instok.ai'}
           </a>
-          <a href="/policy" style={{ fontSize: '11px', color: 'rgba(255,255,255,0.18)', textDecoration: 'none' }}>
+          <a href="/policy" style={{ fontSize: '11px', color: cfg.mutedColor, textDecoration: 'none', opacity: 0.6 }}>
             {ar ? 'سياسة الخصوصية' : 'מדיניות פרטיות'}
           </a>
         </div>
       </div>
 
-      {/* ── Sticky WhatsApp button ─────────────────────────────── */}
+      {/* ── Sticky WhatsApp button ──────────────────────────────── */}
       {waNumber && (
-        <a
-          href={waGeneralLink}
-          target="_blank"
-          rel="noopener noreferrer"
+        <a href={waGeneralLink} target="_blank" rel="noopener noreferrer"
           style={{ position: 'fixed', bottom: '16px', left: '50%', transform: 'translateX(-50%)', zIndex: 40, display: 'flex', alignItems: 'center', gap: '8px', background: '#22c55e', color: '#fff', borderRadius: '50px', padding: '14px 28px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', boxShadow: '0 4px 24px rgba(34,197,94,0.45)', whiteSpace: 'nowrap' }}>
           <span style={{ fontSize: '18px' }}>💬</span>
           {ar ? 'تواصل عبر واتساب' : 'צור קשר בוואטסאפ'}
         </a>
       )}
 
-      {/* ── Product drawer ─────────────────────────────────────── */}
+      {/* ── Product drawer ──────────────────────────────────────── */}
       {drawerOpen && drawerProduct && (
         <div style={{ position: 'fixed', inset: 0, zIndex: 100 }}>
           <div onClick={closeDrawer} style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(2px)' }} />
-          <div className="drawer-open" style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: '#111', borderRadius: '24px 24px 0 0', padding: '0 0 40px', maxHeight: '85vh', overflowY: 'auto' }}>
-            <div style={{ width: '36px', height: '4px', background: 'rgba(255,255,255,0.15)', borderRadius: '2px', margin: '12px auto 0' }} />
-            <div style={{ aspectRatio: '4/3', overflow: 'hidden', background: '#1a1a1a' }}>
-              <img
-                src={drawerProduct.image_url || imgFallback}
-                alt={drawerProduct.name}
+          <div className="drawer-open" style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: isLight ? '#fff' : '#111', borderRadius: '24px 24px 0 0', padding: '0 0 40px', maxHeight: '85vh', overflowY: 'auto' }}>
+            <div style={{ width: '36px', height: '4px', background: 'rgba(128,128,128,0.25)', borderRadius: '2px', margin: '12px auto 0' }} />
+            <div style={{ aspectRatio: '4/3', overflow: 'hidden', background: isLight ? '#f5f5f5' : '#1a1a1a' }}>
+              <img src={drawerProduct.image_url || imgFallback} alt={drawerProduct.name}
                 onError={e => { (e.target as HTMLImageElement).src = imgFallback }}
-                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-              />
+                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
             </div>
             <div style={{ padding: '20px 20px 0' }}>
-              <h2 style={{ fontSize: '20px', fontWeight: 700, color: '#fff', marginBottom: '6px' }}>{drawerProduct.name}</h2>
+              <h2 style={{ fontSize: '20px', fontWeight: 700, color: isLight ? '#111' : '#fff', marginBottom: '6px' }}>{drawerProduct.name}</h2>
               {drawerProduct.description && (
-                <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.45)', marginBottom: '12px', lineHeight: 1.6 }}>{drawerProduct.description}</p>
+                <p style={{ fontSize: '13px', color: isLight ? '#888' : 'rgba(255,255,255,0.45)', marginBottom: '12px', lineHeight: 1.6 }}>{drawerProduct.description}</p>
               )}
               <p style={{ fontSize: '24px', fontWeight: 800, color: c0, marginBottom: '20px' }}>₪{drawerProduct.price}</p>
               {waNumber ? (
@@ -299,10 +644,10 @@ export default function StoreClient({ store, products }: { store: Store; product
                   target="_blank" rel="noopener noreferrer"
                   style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: '#22c55e', color: '#fff', borderRadius: '14px', padding: '15px 24px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', width: '100%', boxShadow: '0 4px 20px rgba(34,197,94,0.35)' }}>
                   <span style={{ fontSize: '18px' }}>💬</span>
-                  {ar ? 'اطلب عبر واتساب' : 'הזמן דרך וואטסאפ'}
+                  {ar ? 'اطلب عبر واتساب' : 'הזמן דרך וואט��אפ'}
                 </a>
               ) : (
-                <div style={{ background: '#1a1a1a', borderRadius: '14px', padding: '15px 24px', fontSize: '14px', color: 'rgba(255,255,255,0.45)', textAlign: 'center' }}>
+                <div style={{ background: isLight ? '#f5f5f5' : '#1a1a1a', borderRadius: '14px', padding: '15px 24px', fontSize: '14px', color: isLight ? '#aaa' : 'rgba(255,255,255,0.45)', textAlign: 'center' }}>
                   {ar ? 'تواصل مع صاحب المتجر' : 'צור קשר עם בעל החנות'}
                 </div>
               )}
