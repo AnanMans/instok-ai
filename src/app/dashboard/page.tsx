@@ -53,6 +53,11 @@ export default function Dashboard() {
   const [uploadError, setUploadError] = useState('')
   const fileRef = useRef<HTMLInputElement>(null)
 
+  const [waInput, setWaInput] = useState('')
+  const [waSaving, setWaSaving] = useState(false)
+  const [waSaved, setWaSaved] = useState(false)
+  const [waError, setWaError] = useState('')
+
   useEffect(() => {
     supabase.auth.getSession().then(async ({ data: { session } }) => {
       if (!session) { router.replace('/'); return }
@@ -72,6 +77,7 @@ export default function Dashboard() {
 
       setStore(storeData)
       setProducts(prods ?? [])
+      setWaInput(storeData.whatsapp_number ?? '')
       setLoading(false)
     })
   }, []) // eslint-disable-line
@@ -132,6 +138,29 @@ export default function Dashboard() {
       setFormError(String(err))
     } finally {
       setFormSaving(false)
+    }
+  }
+
+  const handleUpdateWa = async () => {
+    if (!store) return
+    setWaSaving(true)
+    setWaError('')
+    setWaSaved(false)
+    try {
+      const res = await fetch('/api/update-store', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ storeId: store.id, whatsappNumber: waInput.trim() }),
+      })
+      const data = await res.json()
+      if (data.error) { setWaError(data.error); return }
+      setStore(s => s ? { ...s, whatsapp_number: waInput.trim() } : s)
+      setWaSaved(true)
+      setTimeout(() => setWaSaved(false), 2500)
+    } catch (err) {
+      setWaError(String(err))
+    } finally {
+      setWaSaving(false)
     }
   }
 
@@ -202,6 +231,33 @@ export default function Dashboard() {
             <span style={{ fontSize: '16px' }}>💬</span>
             <span style={{ fontSize: '13px', fontWeight: 700, color: '#fff' }}>{ar ? 'شارك متجرك على واتساب' : 'שתף את החנות בוואטסאפ'}</span>
           </a>
+        </div>
+
+        {/* ── Store settings ─────────────────────────────────── */}
+        <div style={{ background: '#111', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '18px', padding: '20px', marginBottom: '24px' }}>
+          <h3 style={{ fontSize: '15px', fontWeight: 700, marginBottom: '16px', color: 'rgba(255,255,255,0.85)' }}>
+            {ar ? 'تعديل إعدادات المتجر' : 'עריכת הגדרות החנות'}
+          </h3>
+          <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)', marginBottom: '8px' }}>
+            {ar ? 'رقم واتساب للطلبات 📱' : 'מספר וואטסאפ להזמנות 📱'}
+          </p>
+          <div style={{ display: 'flex', gap: '8px' }}>
+            <input
+              type="tel"
+              placeholder="+972501234567"
+              value={waInput}
+              onChange={e => { setWaInput(e.target.value); setWaSaved(false) }}
+              style={{ ...inp, flex: 1, direction: 'ltr', textAlign: 'left' }}
+              dir="ltr"
+            />
+            <button
+              onClick={handleUpdateWa}
+              disabled={waSaving}
+              style={{ flexShrink: 0, background: waSaved ? '#22c55e' : `linear-gradient(135deg,${c0},${c0}cc)`, border: 'none', borderRadius: '12px', padding: '0 18px', color: '#fff', fontSize: '13px', fontWeight: 700, cursor: waSaving ? 'default' : 'pointer', fontFamily: 'inherit', opacity: waSaving ? 0.6 : 1, transition: 'background 0.2s' }}>
+              {waSaving ? '...' : waSaved ? '✓' : (ar ? 'حفظ' : 'שמור')}
+            </button>
+          </div>
+          {waError && <p style={{ fontSize: '12px', color: '#f87171', marginTop: '8px' }}>{waError}</p>}
         </div>
 
         {/* ── Products section ───────────────────────────────── */}
