@@ -28,114 +28,114 @@ type Product = {
 const DEMO_PRODUCTS: Record<string, { ar: Product[]; he: Product[] }> = {
   luxury: {
     ar: [
-      { id: 'd1', name: 'عطر فاخر', price: 299, image_url: 'https://images.unsplash.com/photo-1541643600914-78b084683702?w=400&h=400&fit=crop' },
-      { id: 'd2', name: 'ساعة راقية', price: 1499, image_url: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop' },
-      { id: 'd3', name: 'حقيبة جلد', price: 899, image_url: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&h=400&fit=crop' },
-      { id: 'd4', name: 'إكسسوار ذهبي', price: 449, image_url: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&h=400&fit=crop' },
+      { id: 'd1', name: 'عطر فاخر',      price: 299,  image_url: 'https://images.unsplash.com/photo-1541643600914-78b084683702?w=400&h=400&fit=crop' },
+      { id: 'd2', name: 'ساعة راقية',    price: 1499, image_url: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop' },
+      { id: 'd3', name: 'حقيبة جلد',     price: 899,  image_url: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&h=400&fit=crop' },
+      { id: 'd4', name: 'إكسسوار ذهبي', price: 449,  image_url: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&h=400&fit=crop' },
     ],
     he: [
-      { id: 'd1', name: 'בושם יוקרתי', price: 299, image_url: 'https://images.unsplash.com/photo-1541643600914-78b084683702?w=400&h=400&fit=crop' },
-      { id: 'd2', name: 'שעון יוקרה', price: 1499, image_url: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop' },
-      { id: 'd3', name: 'תיק עור', price: 899, image_url: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&h=400&fit=crop' },
-      { id: 'd4', name: 'תכשיט זהב', price: 449, image_url: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&h=400&fit=crop' },
+      { id: 'd1', name: 'בושם יוקרתי', price: 299,  image_url: 'https://images.unsplash.com/photo-1541643600914-78b084683702?w=400&h=400&fit=crop' },
+      { id: 'd2', name: 'שעון יוקרה',  price: 1499, image_url: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop' },
+      { id: 'd3', name: 'תיק עור',     price: 899,  image_url: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&h=400&fit=crop' },
+      { id: 'd4', name: 'תכשיט זהב',  price: 449,  image_url: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&h=400&fit=crop' },
     ],
   },
   gaming: {
     ar: [
-      { id: 'd1', name: 'هيدسيت جيمنج', price: 399, image_url: 'https://images.unsplash.com/photo-1583394293214-0b6a2c6b0f3e?w=400&h=400&fit=crop' },
-      { id: 'd2', name: 'ماوس ليزر', price: 199, image_url: 'https://images.unsplash.com/photo-1527864550417-7519fa1d6c37?w=400&h=400&fit=crop' },
-      { id: 'd3', name: 'كرسي جيمنج', price: 899, image_url: 'https://images.unsplash.com/photo-1598550874175-4d0ef436c909?w=400&h=400&fit=crop' },
-      { id: 'd4', name: 'لوحة مضيئة', price: 149, image_url: 'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=400&h=400&fit=crop' },
+      { id: 'd1', name: 'هيدسيت جيمنج', price: 399, image_url: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop' },
+      { id: 'd2', name: 'ماوس ليزر',    price: 199, image_url: 'https://images.unsplash.com/photo-1527864550417-7519fa1d6c37?w=400&h=400&fit=crop' },
+      { id: 'd3', name: 'كرسي جيمنج',   price: 899, image_url: 'https://images.unsplash.com/photo-1598550874175-4d0ef436c909?w=400&h=400&fit=crop' },
+      { id: 'd4', name: 'لوحة مضيئة',   price: 149, image_url: 'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=400&h=400&fit=crop' },
     ],
     he: [
-      { id: 'd1', name: 'אוזניות גיימינג', price: 399, image_url: 'https://images.unsplash.com/photo-1583394293214-0b6a2c6b0f3e?w=400&h=400&fit=crop' },
-      { id: 'd2', name: 'עכבר לייזר', price: 199, image_url: 'https://images.unsplash.com/photo-1527864550417-7519fa1d6c37?w=400&h=400&fit=crop' },
-      { id: 'd3', name: 'כיסא גיימינג', price: 899, image_url: 'https://images.unsplash.com/photo-1598550874175-4d0ef436c909?w=400&h=400&fit=crop' },
-      { id: 'd4', name: 'לוח מקלדת RGB', price: 149, image_url: 'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=400&h=400&fit=crop' },
+      { id: 'd1', name: 'אוזניות גיימינג', price: 399, image_url: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop' },
+      { id: 'd2', name: 'עכבר לייזר',     price: 199, image_url: 'https://images.unsplash.com/photo-1527864550417-7519fa1d6c37?w=400&h=400&fit=crop' },
+      { id: 'd3', name: 'כיסא גיימינג',   price: 899, image_url: 'https://images.unsplash.com/photo-1598550874175-4d0ef436c909?w=400&h=400&fit=crop' },
+      { id: 'd4', name: 'מקלדת RGB',      price: 149, image_url: 'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=400&h=400&fit=crop' },
     ],
   },
   beauty: {
     ar: [
-      { id: 'd1', name: 'كريم مرطب', price: 89, image_url: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&h=400&fit=crop' },
-      { id: 'd2', name: 'أحمر شفاه', price: 59, image_url: 'https://images.unsplash.com/photo-1590156562745-5a3bea6e2cc1?w=400&h=400&fit=crop' },
-      { id: 'd3', name: 'ماسكارا', price: 79, image_url: 'https://images.unsplash.com/photo-1631214524020-3c69b8b3c2e1?w=400&h=400&fit=crop' },
-      { id: 'd4', name: 'عطر نسائي', price: 199, image_url: 'https://images.unsplash.com/photo-1541643600914-78b084683702?w=400&h=400&fit=crop' },
+      { id: 'd1', name: 'كريم مرطب',  price: 89,  image_url: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&h=400&fit=crop' },
+      { id: 'd2', name: 'أحمر شفاه',  price: 59,  image_url: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&h=400&fit=crop' },
+      { id: 'd3', name: 'مكياج عيون', price: 79,  image_url: 'https://images.unsplash.com/photo-1512207736890-6ffed8a84e8d?w=400&h=400&fit=crop' },
+      { id: 'd4', name: 'عطر نسائي',  price: 199, image_url: 'https://images.unsplash.com/photo-1541643600914-78b084683702?w=400&h=400&fit=crop' },
     ],
     he: [
-      { id: 'd1', name: 'קרם לחות', price: 89, image_url: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&h=400&fit=crop' },
-      { id: 'd2', name: 'שפתון', price: 59, image_url: 'https://images.unsplash.com/photo-1590156562745-5a3bea6e2cc1?w=400&h=400&fit=crop' },
-      { id: 'd3', name: 'מסקרה', price: 79, image_url: 'https://images.unsplash.com/photo-1631214524020-3c69b8b3c2e1?w=400&h=400&fit=crop' },
-      { id: 'd4', name: 'בושם נשי', price: 199, image_url: 'https://images.unsplash.com/photo-1541643600914-78b084683702?w=400&h=400&fit=crop' },
+      { id: 'd1', name: 'קרם לחות',    price: 89,  image_url: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&h=400&fit=crop' },
+      { id: 'd2', name: 'שפתון',       price: 59,  image_url: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&h=400&fit=crop' },
+      { id: 'd3', name: 'איפור עיניים', price: 79,  image_url: 'https://images.unsplash.com/photo-1512207736890-6ffed8a84e8d?w=400&h=400&fit=crop' },
+      { id: 'd4', name: 'בושם נשי',    price: 199, image_url: 'https://images.unsplash.com/photo-1541643600914-78b084683702?w=400&h=400&fit=crop' },
     ],
   },
   streetwear: {
     ar: [
-      { id: 'd1', name: 'هودي أوفرسايز', price: 199, image_url: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop' },
+      { id: 'd1', name: 'هودي أوفرسايز',  price: 199, image_url: 'https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=400&h=400&fit=crop' },
       { id: 'd2', name: 'تيشيرت بريميوم', price: 129, image_url: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop' },
-      { id: 'd3', name: 'بنطلون كارغو', price: 249, image_url: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=400&h=400&fit=crop' },
-      { id: 'd4', name: 'سنيكر', price: 399, image_url: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop' },
+      { id: 'd3', name: 'بنطلون كارغو',   price: 249, image_url: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=400&h=400&fit=crop' },
+      { id: 'd4', name: 'سنيكر',          price: 399, image_url: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop' },
     ],
     he: [
-      { id: 'd1', name: 'הודי אוברסייז', price: 199, image_url: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop' },
-      { id: 'd2', name: 'טישרט פרמיום', price: 129, image_url: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop' },
-      { id: 'd3', name: 'מכנסי קארגו', price: 249, image_url: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=400&h=400&fit=crop' },
-      { id: 'd4', name: 'סניקר', price: 399, image_url: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop' },
+      { id: 'd1', name: 'הודי אוברסייז', price: 199, image_url: 'https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=400&h=400&fit=crop' },
+      { id: 'd2', name: 'טישרט פרמיום',  price: 129, image_url: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop' },
+      { id: 'd3', name: 'מכנסי קארגו',   price: 249, image_url: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=400&h=400&fit=crop' },
+      { id: 'd4', name: 'סניקר',         price: 399, image_url: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop' },
     ],
   },
   restaurant: {
     ar: [
       { id: 'd1', name: 'بيتزا مارغريتا', price: 59, image_url: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&h=400&fit=crop' },
-      { id: 'd2', name: 'برغر كلاسيك', price: 49, image_url: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=400&fit=crop' },
-      { id: 'd3', name: 'سلطة فريش', price: 35, image_url: 'https://images.unsplash.com/photo-1546793665-c74683f339c1?w=400&h=400&fit=crop' },
-      { id: 'd4', name: 'كيك شوكولا', price: 29, image_url: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=400&fit=crop' },
+      { id: 'd2', name: 'برغر كلاسيك',    price: 49, image_url: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=400&fit=crop' },
+      { id: 'd3', name: 'سلطة فريش',      price: 35, image_url: 'https://images.unsplash.com/photo-1546793665-c74683f339c1?w=400&h=400&fit=crop' },
+      { id: 'd4', name: 'كيك شوكولا',     price: 29, image_url: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=400&fit=crop' },
     ],
     he: [
-      { id: 'd1', name: 'פיצה מרגריטה', price: 59, image_url: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&h=400&fit=crop' },
-      { id: 'd2', name: 'המבורגר קלאסי', price: 49, image_url: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=400&fit=crop' },
-      { id: 'd3', name: 'סלט טרי', price: 35, image_url: 'https://images.unsplash.com/photo-1546793665-c74683f339c1?w=400&h=400&fit=crop' },
-      { id: 'd4', name: 'עוגת שוקולד', price: 29, image_url: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=400&fit=crop' },
+      { id: 'd1', name: 'פיצה מרגריטה',   price: 59, image_url: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&h=400&fit=crop' },
+      { id: 'd2', name: 'המבורגר קלאסי',  price: 49, image_url: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=400&fit=crop' },
+      { id: 'd3', name: 'סלט טרי',         price: 35, image_url: 'https://images.unsplash.com/photo-1546793665-c74683f339c1?w=400&h=400&fit=crop' },
+      { id: 'd4', name: 'עוגת שוקולד',    price: 29, image_url: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=400&fit=crop' },
     ],
   },
   tech: {
     ar: [
-      { id: 'd1', name: 'سماعة بلوتوث', price: 299, image_url: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop' },
-      { id: 'd2', name: 'شاحن لاسلكي', price: 149, image_url: 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=400&h=400&fit=crop' },
-      { id: 'd3', name: 'كيس موبايل', price: 89, image_url: 'https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=400&h=400&fit=crop' },
-      { id: 'd4', name: 'باور بانك', price: 199, image_url: 'https://images.unsplash.com/photo-1609592816892-6b8cd3a86a1d?w=400&h=400&fit=crop' },
+      { id: 'd1', name: 'سماعة بلوتوث',   price: 299, image_url: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop' },
+      { id: 'd2', name: 'لاب توب',         price: 999, image_url: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&h=400&fit=crop' },
+      { id: 'd3', name: 'موبايل',          price: 599, image_url: 'https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=400&h=400&fit=crop' },
+      { id: 'd4', name: 'لوحة مفاتيح',    price: 199, image_url: 'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=400&h=400&fit=crop' },
     ],
     he: [
       { id: 'd1', name: 'אוזניות Bluetooth', price: 299, image_url: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop' },
-      { id: 'd2', name: 'מטען אלחוטי', price: 149, image_url: 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=400&h=400&fit=crop' },
-      { id: 'd3', name: 'כיסוי טלפון', price: 89, image_url: 'https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=400&h=400&fit=crop' },
-      { id: 'd4', name: 'Power Bank', price: 199, image_url: 'https://images.unsplash.com/photo-1609592816892-6b8cd3a86a1d?w=400&h=400&fit=crop' },
+      { id: 'd2', name: 'לפטופ',             price: 999, image_url: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&h=400&fit=crop' },
+      { id: 'd3', name: 'סמארטפון',          price: 599, image_url: 'https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=400&h=400&fit=crop' },
+      { id: 'd4', name: 'מקלדת',            price: 199, image_url: 'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=400&h=400&fit=crop' },
     ],
   },
   minimal: {
     ar: [
-      { id: 'd1', name: 'دفتر ملاحظات', price: 49, image_url: 'https://images.unsplash.com/photo-1544816155-12df9643f363?w=400&h=400&fit=crop' },
-      { id: 'd2', name: 'قلم راقٍ', price: 89, image_url: 'https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?w=400&h=400&fit=crop' },
-      { id: 'd3', name: 'حافظة جلد', price: 129, image_url: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&h=400&fit=crop' },
-      { id: 'd4', name: 'كوب قهوة', price: 69, image_url: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=400&h=400&fit=crop' },
+      { id: 'd1', name: 'دفتر ملاحظات', price: 49,  image_url: 'https://images.unsplash.com/photo-1544816155-12df9643f363?w=400&h=400&fit=crop' },
+      { id: 'd2', name: 'كوب قهوة',     price: 69,  image_url: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=400&h=400&fit=crop' },
+      { id: 'd3', name: 'حافظة جلد',   price: 129, image_url: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&h=400&fit=crop' },
+      { id: 'd4', name: 'ديكور مكتبي', price: 89,  image_url: 'https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=400&h=400&fit=crop' },
     ],
     he: [
-      { id: 'd1', name: 'מחברת', price: 49, image_url: 'https://images.unsplash.com/photo-1544816155-12df9643f363?w=400&h=400&fit=crop' },
-      { id: 'd2', name: 'עט איכותי', price: 89, image_url: 'https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?w=400&h=400&fit=crop' },
-      { id: 'd3', name: 'תיק עור', price: 129, image_url: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&h=400&fit=crop' },
-      { id: 'd4', name: 'כוס קפה', price: 69, image_url: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=400&h=400&fit=crop' },
+      { id: 'd1', name: 'מחברת',       price: 49,  image_url: 'https://images.unsplash.com/photo-1544816155-12df9643f363?w=400&h=400&fit=crop' },
+      { id: 'd2', name: 'כוס קפה',    price: 69,  image_url: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=400&h=400&fit=crop' },
+      { id: 'd3', name: 'תיק עור',    price: 129, image_url: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&h=400&fit=crop' },
+      { id: 'd4', name: 'עיצוב שולחן', price: 89,  image_url: 'https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=400&h=400&fit=crop' },
     ],
   },
   creator: {
     ar: [
-      { id: 'd1', name: 'لوحة رسم', price: 149, image_url: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400&h=400&fit=crop' },
-      { id: 'd2', name: 'ألوان مائية', price: 99, image_url: 'https://images.unsplash.com/photo-1587040273238-9ba47c714796?w=400&h=400&fit=crop' },
-      { id: 'd3', name: 'كانفس يدوي', price: 79, image_url: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=400&h=400&fit=crop' },
-      { id: 'd4', name: 'إطار صور', price: 59, image_url: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=400&h=400&fit=crop' },
+      { id: 'd1', name: 'لوحة رسم',    price: 149, image_url: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400&h=400&fit=crop' },
+      { id: 'd2', name: 'أدوات فنية',  price: 99,  image_url: 'https://images.unsplash.com/photo-1460661419176-9f72e37ed10f?w=400&h=400&fit=crop' },
+      { id: 'd3', name: 'كانفس يدوي', price: 79,  image_url: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400&h=400&fit=crop' },
+      { id: 'd4', name: 'كاميرا',     price: 899, image_url: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=400&h=400&fit=crop' },
     ],
     he: [
-      { id: 'd1', name: 'לוח ציור', price: 149, image_url: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400&h=400&fit=crop' },
-      { id: 'd2', name: 'צבעי מים', price: 99, image_url: 'https://images.unsplash.com/photo-1587040273238-9ba47c714796?w=400&h=400&fit=crop' },
-      { id: 'd3', name: 'קנבס יד', price: 79, image_url: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=400&h=400&fit=crop' },
-      { id: 'd4', name: 'מסגרת תמונות', price: 59, image_url: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=400&h=400&fit=crop' },
+      { id: 'd1', name: 'לוח ציור',    price: 149, image_url: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400&h=400&fit=crop' },
+      { id: 'd2', name: 'כלי אמן',     price: 99,  image_url: 'https://images.unsplash.com/photo-1460661419176-9f72e37ed10f?w=400&h=400&fit=crop' },
+      { id: 'd3', name: 'קנבס יד',     price: 79,  image_url: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400&h=400&fit=crop' },
+      { id: 'd4', name: 'מצלמה',       price: 899, image_url: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=400&h=400&fit=crop' },
     ],
   },
 }
@@ -182,7 +182,8 @@ export default function StoreClient({ store, products: rawProducts }: { store: S
   const dir = 'rtl'
   const colors = Array.isArray(store.colors) ? store.colors : ['#7c3aed', '#f59e0b', '#0f172a']
   const c0 = colors[0] ?? '#7c3aed'
-  const archetype = store.archetype ?? 'minimal'
+  const KNOWN_ARCHETYPES = ['luxury', 'gaming', 'beauty', 'streetwear', 'restaurant', 'tech', 'minimal', 'creator']
+  const archetype = KNOWN_ARCHETYPES.includes(store.archetype ?? '') ? (store.archetype ?? 'minimal') : 'minimal'
 
   const demoByLang = DEMO_PRODUCTS[archetype] ?? DEMO_PRODUCTS.minimal
   const products = rawProducts.length > 0 ? rawProducts : (demoByLang[lang] ?? demoByLang.ar)
