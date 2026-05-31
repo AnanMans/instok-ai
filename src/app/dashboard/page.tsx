@@ -56,6 +56,7 @@ export default function Dashboard() {
   const [pendingFile, setPendingFile] = useState<File | null>(null)
   const [aiLoading, setAiLoading] = useState(false)
   const [aiSuggestion, setAiSuggestion] = useState<{ price_min: number; price_max: number } | null>(null)
+  const [aiDone, setAiDone] = useState(false)
 
   const [waInput, setWaInput] = useState('')
   const [waSaving, setWaSaving] = useState(false)
@@ -116,6 +117,7 @@ export default function Dashboard() {
         description: ar ? (data.description_ar ?? '') : (data.description_he ?? ''),
       }))
       setAiSuggestion({ price_min: data.price_min, price_max: data.price_max })
+      setAiDone(true)
     } catch (err) {
       console.error('[generate-product]', err)
     } finally {
@@ -169,6 +171,7 @@ export default function Dashboard() {
       setForm({ name: '', price: '', description: '', image_url: '' })
       setPendingFile(null)
       setAiSuggestion(null)
+      setAiDone(false)
       setUploadError('')
     } catch (err) {
       setFormError(String(err))
@@ -384,7 +387,83 @@ export default function Dashboard() {
             {ar ? 'إضافة منتج جديد' : 'הוספת מוצר חדש'}
           </h3>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+
+            {/* ── Image upload zone ── */}
+            <input type="file" accept="image/*" ref={fileRef} onChange={handleFileUpload} style={{ display: 'none' }} />
+
+            {form.image_url ? (
+              <div style={{ borderRadius: '14px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)', background: '#1a1a1a' }}>
+                <div style={{ aspectRatio: '16/9', overflow: 'hidden', background: '#111', position: 'relative' }}>
+                  <img src={form.image_url} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                  <button
+                    type="button"
+                    onClick={() => { setForm(f => ({ ...f, image_url: '' })); setUploadError(''); setPendingFile(null); setAiSuggestion(null); setAiDone(false); if (fileRef.current) fileRef.current.value = '' }}
+                    style={{ position: 'absolute', top: '8px', left: '8px', background: 'rgba(0,0,0,0.7)', border: 'none', borderRadius: '8px', padding: '4px 10px', color: 'rgba(255,100,100,0.85)', fontSize: '11px', cursor: 'pointer', fontFamily: 'inherit', backdropFilter: 'blur(4px)' }}>
+                    {ar ? 'إزالة' : 'הסר'}
+                  </button>
+                </div>
+
+                {/* AI generate button */}
+                {!aiDone && (
+                  <div style={{ padding: '12px' }}>
+                    <button
+                      type="button"
+                      onClick={handleGenerateProduct}
+                      disabled={aiLoading}
+                      style={{ width: '100%', background: aiLoading ? 'rgba(124,58,237,0.2)' : 'linear-gradient(135deg,#7c3aed,#4f46e5)', border: 'none', borderRadius: '12px', padding: '14px', color: aiLoading ? 'rgba(255,255,255,0.5)' : '#fff', fontSize: '14px', fontWeight: 700, cursor: aiLoading ? 'default' : 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', boxShadow: aiLoading ? 'none' : '0 4px 20px rgba(124,58,237,0.4)', transition: 'all 0.2s' }}>
+                      {aiLoading ? (
+                        <>
+                          <span style={{ display: 'inline-block', width: '14px', height: '14px', border: '2px solid rgba(255,255,255,0.2)', borderTopColor: 'rgba(255,255,255,0.7)', borderRadius: '50%', animation: 'spin 0.7s linear infinite', flexShrink: 0 }} />
+                          {ar ? 'جاري تحليل الصورة... 🔍' : 'מנתח את התמונה... 🔍'}
+                        </>
+                      ) : (
+                        <>{ar ? '✨ ولّد تفاصيل المنتج بالذكاء الاصطناعي' : '✨ צור פרטי מוצר עם AI'}</>
+                      )}
+                    </button>
+                  </div>
+                )}
+
+                {/* Success banner */}
+                {aiDone && (
+                  <div style={{ margin: '0 12px 12px', background: 'rgba(34,197,94,0.1)', border: '1px solid rgba(34,197,94,0.25)', borderRadius: '10px', padding: '10px 14px', fontSize: '13px', color: '#86efac', fontWeight: 500 }}>
+                    {ar ? '✅ تم توليد التفاصيل — راجع وعدّل إذا أردت' : '✅ הפרטים נוצרו — בדוק וערוך אם תרצה'}
+                  </div>
+                )}
+              </div>
+            ) : (
+              <>
+                <button
+                  type="button"
+                  onClick={() => { setUploadError(''); fileRef.current?.click() }}
+                  disabled={uploadingImg}
+                  style={{ width: '100%', background: '#141414', border: '2px dashed rgba(255,255,255,0.12)', borderRadius: '16px', padding: '32px 20px', color: uploadingImg ? 'rgba(255,255,255,0.3)' : 'rgba(255,255,255,0.5)', cursor: uploadingImg ? 'default' : 'pointer', fontFamily: 'inherit', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', transition: 'border-color 0.15s' }}>
+                  <span style={{ fontSize: '32px' }}>{uploadingImg ? '⏳' : '📸'}</span>
+                  <span style={{ fontSize: '14px', fontWeight: 600 }}>{uploadingImg ? (ar ? 'جاري الرفع...' : 'מעלה...') : (ar ? 'ارفع صورة المنتج' : 'העלה תמונת מוצר')}</span>
+                  {!uploadingImg && (
+                    <span style={{ fontSize: '12px', color: '#a78bfa', fontWeight: 500, textAlign: 'center', lineHeight: 1.5 }}>
+                      {ar ? '✨ الذكاء الاصطناعي سيكتب لك الاسم والوصف والسعر تلقائياً' : '✨ ה-AI יכתוב לך שם, תיאור ומחיר אוטומטית'}
+                    </span>
+                  )}
+                </button>
+                {uploadError && (
+                  <div>
+                    <p style={{ fontSize: '11px', color: 'rgba(248,113,113,0.8)', marginBottom: '6px' }}>
+                      {ar ? 'فشل الرفع — أدخل رابط الصورة يدوياً:' : 'העלאה נכשלה — הכנס קישור לתמונה:'}
+                    </p>
+                    <input
+                      type="url"
+                      placeholder="https://..."
+                      value={form.image_url}
+                      onChange={e => setForm(f => ({ ...f, image_url: e.target.value }))}
+                      style={{ ...inp, direction: 'ltr' }}
+                    />
+                  </div>
+                )}
+              </>
+            )}
+
+            {/* ── Fields ── */}
             <input
               type="text"
               placeholder={ar ? 'اسم المنتج *' : 'שם המוצר *'}
@@ -413,60 +492,6 @@ export default function Dashboard() {
               rows={2}
               style={{ ...inp, resize: 'none' }}
             />
-
-            {/* Image upload */}
-            <input type="file" accept="image/*" ref={fileRef} onChange={handleFileUpload} style={{ display: 'none' }} />
-
-            {form.image_url ? (
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', background: '#1a1a1a', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', padding: '10px 12px' }}>
-                <div style={{ width: '56px', height: '56px', borderRadius: '8px', overflow: 'hidden', flexShrink: 0 }}>
-                  <img src={form.image_url} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                </div>
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <p style={{ fontSize: '12px', color: '#22c55e', marginBottom: '6px', fontWeight: 500 }}>{ar ? 'تم رفع الصورة ✓' : 'התמונה הועלתה ✓'}</p>
-                  <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-                    <button
-                      type="button"
-                      onClick={handleGenerateProduct}
-                      disabled={aiLoading}
-                      style={{ background: aiLoading ? 'rgba(124,58,237,0.15)' : `linear-gradient(135deg,${c0}33,${c0}22)`, border: `1px solid ${c0}55`, borderRadius: '8px', padding: '4px 10px', color: aiLoading ? 'rgba(255,255,255,0.4)' : '#c4b5fd', fontSize: '11px', fontWeight: 600, cursor: aiLoading ? 'default' : 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                      {aiLoading ? <><span style={{ display: 'inline-block', width: '10px', height: '10px', border: '1.5px solid rgba(196,181,253,0.3)', borderTopColor: '#c4b5fd', borderRadius: '50%', animation: 'spin 0.7s linear infinite' }} />{ar ? 'جاري التحليل...' : 'מנתח...'}</> : <>✨ {ar ? 'ولّد بالذكاء الاصطناعي' : 'צור עם AI'}</>}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => { setForm(f => ({ ...f, image_url: '' })); setUploadError(''); setPendingFile(null); setAiSuggestion(null); if (fileRef.current) fileRef.current.value = '' }}
-                      style={{ background: 'none', border: '1px solid rgba(255,100,100,0.3)', borderRadius: '8px', padding: '4px 10px', color: 'rgba(255,100,100,0.7)', fontSize: '11px', cursor: 'pointer', fontFamily: 'inherit' }}>
-                      {ar ? 'إزالة' : 'הסר'}
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <>
-                <button
-                  type="button"
-                  onClick={() => { setUploadError(''); fileRef.current?.click() }}
-                  disabled={uploadingImg}
-                  style={{ width: '100%', background: '#1a1a1a', border: '1px dashed rgba(255,255,255,0.15)', borderRadius: '12px', padding: '16px', color: uploadingImg ? 'rgba(255,255,255,0.3)' : 'rgba(255,255,255,0.45)', fontSize: '13px', cursor: uploadingImg ? 'default' : 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
-                  <span style={{ fontSize: '20px' }}>{uploadingImg ? '⏳' : '📷'}</span>
-                  <span>{uploadingImg ? (ar ? 'جاري الرفع...' : 'מעלה...') : (ar ? 'رفع صورة المنتج' : 'העלאת תמונת מוצר')}</span>
-                </button>
-                {uploadError && (
-                  <div style={{ marginTop: '-4px' }}>
-                    <p style={{ fontSize: '11px', color: 'rgba(248,113,113,0.8)', marginBottom: '6px' }}>
-                      {ar ? 'فشل الرفع — أدخل رابط الصورة يدوياً:' : 'העלאה נכשלה — הכנס קישור לתמונה:'}
-                    </p>
-                    <input
-                      type="url"
-                      placeholder={ar ? 'https://...' : 'https://...'}
-                      value={form.image_url}
-                      onChange={e => setForm(f => ({ ...f, image_url: e.target.value }))}
-                      style={{ ...inp, direction: 'ltr' }}
-                    />
-                  </div>
-                )}
-              </>
-            )}
 
             {formError && (
               <p style={{ fontSize: '12px', color: '#f87171', padding: '8px 12px', background: 'rgba(248,113,113,0.1)', borderRadius: '8px' }}>{formError}</p>
