@@ -1247,7 +1247,7 @@ export default function Page() {
                   {copied ? t.s7Copied : t.s7Copy}
                 </button>
               </div>
-              <a href={`/store/${savedSlug || computedSlug}`} style={{ ...btnP, marginBottom: '16px', textDecoration: 'none' }}>{t.s7Go}</a>
+              <a href="/dashboard" style={{ ...btnP, marginBottom: '16px', textDecoration: 'none' }}>{t.s7Go}</a>
               <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.3)' }}>{t.s7Hint}</p>
             </div>
           </>
