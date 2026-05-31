@@ -967,6 +967,7 @@ export default function Page() {
     setStoreSaving(true)
     try {
       const { data: { session } } = await supabase.auth.getSession()
+      console.log('[onboarding] sending to save-store:', { delivery, deliveryAreas, payments: payments.join(', '), whatsappPhone })
       const res = await fetch('/api/save-store', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
