@@ -12,22 +12,22 @@ function generateSlug(name: string): string {
 }
 
 export async function POST(request: Request) {
+  const slug = generateSlug('store')
   try {
-    const supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE_KEY!
-    )
-
     const body = await request.json() as {
       brandName: string; slogan: string; colors: string[]; archetype: string
       vibe: string; category: string; description: string; whatsappNumber: string
       delivery: string; deliveryAreas: string; payments: string; lang: string
+      userId?: string
     }
 
-    const slug = generateSlug(body.brandName)
+    const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, key)
+
+    const computedSlug = generateSlug(body.brandName)
 
     const storePayload: Record<string, unknown> = {
-      slug,
+      slug: computedSlug,
       name: body.brandName,
       slogan: body.slogan,
       colors: body.colors,
@@ -41,6 +41,7 @@ export async function POST(request: Request) {
       payment_methods: body.payments,
       lang: body.lang,
     }
+    if (body.userId) storePayload.owner_id = body.userId
 
     const { data: store, error } = await supabase
       .from('stores')
@@ -48,11 +49,14 @@ export async function POST(request: Request) {
       .select()
       .single()
 
-    if (error) console.error('[save-store] insert error:', error)
+    if (error) {
+      console.error('[save-store] ERROR:', JSON.stringify(error))
+      return Response.json({ error: error.message, slug: computedSlug }, { status: 500 })
+    }
 
-    return Response.json({ storeId: store?.id, slug: store?.slug ?? slug })
+    return Response.json({ storeId: store.id, slug: store.slug })
   } catch (err) {
-    console.error('[save-store] error:', err)
-    return Response.json({ slug: generateSlug('store') })
+    console.error('[save-store] caught:', err)
+    return Response.json({ error: String(err), slug }, { status: 500 })
   }
 }

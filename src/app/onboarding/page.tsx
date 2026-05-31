@@ -966,6 +966,7 @@ export default function Page() {
   const handleConfirmStore = async () => {
     setStoreSaving(true)
     try {
+      const { data: { session } } = await supabase.auth.getSession()
       const res = await fetch('/api/save-store', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -982,11 +983,19 @@ export default function Page() {
           deliveryAreas,
           payments: payments.join(', '),
           lang: lang ?? 'ar',
+          userId: session?.user?.id,
         }),
       })
       const data = await res.json()
-      if (data.slug) setSavedSlug(data.slug)
-    } catch {}
+      console.log('[onboarding] save-store response:', data)
+      if (data.error) {
+        alert('خطأ: ' + data.error)
+      } else if (data.slug) {
+        setSavedSlug(data.slug)
+      }
+    } catch (err) {
+      console.error('[onboarding] handleConfirmStore error:', err)
+    }
     setStoreSaving(false)
     goNext()
   }
