@@ -50,6 +50,7 @@ export default function Dashboard() {
   const [formSaving, setFormSaving] = useState(false)
   const [formError, setFormError] = useState('')
   const [uploadingImg, setUploadingImg] = useState(false)
+  const [uploadError, setUploadError] = useState('')
   const fileRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -82,11 +83,13 @@ export default function Dashboard() {
     const file = e.target.files?.[0]
     if (!file || !store) return
     setUploadingImg(true)
+    setUploadError('')
     const ext = file.name.split('.').pop()
     const path = `${store.id}/${Date.now()}.${ext}`
     const { data, error } = await supabase.storage.from('product-images').upload(path, file, { upsert: true })
     if (error) {
       console.error('[dashboard] upload error:', error)
+      setUploadError(error.message)
       setUploadingImg(false)
       return
     }
@@ -115,6 +118,7 @@ export default function Dashboard() {
       if (data.error) { setFormError(data.error); return }
       setProducts(p => [data.product, ...p])
       setForm({ name: '', price: '', description: '', image_url: '' })
+      setUploadError('')
     } catch (err) {
       setFormError(String(err))
     } finally {
@@ -257,29 +261,49 @@ export default function Dashboard() {
               style={{ ...inp, resize: 'none' }}
             />
 
-            {/* Image: URL input + file upload */}
-            <div style={{ display: 'flex', gap: '8px' }}>
-              <input
-                type="url"
-                placeholder={ar ? 'رابط صورة المنتج' : 'קישור לתמונת המוצר'}
-                value={form.image_url}
-                onChange={e => setForm(f => ({ ...f, image_url: e.target.value }))}
-                style={{ ...inp, flex: 1, direction: 'ltr' }}
-              />
-              <input type="file" accept="image/*" ref={fileRef} onChange={handleFileUpload} style={{ display: 'none' }} />
-              <button
-                onClick={() => fileRef.current?.click()}
-                disabled={uploadingImg}
-                style={{ flexShrink: 0, background: '#1a1a1a', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', padding: '0 14px', color: 'rgba(255,255,255,0.5)', fontSize: '20px', cursor: 'pointer', opacity: uploadingImg ? 0.5 : 1 }}>
-                {uploadingImg ? '⏳' : '📷'}
-              </button>
-            </div>
+            {/* Image upload */}
+            <input type="file" accept="image/*" ref={fileRef} onChange={handleFileUpload} style={{ display: 'none' }} />
 
-            {form.image_url && (
-              <div style={{ width: '64px', height: '64px', borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)' }}>
-                <img src={form.image_url} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                  onError={e => { (e.target as HTMLImageElement).style.display = 'none' }} />
+            {form.image_url ? (
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', background: '#1a1a1a', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', padding: '10px 12px' }}>
+                <div style={{ width: '56px', height: '56px', borderRadius: '8px', overflow: 'hidden', flexShrink: 0 }}>
+                  <img src={form.image_url} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                </div>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <p style={{ fontSize: '12px', color: '#22c55e', marginBottom: '6px', fontWeight: 500 }}>{ar ? 'تم رفع الصورة ✓' : 'התמונה הועלתה ✓'}</p>
+                  <button
+                    type="button"
+                    onClick={() => { setForm(f => ({ ...f, image_url: '' })); setUploadError(''); if (fileRef.current) fileRef.current.value = '' }}
+                    style={{ background: 'none', border: '1px solid rgba(255,100,100,0.3)', borderRadius: '8px', padding: '3px 10px', color: 'rgba(255,100,100,0.7)', fontSize: '11px', cursor: 'pointer', fontFamily: 'inherit' }}>
+                    {ar ? 'إزالة' : 'הסר'}
+                  </button>
+                </div>
               </div>
+            ) : (
+              <>
+                <button
+                  type="button"
+                  onClick={() => { setUploadError(''); fileRef.current?.click() }}
+                  disabled={uploadingImg}
+                  style={{ width: '100%', background: '#1a1a1a', border: '1px dashed rgba(255,255,255,0.15)', borderRadius: '12px', padding: '16px', color: uploadingImg ? 'rgba(255,255,255,0.3)' : 'rgba(255,255,255,0.45)', fontSize: '13px', cursor: uploadingImg ? 'default' : 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+                  <span style={{ fontSize: '20px' }}>{uploadingImg ? '⏳' : '📷'}</span>
+                  <span>{uploadingImg ? (ar ? 'جاري الرفع...' : 'מעלה...') : (ar ? 'رفع صورة المنتج' : 'העלאת תמונת מוצר')}</span>
+                </button>
+                {uploadError && (
+                  <div style={{ marginTop: '-4px' }}>
+                    <p style={{ fontSize: '11px', color: 'rgba(248,113,113,0.8)', marginBottom: '6px' }}>
+                      {ar ? 'فشل الرفع — أدخل رابط الصورة يدوياً:' : 'העלאה נכשלה — הכנס קישור לתמונה:'}
+                    </p>
+                    <input
+                      type="url"
+                      placeholder={ar ? 'https://...' : 'https://...'}
+                      value={form.image_url}
+                      onChange={e => setForm(f => ({ ...f, image_url: e.target.value }))}
+                      style={{ ...inp, direction: 'ltr' }}
+                    />
+                  </div>
+                )}
+              </>
             )}
 
             {formError && (

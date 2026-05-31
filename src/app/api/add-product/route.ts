@@ -3,11 +3,11 @@ import { createClient } from '@supabase/supabase-js'
 export async function POST(request: Request) {
   try {
     const body = await request.json() as {
-      storeId: string
+      store_id: string
       name: string
       price: number
       description?: string
-      imageUrl?: string
+      image_url?: string
     }
 
     const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
@@ -16,11 +16,12 @@ export async function POST(request: Request) {
     const { data: product, error } = await supabase
       .from('products')
       .insert({
-        store_id: body.storeId,
+        store_id: body.store_id,
+        title: body.name,
         name: body.name,
         price: body.price,
         description: body.description || null,
-        image_url: body.imageUrl || null,
+        image_url: body.image_url || null,
       })
       .select()
       .single()
