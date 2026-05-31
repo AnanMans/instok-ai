@@ -25,132 +25,6 @@ type Product = {
   description?: string
 }
 
-const DEMO_PRODUCTS: Record<string, { ar: Product[]; he: Product[] }> = {
-  luxury: {
-    ar: [
-      { id: 'd1', name: 'عطر فاخر',      price: 299,  image_url: 'https://images.unsplash.com/photo-1541643600914-78b084683702?w=400&h=400&fit=crop' },
-      { id: 'd2', name: 'ساعة راقية',    price: 1499, image_url: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop' },
-      { id: 'd3', name: 'حقيبة جلد',     price: 899,  image_url: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&h=400&fit=crop' },
-      { id: 'd4', name: 'إكسسوار ذهبي', price: 449,  image_url: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&h=400&fit=crop' },
-    ],
-    he: [
-      { id: 'd1', name: 'בושם יוקרתי', price: 299,  image_url: 'https://images.unsplash.com/photo-1541643600914-78b084683702?w=400&h=400&fit=crop' },
-      { id: 'd2', name: 'שעון יוקרה',  price: 1499, image_url: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop' },
-      { id: 'd3', name: 'תיק עור',     price: 899,  image_url: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&h=400&fit=crop' },
-      { id: 'd4', name: 'תכשיט זהב',  price: 449,  image_url: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&h=400&fit=crop' },
-    ],
-  },
-  gaming: {
-    ar: [
-      { id: 'd1', name: 'هيدسيت جيمنج', price: 399, image_url: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop' },
-      { id: 'd2', name: 'ماوس ليزر',    price: 199, image_url: 'https://images.unsplash.com/photo-1527864550417-7519fa1d6c37?w=400&h=400&fit=crop' },
-      { id: 'd3', name: 'كرسي جيمنج',   price: 899, image_url: 'https://images.unsplash.com/photo-1598550874175-4d0ef436c909?w=400&h=400&fit=crop' },
-      { id: 'd4', name: 'لوحة مضيئة',   price: 149, image_url: 'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=400&h=400&fit=crop' },
-    ],
-    he: [
-      { id: 'd1', name: 'אוזניות גיימינג', price: 399, image_url: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop' },
-      { id: 'd2', name: 'עכבר לייזר',     price: 199, image_url: 'https://images.unsplash.com/photo-1527864550417-7519fa1d6c37?w=400&h=400&fit=crop' },
-      { id: 'd3', name: 'כיסא גיימינג',   price: 899, image_url: 'https://images.unsplash.com/photo-1598550874175-4d0ef436c909?w=400&h=400&fit=crop' },
-      { id: 'd4', name: 'מקלדת RGB',      price: 149, image_url: 'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=400&h=400&fit=crop' },
-    ],
-  },
-  beauty: {
-    ar: [
-      { id: 'd1', name: 'كريم مرطب',  price: 89,  image_url: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&h=400&fit=crop' },
-      { id: 'd2', name: 'أحمر شفاه',  price: 59,  image_url: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&h=400&fit=crop' },
-      { id: 'd3', name: 'مكياج عيون', price: 79,  image_url: 'https://images.unsplash.com/photo-1512207736890-6ffed8a84e8d?w=400&h=400&fit=crop' },
-      { id: 'd4', name: 'عطر نسائي',  price: 199, image_url: 'https://images.unsplash.com/photo-1541643600914-78b084683702?w=400&h=400&fit=crop' },
-    ],
-    he: [
-      { id: 'd1', name: 'קרם לחות',    price: 89,  image_url: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&h=400&fit=crop' },
-      { id: 'd2', name: 'שפתון',       price: 59,  image_url: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&h=400&fit=crop' },
-      { id: 'd3', name: 'איפור עיניים', price: 79,  image_url: 'https://images.unsplash.com/photo-1512207736890-6ffed8a84e8d?w=400&h=400&fit=crop' },
-      { id: 'd4', name: 'בושם נשי',    price: 199, image_url: 'https://images.unsplash.com/photo-1541643600914-78b084683702?w=400&h=400&fit=crop' },
-    ],
-  },
-  streetwear: {
-    ar: [
-      { id: 'd1', name: 'هودي أوفرسايز',  price: 199, image_url: 'https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=400&h=400&fit=crop' },
-      { id: 'd2', name: 'تيشيرت بريميوم', price: 129, image_url: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop' },
-      { id: 'd3', name: 'بنطلون كارغو',   price: 249, image_url: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=400&h=400&fit=crop' },
-      { id: 'd4', name: 'سنيكر',          price: 399, image_url: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop' },
-    ],
-    he: [
-      { id: 'd1', name: 'הודי אוברסייז', price: 199, image_url: 'https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=400&h=400&fit=crop' },
-      { id: 'd2', name: 'טישרט פרמיום',  price: 129, image_url: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop' },
-      { id: 'd3', name: 'מכנסי קארגו',   price: 249, image_url: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=400&h=400&fit=crop' },
-      { id: 'd4', name: 'סניקר',         price: 399, image_url: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop' },
-    ],
-  },
-  restaurant: {
-    ar: [
-      { id: 'd1', name: 'بيتزا مارغريتا', price: 59, image_url: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&h=400&fit=crop' },
-      { id: 'd2', name: 'برغر كلاسيك',    price: 49, image_url: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=400&fit=crop' },
-      { id: 'd3', name: 'سلطة فريش',      price: 35, image_url: 'https://images.unsplash.com/photo-1546793665-c74683f339c1?w=400&h=400&fit=crop' },
-      { id: 'd4', name: 'كيك شوكولا',     price: 29, image_url: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=400&fit=crop' },
-    ],
-    he: [
-      { id: 'd1', name: 'פיצה מרגריטה',   price: 59, image_url: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&h=400&fit=crop' },
-      { id: 'd2', name: 'המבורגר קלאסי',  price: 49, image_url: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=400&fit=crop' },
-      { id: 'd3', name: 'סלט טרי',         price: 35, image_url: 'https://images.unsplash.com/photo-1546793665-c74683f339c1?w=400&h=400&fit=crop' },
-      { id: 'd4', name: 'עוגת שוקולד',    price: 29, image_url: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=400&fit=crop' },
-    ],
-  },
-  tech: {
-    ar: [
-      { id: 'd1', name: 'سماعة بلوتوث',   price: 299, image_url: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop' },
-      { id: 'd2', name: 'لاب توب',         price: 999, image_url: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&h=400&fit=crop' },
-      { id: 'd3', name: 'موبايل',          price: 599, image_url: 'https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=400&h=400&fit=crop' },
-      { id: 'd4', name: 'لوحة مفاتيح',    price: 199, image_url: 'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=400&h=400&fit=crop' },
-    ],
-    he: [
-      { id: 'd1', name: 'אוזניות Bluetooth', price: 299, image_url: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop' },
-      { id: 'd2', name: 'לפטופ',             price: 999, image_url: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&h=400&fit=crop' },
-      { id: 'd3', name: 'סמארטפון',          price: 599, image_url: 'https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=400&h=400&fit=crop' },
-      { id: 'd4', name: 'מקלדת',            price: 199, image_url: 'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=400&h=400&fit=crop' },
-    ],
-  },
-  minimal: {
-    ar: [
-      { id: 'd1', name: 'دفتر ملاحظات', price: 49,  image_url: 'https://images.unsplash.com/photo-1544816155-12df9643f363?w=400&h=400&fit=crop' },
-      { id: 'd2', name: 'كوب قهوة',     price: 69,  image_url: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=400&h=400&fit=crop' },
-      { id: 'd3', name: 'حافظة جلد',   price: 129, image_url: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&h=400&fit=crop' },
-      { id: 'd4', name: 'ديكور مكتبي', price: 89,  image_url: 'https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=400&h=400&fit=crop' },
-    ],
-    he: [
-      { id: 'd1', name: 'מחברת',       price: 49,  image_url: 'https://images.unsplash.com/photo-1544816155-12df9643f363?w=400&h=400&fit=crop' },
-      { id: 'd2', name: 'כוס קפה',    price: 69,  image_url: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=400&h=400&fit=crop' },
-      { id: 'd3', name: 'תיק עור',    price: 129, image_url: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&h=400&fit=crop' },
-      { id: 'd4', name: 'עיצוב שולחן', price: 89,  image_url: 'https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=400&h=400&fit=crop' },
-    ],
-  },
-  creator: {
-    ar: [
-      { id: 'd1', name: 'لوحة رسم',    price: 149, image_url: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400&h=400&fit=crop' },
-      { id: 'd2', name: 'أدوات فنية',  price: 99,  image_url: 'https://images.unsplash.com/photo-1460661419176-9f72e37ed10f?w=400&h=400&fit=crop' },
-      { id: 'd3', name: 'كانفس يدوي', price: 79,  image_url: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400&h=400&fit=crop' },
-      { id: 'd4', name: 'كاميرا',     price: 899, image_url: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=400&h=400&fit=crop' },
-    ],
-    he: [
-      { id: 'd1', name: 'לוח ציור',    price: 149, image_url: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400&h=400&fit=crop' },
-      { id: 'd2', name: 'כלי אמן',     price: 99,  image_url: 'https://images.unsplash.com/photo-1460661419176-9f72e37ed10f?w=400&h=400&fit=crop' },
-      { id: 'd3', name: 'קנבס יד',     price: 79,  image_url: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400&h=400&fit=crop' },
-      { id: 'd4', name: 'מצלמה',       price: 899, image_url: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=400&h=400&fit=crop' },
-    ],
-  },
-}
-
-const FALLBACK_IMAGES: Record<string, string> = {
-  luxury:     'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop',
-  gaming:     'https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?w=400&h=400&fit=crop',
-  beauty:     'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&h=400&fit=crop',
-  streetwear: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop',
-  restaurant: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&h=400&fit=crop',
-  tech:       'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop',
-  minimal:    'https://images.unsplash.com/photo-1544816155-12df9643f363?w=400&h=400&fit=crop',
-  creator:    'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400&h=400&fit=crop',
-}
-
 function getHeroStyles(archetype: string, colors: string[]) {
   const c0 = colors[0] ?? '#7c3aed'
   const c1 = colors[1] ?? '#f59e0b'
@@ -176,17 +50,13 @@ function getHeroStyles(archetype: string, colors: string[]) {
   }
 }
 
-export default function StoreClient({ store, products: rawProducts }: { store: Store; products: Product[] }) {
+export default function StoreClient({ store, products }: { store: Store; products: Product[] }) {
   const lang = (store.lang ?? 'ar') as 'ar' | 'he'
   const fontClass = lang === 'he' ? heebo.className : cairo.className
-  const dir = 'rtl'
   const colors = Array.isArray(store.colors) ? store.colors : ['#7c3aed', '#f59e0b', '#0f172a']
   const c0 = colors[0] ?? '#7c3aed'
   const KNOWN_ARCHETYPES = ['luxury', 'gaming', 'beauty', 'streetwear', 'restaurant', 'tech', 'minimal', 'creator']
   const archetype = KNOWN_ARCHETYPES.includes(store.archetype ?? '') ? (store.archetype ?? 'minimal') : 'minimal'
-
-  const demoByLang = DEMO_PRODUCTS[archetype] ?? DEMO_PRODUCTS.minimal
-  const products = rawProducts.length > 0 ? rawProducts : (demoByLang[lang] ?? demoByLang.ar)
 
   const hero = getHeroStyles(archetype, colors)
   const isDark = true
@@ -208,16 +78,15 @@ export default function StoreClient({ store, products: rawProducts }: { store: S
     return `https://wa.me/${waNumber}?text=${encodeURIComponent(text)}`
   }
 
-  const navBg = isDark ? 'rgba(0,0,0,0.85)' : 'rgba(255,255,255,0.9)'
-  const navText = isDark ? '#fff' : '#111'
-  const cardBg = isDark ? '#111' : '#f8f8f8'
-  const cardText = isDark ? '#fff' : '#111'
-  const cardSub = isDark ? 'rgba(255,255,255,0.45)' : 'rgba(0,0,0,0.45)'
+  const navBg = 'rgba(0,0,0,0.85)'
+  const navText = '#fff'
+  const cardBg = '#111'
+  const cardText = '#fff'
+  const cardSub = 'rgba(255,255,255,0.45)'
   const pageBg = '#0a0a0a'
 
   const paymentMethods = store.payment_methods ? store.payment_methods.split(',').map(s => s.trim()).filter(Boolean) : []
-
-  const imgFallback = FALLBACK_IMAGES[archetype] ?? FALLBACK_IMAGES.minimal
+  const imgFallback = 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop'
 
   return (
     <div dir="rtl" className={fontClass} style={{ minHeight: '100vh', background: pageBg, overflowX: 'hidden', maxWidth: '100%' }}>
@@ -229,15 +98,13 @@ export default function StoreClient({ store, products: rawProducts }: { store: S
       `}</style>
 
       {/* Navbar */}
-      <nav dir="rtl" style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50, background: navBg, backdropFilter: 'blur(12px)', borderBottom: `1px solid ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'}`, padding: '0 16px', height: '56px', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', direction: 'rtl' }}>
-        {/* Logo + name — right side in RTL */}
+      <nav dir="rtl" style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50, background: navBg, backdropFilter: 'blur(12px)', borderBottom: 'rgba(255,255,255,0.06)', padding: '0 16px', height: '56px', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', direction: 'rtl' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <div style={{ width: '34px', height: '34px', borderRadius: '50%', background: `linear-gradient(135deg,${c0},${colors[1] ?? '#f59e0b'})`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
             <span style={{ fontSize: '14px', fontWeight: 800, color: '#fff' }}>{(store.name?.[0] ?? '?').toUpperCase()}</span>
           </div>
           <span style={{ fontSize: '15px', fontWeight: 700, color: navText }}>{store.name}</span>
         </div>
-        {/* Cart — left side in RTL */}
         <div style={{ position: 'relative' }}>
           <span style={{ fontSize: '22px', cursor: 'pointer' }}>🛒</span>
           {cartCount > 0 && (
@@ -255,7 +122,7 @@ export default function StoreClient({ store, products: rawProducts }: { store: S
           {store.name}
         </h1>
         {store.slogan && (
-          <p style={{ fontSize: '12px', color: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.5)', fontStyle: archetype === 'luxury' ? 'italic' : 'normal', marginBottom: '10px', position: 'relative' }}>
+          <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', fontStyle: archetype === 'luxury' ? 'italic' : 'normal', marginBottom: '10px', position: 'relative' }}>
             {store.slogan}
           </p>
         )}
@@ -264,55 +131,73 @@ export default function StoreClient({ store, products: rawProducts }: { store: S
         )}
       </div>
 
-      {/* Products grid */}
+      {/* Products or empty state */}
       <div style={{ padding: '16px', maxWidth: '600px', margin: '0 auto' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-          {products.map(p => (
-            <div key={p.id}
-              onClick={() => openDrawer(p)}
-              style={{ background: cardBg, borderRadius: '16px', overflow: 'hidden', cursor: 'pointer', border: `1px solid ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'}`, boxShadow: isDark ? '0 4px 20px rgba(0,0,0,0.3)' : '0 2px 12px rgba(0,0,0,0.06)', transition: 'transform 0.15s', active: undefined }}>
-              <div style={{ aspectRatio: '1', overflow: 'hidden', background: isDark ? '#1a1a1a' : '#eee' }}>
-                <img
-                  src={p.image_url || imgFallback}
-                  alt={p.name}
-                  onError={e => { (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop' }}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                />
+        {products.length === 0 ? (
+          <div style={{ textAlign: 'center', padding: '48px 24px' }}>
+            <div style={{ fontSize: '56px', marginBottom: '16px' }}>📦</div>
+            <p style={{ fontSize: '17px', fontWeight: 700, color: 'rgba(255,255,255,0.85)', marginBottom: '8px' }}>
+              {lang === 'ar' ? 'قريباً — المتجر يستعد للإطلاق' : 'בקרוב — החנות בהכנה'}
+            </p>
+            {waNumber && (
+              <a
+                href={`https://wa.me/${waNumber}?text=${encodeURIComponent(lang === 'ar' ? 'أريد التحديثات عن متجركم 📦' : 'אני רוצה עדכונים על החנות שלכם 📦')}`}
+                target="_blank" rel="noopener noreferrer"
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', marginTop: '16px', background: '#22c55e', color: '#fff', borderRadius: '12px', padding: '10px 20px', fontSize: '13px', fontWeight: 700, textDecoration: 'none' }}>
+                <span>💬</span>
+                {lang === 'ar' ? 'تابعنا على واتساب للتحديثات' : 'עקבו אחרינו בוואטסאפ לעדכונים'}
+              </a>
+            )}
+          </div>
+        ) : (
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+            {products.map(p => (
+              <div key={p.id}
+                onClick={() => openDrawer(p)}
+                style={{ background: cardBg, borderRadius: '16px', overflow: 'hidden', cursor: 'pointer', border: '1px solid rgba(255,255,255,0.06)', boxShadow: '0 4px 20px rgba(0,0,0,0.3)', transition: 'transform 0.15s' }}>
+                <div style={{ aspectRatio: '1', overflow: 'hidden', background: '#1a1a1a' }}>
+                  <img
+                    src={p.image_url || imgFallback}
+                    alt={p.name}
+                    onError={e => { (e.target as HTMLImageElement).src = imgFallback }}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                  />
+                </div>
+                <div style={{ padding: '10px 12px' }}>
+                  <p style={{ fontSize: '13px', fontWeight: 600, color: cardText, marginBottom: '4px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.name}</p>
+                  <p style={{ fontSize: '15px', fontWeight: 700, color: c0 }}>₪{p.price}</p>
+                </div>
               </div>
-              <div style={{ padding: '10px 12px' }}>
-                <p style={{ fontSize: '13px', fontWeight: 600, color: cardText, marginBottom: '4px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.name}</p>
-                <p style={{ fontSize: '15px', fontWeight: 700, color: c0 }}>₪{p.price}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Footer */}
-      <div style={{ padding: '24px 16px 40px', textAlign: 'center', borderTop: `1px solid ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'}`, marginTop: '16px' }}>
+      <div style={{ padding: '24px 16px 40px', textAlign: 'center', borderTop: '1px solid rgba(255,255,255,0.06)', marginTop: '16px' }}>
         {paymentMethods.length > 0 && (
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', justifyContent: 'center', marginBottom: '16px' }}>
-            {paymentMethods.includes('bit') && <span style={{ background: isDark ? '#1a1a1a' : '#f0f0f0', border: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.1)'}`, borderRadius: '20px', padding: '4px 12px', fontSize: '12px', color: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.5)' }}>Bit</span>}
-            {paymentMethods.includes('bank') && <span style={{ background: isDark ? '#1a1a1a' : '#f0f0f0', border: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.1)'}`, borderRadius: '20px', padding: '4px 12px', fontSize: '12px', color: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.5)' }}>{lang === 'ar' ? 'تحويل بنكي' : 'העברה בנקאית'}</span>}
-            {paymentMethods.includes('cash') && <span style={{ background: isDark ? '#1a1a1a' : '#f0f0f0', border: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.1)'}`, borderRadius: '20px', padding: '4px 12px', fontSize: '12px', color: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.5)' }}>{lang === 'ar' ? 'دفع عند الاستلام' : 'תשלום במסירה'}</span>}
+            {paymentMethods.includes('bit') && <span style={{ background: '#1a1a1a', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '20px', padding: '4px 12px', fontSize: '12px', color: 'rgba(255,255,255,0.5)' }}>Bit</span>}
+            {paymentMethods.includes('bank') && <span style={{ background: '#1a1a1a', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '20px', padding: '4px 12px', fontSize: '12px', color: 'rgba(255,255,255,0.5)' }}>{lang === 'ar' ? 'تحويل بنكي' : 'העברה בנקאית'}</span>}
+            {paymentMethods.includes('cash') && <span style={{ background: '#1a1a1a', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '20px', padding: '4px 12px', fontSize: '12px', color: 'rgba(255,255,255,0.5)' }}>{lang === 'ar' ? 'دفع عند الاستلام' : 'תשלום במסירה'}</span>}
           </div>
         )}
-        <a href="/" style={{ fontSize: '11px', color: isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.25)', textDecoration: 'none' }}>
+        <a href="/" style={{ fontSize: '11px', color: 'rgba(255,255,255,0.2)', textDecoration: 'none' }}>
           {lang === 'ar' ? 'مدعوم بـ Instok.ai' : 'מופעל על ידי Instok.ai'}
         </a>
       </div>
 
-      {/* Product drawer overlay */}
+      {/* Product drawer */}
       {drawerOpen && drawerProduct && (
         <div style={{ position: 'fixed', inset: 0, zIndex: 100 }}>
           <div onClick={closeDrawer} style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(2px)' }} />
-          <div className="drawer-open" style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: isDark ? '#111' : '#fff', borderRadius: '24px 24px 0 0', padding: '0 0 40px', maxHeight: '85vh', overflowY: 'auto' }}>
-            <div style={{ width: '36px', height: '4px', background: isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.15)', borderRadius: '2px', margin: '12px auto 0' }} />
-            <div style={{ aspectRatio: '4/3', overflow: 'hidden', background: isDark ? '#1a1a1a' : '#f0f0f0' }}>
+          <div className="drawer-open" style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: '#111', borderRadius: '24px 24px 0 0', padding: '0 0 40px', maxHeight: '85vh', overflowY: 'auto' }}>
+            <div style={{ width: '36px', height: '4px', background: 'rgba(255,255,255,0.15)', borderRadius: '2px', margin: '12px auto 0' }} />
+            <div style={{ aspectRatio: '4/3', overflow: 'hidden', background: '#1a1a1a' }}>
               <img
                 src={drawerProduct.image_url || imgFallback}
                 alt={drawerProduct.name}
-                onError={e => { (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop' }}
+                onError={e => { (e.target as HTMLImageElement).src = imgFallback }}
                 style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
               />
             </div>
@@ -329,7 +214,7 @@ export default function StoreClient({ store, products: rawProducts }: { store: S
                   {lang === 'ar' ? 'اطلب عبر واتساب' : 'הזמן דרך וואטסאפ'}
                 </a>
               ) : (
-                <div style={{ background: isDark ? '#1a1a1a' : '#f0f0f0', borderRadius: '14px', padding: '15px 24px', fontSize: '14px', color: cardSub, textAlign: 'center' }}>
+                <div style={{ background: '#1a1a1a', borderRadius: '14px', padding: '15px 24px', fontSize: '14px', color: cardSub, textAlign: 'center' }}>
                   {lang === 'ar' ? 'تواصل مع صاحب المتجر' : 'צור קשר עם בעל החנות'}
                 </div>
               )}
