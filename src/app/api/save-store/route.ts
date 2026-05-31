@@ -6,9 +6,11 @@ function generateSlug(name: string): string {
     .replace(/\s+/g, '-')
     .replace(/[^\w-]/g, '')
     .replace(/-+/g, '-')
-    .slice(0, 30) || 'store'
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 30)
+  const safeName = base || 'store'
   const suffix = Math.random().toString(36).slice(2, 6)
-  return `${base}-${suffix}`
+  return `${safeName}-${suffix}`
 }
 
 export async function POST(request: Request) {
