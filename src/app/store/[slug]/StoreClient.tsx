@@ -164,6 +164,18 @@ export default function StoreClient({ store, products }: { store: Store; product
         <div style={{ height: '40px', background: 'linear-gradient(to bottom, transparent, #0a0a0a)' }} />
       </div>
 
+      {/* ── About ─────────────────────────────────────────────── */}
+      {store.description && (
+        <div style={{ padding: '0 16px', maxWidth: '600px', margin: '0 auto 16px' }}>
+          <div style={{ background: '#111', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '16px', padding: '16px 18px' }}>
+            <p style={{ fontSize: '12px', fontWeight: 700, color: 'rgba(255,255,255,0.4)', marginBottom: '8px', letterSpacing: '0.06em' }}>
+              {ar ? 'نبذة عنّا' : 'עלינו'}
+            </p>
+            <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.65)', lineHeight: 1.7 }}>{store.description}</p>
+          </div>
+        </div>
+      )}
+
       {/* ── Products ──────────────────────────────────────────── */}
       <div id="products" style={{ padding: '0 16px', maxWidth: '600px', margin: '0 auto' }}>
         <h2 style={{ fontSize: '16px', fontWeight: 700, color: 'rgba(255,255,255,0.7)', marginBottom: '14px', letterSpacing: '0.04em' }}>
@@ -245,16 +257,6 @@ export default function StoreClient({ store, products }: { store: Store; product
                 </span>
               )}
             </div>
-          </div>
-        )}
-
-        {/* About */}
-        {store.description && (
-          <div style={{ background: '#111', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '16px', padding: '16px 18px' }}>
-            <p style={{ fontSize: '12px', fontWeight: 700, color: 'rgba(255,255,255,0.4)', marginBottom: '8px', letterSpacing: '0.06em' }}>
-              {ar ? 'نبذة عنّا' : 'עלינו'}
-            </p>
-            <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.65)', lineHeight: 1.7 }}>{store.description}</p>
           </div>
         )}
 
