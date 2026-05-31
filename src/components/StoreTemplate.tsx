@@ -137,7 +137,7 @@ function getConfig(archetype: string, c0: string, c1: string, c2: string): ArchC
     case 'beauty':
       return {
         pageBg: lightBg,
-        heroBg: `linear-gradient(160deg, ${c0}44, ${c1}30)`,
+        heroBg: `linear-gradient(160deg, ${c0}20, ${c1}15)`,
         navBg,
         navBorder: `${c0}30`,
         navTextColor: navText,
@@ -158,7 +158,7 @@ function getConfig(archetype: string, c0: string, c1: string, c2: string): ArchC
       }
     case 'streetwear':
       return {
-        pageBg: '#000000',
+        pageBg: '#0a0a0a',
         heroBg: c2,
         navBg,
         navBorder: 'transparent',
@@ -246,7 +246,7 @@ function getConfig(archetype: string, c0: string, c1: string, c2: string): ArchC
     default:
       return {
         pageBg: lightBg,
-        heroBg: `linear-gradient(135deg, ${c0}66, ${c1}44)`,
+        heroBg: `linear-gradient(160deg, ${c0}18, ${c1}12)`,
         navBg,
         navBorder: `${c0}20`,
         navTextColor: navText,
@@ -272,13 +272,13 @@ function getConfig(archetype: string, c0: string, c1: string, c2: string): ArchC
 
 function LuxuryHero({ store, c0, heroBg, ar }: { store: StoreData; c0: string; heroBg: string; ar: boolean }) {
   return (
-    <div style={{ background: heroBg, textAlign: 'center', position: 'relative' }}>
+    <div style={{ background: heroBg, paddingTop: '56px', textAlign: 'center', position: 'relative' }}>
       <div style={{ padding: '60px 32px 20px' }}>
         <div style={{ width: '40px', height: '1px', background: c0, margin: '0 auto 28px', opacity: 0.5 }} />
         <p style={{ fontSize: '10px', letterSpacing: '0.35em', color: `${c0}70`, textTransform: 'uppercase', marginBottom: '20px', fontWeight: 300 }}>
           {ar ? 'مجموعة حصرية' : 'קולקציה בלעדית'}
         </p>
-        <h1 style={{ fontSize: '28px', fontWeight: 200, color: c0, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '18px', lineHeight: 1.4 }}>
+        <h1 style={{ fontSize: '22px', fontWeight: 200, color: c0, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '18px', lineHeight: 1.4 }}>
           {store.name}
         </h1>
         <div style={{ width: '60px', height: '1px', background: c0, margin: '0 auto 18px', opacity: 0.35 }} />
@@ -299,11 +299,11 @@ function LuxuryHero({ store, c0, heroBg, ar }: { store: StoreData; c0: string; h
 function GamingHero({ store, c0, c1, heroBg, ar }: { store: StoreData; c0: string; c1: string; heroBg: string; ar: boolean }) {
   const ctaText = getTextColor(c0)
   return (
-    <div style={{ background: heroBg, position: 'relative', overflow: 'hidden' }}>
+    <div style={{ background: heroBg, paddingTop: '56px', position: 'relative', overflow: 'hidden' }}>
       <div style={{ position: 'absolute', inset: 0, background: `repeating-linear-gradient(0deg,transparent,transparent 8px,${c0}08 8px,${c0}08 9px)`, pointerEvents: 'none' }} />
       <div style={{ position: 'absolute', top: '20px', right: '10%', width: '120px', height: '120px', background: c0, borderRadius: '50%', filter: 'blur(60px)', opacity: 0.2 }} />
       <div style={{ position: 'absolute', bottom: '0', left: '5%', width: '80px', height: '80px', background: c1, borderRadius: '50%', filter: 'blur(40px)', opacity: 0.1 }} />
-      <div style={{ padding: '60px 24px 36px', textAlign: 'center', position: 'relative', zIndex: 1 }}>
+      <div style={{ padding: '44px 24px 36px', textAlign: 'center', position: 'relative', zIndex: 1 }}>
         <div style={{ fontSize: '12px', color: c0, letterSpacing: '0.15em', marginBottom: '12px', textTransform: 'uppercase', fontWeight: 700 }}>
           {ar ? 'ارتقِ بمستواك' : 'עלה רמה'}
         </div>
@@ -323,8 +323,8 @@ function GamingHero({ store, c0, c1, heroBg, ar }: { store: StoreData; c0: strin
 
 function BeautyHero({ store, c0, c1, heroBg, ar }: { store: StoreData; c0: string; c1: string; heroBg: string; ar: boolean }) {
   return (
-    <div style={{ background: heroBg }}>
-      <div style={{ padding: '60px 24px 40px', textAlign: 'center' }}>
+    <div style={{ background: heroBg, paddingTop: '56px' }}>
+      <div style={{ padding: '48px 24px 40px', textAlign: 'center' }}>
         <div style={{ width: '56px', height: '56px', borderRadius: '50%', background: `linear-gradient(135deg, ${c0}, ${c1})`, margin: '0 auto 20px', boxShadow: `0 8px 32px ${c0}40`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <span style={{ fontSize: '22px' }}>✿</span>
         </div>
@@ -348,8 +348,8 @@ function StreetwearHero({ store, c0, heroBg, ar }: { store: StoreData; c0: strin
   const nameFontSize = nameLen > 12 ? '36px' : nameLen > 8 ? '48px' : '56px'
   const heroTextColor = getTextColor(heroBg.startsWith('#') ? heroBg : '#000')
   return (
-    <div style={{ background: heroBg, borderBottom: `3px solid ${c0}` }}>
-      <div style={{ padding: '60px 20px 32px' }}>
+    <div style={{ background: heroBg, paddingTop: '56px', borderBottom: `3px solid ${c0}` }}>
+      <div style={{ padding: '40px 20px 32px' }}>
         <div style={{ fontSize: '9px', color: heroTextColor, opacity: 0.4, letterSpacing: '0.4em', textTransform: 'uppercase', marginBottom: '12px' }}>
           {ar ? 'الموسم الجديد — DROP 001' : 'SEASON DROP 001'}
         </div>
@@ -371,12 +371,12 @@ function StreetwearHero({ store, c0, heroBg, ar }: { store: StoreData; c0: strin
 
 function MinimalHero({ store, c0, heroBg, ar }: { store: StoreData; c0: string; heroBg: string; ar: boolean }) {
   return (
-    <div style={{ background: heroBg, borderBottom: '1px solid #efefef' }}>
-      <div style={{ padding: '60px 32px 48px', textAlign: 'center' }}>
+    <div style={{ background: heroBg, paddingTop: '56px', borderBottom: '1px solid #efefef' }}>
+      <div style={{ padding: '56px 32px 48px', textAlign: 'center' }}>
         <p style={{ fontSize: '10px', color: '#bbb', letterSpacing: '0.3em', textTransform: 'uppercase', marginBottom: '16px' }}>
           {ar ? 'متجر أونلاين' : 'ONLINE STORE'}
         </p>
-        <h1 style={{ fontSize: '28px', fontWeight: 300, color: '#111', letterSpacing: '0.05em', marginBottom: '12px' }}>
+        <h1 style={{ fontSize: '26px', fontWeight: 300, color: '#111', letterSpacing: '0.05em', marginBottom: '12px' }}>
           {store.name}
         </h1>
         <div style={{ width: '32px', height: '1px', background: '#ddd', margin: '0 auto 16px' }} />
@@ -393,9 +393,9 @@ function MinimalHero({ store, c0, heroBg, ar }: { store: StoreData; c0: string; 
 
 function RestaurantHero({ store, c0, heroBg, ar }: { store: StoreData; c0: string; heroBg: string; ar: boolean }) {
   return (
-    <div style={{ background: heroBg, position: 'relative', overflow: 'hidden' }}>
+    <div style={{ background: heroBg, paddingTop: '56px', position: 'relative', overflow: 'hidden' }}>
       <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3px', background: `linear-gradient(90deg, transparent, ${c0}, transparent)` }} />
-      <div style={{ padding: '60px 24px 36px', textAlign: 'center' }}>
+      <div style={{ padding: '44px 24px 36px', textAlign: 'center' }}>
         <div style={{ fontSize: '36px', marginBottom: '14px' }}>🍽️</div>
         <h1 style={{ fontSize: '30px', fontWeight: 800, color: c0, marginBottom: '8px', lineHeight: 1.2 }}>
           {store.name}
@@ -419,9 +419,9 @@ function RestaurantHero({ store, c0, heroBg, ar }: { store: StoreData; c0: strin
 function TechHero({ store, c0, heroBg, ar }: { store: StoreData; c0: string; heroBg: string; ar: boolean }) {
   const ctaText = getTextColor(c0)
   return (
-    <div style={{ background: heroBg, position: 'relative', overflow: 'hidden' }}>
+    <div style={{ background: heroBg, paddingTop: '56px', position: 'relative', overflow: 'hidden' }}>
       <div style={{ position: 'absolute', top: 0, right: 0, bottom: 0, width: '55%', background: `${c0}08`, clipPath: 'polygon(20% 0,100% 0,100% 100%,0% 100%)', pointerEvents: 'none' }} />
-      <div style={{ padding: '60px 24px 36px', position: 'relative', zIndex: 1 }}>
+      <div style={{ padding: '44px 24px 36px', position: 'relative', zIndex: 1 }}>
         <div style={{ fontSize: '11px', color: c0, letterSpacing: '0.12em', fontFamily: 'monospace', marginBottom: '14px' }}>
           {ar ? '// التقنية الجديدة' : '// טכנולוגיה חדשה'}
         </div>
@@ -451,9 +451,9 @@ function CreatorHero({ store, c0, c1, heroBg, ar }: { store: StoreData; c0: stri
   const ctaText = getTextColor(c0)
   const lightBgText = getTextColor(heroBg.startsWith('#') ? heroBg : '#ffffff')
   return (
-    <div style={{ background: heroBg, position: 'relative', overflow: 'hidden' }}>
+    <div style={{ background: heroBg, paddingTop: '56px', position: 'relative', overflow: 'hidden' }}>
       <div style={{ position: 'absolute', top: '30px', right: '20px', width: '100px', height: '100px', background: c1, borderRadius: '50%', filter: 'blur(50px)', opacity: 0.2 }} />
-      <div style={{ padding: '60px 24px 36px', textAlign: 'center', position: 'relative', zIndex: 1 }}>
+      <div style={{ padding: '44px 24px 36px', textAlign: 'center', position: 'relative', zIndex: 1 }}>
         <div style={{ fontSize: '12px', color: c0, marginBottom: '8px', fontWeight: 600, letterSpacing: '0.08em' }}>
           {ar ? `بقلم ${store.name}` : `של ${store.name}`}
         </div>
@@ -521,22 +521,19 @@ export default function StoreTemplate({
   const isLight = getTextColor(cfg.pageBg) === '#000000'
 
   return (
-    <div style={{ width: '375px', minHeight: '812px', position: 'relative', overflow: 'hidden', pointerEvents: preview ? 'none' : undefined }}>
     <div dir="rtl" className={fontClass} style={{ minHeight: '100vh', background: cfg.pageBg, color: cfg.textColor, overflowX: 'hidden', paddingBottom: (!preview && waNumber) ? '80px' : '0' }}>
-      {!preview && (
-        <style>{`
-          *{box-sizing:border-box}
-          body{margin:0;padding:0}
-          @keyframes drawerUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
-          @keyframes spin{to{transform:rotate(360deg)}}
-          .drawer-open{animation:drawerUp 0.28s cubic-bezier(0.32,0.72,0,1) forwards}
-          .prod-card{transition:transform 0.15s,box-shadow 0.15s}
-          .prod-card:active{transform:scale(0.97)}
-        `}</style>
-      )}
+      <style>{`
+        *{box-sizing:border-box}
+        body{margin:0;padding:0}
+        @keyframes drawerUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        .drawer-open{animation:drawerUp 0.28s cubic-bezier(0.32,0.72,0,1) forwards}
+        .prod-card{transition:transform 0.15s,box-shadow 0.15s}
+        .prod-card:active{transform:scale(0.97)}
+      `}</style>
 
       {/* ── Navbar ─────────────────────────────────────────────── */}
-      <nav dir="rtl" style={{ position: 'sticky', top: 0, zIndex: 10, background: cfg.navBg, backdropFilter: 'blur(12px)', borderBottom: `1px solid ${cfg.navBorder}`, padding: '0 16px', height: '56px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <nav dir="rtl" style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50, background: cfg.navBg, backdropFilter: 'blur(12px)', borderBottom: `1px solid ${cfg.navBorder}`, padding: '0 16px', height: '56px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         {archetype === 'luxury' ? (
           <span style={{ fontSize: '14px', fontWeight: 300, color: cfg.navTextColor, letterSpacing: '0.2em', textTransform: 'uppercase' }}>{store.name}</span>
         ) : (
@@ -812,7 +809,6 @@ export default function StoreTemplate({
           </div>
         </div>
       )}
-    </div>
     </div>
   )
 }
