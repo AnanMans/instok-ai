@@ -85,6 +85,7 @@ export default function Dashboard() {
       const { data: prods } = await supabase
         .from('products').select('*').eq('store_id', storeData.id).order('created_at', { ascending: false })
 
+      console.log('[dashboard] storeData.whatsapp_number:', storeData.whatsapp_number)
       setStore(storeData)
       setProducts(prods ?? [])
       setWaInput(storeData.whatsapp_number ?? '')

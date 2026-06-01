@@ -28,6 +28,13 @@ export async function POST(request: Request) {
 
     const computedSlug = generateSlug(body.brandName)
 
+    console.log('[save-store] received:', {
+      whatsappNumber: body.whatsappNumber,
+      delivery: body.delivery,
+      deliveryAreas: body.deliveryAreas,
+      payments: body.payments,
+    })
+
     const storePayload: Record<string, unknown> = {
       slug: computedSlug,
       name: body.brandName,
@@ -36,13 +43,19 @@ export async function POST(request: Request) {
       archetype: body.archetype,
       vibe: body.vibe,
       category: body.category,
-      description: body.description,
-      whatsapp_number: body.whatsappNumber.replace(/\D/g, '').replace(/^0/, '972'),
-      delivery_type: body.delivery,
-      delivery_areas: body.deliveryAreas,
-      payment_methods: body.payments,
+      description: body.description ?? null,
+      whatsapp_number: (body.whatsappNumber ?? '').replace(/\D/g, '').replace(/^0/, '972'),
+      delivery_type: body.delivery ?? null,
+      delivery_areas: body.deliveryAreas ?? null,
+      payment_methods: body.payments ?? null,
       lang: body.lang,
     }
+
+    console.log('[save-store] saving:', {
+      whatsapp_number: storePayload.whatsapp_number,
+      delivery_type: storePayload.delivery_type,
+      payment_methods: storePayload.payment_methods,
+    })
     if (body.userId) storePayload.owner_id = body.userId
 
     const { data: store, error } = await supabase
