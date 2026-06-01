@@ -1,15 +1,6 @@
 import type { CSSProperties } from 'react'
-import LuxuryTemplate from './templates/LuxuryTemplate'
-import GamingTemplate from './templates/GamingTemplate'
-import BeautyTemplate from './templates/BeautyTemplate'
-import StreetwearTemplate from './templates/StreetwearTemplate'
-import MinimalTemplate from './templates/MinimalTemplate'
-import RestaurantTemplate from './templates/RestaurantTemplate'
-import TechTemplate from './templates/TechTemplate'
-import CreatorTemplate from './templates/CreatorTemplate'
-import type { TemplateProps } from './templates/types'
-
-type Lang = 'ar' | 'he'
+import StorePage from '@/components/StorePage'
+import type { StoreData, ProductData } from '@/components/StorePage'
 
 const FAKE_PRODUCTS: Record<string, { ar: string; he: string; price: number; image_url: string }[]> = {
   luxury:     [{ ar: 'منتج مميز', he: 'מוצר בלעדי', price: 299, image_url: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop' }, { ar: 'قطعة راقية', he: 'פריט יוקרתי', price: 499, image_url: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop' }],
@@ -22,44 +13,35 @@ const FAKE_PRODUCTS: Record<string, { ar: string; he: string; price: number; ima
   creator:    [{ ar: 'منتج حصري', he: 'מוצר בלעדי', price: 149, image_url: 'https://images.unsplash.com/photo-1452860606245-08befc0ff44b?w=400&h=400&fit=crop' }, { ar: 'منتج ثاني', he: 'מוצר שני', price: 199, image_url: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=400&h=400&fit=crop' }],
 }
 
-const TEMPLATES: Record<string, React.ComponentType<TemplateProps>> = {
-  luxury:     LuxuryTemplate,
-  gaming:     GamingTemplate,
-  beauty:     BeautyTemplate,
-  streetwear: StreetwearTemplate,
-  minimal:    MinimalTemplate,
-  restaurant: RestaurantTemplate,
-  tech:       TechTemplate,
-  creator:    CreatorTemplate,
-}
-
 type Props = {
   archetype: string
   storeName: string
-  slogan: string
+  slogan?: string
   colors: string[]
-  lang: Lang
+  lang: 'ar' | 'he'
   logoUrl?: string
+  products?: ProductData[]
   style?: CSSProperties
 }
 
-export default function StorePreview({ archetype, storeName, slogan, colors, lang, logoUrl, style }: Props) {
-  const Template = TEMPLATES[archetype] ?? MinimalTemplate
-  const raw = FAKE_PRODUCTS[archetype] ?? FAKE_PRODUCTS.minimal
-  const products = raw.map(p => ({ name: lang === 'ar' ? p.ar : p.he, price: p.price, image_url: p.image_url }))
+export default function StorePreview({ archetype, storeName, slogan, colors, lang, logoUrl, products: passedProducts, style }: Props) {
+  const raw = FAKE_PRODUCTS[archetype] ?? FAKE_PRODUCTS.minimal ?? []
+  const fakeProducts = raw.map(p => ({ name: lang === 'ar' ? p.ar : p.he, price: p.price, image_url: p.image_url }))
+  const products: ProductData[] = (passedProducts && passedProducts.length > 0) ? passedProducts : fakeProducts
+
+  const store: StoreData = {
+    name: storeName,
+    slogan: slogan ?? '',
+    colors,
+    archetype,
+    lang,
+    logo_url: logoUrl,
+  }
 
   return (
     <div style={{ width: '240px', height: '420px', overflow: 'hidden', borderRadius: '24px', position: 'relative', ...style }}>
       <div style={{ position: 'absolute', top: 0, left: 0, width: '390px', transformOrigin: 'top left', transform: 'scale(0.615)' }}>
-        <Template
-          storeName={storeName}
-          slogan={slogan}
-          colors={colors}
-          lang={lang}
-          logoUrl={logoUrl}
-          products={products}
-          preview={true}
-        />
+        <StorePage store={store} products={products} previewMode={true} />
       </div>
     </div>
   )
