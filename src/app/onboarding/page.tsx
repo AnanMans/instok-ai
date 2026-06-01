@@ -444,7 +444,7 @@ export default function Page() {
   const goBack = () => setStep(s => s - 1)
 
   const canNext = step === 1
-    ? !!userEmail
+    ? true
     : step === 2 ? brandName.trim().length > 0 && categories.length > 0 && whatsappPhone.trim().length === 10
     : step === 5 ? payments.length > 0
     : step === 6 ? delivery.length > 0
