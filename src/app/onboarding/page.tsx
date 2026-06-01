@@ -109,7 +109,9 @@ const T = {
     s5BitLabel: 'Bit — الأسهل والأسرع',
     s5BankLabel: 'تحويل بنكي',
     s5CashLabel: 'دفع عند الاستلام',
-    s5BitPH: 'رقم الجوال المرتبط بـ Bit',
+    s5BitUsesBusiness: 'يستخدم رقم جوالك التجاري ✓',
+    s5BitDiffToggle: 'استخدام رقم Bit مختلف',
+    s5BitOverridePH: '+972... رقم Bit مختلف',
     s5IbanPH: 'رقم IBAN',
     s5BankPH: 'اسم البنك',
     s6Title: 'كيف بتوصّل البهجة لعملائك؟ 🚚',
@@ -120,7 +122,8 @@ const T = {
     s6AreasHelper: 'اكتب المناطق اللي بتوصّل إلها',
     s6AddressPH: 'عنوانك الكامل',
     s6CourierPH: 'اكتب اسم شركة الشحن',
-    s6WaLabel: 'رقم واتساب للطلبات 📱',
+    s6WaLabel: 'رقم جوالك التجاري (واتساب) 📱',
+    s6WaSub: 'يُستخدم لواتساب، Bit، والتواصل مع العملاء',
     s6WaPH: '+972501234567',
     s7Title: 'متجرك صار حقيقي! 🎉',
     s7WA: 'شارك على واتساب',
@@ -214,7 +217,9 @@ const T = {
     s5BitLabel: 'Bit — הכי קל',
     s5BankLabel: 'העברה בנקאית',
     s5CashLabel: 'תשלום במזומן',
-    s5BitPH: 'מספר טלפון ל-Bit',
+    s5BitUsesBusiness: 'משתמש במספר הטלפון העסקי שלך ✓',
+    s5BitDiffToggle: 'מספר Bit שונה',
+    s5BitOverridePH: 'מספר Bit אחר +972...',
     s5IbanPH: 'מספר IBAN',
     s5BankPH: 'שם הבנק',
     s6Title: 'איך תשלח הזמנות?',
@@ -225,7 +230,8 @@ const T = {
     s6AreasHelper: 'כתוב את האזורים',
     s6AddressPH: 'הכתובת המלאה שלך',
     s6CourierPH: 'כתוב את שם חברת המשלוח',
-    s6WaLabel: 'מספר וואטסאפ להזמנות 📱',
+    s6WaLabel: 'מספר הטלפון העסקי (וואטסאפ) 📱',
+    s6WaSub: 'משמש לוואטסאפ, Bit ויצירת קשר עם לקוחות',
     s6WaPH: '+972501234567',
     s7Title: 'החנות שלך הפכה לאמיתית! 🎉',
     s7WA: 'שתף בוואטסאפ',
@@ -373,7 +379,8 @@ export default function Page() {
   const [animLine, setAnimLine] = useState(0)
   const [animProgress, setAnimProgress] = useState(0)
   const [payments, setPayments] = useState<string[]>([])
-  const [bitPhone, setBitPhone] = useState('')
+  const [bitPhoneOverride, setBitPhoneOverride] = useState('')
+  const [useDiffBitPhone, setUseDiffBitPhone] = useState(false)
   const [iban, setIban] = useState('')
   const [bankName, setBankName] = useState('')
   const [delivery, setDelivery] = useState('')
@@ -477,7 +484,7 @@ export default function Page() {
     setStoreSaving(true)
     try {
       const { data: { session } } = await supabase.auth.getSession()
-      console.log('[onboarding] sending to save-store:', { delivery, deliveryAreas, payments: payments.join(', '), whatsappPhone })
+      console.log('[onboarding] sending to save-store:', { delivery, deliveryAreas, payments: payments.join(', '), whatsappPhone, useDiffBitPhone, bitPhoneOverride })
       const res = await fetch('/api/save-store', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -489,7 +496,8 @@ export default function Page() {
           vibe,
           category: categories.join(', '),
           description,
-          whatsappNumber: whatsappPhone,
+          businessPhone: whatsappPhone,
+          bitPhoneOverride: useDiffBitPhone ? bitPhoneOverride : '',
           delivery,
           deliveryAreas,
           payments: payments.join(', '),
@@ -915,7 +923,20 @@ export default function Page() {
                         </div>
                         <span style={{ color: '#fff', fontSize: '15px', fontWeight: 500 }}>{t.s5BitLabel}</span>
                       </button>
-                      {payments.includes('bit') && <input type="tel" placeholder={t.s5BitPH} value={bitPhone} onChange={e => setBitPhone(e.target.value)} style={{ ...inp, marginTop: '8px' }} dir="ltr" />}
+                      {payments.includes('bit') && (
+                        <div style={{ marginTop: '8px', background: '#111', borderRadius: '10px', padding: '10px 14px' }}>
+                          <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.45)', marginBottom: '8px' }}>{t.s5BitUsesBusiness}</p>
+                          <button
+                            type="button"
+                            onClick={() => { setUseDiffBitPhone(u => !u); if (useDiffBitPhone) setBitPhoneOverride('') }}
+                            style={{ background: useDiffBitPhone ? 'rgba(124,58,237,0.2)' : 'rgba(255,255,255,0.05)', border: `1px solid ${useDiffBitPhone ? 'rgba(124,58,237,0.5)' : 'rgba(255,255,255,0.1)'}`, borderRadius: '8px', padding: '6px 12px', color: useDiffBitPhone ? '#c4b5fd' : 'rgba(255,255,255,0.4)', fontSize: '12px', cursor: 'pointer', fontFamily: 'inherit' }}>
+                            {t.s5BitDiffToggle}
+                          </button>
+                          {useDiffBitPhone && (
+                            <input type="tel" placeholder={t.s5BitOverridePH} value={bitPhoneOverride} onChange={e => setBitPhoneOverride(e.target.value)} style={{ ...inp, marginTop: '8px' }} dir="ltr" />
+                          )}
+                        </div>
+                      )}
                     </div>
                     <div>
                       <button onClick={() => setPayments(p => p.includes('bank') ? p.filter(x => x !== 'bank') : [...p, 'bank'])} style={payments.includes('bank') ? cardS : cardB}>
@@ -970,7 +991,8 @@ export default function Page() {
                       {delivery === 'courier' && <input type="text" placeholder={t.s6CourierPH} value={deliveryCourier} onChange={e => setDeliveryCourier(e.target.value)} style={{ ...inp, marginTop: '8px' }} />}
                     </div>
                   </div>
-                  <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', marginBottom: '8px', fontWeight: 500 }}>{t.s6WaLabel}</p>
+                  <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', marginBottom: '4px', fontWeight: 500 }}>{t.s6WaLabel}</p>
+                  <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.28)', marginBottom: '8px' }}>{t.s6WaSub}</p>
                   <input type="tel" placeholder={t.s6WaPH} value={whatsappPhone} onChange={e => setWhatsappPhone(e.target.value)} style={{ ...inp, marginBottom: '24px', direction: 'ltr', textAlign: 'right' }} dir="ltr" />
                   <button onClick={canNext ? goNext : undefined} style={{ ...btnP, opacity: canNext ? 1 : 0.4, cursor: canNext ? 'pointer' : 'default' }}>{t.next}</button>
                 </>

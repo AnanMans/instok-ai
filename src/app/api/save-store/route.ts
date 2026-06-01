@@ -18,7 +18,9 @@ export async function POST(request: Request) {
   try {
     const body = await request.json() as {
       brandName: string; slogan: string; colors: string[]; archetype: string
-      vibe: string; category: string; description: string; whatsappNumber: string
+      vibe: string; category: string; description: string
+      businessPhone?: string; whatsappNumber?: string  // businessPhone is canonical; whatsappNumber kept for compat
+      bitPhoneOverride?: string
       delivery: string; deliveryAreas: string; payments: string; lang: string
       userId?: string
     }
@@ -28,8 +30,15 @@ export async function POST(request: Request) {
 
     const computedSlug = generateSlug(body.brandName)
 
+    const normalizePhone = (p: string | null | undefined) =>
+      (p ?? '').replace(/\D/g, '').replace(/^0/, '972')
+
+    const businessPhone = normalizePhone(body.businessPhone ?? body.whatsappNumber)
+    const bitOverride = body.bitPhoneOverride ? normalizePhone(body.bitPhoneOverride) : null
+
     console.log('[save-store] received:', {
-      whatsappNumber: body.whatsappNumber,
+      businessPhone: body.businessPhone,
+      bitPhoneOverride: body.bitPhoneOverride,
       delivery: body.delivery,
       deliveryAreas: body.deliveryAreas,
       payments: body.payments,
@@ -44,7 +53,9 @@ export async function POST(request: Request) {
       vibe: body.vibe,
       category: body.category,
       description: body.description ?? null,
-      whatsapp_number: (body.whatsappNumber ?? '').replace(/\D/g, '').replace(/^0/, '972'),
+      business_phone: businessPhone,
+      whatsapp_number: businessPhone,   // keep in sync for backward compat
+      bit_phone_override: bitOverride,
       delivery_type: body.delivery ?? null,
       delivery_areas: body.deliveryAreas ?? null,
       payment_methods: body.payments ?? null,
@@ -52,7 +63,8 @@ export async function POST(request: Request) {
     }
 
     console.log('[save-store] saving:', {
-      whatsapp_number: storePayload.whatsapp_number,
+      business_phone: storePayload.business_phone,
+      bit_phone_override: storePayload.bit_phone_override,
       delivery_type: storePayload.delivery_type,
       payment_methods: storePayload.payment_methods,
     })

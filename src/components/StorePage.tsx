@@ -13,7 +13,9 @@ export type StoreData = {
   description?: string
   colors: string[]
   archetype: string
-  whatsapp_number?: string
+  business_phone?: string       // canonical — source of truth
+  whatsapp_number?: string      // legacy, kept in sync with business_phone
+  bit_phone_override?: string   // null = use business_phone for Bit
   delivery_type?: string
   delivery_areas?: string
   lang?: string
@@ -404,7 +406,9 @@ export default function StorePage({
   const openDrawer = (p: ProductData) => { if (!previewMode) { setDrawerProduct(p); setDrawerOpen(true) } }
   const closeDrawer = () => setDrawerOpen(false)
 
-  const waNumber = store.whatsapp_number?.replace(/\D/g, '')?.replace(/^0/, '972') ?? ''
+  const normalizePhone = (p: string | null | undefined) =>
+    (p ?? '').replace(/\D/g, '').replace(/^0/, '972')
+  const waNumber = normalizePhone(store.business_phone ?? store.whatsapp_number)
   const waGeneralLink = waNumber
     ? `https://wa.me/${waNumber}?text=${encodeURIComponent(ar ? `مرحباً، أريد الاستفسار عن متجر ${store.name} 👋` : `היי, אני רוצה לשאול על החנות ${store.name} 👋`)}`
     : ''

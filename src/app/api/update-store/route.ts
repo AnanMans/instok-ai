@@ -1,10 +1,14 @@
 import { createClient } from '@supabase/supabase-js'
 
+const normalizePhone = (p: string | null | undefined) =>
+  (p ?? '').replace(/\D/g, '').replace(/^0/, '972')
+
 export async function POST(request: Request) {
   try {
     const body = await request.json() as {
       storeId: string
-      whatsappNumber?: string
+      businessPhone?: string
+      bitPhoneOverride?: string   // empty string = clear override (use business phone)
       description?: string
     }
 
@@ -14,11 +18,25 @@ export async function POST(request: Request) {
     const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, key)
 
     const updates: Record<string, unknown> = {}
-    if (body.whatsappNumber !== undefined) {
-      updates.whatsapp_number = body.whatsappNumber.replace(/\D/g, '').replace(/^0/, '972')
+
+    if (body.businessPhone !== undefined) {
+      const phone = normalizePhone(body.businessPhone)
+      updates.business_phone = phone
+      updates.whatsapp_number = phone   // keep in sync for backward compat
     }
+
+    if (body.bitPhoneOverride !== undefined) {
+      updates.bit_phone_override = body.bitPhoneOverride
+        ? normalizePhone(body.bitPhoneOverride)
+        : null   // empty string clears override
+    }
+
     if (body.description !== undefined) {
       updates.description = body.description
+    }
+
+    if (Object.keys(updates).length === 0) {
+      return Response.json({ ok: true })
     }
 
     const { error } = await supabase
