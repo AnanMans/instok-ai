@@ -120,6 +120,8 @@ const T = {
     s6AreasHelper: 'اكتب المناطق اللي بتوصّل إلها',
     s6AddressPH: 'عنوانك الكامل',
     s6CourierPH: 'اكتب اسم شركة الشحن',
+    s2WaLabel: 'رقم واتساب التجاري *',
+    s1Terms: 'بالمتابعة أنت توافق على شروط الاستخدام وسياسة الخصوصية',
     s7Title: 'متجرك صار حقيقي! 🎉',
     s7WA: 'شارك على واتساب',
     s7IG: 'شارك على انستغرام',
@@ -223,6 +225,8 @@ const T = {
     s6AreasHelper: 'כתוב את האזורים',
     s6AddressPH: 'הכתובת המלאה שלך',
     s6CourierPH: 'כתוב את שם חברת המשלוח',
+    s2WaLabel: 'מספר וואטסאפ עסקי *',
+    s1Terms: 'בהמשך אתה מסכים לתנאי השימוש ומדיניות הפרטיות',
     s7Title: 'החנות שלך הפכה לאמיתית! 🎉',
     s7WA: 'שתף בוואטסאפ',
     s7IG: 'שתף באינסטגרם',
@@ -439,8 +443,8 @@ export default function Page() {
   const goBack = () => setStep(s => s - 1)
 
   const canNext = step === 1
-    ? whatsappPhone.trim().length > 0
-    : step === 2 ? brandName.trim().length > 0 && categories.length > 0
+    ? true
+    : step === 2 ? brandName.trim().length > 0 && categories.length > 0 && whatsappPhone.trim().length > 0
     : step === 5 ? payments.length > 0
     : step === 6 ? delivery.length > 0
     : true
@@ -802,36 +806,15 @@ export default function Page() {
                   {/* Google button */}
                   <button
                     onClick={handleGoogleLogin}
-                    style={{ ...cardB, marginBottom: '24px', justifyContent: 'center', gap: '12px', padding: '16px', border: '1.5px solid rgba(255,255,255,0.12)' }}>
+                    style={{ ...cardB, marginBottom: '16px', justifyContent: 'center', gap: '12px', padding: '16px', border: '1.5px solid rgba(255,255,255,0.12)' }}>
                     <IcGoogle />
                     <span style={{ color: '#fff', fontSize: '16px', fontWeight: 500 }}>{t.s1Google}</span>
                   </button>
 
-                  {/* Divider */}
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
-                    <div style={{ flex: 1, height: '1px', background: 'rgba(255,255,255,0.08)' }} />
-                    <span style={{ color: 'rgba(255,255,255,0.25)', fontSize: '12px', whiteSpace: 'nowrap' }}>
-                      {lang === 'ar' ? 'أو أدخل رقمك أدناه' : 'או הזן את המספר שלך'}
-                    </span>
-                    <div style={{ flex: 1, height: '1px', background: 'rgba(255,255,255,0.08)' }} />
-                  </div>
-
-                  {/* WhatsApp input */}
-                  <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.45)', marginBottom: '8px', fontWeight: 500 }}>
-                    {lang === 'ar' ? 'رقم واتساب التجاري *' : 'מספר וואטסאפ עסקי *'}
-                  </p>
-                  <div style={{ display: 'flex', gap: '8px', marginBottom: '20px' }}>
-                    <div style={{ ...inp, width: 'auto', padding: '14px 12px', color: 'rgba(255,255,255,0.45)', fontSize: '15px', flexShrink: 0 }}>+972</div>
-                    <input
-                      type="tel" inputMode="numeric" placeholder="05X XXX XXXX"
-                      value={whatsappPhone}
-                      onChange={e => setWhatsappPhone(e.target.value.replace(/\D/g, ''))}
-                      style={{ ...inp, flex: 1, border: whatsappPhone ? '1px solid rgba(124,58,237,0.5)' : '1px solid #ef4444', boxShadow: whatsappPhone ? '0 0 0 3px rgba(124,58,237,0.12)' : '0 0 8px rgba(239,68,68,0.4)' }} dir="ltr"
-                    />
-                  </div>
+                  <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.25)', textAlign: 'center', marginTop: '16px' }}>{t.s1Terms}</p>
 
                   <button onClick={canNext ? goNext : undefined}
-                    style={{ ...btnP, opacity: canNext ? 1 : 0.4, cursor: canNext ? 'pointer' : 'default' }}>
+                    style={{ ...btnP, opacity: canNext ? 1 : 0.4, cursor: canNext ? 'pointer' : 'default', marginTop: '24px' }}>
                     {t.next}
                   </button>
                 </>
@@ -885,6 +868,18 @@ export default function Page() {
                     style={{ width: '100%', background: '#111', border: '1.5px dashed rgba(255,255,255,0.12)', borderRadius: '14px', padding: '20px', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', marginBottom: '28px', fontFamily: 'inherit' }}>
                     {uploadedImage ? <img src={uploadedImage} alt="" style={{ width: 60, height: 60, objectFit: 'cover', borderRadius: 10 }} /> : <><span style={{ fontSize: '24px' }}>📷</span><span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.35)' }}>{t.s2ImgBtn}</span></>}
                   </button>
+
+                  <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', marginBottom: '8px', fontWeight: 500 }}>{t.s2WaLabel}</p>
+                  <div style={{ display: 'flex', marginBottom: '20px', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '14px', overflow: 'hidden', background: '#1a1a1a' }}>
+                    <div style={{ padding: '14px 12px', color: 'rgba(255,255,255,0.45)', fontSize: '15px', flexShrink: 0, borderLeft: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center' }}>+972</div>
+                    <input
+                      type="tel" inputMode="numeric" placeholder="05X XXX XXXX"
+                      value={whatsappPhone}
+                      onChange={e => setWhatsappPhone(e.target.value.replace(/\D/g, ''))}
+                      style={{ flex: 1, background: 'transparent', border: 'none', padding: '14px 16px', color: '#fff', fontSize: '15px', outline: 'none', fontFamily: 'inherit', borderBottom: whatsappPhone ? 'none' : '2px solid #ef4444' }}
+                      dir="ltr"
+                    />
+                  </div>
 
                   <button
                     onClick={canNext ? goNext : undefined}
