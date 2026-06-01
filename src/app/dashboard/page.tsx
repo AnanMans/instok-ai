@@ -20,9 +20,8 @@ type Store = {
   slogan: string
   archetype: string
   colors: string[]
-  business_phone?: string
   whatsapp_number?: string
-  bit_phone_override?: string
+  business_phone?: string
   description?: string
   lang?: string
 }
@@ -60,12 +59,10 @@ export default function Dashboard() {
   const [aiSuggestion, setAiSuggestion] = useState<{ price_min: number; price_max: number } | null>(null)
   const [aiDone, setAiDone] = useState(false)
 
-  const [phoneInput, setPhoneInput] = useState('')
-  const [bitOverrideInput, setBitOverrideInput] = useState('')
-  const [useDiffBit, setUseDiffBit] = useState(false)
-  const [phoneSaving, setPhoneSaving] = useState(false)
-  const [phoneSaved, setPhoneSaved] = useState(false)
-  const [phoneError, setPhoneError] = useState('')
+  const [waInput, setWaInput] = useState('')
+  const [waSaving, setWaSaving] = useState(false)
+  const [waSaved, setWaSaved] = useState(false)
+  const [waError, setWaError] = useState('')
 
   const [descInput, setDescInput] = useState('')
   const [descSaving, setDescSaving] = useState(false)
@@ -91,9 +88,7 @@ export default function Dashboard() {
 
       setStore(storeData)
       setProducts(prods ?? [])
-      setPhoneInput(storeData.business_phone ?? storeData.whatsapp_number ?? '')
-      setUseDiffBit(!!(storeData.bit_phone_override))
-      setBitOverrideInput(storeData.bit_phone_override ?? '')
+      setWaInput(storeData.whatsapp_number ?? storeData.business_phone ?? '')
       setDescInput(storeData.description ?? '')
       setLoading(false)
     })
@@ -186,35 +181,26 @@ export default function Dashboard() {
     }
   }
 
-  const handleUpdatePhone = async () => {
+  const handleUpdateWa = async () => {
     if (!store) return
-    setPhoneSaving(true)
-    setPhoneError('')
-    setPhoneSaved(false)
+    setWaSaving(true)
+    setWaError('')
+    setWaSaved(false)
     try {
       const res = await fetch('/api/update-store', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          storeId: store.id,
-          businessPhone: phoneInput.trim(),
-          bitPhoneOverride: useDiffBit ? bitOverrideInput.trim() : '',
-        }),
+        body: JSON.stringify({ storeId: store.id, whatsappNumber: waInput.trim() }),
       })
       const data = await res.json()
-      if (data.error) { setPhoneError(data.error); return }
-      setStore(s => s ? {
-        ...s,
-        business_phone: phoneInput.trim(),
-        whatsapp_number: phoneInput.trim(),
-        bit_phone_override: useDiffBit ? bitOverrideInput.trim() : undefined,
-      } : s)
-      setPhoneSaved(true)
-      setTimeout(() => setPhoneSaved(false), 2500)
+      if (data.error) { setWaError(data.error); return }
+      setStore(s => s ? { ...s, whatsapp_number: waInput.trim(), business_phone: waInput.trim() } : s)
+      setWaSaved(true)
+      setTimeout(() => setWaSaved(false), 2500)
     } catch (err) {
-      setPhoneError(String(err))
+      setWaError(String(err))
     } finally {
-      setPhoneSaving(false)
+      setWaSaving(false)
     }
   }
 
@@ -315,53 +301,26 @@ export default function Dashboard() {
           <h3 style={{ fontSize: '15px', fontWeight: 700, marginBottom: '16px', color: 'rgba(255,255,255,0.85)' }}>
             {ar ? 'تعديل إعدادات المتجر' : 'עריכת הגדרות החנות'}
           </h3>
-          <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)', marginBottom: '4px' }}>
-            {ar ? 'رقم الهاتف التجاري 📱' : 'מספר טלפון עסקי 📱'}
+          <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)', marginBottom: '8px' }}>
+            {ar ? 'رقم واتساب التجاري 📱' : 'מספר וואטסאפ עסקי 📱'}
           </p>
-          <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.25)', marginBottom: '8px' }}>
-            {ar ? 'يُستخدم للواتساب، Bit، والتواصل مع الزبائن' : 'משמש לוואטסאפ, Bit, וקשר עם לקוחות'}
-          </p>
-          <div style={{ display: 'flex', gap: '8px', marginBottom: '10px' }}>
+          <div style={{ display: 'flex', gap: '8px' }}>
             <input
               type="tel"
               placeholder="+972501234567"
-              value={phoneInput}
-              onChange={e => { setPhoneInput(e.target.value); setPhoneSaved(false) }}
+              value={waInput}
+              onChange={e => { setWaInput(e.target.value); setWaSaved(false) }}
               style={{ ...inp, flex: 1, direction: 'ltr', textAlign: 'left' }}
               dir="ltr"
             />
             <button
-              onClick={handleUpdatePhone}
-              disabled={phoneSaving}
-              style={{ flexShrink: 0, background: phoneSaved ? '#22c55e' : `linear-gradient(135deg,${c0},${c0}cc)`, border: 'none', borderRadius: '12px', padding: '0 18px', color: '#fff', fontSize: '13px', fontWeight: 700, cursor: phoneSaving ? 'default' : 'pointer', fontFamily: 'inherit', opacity: phoneSaving ? 0.6 : 1, transition: 'background 0.2s' }}>
-              {phoneSaving ? '...' : phoneSaved ? '✓' : (ar ? 'حفظ' : 'שמור')}
+              onClick={handleUpdateWa}
+              disabled={waSaving}
+              style={{ flexShrink: 0, background: waSaved ? '#22c55e' : `linear-gradient(135deg,${c0},${c0}cc)`, border: 'none', borderRadius: '12px', padding: '0 18px', color: '#fff', fontSize: '13px', fontWeight: 700, cursor: waSaving ? 'default' : 'pointer', fontFamily: 'inherit', opacity: waSaving ? 0.6 : 1, transition: 'background 0.2s' }}>
+              {waSaving ? '...' : waSaved ? '✓' : (ar ? 'حفظ' : 'שמור')}
             </button>
           </div>
-
-          {/* Bit override */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: useDiffBit ? '10px' : '0' }}>
-            <button
-              onClick={() => { setUseDiffBit(v => !v); setPhoneSaved(false) }}
-              style={{ background: useDiffBit ? `${c0}33` : 'rgba(255,255,255,0.05)', border: `1px solid ${useDiffBit ? c0 : 'rgba(255,255,255,0.1)'}`, borderRadius: '20px', padding: '4px 12px', color: useDiffBit ? '#c4b5fd' : 'rgba(255,255,255,0.35)', fontSize: '11px', cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.15s' }}>
-              {ar ? (useDiffBit ? '✓ رقم Bit مختلف' : '+ رقم Bit مختلف') : (useDiffBit ? '✓ מספר Bit שונה' : '+ מספר Bit שונה')}
-            </button>
-            {useDiffBit && (
-              <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.25)' }}>
-                {ar ? '(اختياري — يلغي رقم الهاتف لـ Bit)' : '(אופציונלי — מחליף את מספר ה-Bit)'}
-              </span>
-            )}
-          </div>
-          {useDiffBit && (
-            <input
-              type="tel"
-              placeholder="+972501234567"
-              value={bitOverrideInput}
-              onChange={e => { setBitOverrideInput(e.target.value); setPhoneSaved(false) }}
-              style={{ ...inp, direction: 'ltr', textAlign: 'left' }}
-              dir="ltr"
-            />
-          )}
-          {phoneError && <p style={{ fontSize: '12px', color: '#f87171', marginTop: '8px' }}>{phoneError}</p>}
+          {waError && <p style={{ fontSize: '12px', color: '#f87171', marginTop: '8px' }}>{waError}</p>}
 
           <div style={{ height: '1px', background: 'rgba(255,255,255,0.07)', margin: '16px 0' }} />
 

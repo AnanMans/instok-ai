@@ -7,8 +7,7 @@ export async function POST(request: Request) {
   try {
     const body = await request.json() as {
       storeId: string
-      businessPhone?: string
-      bitPhoneOverride?: string   // empty string = clear override (use business phone)
+      whatsappNumber?: string
       description?: string
     }
 
@@ -19,16 +18,10 @@ export async function POST(request: Request) {
 
     const updates: Record<string, unknown> = {}
 
-    if (body.businessPhone !== undefined) {
-      const phone = normalizePhone(body.businessPhone)
+    if (body.whatsappNumber !== undefined) {
+      const phone = normalizePhone(body.whatsappNumber)
+      updates.whatsapp_number = phone
       updates.business_phone = phone
-      updates.whatsapp_number = phone   // keep in sync for backward compat
-    }
-
-    if (body.bitPhoneOverride !== undefined) {
-      updates.bit_phone_override = body.bitPhoneOverride
-        ? normalizePhone(body.bitPhoneOverride)
-        : null   // empty string clears override
     }
 
     if (body.description !== undefined) {

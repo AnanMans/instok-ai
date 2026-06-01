@@ -556,7 +556,7 @@ export default function StorePage({
             )}
             {paymentMethods.length > 0 && (
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                {paymentMethods.includes('bit')  && <span style={{ background: cfg.pillBg, border: `1px solid ${cfg.pillBorder}`, borderRadius: '20px', padding: '4px 12px', fontSize: '12px', fontWeight: 600, color: cfg.pillColor }}>💜 Bit</span>}
+                {paymentMethods.includes('bit')  && <span style={{ background: cfg.pillBg, border: `1px solid ${cfg.pillBorder}`, borderRadius: '20px', padding: '4px 12px', fontSize: '12px', fontWeight: 600, color: cfg.pillColor }}>💜 Bit{waNumber ? ` — +${waNumber}` : ''}</span>}
                 {paymentMethods.includes('bank') && <span style={{ background: cfg.pillBg, border: `1px solid ${cfg.pillBorder}`, borderRadius: '20px', padding: '4px 12px', fontSize: '12px', fontWeight: 600, color: cfg.pillColor }}>🏦 {ar ? 'تحويل بنكي' : 'העברה בנקאית'}</span>}
                 {paymentMethods.includes('cash') && <span style={{ background: cfg.pillBg, border: `1px solid ${cfg.pillBorder}`, borderRadius: '20px', padding: '4px 12px', fontSize: '12px', fontWeight: 600, color: cfg.pillColor }}>💵 {ar ? 'كاش' : 'מזומן'}</span>}
               </div>

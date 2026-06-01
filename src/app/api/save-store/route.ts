@@ -19,8 +19,7 @@ export async function POST(request: Request) {
     const body = await request.json() as {
       brandName: string; slogan: string; colors: string[]; archetype: string
       vibe: string; category: string; description: string
-      businessPhone?: string; whatsappNumber?: string  // businessPhone is canonical; whatsappNumber kept for compat
-      bitPhoneOverride?: string
+      whatsappNumber?: string
       delivery: string; deliveryAreas: string; payments: string; lang: string
       userId?: string
     }
@@ -33,16 +32,7 @@ export async function POST(request: Request) {
     const normalizePhone = (p: string | null | undefined) =>
       (p ?? '').replace(/\D/g, '').replace(/^0/, '972')
 
-    const businessPhone = normalizePhone(body.businessPhone ?? body.whatsappNumber)
-    const bitOverride = body.bitPhoneOverride ? normalizePhone(body.bitPhoneOverride) : null
-
-    console.log('[save-store] received:', {
-      businessPhone: body.businessPhone,
-      bitPhoneOverride: body.bitPhoneOverride,
-      delivery: body.delivery,
-      deliveryAreas: body.deliveryAreas,
-      payments: body.payments,
-    })
+    const whatsappNumber = normalizePhone(body.whatsappNumber)
 
     const storePayload: Record<string, unknown> = {
       slug: computedSlug,
@@ -53,21 +43,14 @@ export async function POST(request: Request) {
       vibe: body.vibe,
       category: body.category,
       description: body.description ?? null,
-      business_phone: businessPhone,
-      whatsapp_number: businessPhone,   // keep in sync for backward compat
-      bit_phone_override: bitOverride,
+      whatsapp_number: whatsappNumber,
+      business_phone: whatsappNumber,
       delivery_type: body.delivery ?? null,
       delivery_areas: body.deliveryAreas ?? null,
       payment_methods: body.payments ?? null,
       lang: body.lang,
     }
 
-    console.log('[save-store] saving:', {
-      business_phone: storePayload.business_phone,
-      bit_phone_override: storePayload.bit_phone_override,
-      delivery_type: storePayload.delivery_type,
-      payment_methods: storePayload.payment_methods,
-    })
     if (body.userId) storePayload.owner_id = body.userId
 
     const { data: store, error } = await supabase
