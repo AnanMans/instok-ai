@@ -438,8 +438,9 @@ export default function Page() {
   const goNext = () => setStep(s => s + 1)
   const goBack = () => setStep(s => s - 1)
 
-  const canNext = step === 2
-    ? brandName.trim().length > 0 && categories.length > 0
+  const canNext = step === 1
+    ? whatsappPhone.trim().length > 0
+    : step === 2 ? brandName.trim().length > 0 && categories.length > 0
     : step === 5 ? payments.length > 0
     : step === 6 ? delivery.length > 0
     : true
@@ -810,29 +811,28 @@ export default function Page() {
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
                     <div style={{ flex: 1, height: '1px', background: 'rgba(255,255,255,0.08)' }} />
                     <span style={{ color: 'rgba(255,255,255,0.25)', fontSize: '12px', whiteSpace: 'nowrap' }}>
-                      {lang === 'ar' ? 'أو جرّب بدون حساب' : 'או נסה ללא חשבון'}
+                      {lang === 'ar' ? 'أو أدخل رقمك أدناه' : 'או הזן את המספר שלך'}
                     </span>
                     <div style={{ flex: 1, height: '1px', background: 'rgba(255,255,255,0.08)' }} />
                   </div>
 
                   {/* WhatsApp input */}
                   <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.45)', marginBottom: '8px', fontWeight: 500 }}>
-                    {lang === 'ar' ? 'رقم واتساب التجاري' : 'מספר וואטסאפ עסקי'}
+                    {lang === 'ar' ? 'رقم واتساب التجاري *' : 'מספר וואטסאפ עסקי *'}
                   </p>
                   <div style={{ display: 'flex', gap: '8px', marginBottom: '20px' }}>
-                    <div style={{ ...inp, width: 'auto', padding: '14px 12px', color: 'rgba(255,255,255,0.45)', fontSize: '15px', flexShrink: 0 }}>+972</div>
+                    <div style={{ ...inp, width: 'auto', padding: '14px 12px', color: 'rgba(255,255,255,0.45)', fontSize: '15px', flexShrink: 0, border: whatsappPhone ? '1px solid rgba(255,255,255,0.1)' : '1px solid #ef4444', boxShadow: whatsappPhone ? 'none' : '0 0 8px rgba(239,68,68,0.4)' }}>+972</div>
                     <input
                       type="tel" inputMode="numeric" placeholder="05X XXX XXXX"
                       value={whatsappPhone}
                       onChange={e => setWhatsappPhone(e.target.value.replace(/\D/g, ''))}
-                      style={{ ...inp, flex: 1 }} dir="ltr"
+                      style={{ ...inp, flex: 1, border: whatsappPhone ? '1px solid rgba(124,58,237,0.5)' : '1px solid #ef4444', boxShadow: whatsappPhone ? '0 0 0 3px rgba(124,58,237,0.12)' : '0 0 8px rgba(239,68,68,0.4)' }} dir="ltr"
                     />
                   </div>
 
-                  {/* Skip button */}
-                  <button onClick={goNext}
-                    style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.35)', fontSize: '14px', cursor: 'pointer', width: '100%', textAlign: 'center', fontFamily: 'inherit', padding: '8px 0' }}>
-                    {lang === 'ar' ? 'كمّل للتجربة ←' : 'המשך לניסיון ←'}
+                  <button onClick={canNext ? goNext : undefined}
+                    style={{ ...btnP, opacity: canNext ? 1 : 0.4, cursor: canNext ? 'pointer' : 'default' }}>
+                    {t.next}
                   </button>
                 </>
               )}
