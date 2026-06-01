@@ -821,7 +821,7 @@ export default function Page() {
                     {lang === 'ar' ? 'رقم واتساب التجاري *' : 'מספר וואטסאפ עסקי *'}
                   </p>
                   <div style={{ display: 'flex', gap: '8px', marginBottom: '20px' }}>
-                    <div style={{ ...inp, width: 'auto', padding: '14px 12px', color: 'rgba(255,255,255,0.45)', fontSize: '15px', flexShrink: 0, border: whatsappPhone ? '1px solid rgba(255,255,255,0.1)' : '1px solid #ef4444', boxShadow: whatsappPhone ? 'none' : '0 0 8px rgba(239,68,68,0.4)' }}>+972</div>
+                    <div style={{ ...inp, width: 'auto', padding: '14px 12px', color: 'rgba(255,255,255,0.45)', fontSize: '15px', flexShrink: 0 }}>+972</div>
                     <input
                       type="tel" inputMode="numeric" placeholder="05X XXX XXXX"
                       value={whatsappPhone}
