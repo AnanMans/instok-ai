@@ -49,8 +49,8 @@ export default function StorePreview({ archetype, storeName, slogan, colors, lan
   const products = raw.map(p => ({ name: lang === 'ar' ? p.ar : p.he, price: p.price, image_url: p.image_url }))
 
   return (
-    <div style={{ width: '240px', height: '420px', overflow: 'hidden', borderRadius: '24px', ...style }}>
-      <div style={{ width: '390px', transformOrigin: 'top left', transform: 'scale(0.615)' }}>
+    <div style={{ width: '240px', height: '420px', overflow: 'hidden', borderRadius: '24px', position: 'relative', ...style }}>
+      <div style={{ position: 'absolute', top: 0, left: 0, width: '390px', transformOrigin: 'top left', transform: 'scale(0.615)' }}>
         <Template
           storeName={storeName}
           slogan={slogan}
