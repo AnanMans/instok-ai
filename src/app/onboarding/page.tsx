@@ -387,6 +387,7 @@ export default function Page() {
 
   const imgInputRef = useRef<HTMLInputElement>(null)
   const t = T[lang ?? 'ar']
+  const ar = lang === 'ar'
   const fontClass = lang === 'he' ? heebo.className : cairo.className
 
   useEffect(() => {
