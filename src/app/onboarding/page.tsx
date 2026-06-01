@@ -4,7 +4,8 @@ import { useState, useEffect, useRef, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
 import { Cairo, Heebo } from 'next/font/google'
 import { createBrowserClient } from '@supabase/ssr'
-import { renderStorePreview, type Lang, type BrandResult } from '@/lib/storePreview'
+import { type Lang, type BrandResult } from '@/lib/storePreview'
+import StorePreview from '@/components/StorePreview'
 
 const supabase = createBrowserClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -636,9 +637,15 @@ export default function Page() {
               </div>
 
               {/* Phone mockup */}
-              <div style={{ width: '240px', height: '420px', maxWidth: '100%', minWidth: 0, overflowX: 'hidden', borderRadius: '24px', overflow: 'hidden', margin: '0 auto', flexShrink: 0, border: '2px solid rgba(255,255,255,0.15)', boxShadow: '0 20px 40px rgba(0,0,0,0.5)' }}>
-                {renderStorePreview(effectiveArchetype, displayBrand, customColors, lang ?? 'ar', uploadedImage, t, categories)}
-              </div>
+              <StorePreview
+                archetype={effectiveArchetype}
+                storeName={displayBrand.storeName}
+                slogan={displayBrand.slogan}
+                colors={customColors}
+                lang={lang ?? 'ar'}
+                logoUrl={uploadedImage ?? undefined}
+                style={{ margin: '0 auto', flexShrink: 0, maxWidth: '100%', border: '2px solid rgba(255,255,255,0.15)', boxShadow: '0 20px 40px rgba(0,0,0,0.5)' }}
+              />
 
             </div>
 
