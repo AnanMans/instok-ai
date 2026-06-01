@@ -18,6 +18,7 @@ export type StoreData = {
   delivery_areas?: string
   lang?: string
   payment_methods?: string
+  logo_url?: string
 }
 
 export type ProductData = {
@@ -314,7 +315,7 @@ function GamingHero({ store, c0, c1, heroBg, ar }: { store: StoreData; c0: strin
           <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)', marginBottom: '28px' }}>{store.slogan}</p>
         )}
         <a href="#products" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: c0, color: ctaText, borderRadius: '4px', padding: '12px 28px', fontSize: '13px', fontWeight: 800, textDecoration: 'none', boxShadow: `0 0 12px ${c0}80`, letterSpacing: '0.05em' }}>
-          {ar ? 'العب الآن ▶' : 'שחק עכשיו ▶'}
+          {ar ? 'تسوّق الآن ▶' : 'קנה עכשיו ▶'}
         </a>
       </div>
     </div>
@@ -540,7 +541,10 @@ export default function StoreTemplate({
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             {archetype === 'restaurant' && <span style={{ fontSize: '18px' }}>🍕</span>}
             <div style={{ width: '34px', height: '34px', borderRadius: archetype === 'streetwear' || archetype === 'minimal' ? '4px' : '50%', background: `linear-gradient(135deg,${c0},${c1})`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: archetype === 'gaming' || archetype === 'tech' ? `0 0 10px ${c0}50` : 'none' }}>
-              <span style={{ fontSize: '13px', fontWeight: 800, color: '#fff' }}>{(store.name?.[0] ?? '?').toUpperCase()}</span>
+              {store.logo_url
+                ? <img src={store.logo_url} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="" />
+                : <span style={{ fontSize: '13px', fontWeight: 800, color: '#fff' }}>{(store.name?.[0] ?? '?').toUpperCase()}</span>
+              }
             </div>
             <span style={{ fontSize: archetype === 'streetwear' ? '13px' : '15px', fontWeight: archetype === 'streetwear' ? 900 : 700, color: cfg.navTextColor, letterSpacing: archetype === 'streetwear' ? '0.05em' : '0', textTransform: archetype === 'streetwear' ? 'uppercase' : 'none' }}>
               {store.name}
@@ -697,16 +701,6 @@ export default function StoreTemplate({
           </div>
         )}
 
-        {archetype === 'gaming' && (
-          <div dir="ltr" style={{ background: cfg.sectionBg, borderTop: `1px solid ${c0}25`, display: 'flex' }}>
-            {(['🏠', '🎮', '📦', '👤'] as const).map((icon, i) => (
-              <div key={i} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '12px 4px 10px', borderLeft: i > 0 ? `1px solid ${c0}15` : 'none' }}>
-                <span style={{ fontSize: '20px' }}>{icon}</span>
-                <div style={{ width: i === 0 ? '20px' : '0', height: '3px', background: c0, borderRadius: '2px', marginTop: '5px', boxShadow: i === 0 ? `0 0 6px ${c0}` : 'none' }} />
-              </div>
-            ))}
-          </div>
-        )}
 
         {archetype === 'creator' && (
           <div style={{ background: cfg.navBg, borderTop: `1px solid ${c0}20`, padding: '12px 16px', display: 'flex', gap: '10px' }}>

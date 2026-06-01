@@ -235,7 +235,7 @@ function GamingHero({ store, c0, heroBg, ar, pm }: HeroBase & { c1: string }) {
         </h1>
         {store.slogan && <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)', marginBottom: '28px' }}>{store.slogan}</p>}
         <a href="#products" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: c0, color: ctaText, borderRadius: '4px', padding: '12px 28px', fontSize: '13px', fontWeight: 800, textDecoration: 'none', boxShadow: `0 0 12px ${c0}80`, letterSpacing: '0.05em' }}>
-          {ar ? 'العب الآن ▶' : 'שחק עכשיו ▶'}
+          {ar ? 'تسوّق الآن ▶' : 'קנה עכשיו ▶'}
         </a>
       </div>
     </div>
@@ -570,16 +570,6 @@ export default function StorePage({
             <span style={{ fontSize: '10px', color: c0, opacity: 0.3, letterSpacing: '6px', textTransform: 'uppercase' }}>
               {ar ? 'مجموعة ٢٠٢٦' : 'קולקציה 2026'}
             </span>
-          </div>
-        )}
-        {archetype === 'gaming' && (
-          <div dir="ltr" style={{ background: cfg.sectionBg, borderTop: `1px solid ${c0}25`, display: 'flex' }}>
-            {(['🏠', '🎮', '📦', '👤'] as const).map((icon, i) => (
-              <div key={i} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '12px 4px 10px', borderLeft: i > 0 ? `1px solid ${c0}15` : 'none' }}>
-                <span style={{ fontSize: '20px' }}>{icon}</span>
-                <div style={{ width: i === 0 ? '20px' : '0', height: '3px', background: c0, borderRadius: '2px', marginTop: '5px', boxShadow: i === 0 ? `0 0 6px ${c0}` : 'none' }} />
-              </div>
-            ))}
           </div>
         )}
         {archetype === 'creator' && (
