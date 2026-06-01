@@ -692,61 +692,6 @@ export default function StoreTemplate({
           </div>
         )}
 
-        {/* ── Archetype bottom bars ──────────────────────────── */}
-        {archetype === 'luxury' && (
-          <div style={{ background: cfg.pageBg, borderTop: `1px solid ${c0}12`, padding: '14px 16px', display: 'flex', justifyContent: 'center' }}>
-            <span style={{ fontSize: '10px', color: c0, opacity: 0.3, letterSpacing: '6px', textTransform: 'uppercase' }}>
-              {ar ? 'مجموعة ٢٠٢٦' : 'קולקציה 2026'}
-            </span>
-          </div>
-        )}
-
-
-        {archetype === 'creator' && (
-          <div style={{ background: cfg.navBg, borderTop: `1px solid ${c0}20`, padding: '12px 16px', display: 'flex', gap: '10px' }}>
-            <a href={waGeneralLink || '#'} style={{ flex: 1, background: c0, borderRadius: '20px', padding: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}>
-              <span style={{ fontSize: '13px', fontWeight: 700, color: getTextColor(c0) }}>+ {ar ? 'تابع' : 'עקוב'}</span>
-            </a>
-            <a href={waGeneralLink || '#'} target="_blank" rel="noopener noreferrer" style={{ flex: 1, border: `1px solid ${c0}`, borderRadius: '20px', padding: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}>
-              <span style={{ fontSize: '13px', color: cfg.navTextColor, fontWeight: 600 }}>💬 {ar ? 'راسل' : 'שלח הודעה'}</span>
-            </a>
-          </div>
-        )}
-
-        {archetype === 'streetwear' && (
-          <div style={{ background: '#0a0a0a', borderTop: `1px solid ${c0}30`, padding: '12px 16px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <span style={{ fontSize: '16px' }}>🔔</span>
-            <span style={{ flex: 1, fontSize: '12px', color: 'rgba(255,255,255,0.5)' }}>{ar ? 'تنبيه الدروب القادم' : 'התראת דרופ הבא'}</span>
-            <div style={{ background: c0, borderRadius: '4px', padding: '6px 14px' }}>
-              <span style={{ fontSize: '11px', fontWeight: 700, color: getTextColor(c0) }}>{ar ? 'سجّل' : 'הרשם'}</span>
-            </div>
-          </div>
-        )}
-
-        {archetype === 'minimal' && (
-          <div style={{ background: '#fff', borderTop: '1px solid #f0f0f0', padding: '14px 16px', display: 'flex', justifyContent: 'center', gap: '32px' }}>
-            {[ar ? 'الرئيسية' : 'בית', ar ? 'المتجر' : 'חנות', ar ? 'حساب' : 'פרופיל'].map((label, i) => (
-              <span key={i} style={{ fontSize: '12px', color: i === 0 ? c0 : '#ccc', fontWeight: i === 0 ? 600 : 400, borderBottom: i === 0 ? `2px solid ${c0}` : 'none', paddingBottom: '2px' }}>{label}</span>
-            ))}
-          </div>
-        )}
-
-        {archetype === 'restaurant' && (
-          <div style={{ background: cfg.navBg, borderTop: `1px solid ${c0}20`, padding: '12px 16px', display: 'flex', justifyContent: 'center' }}>
-            <span style={{ fontSize: '12px', color: cfg.navTextColor, opacity: 0.45 }}>{ar ? 'الحد الأدنى للطلب: ₪50' : 'מינימום הזמנה: ₪50'}</span>
-          </div>
-        )}
-
-        {archetype === 'tech' && (
-          <div style={{ background: cfg.navBg, borderTop: `1px solid ${c0}15`, padding: '12px 16px', display: 'flex', gap: '8px' }}>
-            {[ar ? '⚡ سريع' : '⚡ מהיר', ar ? '🔒 آمن' : '🔒 מאובטח', ar ? '✓ ضمان' : '✓ אחריות'].map((tag, i) => (
-              <div key={i} style={{ flex: 1, background: `${c0}12`, border: `1px solid ${c0}20`, borderRadius: '6px', padding: '6px 4px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <span style={{ fontSize: '11px', color: c0, textAlign: 'center' }}>{tag}</span>
-              </div>
-            ))}
-          </div>
-        )}
-
         {/* Footer */}
         {!preview && (
           <div style={{ textAlign: 'center', paddingTop: '8px', display: 'flex', justifyContent: 'center', gap: '16px' }}>
