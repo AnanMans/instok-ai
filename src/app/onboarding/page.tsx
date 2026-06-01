@@ -470,7 +470,7 @@ export default function Page() {
     || (categories[0] ? categoryToArchetype[categories[0]] : null)
     || 'minimal'
   const effectiveArchetype = selectedArchetype || autoArchetype
-  const displayBrand = brandData ?? { storeName: brandName || '—', slogan: '—', colors: customColors, vibe: '', direction: '' }
+  const displayBrand = brandData ?? { storeName: brandName || 'متجري', slogan: '', colors: customColors, vibe: '', direction: '' }
   const boldArchetype = categories.some(c => ['ألعاب وغيمنج', 'גיימינג', 'إلكترونيات', 'אלקטרוניקה'].includes(c)) ? 'gaming' : 'streetwear'
 
   const handleConfirmStore = async () => {
@@ -532,7 +532,7 @@ export default function Page() {
   const confettiPieces = useMemo(() =>
     Array.from({ length: 30 }, (_, i) => ({
       id: i,
-      color: [...customColors, '#fff', '#a78bfa', '#4f46e5', '#f59e0b'][i % 7],
+      color: [...(customColors?.length ? customColors : ['#7c3aed', '#f59e0b', '#fff']), '#fff', '#a78bfa', '#4f46e5', '#f59e0b'][i % 7],
       left: `${((i * 37 + 11) % 97)}%`,
       dur: `${2 + (i % 4) * 0.6}s`,
       delay: `${(i * 0.12) % 1.8}s`,
