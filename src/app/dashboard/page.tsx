@@ -88,7 +88,7 @@ export default function Dashboard() {
 
       setStore(storeData)
       setProducts(prods ?? [])
-      setWaInput(storeData.whatsapp_number ?? storeData.business_phone ?? '')
+      setWaInput((storeData.whatsapp_number ?? storeData.business_phone ?? '').replace(/^972/, '0'))
       setDescInput(storeData.description ?? '')
       setLoading(false)
     })
