@@ -22,7 +22,7 @@ export default function TechTemplate({ storeName, slogan, colors, lang, logoUrl,
   ]
 
   return (
-    <div dir="rtl" style={{ minHeight: '100vh', background: navBg, color: navText, display: 'flex', flexDirection: 'column' }}>
+    <div dir="rtl" style={{ height: 'auto', background: navBg, color: navText, display: 'flex', flexDirection: 'column' }}>
       {/* Status */}
       <div style={{ height: '24px', background: navBg, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 16px', flexShrink: 0 }}>
         <span style={{ fontSize: '12px', color: navText, opacity: 0.5 }}>9:41</span>
@@ -65,8 +65,8 @@ export default function TechTemplate({ storeName, slogan, colors, lang, logoUrl,
       <div style={{ flex: 1, minWidth: 0, background: darkCard, padding: '10px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
         {prods.map((p, i) => (
           <div key={i} style={{ background: `${c0}18`, borderRadius: '10px', overflow: 'hidden', border: `1px solid ${c0}20`, display: 'flex', flexDirection: 'column' }}>
-            <div style={{ position: 'relative' }}>
-              <img src={p.image_url || FB} style={{ width: '100%', aspectRatio: '1', objectFit: 'cover', display: 'block' }} alt="" />
+            <div style={{ position: 'relative', width: '100%', aspectRatio: '1', overflow: 'hidden' }}>
+              <img src={p.image_url || FB} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} alt="" />
               <div style={{ position: 'absolute', top: '6px', left: '6px', background: c0, borderRadius: '4px', padding: '2px 8px' }}>
                 <span style={{ fontSize: '10px', fontWeight: 700, color: ctaText }}>{ar ? 'مميز' : 'מיוחד'}</span>
               </div>

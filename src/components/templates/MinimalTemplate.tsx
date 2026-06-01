@@ -17,7 +17,7 @@ export default function MinimalTemplate({ storeName, slogan, colors, lang, logoU
   ]
 
   return (
-    <div dir="rtl" style={{ minHeight: '100vh', background: '#fff', color: '#111', display: 'flex', flexDirection: 'column' }}>
+    <div dir="rtl" style={{ height: 'auto', background: '#fff', color: '#111', display: 'flex', flexDirection: 'column' }}>
       {/* Status */}
       <div style={{ height: '24px', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 20px', flexShrink: 0 }}>
         <span style={{ fontSize: '12px', color: '#aaa' }}>9:41</span>
@@ -50,7 +50,9 @@ export default function MinimalTemplate({ storeName, slogan, colors, lang, logoU
       <div style={{ flex: 1, minWidth: 0, background: '#fafafa', padding: '10px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
         {prods.map((p, i) => (
           <div key={i} style={{ background: '#fff', borderRadius: '4px', overflow: 'hidden', display: 'flex', flexDirection: 'column', boxShadow: '0 1px 4px rgba(0,0,0,0.06)' }}>
-            <img src={p.image_url || FB} style={{ width: '100%', aspectRatio: '1', objectFit: 'cover', display: 'block' }} alt="" />
+            <div style={{ width: '100%', aspectRatio: '1', overflow: 'hidden' }}>
+              <img src={p.image_url || FB} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} alt="" />
+            </div>
             <div style={{ padding: '6px 8px' }}>
               <div style={{ fontSize: '12px', fontWeight: 500, color: '#777', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.name}</div>
               <div style={{ fontSize: '13px', fontWeight: 700, color: c0 }}>₪{p.price}</div>

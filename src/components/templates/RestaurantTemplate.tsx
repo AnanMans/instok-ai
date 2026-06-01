@@ -20,7 +20,7 @@ export default function RestaurantTemplate({ storeName, slogan, colors, lang, lo
   ]
 
   return (
-    <div dir="rtl" style={{ minHeight: '100vh', background: navBg, color: navText, display: 'flex', flexDirection: 'column' }}>
+    <div dir="rtl" style={{ height: 'auto', background: navBg, color: navText, display: 'flex', flexDirection: 'column' }}>
       {/* Status */}
       <div style={{ height: '24px', background: navBg, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 16px', flexShrink: 0 }}>
         <span style={{ fontSize: '12px', color: navText, opacity: 0.6 }}>9:41</span>

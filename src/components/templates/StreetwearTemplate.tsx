@@ -21,7 +21,7 @@ export default function StreetwearTemplate({ storeName, slogan, colors, lang, lo
   ]
 
   return (
-    <div dir="rtl" style={{ minHeight: '100vh', background: '#0a0a0a', color: '#fff', display: 'flex', flexDirection: 'column' }}>
+    <div dir="rtl" style={{ height: 'auto', background: '#0a0a0a', color: '#fff', display: 'flex', flexDirection: 'column' }}>
       {/* Status */}
       <div style={{ height: '24px', background: '#0a0a0a', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 16px', flexShrink: 0 }}>
         <span style={{ fontSize: '12px', color: '#fff', opacity: 0.4 }}>9:41</span>
@@ -53,8 +53,8 @@ export default function StreetwearTemplate({ storeName, slogan, colors, lang, lo
       <div style={{ flex: 1, minWidth: 0, background: '#111', padding: '8px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4px' }}>
         {prods.map((p, i) => (
           <div key={i} style={{ background: '#111', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-            <div style={{ position: 'relative' }}>
-              <img src={p.image_url || FB} style={{ width: '100%', aspectRatio: '1', objectFit: 'cover', display: 'block' }} alt="" />
+            <div style={{ position: 'relative', width: '100%', aspectRatio: '1', overflow: 'hidden' }}>
+              <img src={p.image_url || FB} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} alt="" />
               <div style={{ position: 'absolute', inset: 0, background: `${[c0, c1][i]}20` }} />
             </div>
             <div style={{ padding: '6px 8px' }}>

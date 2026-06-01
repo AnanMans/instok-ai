@@ -21,7 +21,7 @@ export default function CreatorTemplate({ storeName, slogan, colors, lang, logoU
   ]
 
   return (
-    <div dir="rtl" style={{ minHeight: '100vh', background: lightBg, color: lightCardText, display: 'flex', flexDirection: 'column' }}>
+    <div dir="rtl" style={{ height: 'auto', background: lightBg, color: lightCardText, display: 'flex', flexDirection: 'column' }}>
       {/* Status */}
       <div style={{ height: '24px', background: lightBg, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 20px', flexShrink: 0 }}>
         <span style={{ fontSize: '12px', color: lightCardText, opacity: 0.5 }}>9:41</span>
@@ -58,7 +58,9 @@ export default function CreatorTemplate({ storeName, slogan, colors, lang, logoU
       <div style={{ flex: 1, minWidth: 0, background: lightBg, padding: '10px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
         {prods.map((p, i) => (
           <div key={i} style={{ background: `${lightBg}ee`, borderRadius: '6px', overflow: 'hidden', boxShadow: '0 2px 10px rgba(0,0,0,0.08)', transform: i === 0 ? 'rotate(-1.5deg)' : 'rotate(1.5deg)', display: 'flex', flexDirection: 'column' }}>
-            <img src={p.image_url || FB} style={{ width: '100%', aspectRatio: '1', objectFit: 'cover', display: 'block' }} alt="" />
+            <div style={{ width: '100%', aspectRatio: '1', overflow: 'hidden' }}>
+              <img src={p.image_url || FB} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} alt="" />
+            </div>
             <div style={{ padding: '6px 8px' }}>
               <div style={{ fontSize: '12px', fontWeight: 600, color: lightCardText, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.name}</div>
               <div style={{ fontSize: '13px', fontWeight: 700, color: lightPrice }}>₪{p.price}</div>

@@ -16,7 +16,7 @@ export default function LuxuryTemplate({ storeName, slogan, colors, lang, logoUr
   ]
 
   return (
-    <div dir="rtl" style={{ minHeight: '100vh', background: '#050505', color: c0, display: 'flex', flexDirection: 'column' }}>
+    <div dir="rtl" style={{ height: 'auto', background: '#050505', color: c0, display: 'flex', flexDirection: 'column' }}>
       {/* Status */}
       <div style={{ height: '24px', background: '#050505', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 20px', flexShrink: 0 }}>
         <span style={{ fontSize: '12px', color: c0, opacity: 0.4 }}>9:41</span>
@@ -46,7 +46,9 @@ export default function LuxuryTemplate({ storeName, slogan, colors, lang, logoUr
       <div style={{ flex: 1, minWidth: 0, background: '#0a0a0a', padding: '12px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', alignContent: 'start' }}>
         {prods.map((p, i) => (
           <div key={i} style={{ background: `${c0}08`, border: `1px solid ${c0}15`, overflow: 'hidden' }}>
-            <img src={p.image_url || FB} style={{ width: '100%', aspectRatio: '1', objectFit: 'cover', display: 'block' }} alt="" />
+            <div style={{ width: '100%', aspectRatio: '1', overflow: 'hidden' }}>
+              <img src={p.image_url || FB} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} alt="" />
+            </div>
             <div style={{ padding: '6px 8px', textAlign: 'center' }}>
               <div style={{ fontSize: '12px', color: darkCardText, fontWeight: 300, letterSpacing: '0.1em', textTransform: 'uppercase', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.name}</div>
               <div style={{ fontSize: '13px', fontWeight: 700, color: c0 }}>₪{p.price}</div>

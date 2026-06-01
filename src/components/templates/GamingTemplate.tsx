@@ -21,7 +21,7 @@ export default function GamingTemplate({ storeName, slogan, colors, lang, logoUr
   ]
 
   return (
-    <div dir="rtl" style={{ minHeight: '100vh', background: '#050510', color: '#fff', display: 'flex', flexDirection: 'column' }}>
+    <div dir="rtl" style={{ height: 'auto', background: '#050510', color: '#fff', display: 'flex', flexDirection: 'column' }}>
       {/* Status */}
       <div style={{ height: '24px', background: '#050510', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 16px', flexShrink: 0 }}>
         <span style={{ fontSize: '12px', color: navText, opacity: 0.7 }}>9:41</span>
@@ -51,8 +51,8 @@ export default function GamingTemplate({ storeName, slogan, colors, lang, logoUr
       <div style={{ flex: 1, minWidth: 0, background: darkCard, padding: '10px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
         {prods.map((p, i) => (
           <div key={i} style={{ background: `${c0}18`, borderRadius: '10px', overflow: 'hidden', border: `1px solid ${c0}30`, display: 'flex', flexDirection: 'column' }}>
-            <div style={{ position: 'relative' }}>
-              <img src={p.image_url || FB} style={{ width: '100%', aspectRatio: '1', objectFit: 'cover', display: 'block' }} alt="" />
+            <div style={{ position: 'relative', width: '100%', aspectRatio: '1', overflow: 'hidden' }}>
+              <img src={p.image_url || FB} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} alt="" />
               {i === 0 && (
                 <div style={{ position: 'absolute', top: '6px', right: '6px', background: 'rgba(239,68,68,0.92)', borderRadius: '4px', padding: '2px 6px' }}>
                   <span style={{ fontSize: '10px', fontWeight: 800, color: '#fff' }}>{ar ? '🔥 رائج' : '🔥 חם'}</span>
