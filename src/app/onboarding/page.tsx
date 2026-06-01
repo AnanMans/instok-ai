@@ -68,6 +68,9 @@ const T = {
       { id: 'soft', label: 'ناعم', icon: '✿' },
       { id: 'bold', label: 'جريء', icon: '◆' },
     ],
+    s2SocialLabel: 'يوزرنيم انستغرام أو تيك توك (اختياري)',
+    s2SocialPH: '@username',
+    s2SocialHelper: 'سيصبح رابط متجرك instok-ai.vercel.app/store/username',
     s2DescLabel: 'صف متجرك بجملة (اختياري)',
     s2DescPH: 'مثال: أبيع عبايات فاخرة للمرأة العصرية',
     s2ImgLabel: 'رفع شعار أو صورة منتج (اختياري)',
@@ -173,6 +176,9 @@ const T = {
       { id: 'soft', label: 'עדין', icon: '✿' },
       { id: 'bold', label: 'נועז', icon: '◆' },
     ],
+    s2SocialLabel: 'יוזרניים אינסטגרם או טיקטוק (אופציונלי)',
+    s2SocialPH: '@username',
+    s2SocialHelper: 'הקישור לחנות יהיה instok-ai.vercel.app/store/username',
     s2DescLabel: 'תאר את החנות במשפט (אופציונלי)',
     s2DescPH: 'לדוגמה: אני מוכר רהיטים מעוצבים',
     s2ImgLabel: 'העלה לוגו או תמונת מוצר (אופציונלי)',
@@ -358,6 +364,7 @@ export default function Page() {
   const [lang, setLang] = useState<Lang | null>(null)
   const [step, setStep] = useState(0)
   const [brandName, setBrandName] = useState('')
+  const [socialHandle, setSocialHandle] = useState('')
   const [categories, setCategories] = useState<string[]>([])
   const [vibe, setVibe] = useState('')
   const [description, setDescription] = useState('')
@@ -490,6 +497,7 @@ export default function Page() {
           category: categories.join(', '),
           description,
           whatsappNumber: whatsappPhone,
+          socialHandle: socialHandle.trim(),
           delivery,
           deliveryAreas,
           payments: payments.join(', '),
@@ -852,6 +860,12 @@ export default function Page() {
                   <input type="text" placeholder={t.s2NamePH} value={brandName} onChange={e => setBrandName(e.target.value)}
                     style={{ ...inp, marginBottom: '6px', fontSize: '16px', borderColor: brandName ? 'rgba(124,58,237,0.4)' : undefined }} autoFocus />
                   <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.25)', marginBottom: '24px' }}>{t.s2NameHelper}</p>
+
+                  <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', marginBottom: '8px', fontWeight: 500 }}>{t.s2SocialLabel}</p>
+                  <input type="text" placeholder={t.s2SocialPH} value={socialHandle}
+                    onChange={e => setSocialHandle(e.target.value.replace(/\s/g, ''))}
+                    style={{ ...inp, marginBottom: '6px', direction: 'ltr', textAlign: 'left' }} dir="ltr" />
+                  <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.25)', marginBottom: '24px' }}>{t.s2SocialHelper}</p>
 
                   <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', marginBottom: '10px', fontWeight: 500 }}>{t.s2CatLabel}</p>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: '8px', marginBottom: '24px' }}>

@@ -13,6 +13,10 @@ function generateSlug(name: string): string {
   return `${safeName}-${suffix}`
 }
 
+function socialToSlug(handle: string): string {
+  return handle.replace(/^@/, '').toLowerCase().replace(/[^\w]/g, '').slice(0, 30)
+}
+
 export async function POST(request: Request) {
   const slug = generateSlug('store')
   try {
@@ -20,6 +24,7 @@ export async function POST(request: Request) {
       brandName: string; slogan: string; colors: string[]; archetype: string
       vibe: string; category: string; description: string
       whatsappNumber?: string
+      socialHandle?: string
       delivery: string; deliveryAreas: string; payments: string; lang: string
       userId?: string
     }
@@ -27,7 +32,8 @@ export async function POST(request: Request) {
     const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
     const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, key)
 
-    const computedSlug = generateSlug(body.brandName)
+    const slugFromSocial = body.socialHandle ? socialToSlug(body.socialHandle) : ''
+    const computedSlug = slugFromSocial || generateSlug(body.brandName)
 
     const normalizePhone = (p: string | null | undefined) =>
       (p ?? '').replace(/\D/g, '').replace(/^0/, '972')
