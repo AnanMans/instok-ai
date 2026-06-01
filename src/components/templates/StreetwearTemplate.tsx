@@ -50,7 +50,7 @@ export default function StreetwearTemplate({ storeName, slogan, colors, lang, lo
       </div>
 
       {/* Products */}
-      <div style={{ flex: 1, background: '#111', padding: '8px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4px' }}>
+      <div style={{ flex: 1, minWidth: 0, background: '#111', padding: '8px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4px' }}>
         {prods.map((p, i) => (
           <div key={i} style={{ background: '#111', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
             <div style={{ overflow: 'hidden', position: 'relative', height: '160px' }}>

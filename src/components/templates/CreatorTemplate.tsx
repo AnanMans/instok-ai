@@ -55,7 +55,7 @@ export default function CreatorTemplate({ storeName, slogan, colors, lang, logoU
       </div>
 
       {/* Products */}
-      <div style={{ flex: 1, background: lightBg, padding: '10px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+      <div style={{ flex: 1, minWidth: 0, background: lightBg, padding: '10px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
         {prods.map((p, i) => (
           <div key={i} style={{ background: `${lightBg}ee`, borderRadius: '6px', overflow: 'hidden', boxShadow: '0 2px 10px rgba(0,0,0,0.08)', transform: i === 0 ? 'rotate(-1.5deg)' : 'rotate(1.5deg)', display: 'flex', flexDirection: 'column' }}>
             <div style={{ overflow: 'hidden', height: '140px' }}>

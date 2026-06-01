@@ -50,7 +50,7 @@ export default function BeautyTemplate({ storeName, slogan, colors, lang, logoUr
       </div>
 
       {/* Products */}
-      <div style={{ flex: 1, background: lightBg, padding: '10px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+      <div style={{ flex: 1, minWidth: 0, background: lightBg, padding: '10px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
         {prods.map((p, i) => (
           <div key={i} style={{ background: `${lightBg}cc`, borderRadius: '14px', overflow: 'hidden', border: `1px solid ${c0}20`, display: 'flex', flexDirection: 'column' }}>
             <div style={{ overflow: 'hidden', height: '140px' }}>

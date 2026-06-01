@@ -42,29 +42,17 @@ export default function LuxuryTemplate({ storeName, slogan, colors, lang, logoUr
         )}
       </div>
 
-      {/* Featured product */}
-      <div style={{ flex: 1, background: '#0a0a0a', padding: '12px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-        <div style={{ background: `${c0}08`, border: `1px solid ${c0}15`, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
-          <img src={prods[0].image_url || FB} style={{ width: '100%', height: '220px', objectFit: 'cover', display: 'block' }} alt="" />
-          <div style={{ padding: '16px 20px', textAlign: 'center' }}>
-            <div style={{ fontSize: '11px', color: darkCardText, fontWeight: 300, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '6px', opacity: 0.55 }}>{prods[0].name}</div>
-            <div style={{ fontSize: '22px', fontWeight: 400, color: c0 }}>₪{prods[0].price}</div>
+      {/* Products — 2-column grid */}
+      <div style={{ flex: 1, minWidth: 0, background: '#0a0a0a', padding: '12px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', alignContent: 'start' }}>
+        {prods.map((p, i) => (
+          <div key={i} style={{ background: `${c0}08`, border: `1px solid ${c0}15`, overflow: 'hidden' }}>
+            <img src={p.image_url || FB} style={{ width: '100%', height: '140px', objectFit: 'cover', display: 'block' }} alt="" />
+            <div style={{ padding: '10px', textAlign: 'center' }}>
+              <div style={{ fontSize: '10px', color: darkCardText, fontWeight: 300, letterSpacing: '0.15em', textTransform: 'uppercase', opacity: 0.55, marginBottom: '4px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.name}</div>
+              <div style={{ fontSize: '16px', fontWeight: 400, color: c0 }}>₪{p.price}</div>
+            </div>
           </div>
-        </div>
-
-        {prods.length > 1 && (
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
-            {prods.slice(1).map((p, i) => (
-              <div key={i} style={{ background: `${c0}08`, border: `1px solid ${c0}15`, overflow: 'hidden' }}>
-                <img src={p.image_url || FB} style={{ width: '100%', height: '140px', objectFit: 'cover', display: 'block' }} alt="" />
-                <div style={{ padding: '10px', textAlign: 'center' }}>
-                  <div style={{ fontSize: '10px', color: darkCardText, fontWeight: 300, letterSpacing: '0.15em', textTransform: 'uppercase', opacity: 0.55, marginBottom: '4px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.name}</div>
-                  <div style={{ fontSize: '16px', fontWeight: 400, color: c0 }}>₪{p.price}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
+        ))}
       </div>
 
       {/* Footer */}

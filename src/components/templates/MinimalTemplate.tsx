@@ -47,7 +47,7 @@ export default function MinimalTemplate({ storeName, slogan, colors, lang, logoU
       </div>
 
       {/* Products */}
-      <div style={{ flex: 1, background: '#fafafa', padding: '10px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+      <div style={{ flex: 1, minWidth: 0, background: '#fafafa', padding: '10px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
         {prods.map((p, i) => (
           <div key={i} style={{ background: '#fff', borderRadius: '4px', overflow: 'hidden', display: 'flex', flexDirection: 'column', boxShadow: '0 1px 4px rgba(0,0,0,0.06)' }}>
             <div style={{ overflow: 'hidden', height: '140px' }}>

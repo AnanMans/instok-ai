@@ -48,7 +48,7 @@ export default function GamingTemplate({ storeName, slogan, colors, lang, logoUr
       </div>
 
       {/* Products */}
-      <div style={{ flex: 1, background: darkCard, padding: '10px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+      <div style={{ flex: 1, minWidth: 0, background: darkCard, padding: '10px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
         {prods.map((p, i) => (
           <div key={i} style={{ background: `${c0}18`, borderRadius: '10px', overflow: 'hidden', border: `1px solid ${c0}30`, display: 'flex', flexDirection: 'column' }}>
             <div style={{ overflow: 'hidden', position: 'relative', height: '140px' }}>
