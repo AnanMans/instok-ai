@@ -50,12 +50,10 @@ export default function MinimalTemplate({ storeName, slogan, colors, lang, logoU
       <div style={{ flex: 1, minWidth: 0, background: '#fafafa', padding: '10px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
         {prods.map((p, i) => (
           <div key={i} style={{ background: '#fff', borderRadius: '4px', overflow: 'hidden', display: 'flex', flexDirection: 'column', boxShadow: '0 1px 4px rgba(0,0,0,0.06)' }}>
-            <div style={{ overflow: 'hidden', height: '140px' }}>
-              <img src={p.image_url || FB} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} alt="" />
-            </div>
-            <div style={{ padding: '8px 10px' }}>
-              <div style={{ fontSize: '12px', fontWeight: 500, color: '#777', marginBottom: '2px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.name}</div>
-              <div style={{ fontSize: '14px', fontWeight: 600, color: c0 }}>₪{p.price}</div>
+            <img src={p.image_url || FB} style={{ width: '100%', aspectRatio: '1', objectFit: 'cover', display: 'block' }} alt="" />
+            <div style={{ padding: '6px 8px' }}>
+              <div style={{ fontSize: '12px', fontWeight: 500, color: '#777', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.name}</div>
+              <div style={{ fontSize: '13px', fontWeight: 700, color: c0 }}>₪{p.price}</div>
             </div>
           </div>
         ))}

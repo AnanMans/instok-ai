@@ -53,12 +53,10 @@ export default function BeautyTemplate({ storeName, slogan, colors, lang, logoUr
       <div style={{ flex: 1, minWidth: 0, background: lightBg, padding: '10px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
         {prods.map((p, i) => (
           <div key={i} style={{ background: `${lightBg}cc`, borderRadius: '14px', overflow: 'hidden', border: `1px solid ${c0}20`, display: 'flex', flexDirection: 'column' }}>
-            <div style={{ overflow: 'hidden', height: '140px' }}>
-              <img src={p.image_url || FB} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} alt="" />
-            </div>
-            <div style={{ padding: '8px 10px' }}>
-              <div style={{ fontSize: '12px', fontWeight: 600, color: lightCardText, marginBottom: '2px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.name}</div>
-              <div style={{ fontSize: '14px', fontWeight: 700, color: lightPrice }}>₪{p.price}</div>
+            <img src={p.image_url || FB} style={{ width: '100%', aspectRatio: '1', objectFit: 'cover', display: 'block' }} alt="" />
+            <div style={{ padding: '6px 8px' }}>
+              <div style={{ fontSize: '12px', fontWeight: 600, color: lightCardText, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.name}</div>
+              <div style={{ fontSize: '13px', fontWeight: 700, color: lightPrice }}>₪{p.price}</div>
             </div>
           </div>
         ))}

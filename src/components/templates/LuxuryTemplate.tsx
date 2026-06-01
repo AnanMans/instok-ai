@@ -46,10 +46,10 @@ export default function LuxuryTemplate({ storeName, slogan, colors, lang, logoUr
       <div style={{ flex: 1, minWidth: 0, background: '#0a0a0a', padding: '12px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', alignContent: 'start' }}>
         {prods.map((p, i) => (
           <div key={i} style={{ background: `${c0}08`, border: `1px solid ${c0}15`, overflow: 'hidden' }}>
-            <img src={p.image_url || FB} style={{ width: '100%', height: '140px', objectFit: 'cover', display: 'block' }} alt="" />
-            <div style={{ padding: '10px', textAlign: 'center' }}>
-              <div style={{ fontSize: '10px', color: darkCardText, fontWeight: 300, letterSpacing: '0.15em', textTransform: 'uppercase', opacity: 0.55, marginBottom: '4px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.name}</div>
-              <div style={{ fontSize: '16px', fontWeight: 400, color: c0 }}>₪{p.price}</div>
+            <img src={p.image_url || FB} style={{ width: '100%', aspectRatio: '1', objectFit: 'cover', display: 'block' }} alt="" />
+            <div style={{ padding: '6px 8px', textAlign: 'center' }}>
+              <div style={{ fontSize: '12px', color: darkCardText, fontWeight: 300, letterSpacing: '0.1em', textTransform: 'uppercase', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.name}</div>
+              <div style={{ fontSize: '13px', fontWeight: 700, color: c0 }}>₪{p.price}</div>
             </div>
           </div>
         ))}

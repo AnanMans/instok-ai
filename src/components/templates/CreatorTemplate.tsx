@@ -58,12 +58,10 @@ export default function CreatorTemplate({ storeName, slogan, colors, lang, logoU
       <div style={{ flex: 1, minWidth: 0, background: lightBg, padding: '10px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
         {prods.map((p, i) => (
           <div key={i} style={{ background: `${lightBg}ee`, borderRadius: '6px', overflow: 'hidden', boxShadow: '0 2px 10px rgba(0,0,0,0.08)', transform: i === 0 ? 'rotate(-1.5deg)' : 'rotate(1.5deg)', display: 'flex', flexDirection: 'column' }}>
-            <div style={{ overflow: 'hidden', height: '140px' }}>
-              <img src={p.image_url || FB} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} alt="" />
-            </div>
-            <div style={{ padding: '8px 10px' }}>
-              <div style={{ fontSize: '12px', fontWeight: 600, color: lightCardText, marginBottom: '2px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.name}</div>
-              <div style={{ fontSize: '14px', fontWeight: 700, color: lightPrice }}>₪{p.price}</div>
+            <img src={p.image_url || FB} style={{ width: '100%', aspectRatio: '1', objectFit: 'cover', display: 'block' }} alt="" />
+            <div style={{ padding: '6px 8px' }}>
+              <div style={{ fontSize: '12px', fontWeight: 600, color: lightCardText, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.name}</div>
+              <div style={{ fontSize: '13px', fontWeight: 700, color: lightPrice }}>₪{p.price}</div>
             </div>
           </div>
         ))}

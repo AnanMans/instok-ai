@@ -53,13 +53,13 @@ export default function StreetwearTemplate({ storeName, slogan, colors, lang, lo
       <div style={{ flex: 1, minWidth: 0, background: '#111', padding: '8px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4px' }}>
         {prods.map((p, i) => (
           <div key={i} style={{ background: '#111', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-            <div style={{ overflow: 'hidden', position: 'relative', height: '160px' }}>
-              <img src={p.image_url || FB} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} alt="" />
+            <div style={{ position: 'relative' }}>
+              <img src={p.image_url || FB} style={{ width: '100%', aspectRatio: '1', objectFit: 'cover', display: 'block' }} alt="" />
               <div style={{ position: 'absolute', inset: 0, background: `${[c0, c1][i]}20` }} />
             </div>
-            <div style={{ padding: '8px 6px' }}>
-              <div style={{ fontSize: '12px', fontWeight: 600, color: '#fff', marginBottom: '2px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.name}</div>
-              <div style={{ fontSize: '14px', fontWeight: 700, color: [c0, c1][i] }}>₪{p.price}</div>
+            <div style={{ padding: '6px 8px' }}>
+              <div style={{ fontSize: '12px', fontWeight: 600, color: '#fff', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.name}</div>
+              <div style={{ fontSize: '13px', fontWeight: 700, color: [c0, c1][i] }}>₪{p.price}</div>
             </div>
           </div>
         ))}

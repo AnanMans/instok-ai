@@ -65,15 +65,15 @@ export default function TechTemplate({ storeName, slogan, colors, lang, logoUrl,
       <div style={{ flex: 1, minWidth: 0, background: darkCard, padding: '10px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
         {prods.map((p, i) => (
           <div key={i} style={{ background: `${c0}18`, borderRadius: '10px', overflow: 'hidden', border: `1px solid ${c0}20`, display: 'flex', flexDirection: 'column' }}>
-            <div style={{ overflow: 'hidden', height: '140px', position: 'relative' }}>
-              <img src={p.image_url || FB} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} alt="" />
+            <div style={{ position: 'relative' }}>
+              <img src={p.image_url || FB} style={{ width: '100%', aspectRatio: '1', objectFit: 'cover', display: 'block' }} alt="" />
               <div style={{ position: 'absolute', top: '6px', left: '6px', background: c0, borderRadius: '4px', padding: '2px 8px' }}>
                 <span style={{ fontSize: '10px', fontWeight: 700, color: ctaText }}>{ar ? 'مميز' : 'מיוחד'}</span>
               </div>
             </div>
-            <div style={{ padding: '8px 10px' }}>
-              <div style={{ fontSize: '12px', fontWeight: 600, color: darkCardText, marginBottom: '2px', fontFamily: 'monospace', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.name}</div>
-              <div style={{ fontSize: '14px', fontWeight: 700, color: darkPrice }}>₪{p.price}</div>
+            <div style={{ padding: '6px 8px' }}>
+              <div style={{ fontSize: '12px', fontWeight: 600, color: darkCardText, fontFamily: 'monospace', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.name}</div>
+              <div style={{ fontSize: '13px', fontWeight: 700, color: darkPrice }}>₪{p.price}</div>
             </div>
           </div>
         ))}

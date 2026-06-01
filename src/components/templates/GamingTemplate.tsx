@@ -51,17 +51,17 @@ export default function GamingTemplate({ storeName, slogan, colors, lang, logoUr
       <div style={{ flex: 1, minWidth: 0, background: darkCard, padding: '10px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
         {prods.map((p, i) => (
           <div key={i} style={{ background: `${c0}18`, borderRadius: '10px', overflow: 'hidden', border: `1px solid ${c0}30`, display: 'flex', flexDirection: 'column' }}>
-            <div style={{ overflow: 'hidden', position: 'relative', height: '140px' }}>
-              <img src={p.image_url || FB} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} alt="" />
+            <div style={{ position: 'relative' }}>
+              <img src={p.image_url || FB} style={{ width: '100%', aspectRatio: '1', objectFit: 'cover', display: 'block' }} alt="" />
               {i === 0 && (
                 <div style={{ position: 'absolute', top: '6px', right: '6px', background: 'rgba(239,68,68,0.92)', borderRadius: '4px', padding: '2px 6px' }}>
                   <span style={{ fontSize: '10px', fontWeight: 800, color: '#fff' }}>{ar ? '🔥 رائج' : '🔥 חם'}</span>
                 </div>
               )}
             </div>
-            <div style={{ padding: '8px 10px' }}>
-              <div style={{ fontSize: '12px', fontWeight: 600, color: darkCardText, marginBottom: '2px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.name}</div>
-              <div style={{ fontSize: '14px', fontWeight: 700, color: c0, textShadow: `0 0 8px ${c0}80` }}>₪{p.price}</div>
+            <div style={{ padding: '6px 8px' }}>
+              <div style={{ fontSize: '12px', fontWeight: 600, color: darkCardText, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.name}</div>
+              <div style={{ fontSize: '13px', fontWeight: 700, color: c0, textShadow: `0 0 8px ${c0}80` }}>₪{p.price}</div>
             </div>
           </div>
         ))}
