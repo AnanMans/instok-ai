@@ -65,6 +65,8 @@ export function getLightVariant(hex: string): string {
 }
 
 // ── Store previews (8 archetypes) ──────────────────────────────────────────────
+export type RealProduct = { name: string; price: number; image_url: string }
+
 export function renderStorePreview(
   archetype: string,
   displayBrand: BrandResult,
@@ -72,7 +74,8 @@ export function renderStorePreview(
   lang: Lang,
   uploadedImage: string | null,
   t: PreviewTranslations,
-  categories: string[] = []
+  categories: string[] = [],
+  realProducts?: RealProduct[]
 ): ReactNode {
   const c0 = customColors[0] ?? '#7c3aed'
   const c1 = customColors[1] ?? '#f59e0b'
@@ -110,6 +113,10 @@ export function renderStorePreview(
   const firstCatMatch = categories.find(cat => CATEGORY_IMAGES[cat])
   const imgs = firstCatMatch ? CATEGORY_IMAGES[firstCatMatch] : (ARCHETYPE_IMGS[archetype] ?? ARCHETYPE_IMGS.minimal)
 
+  const getItems = (defaultPrices: string[]) => realProducts && realProducts.length > 0
+    ? realProducts.map(p => ({ src: p.image_url || '', name: p.name, priceStr: `₪${p.price}` }))
+    : imgs.map((src, i) => ({ src, name: i === 0 ? t.s4Prod1 : t.s4Prod2, priceStr: defaultPrices[i] ?? '₪—' }))
+
   const LogoCircle = ({ size = 22 }: { size?: number }) => (
     <div style={{ width: size, height: size, borderRadius: '50%', overflow: 'hidden', background: `linear-gradient(135deg,${c0},${c1})`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
       {uploadedImage
@@ -139,17 +146,19 @@ export function renderStorePreview(
             <div style={{ fontSize: '7px', color: heroText, fontStyle: 'italic', fontWeight: 300, opacity: 0.45, letterSpacing: '0.04em' }}>{slogan}</div>
           </div>
           {/* Products: ONE featured product, full width, tall */}
+          {(() => { const item0 = realProducts?.[0] ? { src: realProducts[0].image_url || '', name: realProducts[0].name, priceStr: `₪${realProducts[0].price}` } : { src: imgs[0], name: t.s4Prod1, priceStr: '₪299' }; return (
           <div style={{ flex: 1, background: '#0a0a0a', padding: '8px', overflow: 'hidden' }}>
             <div style={{ background: `${c0}08`, border: `1px solid ${c0}15`, overflow: 'hidden', display: 'flex', flexDirection: 'column', height: '100%' }}>
               <div style={{ flex: 1, overflow: 'hidden', minHeight: '100px' }}>
-                <img src={imgs[0]} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} alt="" />
+                <img src={item0.src} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} alt="" />
               </div>
               <div style={{ padding: '8px 12px', textAlign: 'center', flexShrink: 0 }}>
-                <div style={{ fontSize: '7px', color: darkCardText, fontWeight: 300, letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '3px', opacity: 0.55 }}>{t.s4Prod1}</div>
-                <div style={{ fontSize: '13px', fontWeight: 400, color: c0 }}>₪299</div>
+                <div style={{ fontSize: '7px', color: darkCardText, fontWeight: 300, letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '3px', opacity: 0.55 }}>{item0.name}</div>
+                <div style={{ fontSize: '13px', fontWeight: 400, color: c0 }}>{item0.priceStr}</div>
               </div>
             </div>
           </div>
+          )})()}
           {/* Footer: COLLECTION 2026 */}
           <div style={{ background: '#050505', padding: '10px 12px', borderTop: `1px solid ${c0}12`, display: 'flex', justifyContent: 'center', flexShrink: 0 }}>
             <span style={{ fontSize: '6px', color: c0, opacity: 0.3, letterSpacing: '4px', textTransform: 'uppercase' }}>{lang === 'ar' ? 'مجموعة ٢٠٢٦' : 'קולקציה 2026'}</span>
@@ -179,10 +188,10 @@ export function renderStorePreview(
             </div>
           </div>
           <div style={{ flex: 1, background: darkCardBg, padding: '6px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5px', overflow: 'hidden' }}>
-            {imgs.map((src, i) => (
+            {getItems(['₪199', '₪199']).map((item, i) => (
               <div key={i} style={{ background: `${c0}18`, borderRadius: '8px', overflow: 'hidden', border: `1px solid ${c0}30`, display: 'flex', flexDirection: 'column' }}>
                 <div style={{ flex: 1, overflow: 'hidden', minHeight: '70px', position: 'relative' }}>
-                  <img src={src} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} alt="" />
+                  <img src={item.src} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} alt="" />
                   {i === 0 && (
                     <div style={{ position: 'absolute', top: '3px', right: '3px', background: 'rgba(239,68,68,0.92)', borderRadius: '3px', padding: '1px 4px' }}>
                       <span style={{ fontSize: '6px', fontWeight: 800, color: '#fff' }}>{lang === 'ar' ? '🔥 رائج' : '🔥 חם'}</span>
@@ -190,8 +199,8 @@ export function renderStorePreview(
                   )}
                 </div>
                 <div style={{ padding: '4px 5px', flexShrink: 0 }}>
-                  <div style={{ fontSize: '7px', fontWeight: 600, marginBottom: '1px', color: darkCardText }}>{i === 0 ? t.s4Prod1 : t.s4Prod2}</div>
-                  <div style={{ fontSize: '8px', fontWeight: 700, color: c0, textShadow: `0 0 8px ${c0}80` }}>₪199</div>
+                  <div style={{ fontSize: '7px', fontWeight: 600, marginBottom: '1px', color: darkCardText }}>{item.name}</div>
+                  <div style={{ fontSize: '8px', fontWeight: 700, color: c0, textShadow: `0 0 8px ${c0}80` }}>{item.priceStr}</div>
                 </div>
               </div>
             ))}
@@ -228,14 +237,14 @@ export function renderStorePreview(
             </div>
           </div>
           <div style={{ flex: 1, background: lightCardBg, padding: '6px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5px', overflow: 'hidden' }}>
-            {imgs.map((src, i) => (
+            {getItems(['₪149', '₪149']).map((item, i) => (
               <div key={i} style={{ background: `${lightCardBg}ee`, borderRadius: '4px', overflow: 'hidden', boxShadow: '0 2px 8px rgba(0,0,0,0.08)', transform: i === 0 ? 'rotate(-1.5deg)' : 'rotate(1.5deg)', display: 'flex', flexDirection: 'column' }}>
                 <div style={{ flex: 1, overflow: 'hidden', minHeight: '70px' }}>
-                  <img src={src} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} alt="" />
+                  <img src={item.src} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} alt="" />
                 </div>
                 <div style={{ padding: '4px 5px', flexShrink: 0 }}>
-                  <div style={{ fontSize: '7px', fontWeight: 600, marginBottom: '1px', color: lightCardText }}>{i === 0 ? t.s4Prod1 : t.s4Prod2}</div>
-                  <div style={{ fontSize: '8px', fontWeight: 700, color: lightPrice }}>₪149</div>
+                  <div style={{ fontSize: '7px', fontWeight: 600, marginBottom: '1px', color: lightCardText }}>{item.name}</div>
+                  <div style={{ fontSize: '8px', fontWeight: 700, color: lightPrice }}>{item.priceStr}</div>
                 </div>
               </div>
             ))}
@@ -274,14 +283,14 @@ export function renderStorePreview(
             </div>
           </div>
           <div style={{ flex: 1, background: lightCardBg, padding: '6px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5px', overflow: 'hidden' }}>
-            {imgs.map((src, i) => (
+            {getItems(['₪89', '₪89']).map((item, i) => (
               <div key={i} style={{ background: `${lightCardBg}cc`, borderRadius: '12px', overflow: 'hidden', border: `1px solid ${c0}20`, display: 'flex', flexDirection: 'column' }}>
                 <div style={{ flex: 1, overflow: 'hidden', minHeight: '70px' }}>
-                  <img src={src} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} alt="" />
+                  <img src={item.src} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} alt="" />
                 </div>
                 <div style={{ padding: '4px 5px', flexShrink: 0 }}>
-                  <div style={{ fontSize: '7px', fontWeight: 600, marginBottom: '1px', color: lightCardText }}>{i === 0 ? t.s4Prod1 : t.s4Prod2}</div>
-                  <div style={{ fontSize: '8px', fontWeight: 700, color: lightPrice }}>₪89</div>
+                  <div style={{ fontSize: '7px', fontWeight: 600, marginBottom: '1px', color: lightCardText }}>{item.name}</div>
+                  <div style={{ fontSize: '8px', fontWeight: 700, color: lightPrice }}>{item.priceStr}</div>
                 </div>
               </div>
             ))}
@@ -319,15 +328,15 @@ export function renderStorePreview(
             </div>
           </div>
           <div style={{ flex: 1, background: '#111', padding: '6px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5px', overflow: 'hidden' }}>
-            {imgs.map((src, i) => (
+            {getItems(['₪149', '₪149']).map((item, i) => (
               <div key={i} style={{ background: '#111', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
                 <div style={{ flex: 1, overflow: 'hidden', minHeight: '70px', position: 'relative' }}>
-                  <img src={src} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} alt="" />
+                  <img src={item.src} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} alt="" />
                   <div style={{ position: 'absolute', inset: 0, background: `${[c0, c1][i]}20` }} />
                 </div>
                 <div style={{ padding: '4px 5px', flexShrink: 0 }}>
-                  <div style={{ fontSize: '7px', fontWeight: 600, marginBottom: '1px', color: '#fff' }}>{i === 0 ? t.s4Prod1 : t.s4Prod2}</div>
-                  <div style={{ fontSize: '8px', fontWeight: 700, color: [c0, c1][i] }}>₪149</div>
+                  <div style={{ fontSize: '7px', fontWeight: 600, marginBottom: '1px', color: '#fff' }}>{item.name}</div>
+                  <div style={{ fontSize: '8px', fontWeight: 700, color: [c0, c1][i] }}>{item.priceStr}</div>
                 </div>
               </div>
             ))}
@@ -365,14 +374,14 @@ export function renderStorePreview(
             </div>
           </div>
           <div style={{ flex: 1, background: '#fafafa', padding: '6px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5px', overflow: 'hidden' }}>
-            {imgs.map((src, i) => (
+            {getItems(['₪199', '₪199']).map((item, i) => (
               <div key={i} style={{ background: '#fff', borderRadius: '4px', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
                 <div style={{ flex: 1, overflow: 'hidden', minHeight: '70px' }}>
-                  <img src={src} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} alt="" />
+                  <img src={item.src} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} alt="" />
                 </div>
                 <div style={{ padding: '4px 5px', flexShrink: 0 }}>
-                  <div style={{ fontSize: '7px', fontWeight: 600, marginBottom: '1px', color: '#777' }}>{i === 0 ? t.s4Prod1 : t.s4Prod2}</div>
-                  <div style={{ fontSize: '8px', fontWeight: 700, color: c0 }}>₪199</div>
+                  <div style={{ fontSize: '7px', fontWeight: 600, marginBottom: '1px', color: '#777' }}>{item.name}</div>
+                  <div style={{ fontSize: '8px', fontWeight: 700, color: c0 }}>{item.priceStr}</div>
                 </div>
               </div>
             ))}
@@ -418,14 +427,14 @@ export function renderStorePreview(
           </div>
           {/* Menu items: full-width horizontal cards */}
           <div style={{ flex: 1, background: darkCardBg, padding: '6px', display: 'flex', flexDirection: 'column', gap: '5px', overflow: 'hidden' }}>
-            {imgs.map((src, i) => (
+            {getItems(['₪65', '₪45']).map((item, i) => (
               <div key={i} style={{ background: `${c0}12`, borderRadius: '8px', overflow: 'hidden', border: `1px solid ${c0}18`, display: 'flex', alignItems: 'center', flexShrink: 0 }}>
                 <div style={{ width: '60px', height: '60px', flexShrink: 0, overflow: 'hidden' }}>
-                  <img src={src} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} alt="" />
+                  <img src={item.src} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} alt="" />
                 </div>
                 <div style={{ padding: '6px 8px', flex: 1 }}>
-                  <div style={{ fontSize: '8px', fontWeight: 600, color: darkCardText, marginBottom: '2px' }}>{i === 0 ? t.s4Prod1 : t.s4Prod2}</div>
-                  <div style={{ fontSize: '9px', fontWeight: 700, color: c0 }}>{i === 0 ? '₪65' : '₪45'}</div>
+                  <div style={{ fontSize: '8px', fontWeight: 600, color: darkCardText, marginBottom: '2px' }}>{item.name}</div>
+                  <div style={{ fontSize: '9px', fontWeight: 700, color: c0 }}>{item.priceStr}</div>
                 </div>
                 <div style={{ padding: '0 8px' }}>
                   <div style={{ width: '22px', height: '22px', background: c0, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -477,17 +486,17 @@ export function renderStorePreview(
           </div>
           {/* Products: cards with SPEC badge on top corner */}
           <div style={{ flex: 1, background: darkCardBg, padding: '6px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5px', overflow: 'hidden' }}>
-            {imgs.map((src, i) => (
+            {getItems(['₪299', '₪499']).map((item, i) => (
               <div key={i} style={{ background: `${c0}18`, borderRadius: '8px', overflow: 'hidden', border: `1px solid ${c0}20`, display: 'flex', flexDirection: 'column' }}>
                 <div style={{ flex: 1, overflow: 'hidden', minHeight: '70px', position: 'relative' }}>
-                  <img src={src} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} alt="" />
+                  <img src={item.src} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} alt="" />
                   <div style={{ position: 'absolute', top: '3px', left: '3px', background: c0, borderRadius: '3px', padding: '1px 5px' }}>
                     <span style={{ fontSize: '6px', fontWeight: 700, color: ctaText }}>{lang === 'ar' ? 'مميز' : 'מיוחד'}</span>
                   </div>
                 </div>
                 <div style={{ padding: '4px 5px', flexShrink: 0 }}>
-                  <div style={{ fontSize: '7px', fontWeight: 600, marginBottom: '1px', color: darkCardText }}>{i === 0 ? t.s4Prod1 : t.s4Prod2}</div>
-                  <div style={{ fontSize: '8px', fontWeight: 700, color: darkPrice }}>{i === 0 ? '₪299' : '₪499'}</div>
+                  <div style={{ fontSize: '7px', fontWeight: 600, marginBottom: '1px', color: darkCardText }}>{item.name}</div>
+                  <div style={{ fontSize: '8px', fontWeight: 700, color: darkPrice }}>{item.priceStr}</div>
                 </div>
               </div>
             ))}
