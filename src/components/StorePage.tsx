@@ -268,7 +268,7 @@ function StreetwearHero({ store, c0, heroBg, ar, pm }: HeroBase) {
   const heroTextColor = getTextColor(heroBg.startsWith('#') ? heroBg : '#000')
   return (
     <div style={{ background: heroBg, paddingTop: pm ? '0' : '56px', borderBottom: `3px solid ${c0}` }}>
-      <div style={{ padding: '40px 20px 32px' }}>
+      <div style={{ padding: '40px 20px 32px', textAlign: 'center' }}>
         <div style={{ fontSize: '9px', color: heroTextColor, opacity: 0.4, letterSpacing: '0.4em', textTransform: 'uppercase', marginBottom: '12px' }}>
           {ar ? 'الموسم الجديد — DROP 001' : 'SEASON DROP 001'}
         </div>
@@ -330,11 +330,11 @@ function TechHero({ store, c0, heroBg, ar, pm }: HeroBase) {
   return (
     <div style={{ background: heroBg, paddingTop: pm ? '0' : '56px', position: 'relative', overflow: 'hidden' }}>
       <div style={{ position: 'absolute', top: 0, right: 0, bottom: 0, width: '55%', background: `${c0}08`, clipPath: 'polygon(20% 0,100% 0,100% 100%,0% 100%)', pointerEvents: 'none' }} />
-      <div style={{ padding: '44px 24px 36px', position: 'relative', zIndex: 1 }}>
+      <div style={{ padding: '44px 24px 36px', position: 'relative', zIndex: 1, textAlign: 'center' }}>
         <div style={{ fontSize: '11px', color: c0, letterSpacing: '0.12em', fontFamily: 'monospace', marginBottom: '14px' }}>
           {ar ? '// التقنية الجديدة' : '// טכנולוגיה חדשה'}
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginBottom: '10px', flexWrap: 'wrap' }}>
           <h1 style={{ fontSize: '28px', fontWeight: 800, color: getTextColor(heroBg.startsWith('linear') ? c0 : heroBg), fontFamily: 'monospace', lineHeight: 1.2, margin: 0 }}>
             {store.name}
           </h1>
