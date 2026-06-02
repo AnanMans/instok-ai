@@ -129,18 +129,32 @@ export default function MarketplaceSection({ lang }: { lang: 'ar' | 'he' }) {
   const isEmpty = displayed.length === 0
 
   return (
-    <section style={{ padding: '64px 20px 72px', background: 'rgba(255,255,255,0.015)', borderTop: '1px solid rgba(255,255,255,0.055)', borderBottom: '1px solid rgba(255,255,255,0.055)' }}>
-      <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+    <section style={{ padding: '72px 20px 80px', position: 'relative', overflow: 'hidden', background: '#06030f' }}>
+
+      {/* Solana orbs */}
+      <div style={{ position: 'absolute', top: '-80px', right: '-80px', width: '420px', height: '420px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(153,69,255,0.28) 0%, transparent 70%)', filter: 'blur(40px)', pointerEvents: 'none' }} />
+      <div style={{ position: 'absolute', bottom: '-60px', left: '-60px', width: '360px', height: '360px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(20,241,149,0.18) 0%, transparent 70%)', filter: 'blur(40px)', pointerEvents: 'none' }} />
+      <div style={{ position: 'absolute', top: '40%', left: '50%', transform: 'translate(-50%,-50%)', width: '600px', height: '300px', background: 'radial-gradient(ellipse, rgba(153,69,255,0.07) 0%, transparent 70%)', pointerEvents: 'none' }} />
+
+      {/* Top border with Solana gradient */}
+      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '2px', background: 'linear-gradient(90deg, transparent, #9945FF, #14F195, transparent)' }} />
+      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(153,69,255,0.4), transparent)' }} />
+
+      <div style={{ maxWidth: '1100px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
 
         {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-          <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.18em', color: '#8b5cf6', textTransform: 'uppercase', marginBottom: '10px' }}>
-            {ar ? 'تسوّق الآن' : 'קנה עכשיו'}
+        <div style={{ textAlign: 'center', marginBottom: '36px' }}>
+          <p style={{
+            fontSize: '12px', fontWeight: 800, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '12px',
+            background: 'linear-gradient(90deg, #9945FF, #14F195)',
+            WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+          }}>
+            {ar ? '✦ تسوّق الآن' : '✦ קנה עכשיו'}
           </p>
-          <h2 style={{ fontSize: 'clamp(22px, 4vw, 34px)', fontWeight: 800, color: '#fff', letterSpacing: '-0.03em', marginBottom: '8px', lineHeight: 1.15 }}>
+          <h2 style={{ fontSize: 'clamp(24px, 4vw, 36px)', fontWeight: 900, color: '#fff', letterSpacing: '-0.03em', marginBottom: '10px', lineHeight: 1.15 }}>
             {ar ? 'متاجر حقيقية بنيت بالذكاء الاصطناعي' : 'חנויות אמיתיות שנבנו עם AI'}
           </h2>
-          <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.35)' }}>
+          <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.38)' }}>
             {ar ? 'اكتشف منتجات واطلب مباشرة عبر واتساب' : 'גלה מוצרים והזמן ישירות דרך וואטסאפ'}
           </p>
         </div>
@@ -158,38 +172,45 @@ export default function MarketplaceSection({ lang }: { lang: 'ar' | 'he' }) {
             placeholder={ar ? 'ابحث عن منتج أو متجر...' : 'חפש מוצר או חנות...'}
             style={{
               width: '100%',
-              background: 'rgba(255,255,255,0.05)',
-              border: '1px solid rgba(255,255,255,0.1)',
+              background: 'rgba(255,255,255,0.06)',
+              border: '1px solid rgba(153,69,255,0.3)',
               borderRadius: '14px',
-              padding: '14px 48px 14px 16px',
+              padding: '15px 48px 15px 16px',
               color: '#fff',
               fontSize: '15px',
               outline: 'none',
-              backdropFilter: 'blur(12px)',
+              backdropFilter: 'blur(20px)',
               fontFamily: 'inherit',
               boxSizing: 'border-box',
-              transition: 'border-color 0.2s',
+              transition: 'border-color 0.2s, box-shadow 0.2s',
             }}
-            onFocus={e => { e.target.style.borderColor = 'rgba(139,92,246,0.5)' }}
-            onBlur={e => { e.target.style.borderColor = 'rgba(255,255,255,0.1)' }}
+            onFocus={e => {
+              e.target.style.borderColor = '#9945FF'
+              e.target.style.boxShadow = '0 0 0 3px rgba(153,69,255,0.15), 0 0 20px rgba(153,69,255,0.1)'
+            }}
+            onBlur={e => {
+              e.target.style.borderColor = 'rgba(153,69,255,0.3)'
+              e.target.style.boxShadow = 'none'
+            }}
           />
         </div>
 
         {/* Toggle */}
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginBottom: '32px' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginBottom: '36px' }}>
           {(['stores', 'products'] as const).map(m => (
             <button key={m} onClick={() => setMode(m)}
               style={{
-                padding: '8px 22px',
+                padding: '9px 24px',
                 borderRadius: '50px',
-                border: mode === m ? '1px solid rgba(139,92,246,0.6)' : '1px solid rgba(255,255,255,0.1)',
-                background: mode === m ? 'rgba(124,58,237,0.22)' : 'transparent',
-                color: mode === m ? '#c4b5fd' : 'rgba(255,255,255,0.4)',
+                border: mode === m ? '1px solid rgba(153,69,255,0.7)' : '1px solid rgba(255,255,255,0.1)',
+                background: mode === m ? 'linear-gradient(135deg, rgba(153,69,255,0.25), rgba(20,241,149,0.1))' : 'transparent',
+                color: mode === m ? '#fff' : 'rgba(255,255,255,0.35)',
                 fontSize: '13px',
                 fontWeight: mode === m ? 700 : 500,
                 cursor: 'pointer',
                 fontFamily: 'inherit',
                 transition: 'all 0.18s',
+                boxShadow: mode === m ? '0 0 20px rgba(153,69,255,0.2)' : 'none',
               }}>
               {m === 'stores'
                 ? (ar ? '🏪 متاجر' : '🏪 חנויות')
