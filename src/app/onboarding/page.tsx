@@ -865,7 +865,7 @@ export default function Page() {
                   <input type="text" placeholder={t.s2SocialPH} value={socialHandle}
                     onChange={e => setSocialHandle(e.target.value.replace(/\s/g, ''))}
                     style={{ ...inp, marginBottom: '6px', direction: 'ltr', textAlign: 'left' }} dir="ltr" />
-                  <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.25)', marginBottom: '24px' }}>{t.s2SocialHelper}</p>
+                  <p style={{ fontSize: '11px', fontWeight: 600, marginBottom: '24px', background: 'linear-gradient(90deg, #9945FF, #14F195)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>{t.s2SocialHelper}</p>
 
                   <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', marginBottom: '10px', fontWeight: 500 }}>{t.s2CatLabel}</p>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: '8px', marginBottom: '24px' }}>
