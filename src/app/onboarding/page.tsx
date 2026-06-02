@@ -503,6 +503,7 @@ export default function Page() {
           deliveryAreas,
           payments: payments.join(', '),
           lang: lang ?? 'ar',
+          logoUrl: uploadedImage ?? null,
           userId: session?.user?.id,
         }),
       })

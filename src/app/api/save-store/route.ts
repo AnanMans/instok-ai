@@ -26,6 +26,7 @@ export async function POST(request: Request) {
       whatsappNumber?: string
       socialHandle?: string
       delivery: string; deliveryAreas: string; payments: string; lang: string
+      logoUrl?: string | null
       userId?: string
     }
 
@@ -55,6 +56,7 @@ export async function POST(request: Request) {
       delivery_areas: body.deliveryAreas ?? null,
       payment_methods: body.payments ?? null,
       lang: body.lang,
+      logo_url: body.logoUrl ?? null,
     }
 
     if (body.userId) storePayload.owner_id = body.userId
