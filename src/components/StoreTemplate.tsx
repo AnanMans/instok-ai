@@ -694,13 +694,25 @@ export default function StoreTemplate({
 
         {/* Footer */}
         {!preview && (
-          <div style={{ textAlign: 'center', paddingTop: '8px', display: 'flex', justifyContent: 'center', gap: '16px' }}>
-            <a href="/" style={{ fontSize: '11px', color: cfg.mutedColor, textDecoration: 'none', opacity: 0.6 }}>
-              {ar ? 'مدعوم بـ Instok.ai' : 'מופעל על ידי Instok.ai'}
-            </a>
-            <a href="/policy" style={{ fontSize: '11px', color: cfg.mutedColor, textDecoration: 'none', opacity: 0.6 }}>
-              {ar ? 'سياسة الخصوصية' : 'מדיניות פרטיות'}
-            </a>
+          <div style={{ textAlign: 'center', paddingTop: '8px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
+            {(store.delivery_type || paymentMethods.length > 0) && (
+              <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '12px' }}>
+                {store.delivery_type === 'self'    && <span style={{ fontSize: '11px', color: cfg.mutedColor, opacity: 0.65 }}>🛵 {ar ? 'توصيل للمنزل' : 'משלוח לבית'}</span>}
+                {store.delivery_type === 'pickup'  && <span style={{ fontSize: '11px', color: cfg.mutedColor, opacity: 0.65 }}>📍 {ar ? 'استلام من المتجر' : 'איסוף מהחנות'}</span>}
+                {store.delivery_type === 'courier' && <span style={{ fontSize: '11px', color: cfg.mutedColor, opacity: 0.65 }}>🚚 {ar ? 'شحن لجميع المناطق' : 'משלוח לכל הארץ'}</span>}
+                {paymentMethods.includes('bit')    && <span style={{ fontSize: '11px', color: cfg.mutedColor, opacity: 0.65 }}>💜 Bit</span>}
+                {paymentMethods.includes('bank')   && <span style={{ fontSize: '11px', color: cfg.mutedColor, opacity: 0.65 }}>🏦 {ar ? 'تحويل بنكي' : 'העברה בנקאית'}</span>}
+                {paymentMethods.includes('cash')   && <span style={{ fontSize: '11px', color: cfg.mutedColor, opacity: 0.65 }}>💵 {ar ? 'كاش' : 'מזומן'}</span>}
+              </div>
+            )}
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '16px' }}>
+              <a href="/" style={{ fontSize: '11px', color: cfg.mutedColor, textDecoration: 'none', opacity: 0.6 }}>
+                {ar ? 'مدعوم بـ Instok.ai' : 'מופעל על ידי Instok.ai'}
+              </a>
+              <a href="/policy" style={{ fontSize: '11px', color: cfg.mutedColor, textDecoration: 'none', opacity: 0.6 }}>
+                {ar ? 'سياسة الخصوصية' : 'מדיניות פרטיות'}
+              </a>
+            </div>
           </div>
         )}
       </div>
