@@ -119,7 +119,7 @@ function MessageIcon() {
 
 const CONTENT = {
   ar: {
-    nav: { cta: 'ابدأ مجاناً', langLabel: 'עב' },
+    nav: { cta: 'ابدأ مجاناً', langLabel: 'עברית' },
     hero: {
       badge: 'مدعوم بالذكاء الاصطناعي — يبني متجرك تلقائياً',
       h1a: 'حوّل انستغرامك وواتساب',
@@ -159,7 +159,7 @@ const CONTENT = {
     footer: { copy: '© ٢٠٢٥ Instok — جميع الحقوق محفوظة', policy: 'سياسة الخصوصية' },
   },
   he: {
-    nav: { cta: 'התחל בחינם', langLabel: 'عر' },
+    nav: { cta: 'התחל בחינם', langLabel: 'العربية' },
     hero: {
       badge: 'מופעל על ידי AI — בונה את החנות שלך אוטומטית',
       h1a: 'הפוך את האינסטגרם והוואטסאפ שלך',
@@ -406,7 +406,14 @@ function LuxuryMiniPreview() {
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function Page() {
-  const [lang, setLang] = useState<Lang>('ar')
+  const [lang, setLang] = useState<Lang>(() => {
+    if (typeof window === 'undefined') return 'ar'
+    const saved = localStorage.getItem('instok_lang') as Lang | null
+    if (saved === 'ar' || saved === 'he') return saved
+    const browser = navigator.language || ''
+    if (browser.startsWith('he')) return 'he'
+    return 'ar'
+  })
   const [userEmail, setUserEmail] = useState<string | null>(null)
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
@@ -497,11 +504,22 @@ export default function Page() {
             <span style={{ color: '#fff' }}>ins</span><span style={{ color: '#9945FF' }}>tok</span>
           </span>
           <div className="flex items-center gap-2">
-            <button onClick={() => setLang(l => l === 'ar' ? 'he' : 'ar')}
-              className="text-xs font-medium px-3 py-1.5 rounded-lg transition-colors"
-              style={{ color: 'rgba(255,255,255,0.45)', border: '1px solid rgba(255,255,255,0.08)', backgroundColor: 'transparent' }}
-              onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = 'rgba(255,255,255,0.75)' }}
-              onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.color = 'rgba(255,255,255,0.45)' }}>
+            <button
+              onClick={() => {
+                const next: Lang = lang === 'ar' ? 'he' : 'ar'
+                setLang(next)
+                localStorage.setItem('instok_lang', next)
+              }}
+              className="text-xs font-bold px-3 py-1.5 rounded-lg transition-all"
+              style={{
+                background: 'linear-gradient(90deg, #9945FF, #14F195)',
+                color: '#fff',
+                border: 'none',
+                letterSpacing: '0.01em',
+                boxShadow: '0 2px 12px rgba(153,69,255,0.35)',
+                cursor: 'pointer',
+                fontFamily: 'inherit',
+              }}>
               {t.nav.langLabel}
             </button>
             {userEmail ? (
