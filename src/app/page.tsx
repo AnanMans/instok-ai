@@ -504,36 +504,18 @@ export default function Page() {
             <span style={{ color: '#fff' }}>ins</span><span style={{ color: '#9945FF' }}>tok</span>
           </span>
           <div className="flex items-center gap-2">
-            <button
-              onClick={() => {
-                const next: Lang = lang === 'ar' ? 'he' : 'ar'
-                setLang(next)
-                localStorage.setItem('instok_lang', next)
-              }}
-              className="text-sm font-semibold px-4 py-2 rounded-lg transition-opacity hover:opacity-80"
-              style={{
-                background: 'transparent',
-                color: '#fff',
-                border: '1.5px solid transparent',
-                backgroundClip: 'padding-box',
-                outline: '1.5px solid transparent',
-                boxShadow: '0 0 0 1.5px #9945FF, 0 0 0 1.5px #14F195, inset 0 0 0 1.5px transparent',
-                backgroundImage: 'none',
-                cursor: 'pointer',
-                fontFamily: 'inherit',
-                position: 'relative',
-              }}>
-              <span style={{
-                position: 'absolute', inset: 0, borderRadius: '7px',
-                padding: '1.5px',
-                background: 'linear-gradient(90deg, #9945FF, #14F195)',
-                WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-                WebkitMaskComposite: 'xor',
-                maskComposite: 'exclude',
-                pointerEvents: 'none',
-              }} />
-              {t.nav.langLabel}
-            </button>
+            <div style={{ padding: '1.5px', borderRadius: '9px', background: 'linear-gradient(90deg, #9945FF, #14F195)' }}>
+              <button
+                onClick={() => {
+                  const next: Lang = lang === 'ar' ? 'he' : 'ar'
+                  setLang(next)
+                  localStorage.setItem('instok_lang', next)
+                }}
+                className="text-sm font-semibold px-4 py-2 rounded-lg transition-opacity hover:opacity-80"
+                style={{ background: '#080808', color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'inherit', display: 'block' }}>
+                {t.nav.langLabel}
+              </button>
+            </div>
             {userEmail ? (
               <div ref={dropdownRef} style={{ position: 'relative' }}>
                 <button
