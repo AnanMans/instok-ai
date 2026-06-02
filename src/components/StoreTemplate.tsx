@@ -696,12 +696,12 @@ export default function StoreTemplate({
         {!preview && (
           <div style={{ textAlign: 'center', paddingTop: '8px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
             {(store.delivery_type || paymentMethods.length > 0) && (
-              <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '12px' }}>
-                {store.delivery_type === 'self'    && <span style={{ fontSize: '11px', color: cfg.mutedColor, opacity: 0.65 }}>🛵 {ar ? 'توصيل للمنزل' : 'משלוח לבית'}</span>}
-                {store.delivery_type === 'pickup'  && <span style={{ fontSize: '11px', color: cfg.mutedColor, opacity: 0.65 }}>📍 {ar ? 'استلام من المتجر' : 'איסוף מהחנות'}</span>}
-                {store.delivery_type === 'courier' && <span style={{ fontSize: '11px', color: cfg.mutedColor, opacity: 0.65 }}>🚚 {ar ? 'شحن لجميع المناطق' : 'משלוח לכל הארץ'}</span>}
+              <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'nowrap', gap: '14px', whiteSpace: 'nowrap' }}>
+                {store.delivery_type === 'self'    && <span style={{ fontSize: '11px', color: cfg.mutedColor, opacity: 0.65 }}>🛵 {ar ? 'توصيل' : 'משלוח'}</span>}
+                {store.delivery_type === 'pickup'  && <span style={{ fontSize: '11px', color: cfg.mutedColor, opacity: 0.65 }}>📍 {ar ? 'استلام' : 'איסוף'}</span>}
+                {store.delivery_type === 'courier' && <span style={{ fontSize: '11px', color: cfg.mutedColor, opacity: 0.65 }}>🚚 {ar ? 'شحن' : 'שליח'}</span>}
                 {paymentMethods.includes('bit')    && <span style={{ fontSize: '11px', color: cfg.mutedColor, opacity: 0.65 }}>💜 Bit</span>}
-                {paymentMethods.includes('bank')   && <span style={{ fontSize: '11px', color: cfg.mutedColor, opacity: 0.65 }}>🏦 {ar ? 'تحويل بنكي' : 'העברה בנקאית'}</span>}
+                {paymentMethods.includes('bank')   && <span style={{ fontSize: '11px', color: cfg.mutedColor, opacity: 0.65 }}>🏦 {ar ? 'حوالة' : 'העברה'}</span>}
                 {paymentMethods.includes('cash')   && <span style={{ fontSize: '11px', color: cfg.mutedColor, opacity: 0.65 }}>💵 {ar ? 'كاش' : 'מזומן'}</span>}
               </div>
             )}
