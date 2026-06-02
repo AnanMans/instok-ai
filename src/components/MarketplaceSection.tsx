@@ -295,8 +295,8 @@ function ProductCard({ product, ar }: { product: Product; ar: boolean }) {
   const waLink = product.store_whatsapp
     ? `https://wa.me/${product.store_whatsapp}?text=${encodeURIComponent(
         ar
-          ? `مرحباً، أريد طلب: ${product.name} — ₪${product.price}`
-          : `היי, אני רוצה להזמין: ${product.name} — ₪${product.price}`
+          ? `مرحباً، أريد طلب: ${product.name} — ₪${product.price.toLocaleString('en-US')}`
+          : `היי, אני רוצה להזמין: ${product.name} — ₪${product.price.toLocaleString('en-US')}`
       )}`
     : `/store/${product.store_slug}`
 
@@ -323,7 +323,7 @@ function ProductCard({ product, ar }: { product: Product; ar: boolean }) {
           {product.store_name}
         </p>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '6px' }}>
-          <span style={{ fontSize: '15px', fontWeight: 700, color: '#a78bfa' }}>₪{product.price}</span>
+          <span style={{ fontSize: '15px', fontWeight: 700, color: '#a78bfa' }}>{'₪' + product.price.toLocaleString('en-US')}</span>
           <a href={waLink} target="_blank" rel="noopener noreferrer"
             onClick={e => e.stopPropagation()}
             style={{ display: 'flex', alignItems: 'center', gap: '4px', background: '#22c55e', color: '#fff', borderRadius: '8px', padding: '5px 10px', fontSize: '11px', fontWeight: 700, textDecoration: 'none', whiteSpace: 'nowrap', flexShrink: 0 }}>

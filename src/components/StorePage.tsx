@@ -414,14 +414,16 @@ export default function StorePage({
     : ''
   const makeWaLink = (p: ProductData) =>
     `https://wa.me/${waNumber}?text=${encodeURIComponent(ar
-      ? `مرحباً، أريد طلب: ${p.name} — ₪${p.price}`
-      : `היי, אני רוצה להזמין: ${p.name} — ₪${p.price}`)}`
+      ? `مرحباً، أريد طلب: ${p.name} — ${fmt(p.price)}`
+      : `היי, אני רוצה להזמין: ${p.name} — ${fmt(p.price)}`)}`
 
   const paymentMethods = store.payment_methods
     ? store.payment_methods.split(',').map(s => s.trim()).filter(Boolean)
     : []
 
   const imgFallback = 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop'
+
+const fmt = (n: number) => '₪' + n.toLocaleString('en-US')
   const isLight = getTextColor(cfg.pageBg) === '#000000'
 
   const pm = previewMode
@@ -458,6 +460,11 @@ export default function StorePage({
           {archetype === 'gaming' && <span style={{ fontSize: '11px', color: '#0f0', background: 'rgba(0,255,0,0.1)', padding: '3px 8px', borderRadius: '4px', fontWeight: 700 }}>🔴 LIVE</span>}
           {archetype === 'restaurant' && <div style={{ background: '#22c55e', borderRadius: '6px', padding: '3px 8px' }}><span style={{ fontSize: '11px', fontWeight: 700, color: '#fff' }}>30 min</span></div>}
           {archetype === 'tech' && <div style={{ background: '#1e3a8a', borderRadius: '4px', padding: '3px 8px' }}><span style={{ fontSize: '10px', fontWeight: 700, color: '#93c5fd' }}>v2.0</span></div>}
+          {!pm && (
+            <a href="/" style={{ fontSize: '11px', fontWeight: 600, color: cfg.navTextColor, opacity: 0.45, textDecoration: 'none', whiteSpace: 'nowrap' }}>
+              Instok.ai
+            </a>
+          )}
           <div style={{ position: 'relative' }}>
             <span style={{ fontSize: '22px', cursor: pm ? 'default' : 'pointer', opacity: archetype === 'luxury' ? 0.4 : 1 }}>🛒</span>
             {cartCount > 0 && <span style={{ position: 'absolute', top: '-4px', right: '-4px', background: c0, color: '#fff', fontSize: '9px', fontWeight: 800, width: '16px', height: '16px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{cartCount}</span>}
@@ -515,7 +522,7 @@ export default function StorePage({
                     </div>
                     <div style={{ padding: '10px 12px', flex: 1 }}>
                       <p style={{ ...cfg.nameStyle, marginBottom: '4px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{p.name}</p>
-                      <p style={{ ...cfg.priceStyle }}>₪{p.price}</p>
+                      <p style={{ ...cfg.priceStyle }}>{fmt(p.price)}</p>
                     </div>
                   </div>
                 ) : (
@@ -526,7 +533,7 @@ export default function StorePage({
                     </div>
                     <div style={{ padding: '6px 8px' }}>
                       <p style={{ ...cfg.nameStyle, fontSize: '12px', marginBottom: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.name}</p>
-                      <p style={{ ...cfg.priceStyle, fontSize: '13px', fontWeight: 700 }}>₪{p.price}</p>
+                      <p style={{ ...cfg.priceStyle, fontSize: '13px', fontWeight: 700 }}>{fmt(p.price)}</p>
                     </div>
                   </>
                 )}
@@ -596,7 +603,7 @@ export default function StorePage({
               {drawerProduct.description && (
                 <p style={{ fontSize: '13px', color: isLight ? '#888' : 'rgba(255,255,255,0.45)', marginBottom: '12px', lineHeight: 1.6 }}>{drawerProduct.description}</p>
               )}
-              <p style={{ fontSize: '24px', fontWeight: 800, color: c0, marginBottom: '20px' }}>₪{drawerProduct.price}</p>
+              <p style={{ fontSize: '24px', fontWeight: 800, color: c0, marginBottom: '20px' }}>{fmt(drawerProduct.price)}</p>
               {waNumber ? (
                 <a href={makeWaLink(drawerProduct)}
                   onClick={() => setCartCount(n => n + 1)}
