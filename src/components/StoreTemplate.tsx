@@ -50,6 +50,14 @@ function getDarkVariant(hex: string): string {
   return '#' + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('')
 }
 
+function isVeryLight(hex: string): boolean {
+  const h = hex.replace('#', '')
+  const r = parseInt(h.substring(0, 2), 16)
+  const g = parseInt(h.substring(2, 4), 16)
+  const b = parseInt(h.substring(4, 6), 16)
+  return (0.299 * r + 0.587 * g + 0.114 * b) / 255 > 0.85
+}
+
 function getLightVariant(hex: string): string {
   const h = hex.replace('#', '')
   const r = Math.min(255, parseInt(h.substring(0, 2), 16) + 80)
@@ -135,28 +143,33 @@ function getConfig(archetype: string, c0: string, c1: string, c2: string): ArchC
         pillBorder: `${c0}50`,
         pillColor: c0,
       }
-    case 'beauty':
+    case 'beauty': {
+      const accent  = isVeryLight(c0) ? c1 : c0
+      const softBg  = isVeryLight(c0) ? c0 : lightBg
+      const bNavBg  = getDarkVariant(accent)
+      const bNavTxt = getTextColor(bNavBg)
       return {
-        pageBg: lightBg,
-        heroBg: `linear-gradient(160deg, ${c0}20, ${c1}15)`,
-        navBg,
-        navBorder: `${c0}30`,
-        navTextColor: navText,
-        textColor: lightCardText,
-        mutedColor: lightCardText === '#000000' ? 'rgba(0,0,0,0.45)' : 'rgba(255,255,255,0.45)',
-        sectionBg: lightBg,
-        sectionBorder: `${c0}20`,
-        cardBg: `${lightBg}cc`,
-        cardBorder: `${c0}20`,
+        pageBg: softBg,
+        heroBg: `linear-gradient(160deg, ${softBg}, ${accent}18)`,
+        navBg: bNavBg,
+        navBorder: `${accent}30`,
+        navTextColor: bNavTxt,
+        textColor: '#111',
+        mutedColor: 'rgba(0,0,0,0.45)',
+        sectionBg: softBg,
+        sectionBorder: `${accent}20`,
+        cardBg: '#ffffff',
+        cardBorder: `${accent}18`,
         cardRadius: '12px',
-        cardExtra: { boxShadow: `0 4px 20px ${c0}12` },
-        nameStyle: { fontWeight: 500, fontSize: '12px', color: lightCardText, letterSpacing: '0.01em' },
-        priceStyle: { fontWeight: 700, color: lightPrice, fontSize: '14px' },
-        sectionTitleColor: `${c0}80`,
-        pillBg: `${c0}18`,
-        pillBorder: `${c0}30`,
-        pillColor: c0,
+        cardExtra: { boxShadow: `0 4px 20px ${accent}12` },
+        nameStyle: { fontWeight: 600, fontSize: '12px', color: '#444', letterSpacing: '0.01em' },
+        priceStyle: { fontWeight: 700, color: accent, fontSize: '14px' },
+        sectionTitleColor: `${accent}70`,
+        pillBg: `${accent}18`,
+        pillBorder: `${accent}30`,
+        pillColor: accent,
       }
+    }
     case 'streetwear':
       return {
         pageBg: '#0a0a0a',
@@ -323,19 +336,25 @@ function GamingHero({ store, c0, c1, heroBg, ar }: { store: StoreData; c0: strin
 }
 
 function BeautyHero({ store, c0, c1, heroBg, ar }: { store: StoreData; c0: string; c1: string; heroBg: string; ar: boolean }) {
+  const accent = isVeryLight(c0) ? c1 : c0
+  const ctaTxt = getTextColor(accent)
   return (
     <div style={{ background: heroBg, paddingTop: '56px' }}>
       <div style={{ padding: '48px 24px 40px', textAlign: 'center' }}>
-        <div style={{ width: '56px', height: '56px', borderRadius: '50%', background: `linear-gradient(135deg, ${c0}, ${c1})`, margin: '0 auto 20px', boxShadow: `0 8px 32px ${c0}40`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <span style={{ fontSize: '22px' }}>✿</span>
-        </div>
-        <h1 style={{ fontSize: '28px', fontWeight: 700, color: getTextColor(c0), fontStyle: 'italic', marginBottom: '10px', letterSpacing: '-0.01em', lineHeight: 1.2 }}>
+        {store.logo_url ? (
+          <img src={store.logo_url} alt="" style={{ width: '72px', height: '72px', borderRadius: '50%', objectFit: 'cover', margin: '0 auto 20px', display: 'block', boxShadow: `0 8px 32px ${accent}40` }} />
+        ) : (
+          <div style={{ width: '56px', height: '56px', borderRadius: '50%', background: `linear-gradient(135deg, ${accent}, ${c1})`, margin: '0 auto 20px', boxShadow: `0 8px 32px ${accent}40`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <span style={{ fontSize: '22px' }}>✿</span>
+          </div>
+        )}
+        <h1 style={{ fontSize: '28px', fontWeight: 700, color: '#111', fontStyle: 'italic', marginBottom: '10px', letterSpacing: '-0.01em', lineHeight: 1.2 }}>
           {store.name}
         </h1>
         {store.slogan && (
-          <p style={{ fontSize: '13px', color: `${c0}aa`, marginBottom: '28px', lineHeight: 1.6 }}>{store.slogan}</p>
+          <p style={{ fontSize: '13px', color: `${accent}99`, marginBottom: '28px', lineHeight: 1.6 }}>{store.slogan}</p>
         )}
-        <a href="#products" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: `linear-gradient(135deg, ${c0}, ${c1})`, color: getTextColor(c0), borderRadius: '50px', padding: '13px 32px', fontSize: '14px', fontWeight: 700, textDecoration: 'none', boxShadow: `0 8px 24px ${c0}40` }}>
+        <a href="#products" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: accent, color: ctaTxt, borderRadius: '50px', padding: '13px 32px', fontSize: '14px', fontWeight: 700, textDecoration: 'none', boxShadow: `0 8px 24px ${accent}50` }}>
           {ar ? 'تسوّقي الآن ✿' : 'קני עכשיו ✿'}
         </a>
       </div>
