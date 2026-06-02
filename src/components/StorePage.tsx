@@ -461,8 +461,8 @@ const fmt = (n: number) => '₪' + n.toLocaleString('en-US')
           {archetype === 'restaurant' && <div style={{ background: '#22c55e', borderRadius: '6px', padding: '3px 8px' }}><span style={{ fontSize: '11px', fontWeight: 700, color: '#fff' }}>30 min</span></div>}
           {archetype === 'tech' && <div style={{ background: '#1e3a8a', borderRadius: '4px', padding: '3px 8px' }}><span style={{ fontSize: '10px', fontWeight: 700, color: '#93c5fd' }}>v2.0</span></div>}
           {!pm && (
-            <a href="/" style={{ fontSize: '11px', fontWeight: 600, color: cfg.navTextColor, opacity: 0.45, textDecoration: 'none', whiteSpace: 'nowrap' }}>
-              Instok.ai
+            <a href="/" style={{ fontSize: '13px', fontWeight: 800, textDecoration: 'none', whiteSpace: 'nowrap', opacity: 0.75, letterSpacing: '-0.01em' }}>
+              <span style={{ color: cfg.navTextColor }}>ins</span><span style={{ color: c0 }}>tok</span>
             </a>
           )}
           <div style={{ position: 'relative' }}>
@@ -567,8 +567,8 @@ const fmt = (n: number) => '₪' + n.toLocaleString('en-US')
             </div>
           )}
           <div style={{ display: 'flex', justifyContent: 'center', gap: '16px' }}>
-            <a href="/" style={{ fontSize: '11px', color: cfg.mutedColor, textDecoration: 'none', opacity: 0.6 }}>
-              {ar ? 'مدعوم بـ Instok.ai' : 'מופעל על ידי Instok.ai'}
+            <a href="/" style={{ fontSize: '11px', color: cfg.mutedColor, textDecoration: 'none', opacity: 0.6, fontWeight: 700, letterSpacing: '-0.01em' }}>
+              {ar ? 'مدعوم بـ ' : 'מופעל על ידי '}<span style={{ color: cfg.mutedColor }}>ins</span><span style={{ color: c0 }}>tok</span>
             </a>
             <a href="/policy" style={{ fontSize: '11px', color: cfg.mutedColor, textDecoration: 'none', opacity: 0.6 }}>
               {ar ? 'سياسة الخصوصية' : 'מדיניות פרטיות'}

@@ -100,8 +100,8 @@ export default async function Image({ params }: { params: Promise<{ slug: string
               padding: '12px 32px',
             }}
           >
-            <div style={{ fontSize: '24px', fontWeight: 700, color: '#ffffff', display: 'flex' }}>
-              Instok.ai
+            <div style={{ fontSize: '24px', fontWeight: 800, display: 'flex', letterSpacing: '-0.01em' }}>
+              <span style={{ color: '#ffffff' }}>ins</span><span style={{ color: c0 }}>tok</span>
             </div>
           </div>
         </div>

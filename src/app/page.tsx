@@ -156,7 +156,7 @@ const CONTENT = {
       sub: 'انضم لآلاف البائعين اللي حولوا صفحاتهم لمتاجر حقيقية',
       btn: 'ابدأ مجاناً — بدون بطاقة ائتمانية',
     },
-    footer: { copy: '© ٢٠٢٥ Instok.ai — جميع الحقوق محفوظة', policy: 'سياسة الخصوصية' },
+    footer: { copy: '© ٢٠٢٥ Instok — جميع الحقوق محفوظة', policy: 'سياسة الخصوصية' },
   },
   he: {
     nav: { cta: 'התחל בחינם', langLabel: 'عر' },
@@ -196,7 +196,7 @@ const CONTENT = {
       sub: 'הצטרף לאלפי מוכרים שהפכו את הדפים שלהם לחנויות אמיתיות',
       btn: 'התחל בחינם — ללא כרטיס אשראי',
     },
-    footer: { copy: '© 2025 Instok.ai — כל הזכויות שמורות', policy: 'מדיניות פרטיות' },
+    footer: { copy: '© 2025 Instok — כל הזכויות שמורות', policy: 'מדיניות פרטיות' },
   },
 }
 
@@ -233,7 +233,7 @@ function AiDemo({ lines }: { lines: [string, string, string] }) {
         <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: 'rgba(255,255,255,0.1)' }} />
         <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: 'rgba(255,255,255,0.1)' }} />
         <span className="mr-3 text-[10px] font-medium" style={{ color: 'rgba(255,255,255,0.25)', fontFamily: 'monospace' }}>
-          instok.ai / ai-builder
+          instok.co.il / ai-builder
         </span>
       </div>
       <div className="px-5 py-4 flex flex-col gap-3"
@@ -493,8 +493,8 @@ export default function Page() {
       <nav className="fixed top-0 inset-x-0 z-50"
         style={{ backgroundColor: 'rgba(8,8,8,0.75)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(255,255,255,0.055)' }}>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 flex items-center justify-between" style={{ height: '60px' }}>
-          <span className="text-[15px] font-semibold tracking-tight select-none">
-            Instok<span style={{ color: '#8b5cf6' }}>.ai</span>
+          <span className="text-[15px] font-bold tracking-tight select-none" style={{ letterSpacing: '-0.01em' }}>
+            <span style={{ color: '#fff' }}>ins</span><span style={{ color: '#9945FF' }}>tok</span>
           </span>
           <div className="flex items-center gap-2">
             <button onClick={() => setLang(l => l === 'ar' ? 'he' : 'ar')}
@@ -882,8 +882,8 @@ export default function Page() {
       {/* ── FOOTER ─────────────────────────────────────────────────────────── */}
       <footer className="py-8 px-5 sm:px-8" style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-          <span className="text-sm font-semibold" style={{ color: 'rgba(255,255,255,0.5)' }}>
-            Instok<span style={{ color: '#8b5cf6' }}>.ai</span>
+          <span className="text-sm font-bold" style={{ color: 'rgba(255,255,255,0.5)', letterSpacing: '-0.01em' }}>
+            <span>ins</span><span style={{ color: '#9945FF' }}>tok</span>
           </span>
           <div className="flex items-center gap-4">
             <a href="/policy" className="text-xs" style={{ color: 'rgba(255,255,255,0.22)', textDecoration: 'none' }}>
