@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, type ReactNode } from 'react'
 import { useRouter } from 'next/navigation'
 import { Inter, Cairo } from 'next/font/google'
 import { createBrowserClient } from '@supabase/ssr'
+import MarketplaceSection from '@/components/MarketplaceSection'
 
 const supabase = createBrowserClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -642,6 +643,9 @@ export default function Page() {
           </div>
         </div>
       </section>
+
+      {/* ── MARKETPLACE ────────────────────────────────────────────────────── */}
+      <MarketplaceSection lang={lang} />
 
       {/* ── FEATURES ───────────────────────────────────────────────────────── */}
       <section className="py-12 px-5 sm:px-8">
