@@ -583,7 +583,8 @@ export default function StorePage({
       {!pm && drawerOpen && drawerProduct && (
         <div style={{ position: 'fixed', inset: 0, zIndex: 100 }}>
           <div onClick={closeDrawer} style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(2px)' }} />
-          <div className="drawer-open" style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: isLight ? '#fff' : '#111', borderRadius: '24px 24px 0 0', padding: '0 0 40px', maxHeight: '85vh', overflowY: 'auto' }}>
+          <div style={{ position: 'absolute', bottom: 0, left: '50%', transform: 'translateX(-50%)', width: '100%', maxWidth: '480px' }}>
+          <div className="drawer-open" style={{ background: isLight ? '#fff' : '#111', borderRadius: '24px 24px 0 0', padding: '0 0 40px', maxHeight: '85vh', overflowY: 'auto' }}>
             <div style={{ width: '36px', height: '4px', background: 'rgba(128,128,128,0.25)', borderRadius: '2px', margin: '12px auto 0' }} />
             <div style={{ aspectRatio: '4/3', overflow: 'hidden', background: isLight ? '#f5f5f5' : '#1a1a1a' }}>
               <img src={drawerProduct.image_url || imgFallback} alt={drawerProduct.name}
@@ -610,6 +611,7 @@ export default function StorePage({
                 </div>
               )}
             </div>
+          </div>
           </div>
         </div>
       )}
