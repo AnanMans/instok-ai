@@ -504,15 +504,15 @@ export default function Page() {
             <span style={{ color: '#fff' }}>ins</span><span style={{ color: '#9945FF' }}>tok</span>
           </span>
           <div className="flex items-center gap-2">
-            <div style={{ padding: '1.5px', borderRadius: '9px', background: 'linear-gradient(90deg, #9945FF, #14F195)' }}>
+            <div style={{ padding: '1.5px', borderRadius: '9px', background: 'linear-gradient(90deg, #9945FF, #14F195)', flexShrink: 0 }}>
               <button
                 onClick={() => {
                   const next: Lang = lang === 'ar' ? 'he' : 'ar'
                   setLang(next)
                   localStorage.setItem('instok_lang', next)
                 }}
-                className="text-sm font-semibold px-4 py-2 rounded-lg transition-opacity hover:opacity-80"
-                style={{ background: '#080808', color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'inherit', display: 'block' }}>
+                className="text-sm font-semibold transition-opacity hover:opacity-80"
+                style={{ background: '#080808', color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'inherit', display: 'block', borderRadius: '7.5px', padding: '6.5px 14.5px' }}>
                 {t.nav.langLabel}
               </button>
             </div>
