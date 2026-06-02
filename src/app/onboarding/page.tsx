@@ -389,6 +389,7 @@ export default function Page() {
   const [copied, setCopied] = useState(false)
   const [whatsappPhone, setWhatsappPhone] = useState('')
   const [savedSlug, setSavedSlug] = useState('')
+  const [savedStoreId, setSavedStoreId] = useState('')
   const [storeSaving, setStoreSaving] = useState(false)
   const [userEmail, setUserEmail] = useState<string | null>(null)
 
@@ -511,11 +512,28 @@ export default function Page() {
         alert('خطأ: ' + data.error)
       } else if (data.slug) {
         setSavedSlug(data.slug)
+        if (data.storeId) setSavedStoreId(data.storeId)
       }
     } catch (err) {
       console.error('[onboarding] handleConfirmStore error:', err)
     }
     setStoreSaving(false)
+    goNext()
+  }
+
+  const handleSaveDeliveryPayment = async () => {
+    if (savedStoreId) {
+      await fetch('/api/update-store', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          storeId: savedStoreId,
+          deliveryType: delivery,
+          deliveryAreas,
+          paymentMethods: payments.join(', '),
+        }),
+      })
+    }
     goNext()
   }
 
@@ -999,7 +1017,7 @@ export default function Page() {
                       {delivery === 'courier' && <input type="text" placeholder={t.s6CourierPH} value={deliveryCourier} onChange={e => setDeliveryCourier(e.target.value)} style={{ ...inp, marginTop: '8px' }} />}
                     </div>
                   </div>
-                  <button onClick={canNext ? goNext : undefined} style={{ ...btnP, opacity: canNext ? 1 : 0.4, cursor: canNext ? 'pointer' : 'default' }}>{t.next}</button>
+                  <button onClick={canNext ? handleSaveDeliveryPayment : undefined} style={{ ...btnP, opacity: canNext ? 1 : 0.4, cursor: canNext ? 'pointer' : 'default' }}>{t.next}</button>
                 </>
               )}
 

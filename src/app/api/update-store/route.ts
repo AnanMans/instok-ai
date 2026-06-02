@@ -9,6 +9,9 @@ export async function POST(request: Request) {
       storeId: string
       whatsappNumber?: string
       description?: string
+      deliveryType?: string
+      deliveryAreas?: string
+      paymentMethods?: string
     }
 
     if (!body.storeId) return Response.json({ error: 'Missing storeId' }, { status: 400 })
@@ -27,6 +30,10 @@ export async function POST(request: Request) {
     if (body.description !== undefined) {
       updates.description = body.description
     }
+
+    if (body.deliveryType !== undefined) updates.delivery_type = body.deliveryType
+    if (body.deliveryAreas !== undefined) updates.delivery_areas = body.deliveryAreas
+    if (body.paymentMethods !== undefined) updates.payment_methods = body.paymentMethods
 
     if (Object.keys(updates).length === 0) {
       return Response.json({ ok: true })
