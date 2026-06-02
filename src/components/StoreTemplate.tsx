@@ -650,47 +650,8 @@ export default function StoreTemplate({
         )}
       </div>
 
-      {/* ── Delivery & payment ─────────────────────────────────── */}
+      {/* ── Footer ─────────────────────────────────────────────── */}
       <div style={{ padding: '0 16px 40px', maxWidth: '600px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-        {(store.delivery_type || paymentMethods.length > 0) && (
-          <div style={{ background: cfg.sectionBg, border: `1px solid ${cfg.sectionBorder}`, borderRadius: '16px', padding: '16px 18px' }}>
-            <p style={{ fontSize: '11px', fontWeight: 700, color: cfg.sectionTitleColor, marginBottom: '12px', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
-              {ar ? 'التوصيل والدفع' : 'משלוח ותשלום'}
-            </p>
-
-            {store.delivery_type && (
-              <div style={{ marginBottom: paymentMethods.length > 0 ? '12px' : '0' }}>
-                <p style={{ fontSize: '14px', fontWeight: 600, color: cfg.textColor, marginBottom: store.delivery_areas ? '4px' : '0' }}>
-                  {store.delivery_type === 'self'    && '🛵 ' + (ar ? 'توصيل للمنزل'      : 'משלוח לבית')}
-                  {store.delivery_type === 'pickup'  && '📍 ' + (ar ? 'استلام من المتجر'   : 'איסוף מהחנות')}
-                  {store.delivery_type === 'courier' && '🚚 ' + (ar ? 'شحن لجميع المناطق' : 'משלוח לכל הארץ')}
-                  {!['self', 'pickup', 'courier'].includes(store.delivery_type) && '🚚 ' + store.delivery_type}
-                </p>
-                {store.delivery_areas && (
-                  <p style={{ fontSize: '12px', color: cfg.mutedColor }}>{store.delivery_areas}</p>
-                )}
-              </div>
-            )}
-
-            {paymentMethods.length > 0 && (
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                {paymentMethods.includes('bit') && (
-                  <span style={{ background: cfg.pillBg, border: `1px solid ${cfg.pillBorder}`, borderRadius: '20px', padding: '4px 12px', fontSize: '12px', fontWeight: 600, color: cfg.pillColor }}>💜 Bit</span>
-                )}
-                {paymentMethods.includes('bank') && (
-                  <span style={{ background: cfg.pillBg, border: `1px solid ${cfg.pillBorder}`, borderRadius: '20px', padding: '4px 12px', fontSize: '12px', fontWeight: 600, color: cfg.pillColor }}>
-                    🏦 {ar ? 'تحويل بنكي' : 'העברה בנקאית'}
-                  </span>
-                )}
-                {paymentMethods.includes('cash') && (
-                  <span style={{ background: cfg.pillBg, border: `1px solid ${cfg.pillBorder}`, borderRadius: '20px', padding: '4px 12px', fontSize: '12px', fontWeight: 600, color: cfg.pillColor }}>
-                    💵 {ar ? 'كاش' : 'מזומן'}
-                  </span>
-                )}
-              </div>
-            )}
-          </div>
-        )}
 
         {/* Footer */}
         {!preview && (
