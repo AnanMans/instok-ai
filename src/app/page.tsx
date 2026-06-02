@@ -510,16 +510,28 @@ export default function Page() {
                 setLang(next)
                 localStorage.setItem('instok_lang', next)
               }}
-              className="text-xs font-bold px-3 py-1.5 rounded-lg transition-all"
+              className="text-sm font-semibold px-4 py-2 rounded-lg transition-opacity hover:opacity-80"
               style={{
-                background: 'linear-gradient(90deg, #9945FF, #14F195)',
+                background: 'transparent',
                 color: '#fff',
-                border: 'none',
-                letterSpacing: '0.01em',
-                boxShadow: '0 2px 12px rgba(153,69,255,0.35)',
+                border: '1.5px solid transparent',
+                backgroundClip: 'padding-box',
+                outline: '1.5px solid transparent',
+                boxShadow: '0 0 0 1.5px #9945FF, 0 0 0 1.5px #14F195, inset 0 0 0 1.5px transparent',
+                backgroundImage: 'none',
                 cursor: 'pointer',
                 fontFamily: 'inherit',
+                position: 'relative',
               }}>
+              <span style={{
+                position: 'absolute', inset: 0, borderRadius: '7px',
+                padding: '1.5px',
+                background: 'linear-gradient(90deg, #9945FF, #14F195)',
+                WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                WebkitMaskComposite: 'xor',
+                maskComposite: 'exclude',
+                pointerEvents: 'none',
+              }} />
               {t.nav.langLabel}
             </button>
             {userEmail ? (
