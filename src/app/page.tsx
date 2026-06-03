@@ -408,14 +408,7 @@ function LuxuryMiniPreview() {
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function Page() {
-  const [lang, setLang] = useState<Lang>(() => {
-    if (typeof window === 'undefined') return 'ar'
-    const saved = localStorage.getItem('instok_lang') as Lang | null
-    if (saved === 'ar' || saved === 'he') return saved
-    const browser = navigator.language || ''
-    if (browser.startsWith('he')) return 'he'
-    return 'ar'
-  })
+  const [lang, setLang] = useState<Lang>('ar')
   const [userEmail, setUserEmail] = useState<string | null>(null)
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
@@ -428,6 +421,12 @@ export default function Page() {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUserEmail(session?.user?.email ?? null)
     })
+    const saved = localStorage.getItem('instok_lang') as Lang | null
+    if (saved === 'ar' || saved === 'he') {
+      setLang(saved)
+    } else if (navigator.language.startsWith('he')) {
+      setLang('he')
+    }
   }, [])
 
   useEffect(() => {
