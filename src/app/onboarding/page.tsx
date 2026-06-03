@@ -389,6 +389,7 @@ export default function Page() {
   const [vibe, setVibe] = useState('')
   const [description, setDescription] = useState('')
   const [uploadedImage, setUploadedImage] = useState<string | null>(null)
+  const [logoFile, setLogoFile] = useState<File | null>(null)
   const [brandData, setBrandData] = useState<BrandResult | null>(null)
   const [brandLoading, setBrandLoading] = useState(false)
   const [customColors, setCustomColors] = useState<string[]>(['#7c3aed', '#f59e0b', '#0f172a'])
@@ -492,6 +493,7 @@ export default function Page() {
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]; if (!file) return
+    setLogoFile(file)
     const reader = new FileReader()
     reader.onload = ev => setUploadedImage(ev.target?.result as string)
     reader.readAsDataURL(file)
@@ -514,6 +516,18 @@ export default function Page() {
     setStoreSaving(true)
     try {
       const { data: { session } } = await supabase.auth.getSession()
+
+      // Upload logo to Supabase Storage if a file was selected
+      let logoUrl: string | null = null
+      if (logoFile && session?.user?.id) {
+        const fd = new FormData()
+        fd.append('file', logoFile)
+        fd.append('storeId', session.user.id)
+        const uploadRes = await fetch('/api/upload-image', { method: 'POST', body: fd })
+        const uploadData = await uploadRes.json()
+        if (uploadData.url) logoUrl = uploadData.url
+      }
+
       const res = await fetch('/api/save-store', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -531,7 +545,7 @@ export default function Page() {
           deliveryAreas,
           payments: payments.join(', '),
           lang: lang ?? 'ar',
-          logoUrl: uploadedImage ?? null,
+          logoUrl,
           userId: session?.user?.id,
         }),
       })
