@@ -145,7 +145,7 @@ export default function MarketplaceSection({ lang }: { lang: 'ar' | 'he' }) {
           .market-grid-stores {
             display: flex !important;
             flex-direction: row !important;
-            align-items: stretch !important;
+            align-items: flex-start !important;
             overflow-x: auto !important;
             scroll-snap-type: x mandatory !important;
             gap: 12px !important;
@@ -157,17 +157,11 @@ export default function MarketplaceSection({ lang }: { lang: 'ar' | 'he' }) {
           .market-card-store {
             flex: 0 0 72vw !important;
             scroll-snap-align: start !important;
-            display: flex !important;
-            flex-direction: column !important;
-          }
-          .market-card-store > * {
-            flex: 1 !important;
-            height: 100% !important;
           }
           .market-grid-products {
             display: flex !important;
             flex-direction: row !important;
-            align-items: stretch !important;
+            align-items: flex-start !important;
             overflow-x: auto !important;
             scroll-snap-type: x mandatory !important;
             gap: 12px !important;
@@ -179,12 +173,11 @@ export default function MarketplaceSection({ lang }: { lang: 'ar' | 'he' }) {
           .market-card-product {
             flex: 0 0 47vw !important;
             scroll-snap-align: start !important;
-            display: flex !important;
-            flex-direction: column !important;
           }
-          .market-card-product > * {
-            flex: 1 !important;
-            height: 100% !important;
+          /* Fix image height so all product cards are the same compact size */
+          .market-card-product > div > a > div {
+            height: 140px !important;
+            aspect-ratio: unset !important;
           }
         }
       `}</style>
