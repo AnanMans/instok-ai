@@ -213,6 +213,9 @@ function LuxuryHero({ store, c0, heroBg, ar, pm }: HeroBase) {
     <div style={{ background: heroBg, paddingTop: pm ? '0' : '56px', textAlign: 'center', position: 'relative' }}>
       <div style={{ padding: '60px 32px 20px' }}>
         <div style={{ width: '40px', height: '1px', background: c0, margin: '0 auto 28px', opacity: 0.5 }} />
+        {store.logo_url && (
+          <img src={store.logo_url} alt="" style={{ width: '64px', height: '64px', borderRadius: '50%', objectFit: 'cover', margin: '0 auto 20px', display: 'block', opacity: 0.9, boxShadow: `0 4px 20px ${c0}30` }} />
+        )}
         <p style={{ fontSize: '10px', letterSpacing: '0.35em', color: `${c0}70`, textTransform: 'uppercase', marginBottom: '20px', fontWeight: 300 }}>
           {ar ? 'مجموعة حصرية' : 'קולקציה בלעדית'}
         </p>
@@ -461,7 +464,14 @@ const fmt = (n: number) => '₪' + n.toLocaleString('en-US')
       {/* ── Navbar ─────────────────────────────────────────────── */}
       <nav dir="rtl" style={{ position: pm ? 'relative' : 'fixed', top: 0, left: 0, right: 0, zIndex: 50, background: cfg.navBg, backdropFilter: 'blur(12px)', borderBottom: `1px solid ${cfg.navBorder}`, padding: '0 16px', height: '56px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         {archetype === 'luxury' ? (
-          <span style={{ fontSize: '14px', fontWeight: 300, color: cfg.navTextColor, letterSpacing: '0.2em', textTransform: 'uppercase' }}>{store.name}</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            {store.logo_url && (
+              <div style={{ width: '28px', height: '28px', borderRadius: '50%', overflow: 'hidden', flexShrink: 0 }}>
+                <img src={store.logo_url} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="" />
+              </div>
+            )}
+            <span style={{ fontSize: '14px', fontWeight: 300, color: cfg.navTextColor, letterSpacing: '0.2em', textTransform: 'uppercase' }}>{store.name}</span>
+          </div>
         ) : (
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             {archetype === 'restaurant' && <span style={{ fontSize: '18px' }}>🍕</span>}
