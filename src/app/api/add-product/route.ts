@@ -13,6 +13,15 @@ export async function POST(request: Request) {
     const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
     const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, key)
 
+    // Enforce 10-product limit for free stores
+    const { data: store } = await supabase.from('stores').select('is_pro').eq('id', body.store_id).single()
+    if (!store?.is_pro) {
+      const { count } = await supabase.from('products').select('id', { count: 'exact', head: true }).eq('store_id', body.store_id)
+      if ((count ?? 0) >= 10) {
+        return Response.json({ error: 'limit_reached' }, { status: 402 })
+      }
+    }
+
     const { data: product, error } = await supabase
       .from('products')
       .insert({

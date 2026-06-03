@@ -13,6 +13,9 @@ const supabase = createBrowserClient(
 const cairo = Cairo({ subsets: ['arabic'], display: 'swap', weight: ['400', '500', '600', '700'] })
 const heebo = Heebo({ subsets: ['hebrew', 'latin'], display: 'swap', weight: ['400', '500', '600', '700'] })
 
+const PRODUCT_LIMIT = 10
+const SUPPORT_WA = process.env.NEXT_PUBLIC_SUPPORT_WHATSAPP || '972505564556'
+
 type Store = {
   id: string
   slug: string
@@ -24,6 +27,7 @@ type Store = {
   business_phone?: string
   description?: string
   lang?: string
+  is_pro?: boolean
 }
 
 type Product = {
@@ -58,6 +62,8 @@ export default function Dashboard() {
   const [aiLoading, setAiLoading] = useState(false)
   const [aiSuggestion, setAiSuggestion] = useState<{ price_min: number; price_max: number } | null>(null)
   const [aiDone, setAiDone] = useState(false)
+
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false)
 
   const [waInput, setWaInput] = useState('')
   const [waSaving, setWaSaving] = useState(false)
@@ -152,6 +158,10 @@ export default function Dashboard() {
 
   const handleAddProduct = async () => {
     if (!form.name.trim() || !form.price || !store) return
+    if (!store.is_pro && products.length >= PRODUCT_LIMIT) {
+      setShowUpgradeModal(true)
+      return
+    }
     setFormSaving(true)
     setFormError('')
     try {
@@ -346,9 +356,16 @@ export default function Dashboard() {
         </div>
 
         {/* ── Products section ───────────────────────────────── */}
-        <h2 style={{ fontSize: '16px', fontWeight: 700, marginBottom: '14px', color: 'rgba(255,255,255,0.85)' }}>
-          {ar ? `المنتجات (${products.length})` : `מוצרים (${products.length})`}
-        </h2>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
+          <h2 style={{ fontSize: '16px', fontWeight: 700, color: 'rgba(255,255,255,0.85)', margin: 0 }}>
+            {ar ? `المنتجات (${products.length})` : `מוצרים (${products.length})`}
+          </h2>
+          {!store?.is_pro && (
+            <span style={{ fontSize: '11px', color: products.length >= PRODUCT_LIMIT ? '#f87171' : 'rgba(255,255,255,0.3)', background: 'rgba(255,255,255,0.05)', borderRadius: '20px', padding: '3px 10px' }}>
+              {products.length}/{PRODUCT_LIMIT}
+            </span>
+          )}
+        </div>
 
         {products.length === 0 ? (
           <div style={{ background: '#111', border: '1px dashed rgba(255,255,255,0.1)', borderRadius: '14px', padding: '32px', textAlign: 'center', marginBottom: '24px' }}>
@@ -508,6 +525,57 @@ export default function Dashboard() {
         </div>
 
       </div>
+
+      {/* ── Upgrade modal ──────────────────────────────────── */}
+      {showUpgradeModal && (
+        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.85)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}
+          onClick={e => { if (e.target === e.currentTarget) setShowUpgradeModal(false) }}>
+          <div dir="rtl" className={fontClass} style={{ background: '#111', borderRadius: '24px', padding: '36px 28px', maxWidth: '360px', width: '100%', border: '1px solid rgba(255,255,255,0.1)', textAlign: 'center', position: 'relative' }}>
+            <button onClick={() => setShowUpgradeModal(false)}
+              style={{ position: 'absolute', top: '16px', left: '16px', background: 'none', border: 'none', color: 'rgba(255,255,255,0.3)', fontSize: '20px', cursor: 'pointer', lineHeight: 1 }}>×</button>
+
+            <div style={{ fontSize: '48px', marginBottom: '16px' }}>🚀</div>
+            <h2 style={{ fontSize: '22px', fontWeight: 800, color: '#fff', marginBottom: '8px' }}>
+              {ar ? 'وصلت إلى 10 منتجات!' : 'הגעת ל-10 מוצרים!'}
+            </h2>
+            <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.5)', marginBottom: '28px', lineHeight: 1.6 }}>
+              {ar ? 'متجرك ينمو — حان وقت الترقية للنسخة المدفوعة وإضافة منتجات غير محدودة.' : 'החנות שלך צומחת — הגיע הזמן לשדרג ולהוסיף מוצרים ללא הגבלה.'}
+            </p>
+
+            <div style={{ background: 'rgba(255,255,255,0.04)', borderRadius: '14px', padding: '16px', marginBottom: '24px', textAlign: 'right' }}>
+              {[
+                ar ? '✓ منتجات غير محدودة' : '✓ מוצרים ללא הגבלה',
+                ar ? '✓ إزالة شعار Instok' : '✓ הסרת לוגו Instok',
+                ar ? '✓ أولوية في الدعم' : '✓ עדיפות בתמיכה',
+              ].map(f => (
+                <p key={f} style={{ fontSize: '13px', color: 'rgba(255,255,255,0.7)', margin: '6px 0', fontWeight: 500 }}>{f}</p>
+              ))}
+            </div>
+
+            <div style={{ marginBottom: '16px' }}>
+              <span style={{ fontSize: '32px', fontWeight: 800, color: '#fff' }}>₪99</span>
+              <span style={{ fontSize: '14px', color: 'rgba(255,255,255,0.4)', marginRight: '6px' }}>
+                {ar ? '/ شهر' : '/ חודש'}
+              </span>
+            </div>
+
+            <a href={`https://wa.me/${SUPPORT_WA}?text=${encodeURIComponent(ar ? `مرحباً، أريد ترقية متجري "${store?.name}" إلى Pro` : `היי, אני רוצה לשדרג את החנות שלי "${store?.name}" ל-Pro`)}`}
+              target="_blank" rel="noopener noreferrer"
+              style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: '#22c55e', borderRadius: '14px', padding: '14px', textDecoration: 'none', marginBottom: '12px' }}>
+              <span style={{ fontSize: '18px' }}>💬</span>
+              <span style={{ fontSize: '15px', fontWeight: 700, color: '#fff' }}>
+                {ar ? 'تواصل معنا للترقية' : 'צור קשר לשדרוג'}
+              </span>
+            </a>
+
+            <button onClick={() => setShowUpgradeModal(false)}
+              style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.3)', fontSize: '13px', cursor: 'pointer', fontFamily: 'inherit' }}>
+              {ar ? 'ليس الآن' : 'לא עכשיו'}
+            </button>
+          </div>
+        </div>
+      )}
+
     </div>
   )
 }
