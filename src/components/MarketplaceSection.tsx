@@ -129,7 +129,51 @@ export default function MarketplaceSection({ lang }: { lang: 'ar' | 'he' }) {
   const isEmpty = displayed.length === 0
 
   return (
-    <section style={{ padding: '72px 20px 80px', position: 'relative', overflow: 'hidden', background: '#06030f' }}>
+    <section style={{ padding: '72px 20px 80px', position: 'relative', overflowX: 'clip', overflowY: 'hidden', background: '#06030f' }}>
+      <style>{`
+        .market-grid-stores {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+          gap: 16px;
+        }
+        .market-grid-products {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+          gap: 16px;
+        }
+        @media (max-width: 640px) {
+          .market-grid-stores {
+            display: flex !important;
+            flex-direction: row !important;
+            overflow-x: auto !important;
+            scroll-snap-type: x mandatory !important;
+            gap: 12px !important;
+            padding-bottom: 12px !important;
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+          }
+          .market-grid-stores::-webkit-scrollbar { display: none; }
+          .market-card-store {
+            flex: 0 0 72vw !important;
+            scroll-snap-align: start !important;
+          }
+          .market-grid-products {
+            display: flex !important;
+            flex-direction: row !important;
+            overflow-x: auto !important;
+            scroll-snap-type: x mandatory !important;
+            gap: 12px !important;
+            padding-bottom: 12px !important;
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+          }
+          .market-grid-products::-webkit-scrollbar { display: none; }
+          .market-card-product {
+            flex: 0 0 47vw !important;
+            scroll-snap-align: start !important;
+          }
+        }
+      `}</style>
 
       {/* Solana orbs */}
       <div style={{ position: 'absolute', top: '-80px', right: '-80px', width: '420px', height: '420px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(153,69,255,0.28) 0%, transparent 70%)', filter: 'blur(40px)', pointerEvents: 'none' }} />
@@ -229,15 +273,15 @@ export default function MarketplaceSection({ lang }: { lang: 'ar' | 'he' }) {
             {ar ? 'لا توجد نتائج' : 'אין תוצאות'}
           </div>
         ) : mode === 'stores' ? (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '16px' }}>
+          <div className="market-grid-stores">
             {(filteredStores as Store[]).map(store => (
-              <StoreCard key={store.id} store={store} ar={ar} />
+              <div key={store.id} className="market-card-store"><StoreCard store={store} ar={ar} /></div>
             ))}
           </div>
         ) : (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '16px' }}>
+          <div className="market-grid-products">
             {(filteredProducts as Product[]).map(product => (
-              <ProductCard key={product.id} product={product} ar={ar} />
+              <div key={product.id} className="market-card-product"><ProductCard product={product} ar={ar} /></div>
             ))}
           </div>
         )}
