@@ -70,7 +70,7 @@ const T = {
     ],
     s2SocialLabel: 'يوزرنيم انستغرام أو تيك توك (اختياري)',
     s2SocialPH: '@username',
-    s2SocialHelper: 'سيصبح رابط متجرك instok-ai.vercel.app/store/username',
+    s2SocialHelper: 'سيصبح رابط متجرك instok.co.il/store/username',
     s2DescLabel: 'صف متجرك بجملة (اختياري)',
     s2DescPH: 'مثال: أبيع عبايات فاخرة للمرأة العصرية',
     s2ImgLabel: 'رفع شعار أو صورة منتج (اختياري)',
@@ -188,7 +188,7 @@ const T = {
     ],
     s2SocialLabel: 'יוזרניים אינסטגרם או טיקטוק (אופציונלי)',
     s2SocialPH: '@username',
-    s2SocialHelper: 'הקישור לחנות יהיה instok-ai.vercel.app/store/username',
+    s2SocialHelper: 'הקישור לחנות יהיה instok.co.il/store/username',
     s2DescLabel: 'תאר את החנות במשפט (אופציונלי)',
     s2DescPH: 'לדוגמה: אני מוכר רהיטים מעוצבים',
     s2ImgLabel: 'העלה לוגו או תמונת מוצר (אופציונלי)',
@@ -500,7 +500,7 @@ export default function Page() {
   }
 
   const computedSlug = (brandName || brandData?.storeName || 'mystore').split(' ')[0].toLowerCase().replace(/[^\w]/g, '') || 'mystore'
-  const storeUrl = `instok-ai.vercel.app/store/${savedSlug || computedSlug}`
+  const storeUrl = `instok.co.il/store/${savedSlug || computedSlug}`
 
   const c0 = customColors[0] ?? '#7c3aed'
   const c1 = customColors[1] ?? '#f59e0b'

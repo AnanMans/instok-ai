@@ -98,7 +98,7 @@ export default function Dashboard() {
   const fontClass = lang === 'he' ? heebo.className : cairo.className
   const ar = lang === 'ar'
   const c0 = store?.colors?.[0] ?? '#7c3aed'
-  const storeUrl = store ? `https://instok-ai.vercel.app/store/${store.slug}` : ''
+  const storeUrl = store ? `https://instok.co.il/store/${store.slug}` : ''
   const waShareText = ar
     ? `تفضلوا متجري على Instok: ${storeUrl}`
     : `הנה החנות שלי באינסטוק: ${storeUrl}`
@@ -279,7 +279,7 @@ export default function Dashboard() {
             <a href={`/store/${store?.slug}`}
               style={{ flex: 1, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '10px', padding: '9px 12px', textDecoration: 'none', overflow: 'hidden' }}>
               <span style={{ fontSize: '11px', color: '#c4b5fd', fontFamily: 'monospace', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', display: 'block' }}>
-                instok-ai.vercel.app/store/{store?.slug}
+                instok.co.il/store/{store?.slug}
               </span>
             </a>
             <button onClick={() => { navigator.clipboard?.writeText(storeUrl); setCopied(true); setTimeout(() => setCopied(false), 2000) }}
