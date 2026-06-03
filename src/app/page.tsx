@@ -122,9 +122,10 @@ const CONTENT = {
     nav: { cta: 'ابدأ مجاناً', langLabel: 'עברית' },
     hero: {
       badge: 'مدعوم بالذكاء الاصطناعي — يبني متجرك تلقائياً',
-      h1a: 'حوّل انستغرامك وواتساب',
-      h1b: 'لبزنس حقيقي في دقائق',
-      sub: 'آلاف البائعين على واتساب وانستغرام بدون متجر حقيقي — Instok يغير هذا في دقائق',
+      h1a: 'حوّل الواتساب TikTok والانستغرام',
+      h1b: 'إلى متجر حقيقي',
+      sub: 'ارفع صور منتجاتك فقط، وInstok يبني المتجر ويجهز المنتجات تلقائياً.',
+      sub2: 'ابدأ البيع خلال دقائق.',
       cta: 'ابدأ مجاناً',
       ctaSub: 'لا يلزم بطاقة ائتمانية',
       storeLabel: 'متجرك',
@@ -162,9 +163,10 @@ const CONTENT = {
     nav: { cta: 'התחל בחינם', langLabel: 'العربية' },
     hero: {
       badge: 'מופעל על ידי AI — בונה את החנות שלך אוטומטית',
-      h1a: 'הפוך את האינסטגרם והוואטסאפ שלך',
-      h1b: 'לעסק אמיתי תוך דקות',
-      sub: 'אלפי מוכרים בוואטסאפ ואינסטגרם בלי חנות אמיתית — Instok משנה את זה תוך דקות',
+      h1a: 'הפוך את הוואטסאפ TikTok והאינסטגרם',
+      h1b: 'לחנות אמיתית',
+      sub: 'פשוט העלה תמונות מוצרים, ו-Instok בונה את החנות ומכין את המוצרים עבורך.',
+      sub2: 'התחל למכור תוך דקות.',
       cta: 'התחל בחינם',
       ctaSub: 'לא נדרש כרטיס אשראי',
       storeLabel: 'החנות שלך',
@@ -587,9 +589,13 @@ export default function Page() {
           </h1>
 
           {/* Sub */}
-          <p className="hu hu3 text-base sm:text-lg max-w-xl mx-auto mb-12 leading-relaxed"
+          <p className="hu hu3 text-base sm:text-lg max-w-xl mx-auto mb-3 leading-relaxed"
             style={{ color: 'rgba(255,255,255,0.42)' }}>
             {t.hero.sub}
+          </p>
+          <p className="hu hu3 text-base sm:text-lg max-w-xl mx-auto mb-12 leading-relaxed font-semibold"
+            style={{ color: 'rgba(255,255,255,0.75)' }}>
+            {t.hero.sub2}
           </p>
 
           {/* Platform flow */}
