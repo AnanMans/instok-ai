@@ -14,7 +14,7 @@ const cairo = Cairo({ subsets: ['arabic'], display: 'swap', weight: ['400', '500
 const heebo = Heebo({ subsets: ['hebrew', 'latin'], display: 'swap', weight: ['400', '500', '600', '700'] })
 
 const PRODUCT_LIMIT = 10
-const SUPPORT_WA = process.env.NEXT_PUBLIC_SUPPORT_WHATSAPP || '972505564556'
+const SUPPORT_WA = '972505564556'
 
 type Store = {
   id: string
