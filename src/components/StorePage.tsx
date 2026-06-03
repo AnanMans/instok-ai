@@ -243,6 +243,9 @@ function GamingHero({ store, c0, heroBg, ar, pm }: HeroBase & { c1: string }) {
     <div style={{ background: heroBg, paddingTop: pm ? '0' : '56px', position: 'relative', overflow: 'hidden' }}>
       <div style={{ position: 'absolute', inset: 0, background: `repeating-linear-gradient(0deg,transparent,transparent 8px,${c0}08 8px,${c0}08 9px)`, pointerEvents: 'none' }} />
       <div style={{ padding: '44px 24px 36px', textAlign: 'center', position: 'relative', zIndex: 1 }}>
+        {store.logo_url && (
+          <img src={store.logo_url} alt="" style={{ width: '56px', height: '56px', borderRadius: '8px', objectFit: 'cover', margin: '0 auto 14px', display: 'block', boxShadow: `0 0 20px ${c0}60` }} />
+        )}
         <div style={{ fontSize: '12px', color: c0, letterSpacing: '0.15em', marginBottom: '12px', textTransform: 'uppercase', fontWeight: 700 }}>
           {ar ? 'ارتقِ بمستواك' : 'עלה רמה'}
         </div>
@@ -291,6 +294,9 @@ function StreetwearHero({ store, c0, heroBg, ar, pm }: HeroBase) {
   return (
     <div style={{ background: heroBg, paddingTop: pm ? '0' : '56px', borderBottom: `3px solid ${c0}` }}>
       <div style={{ padding: '40px 20px 32px', textAlign: 'center' }}>
+        {store.logo_url && (
+          <img src={store.logo_url} alt="" style={{ width: '48px', height: '48px', borderRadius: '4px', objectFit: 'cover', margin: '0 auto 14px', display: 'block' }} />
+        )}
         <div style={{ fontSize: '9px', color: heroTextColor, opacity: 0.4, letterSpacing: '0.4em', textTransform: 'uppercase', marginBottom: '12px' }}>
           {ar ? 'الموسم الجديد — DROP 001' : 'SEASON DROP 001'}
         </div>
@@ -310,6 +316,9 @@ function MinimalHero({ store, c0, heroBg, ar, pm }: HeroBase) {
   return (
     <div style={{ background: heroBg, paddingTop: pm ? '0' : '56px', borderBottom: '1px solid #efefef' }}>
       <div style={{ padding: '56px 32px 48px', textAlign: 'center' }}>
+        {store.logo_url && (
+          <img src={store.logo_url} alt="" style={{ width: '56px', height: '56px', borderRadius: '50%', objectFit: 'cover', margin: '0 auto 16px', display: 'block', opacity: 0.9 }} />
+        )}
         <p style={{ fontSize: '10px', color: '#bbb', letterSpacing: '0.3em', textTransform: 'uppercase', marginBottom: '16px' }}>
           {ar ? 'متجر أونلاين' : 'ONLINE STORE'}
         </p>
@@ -331,7 +340,11 @@ function RestaurantHero({ store, c0, heroBg, ar, pm }: HeroBase) {
     <div style={{ background: heroBg, paddingTop: pm ? '0' : '56px', position: 'relative', overflow: 'hidden' }}>
       <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3px', background: `linear-gradient(90deg, transparent, ${c0}, transparent)` }} />
       <div style={{ padding: '44px 24px 36px', textAlign: 'center' }}>
-        <div style={{ fontSize: '36px', marginBottom: '14px' }}>🍽️</div>
+        {store.logo_url ? (
+          <img src={store.logo_url} alt="" style={{ width: '64px', height: '64px', borderRadius: '50%', objectFit: 'cover', margin: '0 auto 14px', display: 'block', boxShadow: `0 4px 16px ${c0}30` }} />
+        ) : (
+          <div style={{ fontSize: '36px', marginBottom: '14px' }}>🍽️</div>
+        )}
         <h1 style={{ fontSize: '30px', fontWeight: 800, color: c0, marginBottom: '8px', lineHeight: 1.2 }}>{store.name}</h1>
         {store.slogan && <p style={{ fontSize: '13px', color: `${c0}80`, marginBottom: '28px', fontStyle: 'italic' }}>{store.slogan}</p>}
         <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -353,6 +366,9 @@ function TechHero({ store, c0, heroBg, ar, pm }: HeroBase) {
     <div style={{ background: heroBg, paddingTop: pm ? '0' : '56px', position: 'relative', overflow: 'hidden' }}>
       <div style={{ position: 'absolute', top: 0, right: 0, bottom: 0, width: '55%', background: `${c0}08`, clipPath: 'polygon(20% 0,100% 0,100% 100%,0% 100%)', pointerEvents: 'none' }} />
       <div style={{ padding: '44px 24px 36px', position: 'relative', zIndex: 1, textAlign: 'center' }}>
+        {store.logo_url && (
+          <img src={store.logo_url} alt="" style={{ width: '48px', height: '48px', borderRadius: '8px', objectFit: 'cover', margin: '0 auto 14px', display: 'block', boxShadow: `0 4px 16px ${c0}40` }} />
+        )}
         <div style={{ fontSize: '11px', color: c0, letterSpacing: '0.12em', fontFamily: 'monospace', marginBottom: '14px' }}>
           {ar ? '// التقنية الجديدة' : '// טכנולוגיה חדשה'}
         </div>
@@ -383,6 +399,9 @@ function CreatorHero({ store, c0, c1, heroBg, ar, pm }: HeroBase & { c1: string 
     <div style={{ background: heroBg, paddingTop: pm ? '0' : '56px', position: 'relative', overflow: 'hidden' }}>
       <div style={{ position: 'absolute', top: '30px', right: '20px', width: '100px', height: '100px', background: c1, borderRadius: '50%', filter: 'blur(50px)', opacity: 0.2 }} />
       <div style={{ padding: '44px 24px 36px', textAlign: 'center', position: 'relative', zIndex: 1 }}>
+        {store.logo_url && (
+          <img src={store.logo_url} alt="" style={{ width: '72px', height: '72px', borderRadius: '50%', objectFit: 'cover', margin: '0 auto 14px', display: 'block', boxShadow: `0 8px 24px ${c0}50`, border: `3px solid ${c0}` }} />
+        )}
         <div style={{ fontSize: '12px', color: c0, marginBottom: '8px', fontWeight: 600, letterSpacing: '0.08em' }}>
           {ar ? `بقلم ${store.name}` : `של ${store.name}`}
         </div>
