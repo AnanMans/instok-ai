@@ -125,13 +125,23 @@ const T = {
     s6CourierPH: 'اكتب اسم شركة الشحن',
     s2WaLabel: 'رقم واتساب التجاري *',
     s1Terms: 'بالمتابعة أنت توافق على شروط الاستخدام وسياسة الخصوصية',
-    s7Title: 'متجرك صار حقيقي! 🎉',
+    spTitle: 'أضف منتجك الأول',
+    spSub: 'ارفع صورة المنتج ودع الذكاء الاصطناعي يعمل',
+    spUpload: 'اسحب صورة أو اختر صورة',
+    spAiStates: ['🤖 يحلل الصورة...', '🤖 يتعرف على المنتج...', '🤖 يكتب العنوان...', '🤖 يكتب الوصف...', '🤖 يختار السعر...'],
+    spNamePH: 'اسم المنتج',
+    spDescPH: 'وصف المنتج',
+    spPricePH: 'السعر بالشيكل ₪',
+    spSave: 'حفظ المنتج وإطلاق متجري 🚀',
+    spSaving: 'جاري الحفظ...',
+    s7Title: 'متجرك جاهز للبيع! 🎉',
+    s7Sub: 'منتجك الأول صار حياً ✓',
+    s7View: 'عرض متجري ←',
     s7WA: 'شارك على واتساب',
     s7IG: 'شارك على انستغرام',
     s7Copy: 'نسخ الرابط',
     s7Copied: 'تم النسخ ✓',
-    s7Go: 'اذهب لمتجري ←',
-    s7Hint: 'تقدر تضيف منتجاتك من لوحة التحكم',
+    s7Go: 'لوحة التحكم',
     next: 'التالي',
     back: 'رجوع',
   },
@@ -233,13 +243,23 @@ const T = {
     s6CourierPH: 'כתוב את שם חברת המשלוח',
     s2WaLabel: 'מספר וואטסאפ עסקי *',
     s1Terms: 'בהמשך אתה מסכים לתנאי השימוש ומדיניות הפרטיות',
-    s7Title: 'החנות שלך הפכה לאמיתית! 🎉',
+    spTitle: 'הוסף את המוצר הראשון שלך',
+    spSub: 'העלה תמונת מוצר ותן לבינה המלאכותית לעשות את העבודה',
+    spUpload: 'גרור תמונה או בחר תמונה',
+    spAiStates: ['🤖 מנתח תמונה...', '🤖 מזהה מוצר...', '🤖 כותב כותרת...', '🤖 כותב תיאור...', '🤖 בוחר מחיר...'],
+    spNamePH: 'שם המוצר',
+    spDescPH: 'תיאור המוצר',
+    spPricePH: 'מחיר בשקלים ₪',
+    spSave: 'שמור מוצר והשק את החנות 🚀',
+    spSaving: 'שומר...',
+    s7Title: 'החנות שלך מוכנה למכור! 🎉',
+    s7Sub: 'המוצר הראשון שלך חי ✓',
+    s7View: 'לחנות שלי ←',
     s7WA: 'שתף בוואטסאפ',
     s7IG: 'שתף באינסטגרם',
     s7Copy: 'העתק קישור',
     s7Copied: 'הועתק ✓',
-    s7Go: 'עבור לחנות שלי ←',
-    s7Hint: 'תוכל להוסיף מוצרים מלוח הבקרה',
+    s7Go: 'לוח בקרה',
     next: 'הבא',
     back: 'חזור',
   },
@@ -393,7 +413,15 @@ export default function Page() {
   const [storeSaving, setStoreSaving] = useState(false)
   const [userEmail, setUserEmail] = useState<string | null>(null)
 
+  const [productImageUrl, setProductImageUrl] = useState('')
+  const [productForm, setProductForm] = useState({ name: '', description: '', price: '' })
+  const [aiProductLoading, setAiProductLoading] = useState(false)
+  const [aiProductStateIdx, setAiProductStateIdx] = useState(0)
+  const [aiProductDone, setAiProductDone] = useState(false)
+  const [productSaving, setProductSaving] = useState(false)
+
   const imgInputRef = useRef<HTMLInputElement>(null)
+  const productImgRef = useRef<HTMLInputElement>(null)
   const t = T[lang ?? 'ar']
   const ar = lang === 'ar'
   const fontClass = lang === 'he' ? heebo.className : cairo.className
@@ -538,6 +566,58 @@ export default function Page() {
     goNext()
   }
 
+  useEffect(() => {
+    if (!aiProductLoading) return
+    const timer = setInterval(() => setAiProductStateIdx(i => (i + 1) % 5), 700)
+    return () => clearInterval(timer)
+  }, [aiProductLoading])
+
+  const handleProductUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file || !savedStoreId) return
+    setAiProductLoading(true)
+    setAiProductDone(false)
+    setAiProductStateIdx(0)
+    setProductForm({ name: '', description: '', price: '' })
+    setProductImageUrl('')
+
+    const [uploadRes, aiRes] = await Promise.all([
+      fetch('/api/upload-image', { method: 'POST', body: (() => { const fd = new FormData(); fd.append('file', file); fd.append('storeId', savedStoreId); return fd })() }),
+      fetch('/api/generate-product', { method: 'POST', body: (() => { const fd = new FormData(); fd.append('file', file); return fd })() }),
+    ])
+
+    const [uploadData, aiData] = await Promise.all([uploadRes.json(), aiRes.json()])
+    if (!uploadData.error) setProductImageUrl(uploadData.url)
+    if (!aiData.error) {
+      setProductForm({
+        name: ar ? (aiData.name_ar ?? '') : (aiData.name_he ?? ''),
+        description: ar ? (aiData.description_ar ?? '') : (aiData.description_he ?? ''),
+        price: aiData.price_min ? String(aiData.price_min) : '',
+      })
+    }
+    setAiProductLoading(false)
+    setAiProductDone(true)
+  }
+
+  const handleSaveProduct = async () => {
+    if (!productForm.name.trim() || !productForm.price || !savedStoreId) return
+    setProductSaving(true)
+    const res = await fetch('/api/add-product', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        store_id: savedStoreId,
+        name: productForm.name.trim(),
+        price: parseFloat(productForm.price),
+        description: productForm.description.trim(),
+        image_url: productImageUrl,
+      }),
+    })
+    const data = await res.json()
+    setProductSaving(false)
+    if (!data.error) goNext()
+  }
+
   const handleRetryArchetype = () => {
     const current = effectiveArchetype
     const nowShown = [...new Set([...shownArchetypes, current])]
@@ -597,8 +677,8 @@ export default function Page() {
         {step === 0 && (
           <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '32px 24px' }}>
             <div style={{ marginBottom: '16px', textAlign: 'center' }}>
-              <span style={{ fontSize: '38px', fontWeight: 800, color: '#fff', letterSpacing: '-0.03em' }}>Instok</span>
-              <span style={{ fontSize: '38px', fontWeight: 800, letterSpacing: '-0.03em', background: 'linear-gradient(135deg,#7c3aed,#4f46e5)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>.ai</span>
+              <span style={{ fontSize: '38px', fontWeight: 800, color: '#fff', letterSpacing: '-0.03em' }}>ins</span>
+              <span style={{ fontSize: '38px', fontWeight: 800, letterSpacing: '-0.03em', background: 'linear-gradient(135deg,#9945FF,#14F195)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>tok</span>
             </div>
             <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '14px', marginBottom: '48px', textAlign: 'center' }}>{t.langSub}</p>
             <div style={{ display: 'flex', gap: '16px', width: '100%', direction: 'ltr' }}>
@@ -761,17 +841,97 @@ export default function Page() {
           </div>
         )}
 
-        {/* ── Step 7: Launch ────────────────────────────────────────────────── */}
+        {/* ── Step 7: Add First Product ─────────────────────────────────────── */}
         {step === 7 && (
+          <div key={step} className="step-enter" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', padding: '32px 24px' }}>
+            <div style={{ marginBottom: '32px' }}>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(124,58,237,0.12)', border: '1px solid rgba(124,58,237,0.3)', borderRadius: '20px', padding: '5px 14px', marginBottom: '20px' }}>
+                <span style={{ fontSize: '11px', fontWeight: 700, color: '#c4b5fd' }}>✦ {ar ? 'الذكاء الاصطناعي يعمل' : 'הבינה המלאכותית עובדת'}</span>
+              </div>
+              <h1 style={{ fontSize: '26px', fontWeight: 800, color: '#fff', marginBottom: '6px', letterSpacing: '-0.025em' }}>{t.spTitle}</h1>
+              <p style={{ color: 'rgba(255,255,255,0.38)', fontSize: '14px' }}>{t.spSub}</p>
+            </div>
+
+            {/* Upload area */}
+            <input type="file" accept="image/*" ref={productImgRef} onChange={handleProductUpload} style={{ display: 'none' }} />
+            {!productImageUrl && !aiProductLoading && (
+              <button onClick={() => productImgRef.current?.click()}
+                style={{ width: '100%', background: 'rgba(124,58,237,0.06)', border: '2px dashed rgba(124,58,237,0.3)', borderRadius: '20px', padding: '48px 24px', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', marginBottom: '24px', fontFamily: 'inherit', transition: 'border-color 0.2s' }}>
+                <span style={{ fontSize: '40px' }}>📸</span>
+                <span style={{ fontSize: '15px', fontWeight: 600, color: '#c4b5fd' }}>{t.spUpload}</span>
+                <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.25)' }}>JPG, PNG, WEBP</span>
+              </button>
+            )}
+
+            {/* AI loading state */}
+            {aiProductLoading && (
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '48px 24px', gap: '24px', marginBottom: '24px' }}>
+                <div className="orb" style={{ width: '64px', height: '64px', borderRadius: '50%', background: 'linear-gradient(135deg,#7c3aed,#4f46e5)', boxShadow: '0 0 40px rgba(124,58,237,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <span style={{ fontSize: '22px' }}>✦</span>
+                </div>
+                <p key={aiProductStateIdx} className="ai-line" style={{ color: '#c4b5fd', fontSize: '16px', fontWeight: 600, textAlign: 'center' }}>
+                  {t.spAiStates[aiProductStateIdx]}
+                </p>
+              </div>
+            )}
+
+            {/* Product image preview */}
+            {productImageUrl && !aiProductLoading && (
+              <div style={{ position: 'relative', marginBottom: '20px' }}>
+                <img src={productImageUrl} alt="" style={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: '16px', display: 'block' }} />
+                <button onClick={() => productImgRef.current?.click()}
+                  style={{ position: 'absolute', top: '10px', left: '10px', background: 'rgba(0,0,0,0.6)', border: 'none', borderRadius: '8px', padding: '6px 10px', color: '#fff', fontSize: '11px', cursor: 'pointer', fontFamily: 'inherit' }}>
+                  {ar ? 'تغيير' : 'שנה'}
+                </button>
+              </div>
+            )}
+
+            {/* Editable form */}
+            {aiProductDone && (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', flex: 1 }}>
+                <div>
+                  <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', marginBottom: '6px', fontWeight: 500 }}>{ar ? 'اسم المنتج' : 'שם המוצר'}</p>
+                  <input type="text" placeholder={t.spNamePH} value={productForm.name}
+                    onChange={e => setProductForm(f => ({ ...f, name: e.target.value }))}
+                    style={{ ...inp, fontSize: '15px' }} />
+                </div>
+                <div>
+                  <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', marginBottom: '6px', fontWeight: 500 }}>{ar ? 'الوصف' : 'תיאור'}</p>
+                  <textarea placeholder={t.spDescPH} value={productForm.description}
+                    onChange={e => setProductForm(f => ({ ...f, description: e.target.value }))}
+                    rows={3}
+                    style={{ ...inp, resize: 'none', lineHeight: 1.5 } as React.CSSProperties} />
+                </div>
+                <div>
+                  <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', marginBottom: '6px', fontWeight: 500 }}>{ar ? 'السعر' : 'מחיר'}</p>
+                  <input type="number" inputMode="decimal" placeholder={t.spPricePH} value={productForm.price}
+                    onChange={e => setProductForm(f => ({ ...f, price: e.target.value }))}
+                    style={{ ...inp }} dir="ltr" />
+                </div>
+
+                <button
+                  onClick={handleSaveProduct}
+                  disabled={productSaving || !productForm.name.trim() || !productForm.price}
+                  style={{ ...btnP, marginTop: '8px', opacity: (productSaving || !productForm.name.trim() || !productForm.price) ? 0.5 : 1, cursor: (productSaving || !productForm.name.trim() || !productForm.price) ? 'default' : 'pointer', background: 'linear-gradient(135deg, #22c55e, #16a34a)', boxShadow: '0 4px 24px rgba(34,197,94,0.35)' }}>
+                  {productSaving ? t.spSaving : t.spSave}
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* ── Step 8: Launch ────────────────────────────────────────────────── */}
+        {step === 8 && (
           <>
             {confettiPieces.map(p => (
               <div key={p.id} className="confetti-piece"
                 style={{ left: p.left, width: p.size, height: p.size, background: p.color, '--dur': p.dur, '--delay': p.delay } as React.CSSProperties & Record<string, string>} />
             ))}
             <div key={step} className="step-enter" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '32px 24px', textAlign: 'center' }}>
-              <div style={{ fontSize: '64px', marginBottom: '20px' }}>🚀</div>
-              <h1 style={{ fontSize: '26px', fontWeight: 800, color: '#fff', marginBottom: '8px', letterSpacing: '-0.025em' }}>{t.s7Title}</h1>
-              <p style={{ fontSize: '22px', fontWeight: 700, background: `linear-gradient(135deg,${c0},${c1})`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginBottom: '28px' }}>
+              <div style={{ fontSize: '64px', marginBottom: '20px' }}>🎉</div>
+              <h1 style={{ fontSize: '26px', fontWeight: 800, color: '#fff', marginBottom: '6px', letterSpacing: '-0.025em' }}>{t.s7Title}</h1>
+              <p style={{ fontSize: '14px', color: '#22c55e', fontWeight: 600, marginBottom: '6px' }}>{t.s7Sub}</p>
+              <p style={{ fontSize: '20px', fontWeight: 700, background: `linear-gradient(135deg,${c0},${c1})`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginBottom: '28px' }}>
                 {displayBrand.storeName}
               </p>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', background: '#111', border: `1px solid rgba(124,58,237,0.4)`, borderRadius: '14px', padding: '12px 16px', width: '100%', marginBottom: '24px', cursor: 'pointer' }}
@@ -812,8 +972,16 @@ export default function Page() {
                 </button>
 
               </div>
-              <a href="/dashboard" style={{ ...btnP, marginBottom: '16px', textDecoration: 'none' }}>{t.s7Go}</a>
-              <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.3)' }}>{t.s7Hint}</p>
+              <div style={{ display: 'flex', gap: '10px', width: '100%', marginBottom: '8px' }}>
+                <a href={`/store/${savedSlug}`} target="_blank" rel="noopener noreferrer"
+                  style={{ flex: 1, ...btnP, textDecoration: 'none', textAlign: 'center', background: `linear-gradient(135deg,${c0},${c0}cc)` }}>
+                  {t.s7View}
+                </a>
+                <a href="/dashboard"
+                  style={{ flex: 1, ...btnP, textDecoration: 'none', textAlign: 'center', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)' }}>
+                  {t.s7Go}
+                </a>
+              </div>
             </div>
           </>
         )}
