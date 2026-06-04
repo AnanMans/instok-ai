@@ -591,7 +591,7 @@ export default function Page() {
           <p className="hu hu3 text-base sm:text-lg max-w-xl mx-auto mb-3 leading-relaxed"
             style={{ color: 'rgba(255,255,255,0.42)' }}>
             {lang === 'ar'
-              ? <>ارفع صور منتجاتك فقط، و<span dir="ltr" style={{ unicodeBidi: 'isolate' }}>Instok</span> يبني المتجر ويجهز المنتجات تلقائياً.</>
+              ? <>ارفع صور منتجاتك فقط، و-<span dir="ltr" style={{ unicodeBidi: 'isolate' }}>Instok</span> يبني المتجر ويجهز المنتجات تلقائياً.</>
               : t.hero.sub}
           </p>
           <p className="hu hu3 text-base sm:text-lg max-w-xl mx-auto mb-12 leading-relaxed font-semibold"
