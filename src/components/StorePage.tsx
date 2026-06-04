@@ -616,7 +616,7 @@ const fmt = (n: number) => '₪' + n.toLocaleString('en-US')
           )}
           <div style={{ display: 'flex', justifyContent: 'center', gap: '16px' }}>
             <a href="/" style={{ fontSize: '11px', color: cfg.mutedColor, textDecoration: 'none', opacity: 0.6, fontWeight: 700, letterSpacing: '-0.01em' }}>
-              {ar ? 'مدعوم بـ ' : 'מופעל על ידי '}<span style={{ color: cfg.mutedColor }}>ins</span><span style={{ color: c0 }}>tok</span>
+              {ar ? 'مدعوم بـ ' : 'מופעל על ידי '}<span style={{ color: cfg.mutedColor }}>ins</span><span style={{ color: isVeryLight(c0) ? c1 : c0 }}>tok</span>
             </a>
             <a href="/policy" style={{ fontSize: '11px', color: cfg.mutedColor, textDecoration: 'none', opacity: 0.6 }}>
               {ar ? 'سياسة الخصوصية' : 'מדיניות פרטיות'}

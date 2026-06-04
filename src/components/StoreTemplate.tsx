@@ -716,7 +716,7 @@ export default function StoreTemplate({
             )}
             <div style={{ display: 'flex', justifyContent: 'center', gap: '16px' }}>
               <a href="/" style={{ fontSize: '11px', color: cfg.mutedColor, textDecoration: 'none', opacity: 0.6 }}>
-                {ar ? 'مدعوم بـ Instok.ai' : 'מופעל על ידי Instok.ai'}
+                {ar ? 'مدعوم بـ ' : 'מופעל על ידי '}<span style={{ color: cfg.mutedColor }}>ins</span><span style={{ color: isVeryLight(c0) ? c1 : c0 }}>tok</span>
               </a>
               <a href="/policy" style={{ fontSize: '11px', color: cfg.mutedColor, textDecoration: 'none', opacity: 0.6 }}>
                 {ar ? 'سياسة الخصوصية' : 'מדיניות פרטיות'}
