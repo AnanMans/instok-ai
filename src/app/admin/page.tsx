@@ -25,6 +25,7 @@ export default function AdminPage() {
   const [stores, setStores] = useState<StoreRow[]>([])
   const [loading, setLoading] = useState(false)
   const [toggling, setToggling] = useState<string | null>(null)
+  const [search, setSearch] = useState('')
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault()
@@ -101,7 +102,7 @@ export default function AdminPage() {
   return (
     <div style={{ minHeight: '100vh', background: '#080808', color: '#fff', padding: '32px 20px' }}>
       <div style={{ maxWidth: '700px', margin: '0 auto' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '32px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
           <div>
             <h1 style={{ fontSize: '22px', fontWeight: 800, margin: 0 }}>Instok Admin</h1>
             <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '13px', marginTop: '4px' }}>
@@ -114,11 +115,22 @@ export default function AdminPage() {
           </button>
         </div>
 
+        <input
+          type="text"
+          placeholder="Search by name or slug..."
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+          style={{ width: '100%', background: '#1a1a1a', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', padding: '11px 16px', color: '#fff', fontSize: '14px', outline: 'none', boxSizing: 'border-box', marginBottom: '20px' }}
+        />
+
         {loading ? (
           <div style={{ textAlign: 'center', padding: '60px', color: 'rgba(255,255,255,0.3)' }}>Loading...</div>
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-            {stores.map(store => (
+            {stores.filter(s => {
+              const q = search.toLowerCase()
+              return !q || s.name.toLowerCase().includes(q) || s.slug.toLowerCase().includes(q)
+            }).map(store => (
               <div key={store.id} style={{ background: '#111', border: `1px solid ${store.is_pro ? 'rgba(124,58,237,0.4)' : 'rgba(255,255,255,0.08)'}`, borderRadius: '14px', padding: '16px 18px', display: 'flex', alignItems: 'center', gap: '14px' }}>
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
