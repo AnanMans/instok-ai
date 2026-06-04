@@ -124,7 +124,7 @@ const CONTENT = {
       badge: 'مدعوم بالذكاء الاصطناعي — يبني متجرك تلقائياً',
       h1a: 'حوّل الواتساب TikTok والانستغرام',
       h1b: 'إلى متجر حقيقي',
-      sub: 'ارفع صور منتجاتك فقط، وInstok‎ يبني المتجر ويجهز المنتجات تلقائياً.',
+      sub: 'ارفع صور منتجاتك فقط، وInstok يبني المتجر ويجهز المنتجات تلقائياً.',
       sub2: 'ابدأ البيع خلال دقائق.',
       cta: 'ابدأ مجاناً',
       ctaSub: 'لا يلزم بطاقة ائتمانية',
@@ -590,7 +590,9 @@ export default function Page() {
           {/* Sub */}
           <p className="hu hu3 text-base sm:text-lg max-w-xl mx-auto mb-3 leading-relaxed"
             style={{ color: 'rgba(255,255,255,0.42)' }}>
-            {t.hero.sub}
+            {lang === 'ar'
+              ? <>ارفع صور منتجاتك فقط، و<span dir="ltr" style={{ unicodeBidi: 'isolate' }}>Instok</span> يبني المتجر ويجهز المنتجات تلقائياً.</>
+              : t.hero.sub}
           </p>
           <p className="hu hu3 text-base sm:text-lg max-w-xl mx-auto mb-12 leading-relaxed font-semibold"
             style={{ color: 'rgba(255,255,255,0.75)' }}>
