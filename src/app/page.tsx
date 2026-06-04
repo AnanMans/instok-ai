@@ -325,7 +325,7 @@ function GamingMiniPreview() {
         <div style={{ fontSize: '7px', color: '#7c3aed', letterSpacing: '0.15em', marginBottom: '3px', fontWeight: 700, position: 'relative', zIndex: 1 }}>LEVEL UP</div>
         <div style={{ fontSize: '15px', fontWeight: 900, color: '#fff', marginBottom: '5px', textShadow: '0 0 10px #7c3aed', position: 'relative', zIndex: 1 }}>GameZone</div>
         <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: '#7c3aed', borderRadius: '5px', padding: '4px 10px', boxShadow: '0 0 6px rgba(124,58,237,0.6)', position: 'relative', zIndex: 1 }}>
-          <span style={{ fontSize: '7px', fontWeight: 800, color: '#fff' }}>PLAY NOW ▶</span>
+          <span style={{ fontSize: '7px', fontWeight: 800, color: '#fff' }}>تسوّق الآن ▶</span>
         </div>
       </div>
       <div style={{ background: '#080815', padding: '6px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5px', flex: 1, overflow: 'hidden' }}>
@@ -640,7 +640,7 @@ export default function Page() {
             <div className="proof-pill inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs"
               style={{ background: 'rgba(15,23,42,0.7)', border: '1px solid rgba(124,58,237,0.35)', color: 'rgba(255,255,255,0.75)', backdropFilter: 'blur(8px)' }}>
               <span style={{ color: '#22c55e', fontSize: '8px' }}>●</span>
-              {ar ? '+١٢٠ متجر أُنشئ هذا الأسبوع' : '+120 חנויות נפתחו השבוע'}
+              {ar ? '✦ متجرك جاهز في أقل من دقيقتين' : '✦ החנות שלך מוכנה בפחות משתי דקות'}
             </div>
             <div style={{ width: '260px', overflow: 'hidden', position: 'relative' }}>
               <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, #030712 0%, transparent 18%, transparent 82%, #030712 100%)', zIndex: 1, pointerEvents: 'none' }} />
