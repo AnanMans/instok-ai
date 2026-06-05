@@ -216,19 +216,19 @@ function LuxuryHero({ store, c0, heroBg, ar, pm }: HeroBase) {
         {store.logo_url && (
           <img src={store.logo_url} alt="" style={{ width: '64px', height: '64px', borderRadius: '50%', objectFit: 'cover', margin: '0 auto 20px', display: 'block', opacity: 0.9, boxShadow: `0 4px 20px ${c0}30` }} />
         )}
-        <p style={{ fontSize: '10px', letterSpacing: '0.35em', color: `${c0}70`, textTransform: 'uppercase', marginBottom: '20px', fontWeight: 300 }}>
+        <p style={{ fontSize: '10px', letterSpacing: ar ? '0' : '0.35em', color: `${c0}70`, textTransform: ar ? 'none' : 'uppercase', marginBottom: '20px', fontWeight: 300 }}>
           {ar ? 'مجموعة حصرية' : 'קולקציה בלעדית'}
         </p>
-        <h1 style={{ fontSize: '22px', fontWeight: 200, color: c0, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '18px', lineHeight: 1.4 }}>
+        <h1 style={{ fontSize: '22px', fontWeight: 200, color: c0, letterSpacing: ar ? '0' : '0.25em', textTransform: ar ? 'none' : 'uppercase', marginBottom: '18px', lineHeight: 1.4 }}>
           {store.name}
         </h1>
         <div style={{ width: '60px', height: '1px', background: c0, margin: '0 auto 18px', opacity: 0.35 }} />
         {store.slogan && (
-          <p style={{ fontSize: '11px', color: `${c0}55`, fontWeight: 200, letterSpacing: '0.15em', fontStyle: 'italic', marginBottom: '32px' }}>
+          <p style={{ fontSize: '11px', color: `${c0}55`, fontWeight: 200, letterSpacing: ar ? '0' : '0.15em', fontStyle: 'italic', marginBottom: '32px' }}>
             {store.slogan}
           </p>
         )}
-        <a href="#products" style={{ display: 'inline-block', border: `1px solid ${c0}50`, color: c0, padding: '10px 32px', fontSize: '10px', letterSpacing: '0.25em', textTransform: 'uppercase', textDecoration: 'none', fontWeight: 300 }}>
+        <a href="#products" style={{ display: 'inline-block', border: `1px solid ${c0}50`, color: c0, padding: '10px 32px', fontSize: '10px', letterSpacing: ar ? '0' : '0.25em', textTransform: ar ? 'none' : 'uppercase', textDecoration: 'none', fontWeight: 300 }}>
           {ar ? 'استكشف المجموعة' : 'גלה את הקולקציה'}
         </a>
       </div>
