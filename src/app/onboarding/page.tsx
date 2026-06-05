@@ -595,22 +595,28 @@ export default function Page() {
     setProductForm({ name: '', description: '', price: '' })
     setProductImageUrl('')
 
-    const [uploadRes, aiRes] = await Promise.all([
-      fetch('/api/upload-image', { method: 'POST', body: (() => { const fd = new FormData(); fd.append('file', file); fd.append('storeId', savedStoreId); return fd })() }),
-      fetch('/api/generate-product', { method: 'POST', body: (() => { const fd = new FormData(); fd.append('file', file); return fd })() }),
-    ])
+    try {
+      const [uploadRes, aiRes] = await Promise.all([
+        fetch('/api/upload-image', { method: 'POST', body: (() => { const fd = new FormData(); fd.append('file', file); fd.append('storeId', savedStoreId); return fd })() }),
+        fetch('/api/generate-product', { method: 'POST', body: (() => { const fd = new FormData(); fd.append('file', file); return fd })() }),
+      ])
 
-    const [uploadData, aiData] = await Promise.all([uploadRes.json(), aiRes.json()])
-    if (!uploadData.error) setProductImageUrl(uploadData.url)
-    if (!aiData.error) {
-      setProductForm({
-        name: ar ? (aiData.name_ar ?? '') : (aiData.name_he ?? ''),
-        description: ar ? (aiData.description_ar ?? '') : (aiData.description_he ?? ''),
-        price: aiData.price_min ? String(aiData.price_min) : '',
-      })
+      const [uploadData, aiData] = await Promise.all([uploadRes.json(), aiRes.json()])
+      if (!uploadData.error) setProductImageUrl(uploadData.url)
+      if (!aiData.error) {
+        setProductForm({
+          name: ar ? (aiData.name_ar ?? '') : (aiData.name_he ?? ''),
+          description: ar ? (aiData.description_ar ?? '') : (aiData.description_he ?? ''),
+          price: aiData.price_min ? String(aiData.price_min) : '',
+        })
+      }
+      setAiProductDone(true)
+    } catch (err) {
+      console.error('[handleProductUpload]', err)
+      setAiProductDone(true)
+    } finally {
+      setAiProductLoading(false)
     }
-    setAiProductLoading(false)
-    setAiProductDone(true)
   }
 
   const handleSaveProduct = async () => {
