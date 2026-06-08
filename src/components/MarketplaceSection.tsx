@@ -129,7 +129,7 @@ export default function MarketplaceSection({ lang }: { lang: 'ar' | 'he' }) {
   const isEmpty = displayed.length === 0
 
   return (
-    <section style={{ padding: '72px 20px 80px', position: 'relative', overflowX: 'clip', overflowY: 'hidden', background: '#06030f' }}>
+    <section style={{ padding: '72px 20px 80px', position: 'relative', overflowX: 'clip', overflowY: 'hidden', background: '#eeeaff' }}>
       <style>{`
         .market-grid-stores {
           display: grid;
@@ -202,17 +202,17 @@ export default function MarketplaceSection({ lang }: { lang: 'ar' | 'he' }) {
           }}>
             {ar ? '✦ تسوّق الآن' : '✦ קנה עכשיו'}
           </p>
-          <h2 style={{ fontSize: 'clamp(24px, 4vw, 36px)', fontWeight: 900, color: '#fff', letterSpacing: '-0.03em', marginBottom: '10px', lineHeight: 1.15 }}>
+          <h2 style={{ fontSize: 'clamp(24px, 4vw, 36px)', fontWeight: 900, color: '#0f0a1e', letterSpacing: '-0.03em', marginBottom: '10px', lineHeight: 1.15 }}>
             {ar ? 'متاجر حقيقية بنيت بالذكاء الاصطناعي' : 'חנויות אמיתיות שנבנו עם AI'}
           </h2>
-          <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.38)' }}>
+          <p style={{ fontSize: '14px', color: 'rgba(15,10,30,0.5)' }}>
             {ar ? 'اكتشف منتجات واطلب مباشرة عبر واتساب' : 'גלה מוצרים והזמן ישירות דרך וואטסאפ'}
           </p>
         </div>
 
         {/* Search bar */}
         <div style={{ maxWidth: '540px', margin: '0 auto 20px', position: 'relative' }}>
-          <div style={{ position: 'absolute', top: '50%', right: '16px', transform: 'translateY(-50%)', color: 'rgba(255,255,255,0.3)', pointerEvents: 'none', fontSize: '16px' }}>
+          <div style={{ position: 'absolute', top: '50%', right: '16px', transform: 'translateY(-50%)', color: 'rgba(15,10,30,0.3)', pointerEvents: 'none', fontSize: '16px' }}>
             🔍
           </div>
           <input
@@ -223,11 +223,11 @@ export default function MarketplaceSection({ lang }: { lang: 'ar' | 'he' }) {
             placeholder={ar ? 'ابحث عن منتج أو متجر...' : 'חפש מוצר או חנות...'}
             style={{
               width: '100%',
-              background: 'rgba(255,255,255,0.06)',
-              border: '1px solid rgba(153,69,255,0.3)',
+              background: '#fff',
+              border: '1px solid rgba(124,58,237,0.2)',
               borderRadius: '14px',
               padding: '15px 48px 15px 16px',
-              color: '#fff',
+              color: '#0f0a1e',
               fontSize: '15px',
               outline: 'none',
               backdropFilter: 'blur(20px)',
@@ -253,9 +253,9 @@ export default function MarketplaceSection({ lang }: { lang: 'ar' | 'he' }) {
               style={{
                 padding: '9px 24px',
                 borderRadius: '50px',
-                border: mode === m ? '1px solid rgba(153,69,255,0.7)' : '1px solid rgba(255,255,255,0.1)',
-                background: mode === m ? 'linear-gradient(135deg, rgba(153,69,255,0.25), rgba(20,241,149,0.1))' : 'transparent',
-                color: mode === m ? '#fff' : 'rgba(255,255,255,0.35)',
+                border: mode === m ? '1px solid rgba(124,58,237,0.6)' : '1px solid rgba(0,0,0,0.1)',
+                background: mode === m ? 'linear-gradient(135deg, #7c3aed, #4f46e5)' : '#fff',
+                color: mode === m ? '#fff' : 'rgba(15,10,30,0.45)',
                 fontSize: '13px',
                 fontWeight: mode === m ? 700 : 500,
                 cursor: 'pointer',
@@ -272,11 +272,11 @@ export default function MarketplaceSection({ lang }: { lang: 'ar' | 'he' }) {
 
         {/* Grid */}
         {loading ? (
-          <div style={{ textAlign: 'center', padding: '48px', color: 'rgba(255,255,255,0.2)', fontSize: '14px' }}>
+          <div style={{ textAlign: 'center', padding: '48px', color: 'rgba(15,10,30,0.3)', fontSize: '14px' }}>
             {ar ? 'جاري التحميل...' : 'טוען...'}
           </div>
         ) : isEmpty ? (
-          <div style={{ textAlign: 'center', padding: '48px', color: 'rgba(255,255,255,0.25)', fontSize: '14px' }}>
+          <div style={{ textAlign: 'center', padding: '48px', color: 'rgba(15,10,30,0.3)', fontSize: '14px' }}>
             {ar ? 'لا توجد نتائج' : 'אין תוצאות'}
           </div>
         ) : mode === 'stores' ? (
@@ -305,7 +305,7 @@ function StoreCard({ store, ar }: { store: Store; ar: boolean }) {
 
   return (
     <a href={`/store/${store.slug}`}
-      style={{ textDecoration: 'none', display: 'block', borderRadius: '16px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.03)', transition: 'transform 0.18s, box-shadow 0.18s', cursor: 'pointer' }}
+      style={{ textDecoration: 'none', display: 'block', borderRadius: '16px', overflow: 'hidden', border: '1px solid rgba(0,0,0,0.07)', background: '#fff', transition: 'transform 0.18s, box-shadow 0.18s', cursor: 'pointer', boxShadow: '0 2px 12px rgba(0,0,0,0.05)' }}
       onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(-3px)'; (e.currentTarget as HTMLElement).style.boxShadow = `0 16px 48px ${c0}25` }}
       onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = 'none'; (e.currentTarget as HTMLElement).style.boxShadow = 'none' }}>
 
@@ -321,16 +321,16 @@ function StoreCard({ store, ar }: { store: Store; ar: boolean }) {
 
       {/* Info */}
       <div style={{ padding: '14px 16px 16px' }}>
-        <p style={{ fontSize: '15px', fontWeight: 700, color: '#fff', marginBottom: '4px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+        <p style={{ fontSize: '15px', fontWeight: 700, color: '#0f0a1e', marginBottom: '4px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
           {store.name}
         </p>
         {store.category && (
-          <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.35)', marginBottom: '10px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+          <p style={{ fontSize: '11px', color: 'rgba(15,10,30,0.4)', marginBottom: '10px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
             {store.category}
           </p>
         )}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.3)' }}>
+          <span style={{ fontSize: '11px', color: 'rgba(15,10,30,0.35)' }}>
             {store.product_count} {ar ? 'منتج' : 'מוצרים'}
           </span>
           <span style={{ fontSize: '12px', fontWeight: 600, color: c0 }}>
@@ -352,13 +352,13 @@ function ProductCard({ product, ar }: { product: Product; ar: boolean }) {
     : `/store/${product.store_slug}`
 
   return (
-    <div style={{ borderRadius: '14px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.03)', transition: 'transform 0.18s', cursor: 'pointer' }}
+    <div style={{ borderRadius: '14px', overflow: 'hidden', border: '1px solid rgba(0,0,0,0.07)', background: '#fff', transition: 'transform 0.18s', cursor: 'pointer', boxShadow: '0 2px 12px rgba(0,0,0,0.05)' }}
       onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(-3px)' }}
       onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = 'none' }}>
 
       {/* Image */}
       <a href={`/store/${product.store_slug}`} style={{ textDecoration: 'none', display: 'block' }}>
-        <div style={{ aspectRatio: '1', overflow: 'hidden', background: '#111' }}>
+        <div style={{ aspectRatio: '1', overflow: 'hidden', background: '#f3f0ff' }}>
           <img src={product.image_url || imgFallback} alt={product.name}
             onError={e => { (e.target as HTMLImageElement).src = imgFallback }}
             style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform 0.3s' }} />
@@ -367,10 +367,10 @@ function ProductCard({ product, ar }: { product: Product; ar: boolean }) {
 
       {/* Info */}
       <div style={{ padding: '12px 12px 14px' }}>
-        <p style={{ fontSize: '13px', fontWeight: 600, color: '#fff', marginBottom: '2px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+        <p style={{ fontSize: '13px', fontWeight: 600, color: '#0f0a1e', marginBottom: '2px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
           {product.name}
         </p>
-        <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.3)', marginBottom: '8px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+        <p style={{ fontSize: '11px', color: 'rgba(15,10,30,0.38)', marginBottom: '8px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
           {product.store_name}
         </p>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '6px' }}>

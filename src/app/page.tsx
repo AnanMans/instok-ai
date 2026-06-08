@@ -229,12 +229,12 @@ function AiDemo({ lines }: { lines: [string, string, string] }) {
 
   return (
     <div ref={boxRef} className="w-full max-w-md mx-auto rounded-2xl"
-      style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', backdropFilter: 'blur(12px)', height: '190px', overflow: 'hidden' }}>
-      <div className="flex items-center gap-1.5 px-4 py-3 border-b" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
-        <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: 'rgba(255,255,255,0.1)' }} />
-        <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: 'rgba(255,255,255,0.1)' }} />
-        <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: 'rgba(255,255,255,0.1)' }} />
-        <span className="mr-3 text-[10px] font-medium" style={{ color: 'rgba(255,255,255,0.25)', fontFamily: 'monospace' }}>
+      style={{ background: '#fff', border: '1px solid rgba(124,58,237,0.14)', boxShadow: '0 4px 24px rgba(124,58,237,0.08)', height: '190px', overflow: 'hidden' }}>
+      <div className="flex items-center gap-1.5 px-4 py-3 border-b" style={{ borderColor: 'rgba(0,0,0,0.06)' }}>
+        <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: 'rgba(0,0,0,0.1)' }} />
+        <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: 'rgba(0,0,0,0.1)' }} />
+        <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: 'rgba(0,0,0,0.1)' }} />
+        <span className="mr-3 text-[10px] font-medium" style={{ color: 'rgba(15,10,30,0.3)', fontFamily: 'monospace' }}>
           instok.co.il / ai-builder
         </span>
       </div>
@@ -242,16 +242,16 @@ function AiDemo({ lines }: { lines: [string, string, string] }) {
         style={{ height: '130px', overflow: 'hidden', position: 'relative' }}>
         {/* Line 1 — always at full opacity */}
         <div dir="rtl" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-          <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.75)', fontFamily: 'monospace' }}>{lines[0]}</span>
+          <span style={{ fontSize: '13px', color: 'rgba(15,10,30,0.75)', fontFamily: 'monospace' }}>{lines[0]}</span>
           <span className="ai-cursor" style={{ animationPlayState: playState }} />
         </div>
         {/* Line 2 — fades in at 1s mark */}
         <div dir="rtl" style={{ opacity: 0.15, animation: 'ai-op-2 4s ease-out infinite', animationPlayState: playState, willChange: 'opacity' }}>
-          <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.75)', fontFamily: 'monospace' }}>{lines[1]}</span>
+          <span style={{ fontSize: '13px', color: 'rgba(15,10,30,0.75)', fontFamily: 'monospace' }}>{lines[1]}</span>
         </div>
         {/* Line 3 — fades in at 2s mark, green */}
         <div dir="rtl" style={{ opacity: 0.15, animation: 'ai-op-3 4s ease-out infinite', animationPlayState: playState, willChange: 'opacity' }}>
-          <span style={{ fontSize: '13px', fontWeight: 500, color: 'rgba(74,222,128,0.9)', fontFamily: 'monospace' }}>{lines[2]}</span>
+          <span style={{ fontSize: '13px', fontWeight: 500, color: '#16a34a', fontFamily: 'monospace' }}>{lines[2]}</span>
         </div>
       </div>
     </div>
@@ -441,7 +441,7 @@ export default function Page() {
   }, [dropdownOpen])
 
   return (
-    <div dir="rtl" className={`min-h-screen antialiased ${fontClass}`} style={{ backgroundColor: '#080808', color: '#ffffff', overflowX: 'hidden', maxWidth: '100vw' }}>
+    <div dir="rtl" className={`min-h-screen antialiased ${fontClass}`} style={{ backgroundColor: '#f8f7ff', color: '#0f0a1e', overflowX: 'hidden', maxWidth: '100vw' }}>
       <style>{`
         @keyframes march {
           0%   { background-position: 0 0; }
@@ -499,13 +499,13 @@ export default function Page() {
 
       {/* ── NAVBAR ─────────────────────────────────────────────────────────── */}
       <nav className="fixed top-0 inset-x-0 z-50"
-        style={{ backgroundColor: 'rgba(8,8,8,0.75)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(255,255,255,0.055)' }}>
+        style={{ backgroundColor: 'rgba(248,247,255,0.92)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(124,58,237,0.12)' }}>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 flex items-center justify-between" style={{ height: '60px' }}>
           <span className="text-[15px] font-bold tracking-tight select-none" style={{ letterSpacing: '-0.01em' }}>
-            <span style={{ color: '#fff' }}>ins</span><span style={{ color: '#9945FF' }}>tok</span>
+            <span style={{ color: '#0f0a1e' }}>ins</span><span style={{ color: '#7c3aed' }}>tok</span>
           </span>
           <div className="flex items-center gap-2">
-            <div style={{ padding: '1.5px', borderRadius: '9px', background: 'linear-gradient(90deg, #9945FF, #14F195)', flexShrink: 0 }}>
+            <div style={{ padding: '1.5px', borderRadius: '9px', background: 'linear-gradient(90deg, #7c3aed, #4f46e5)', flexShrink: 0 }}>
               <button
                 onClick={() => {
                   const next: Lang = lang === 'ar' ? 'he' : 'ar'
@@ -513,7 +513,7 @@ export default function Page() {
                   localStorage.setItem('instok_lang', next)
                 }}
                 className="text-sm font-semibold transition-opacity hover:opacity-80"
-                style={{ background: '#080808', color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'inherit', display: 'block', borderRadius: '7.5px', padding: '6.5px 14.5px' }}>
+                style={{ background: '#f8f7ff', color: '#0f0a1e', border: 'none', cursor: 'pointer', fontFamily: 'inherit', display: 'block', borderRadius: '7.5px', padding: '6.5px 14.5px' }}>
                 {t.nav.langLabel}
               </button>
             </div>
@@ -525,20 +525,20 @@ export default function Page() {
                   <span style={{ fontSize: '13px', fontWeight: 700, color: '#fff' }}>{userEmail[0].toUpperCase()}</span>
                 </button>
                 {dropdownOpen && (
-                  <div style={{ position: 'absolute', top: 'calc(100% + 8px)', left: 0, background: '#1a1a1a', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '12px', overflow: 'hidden', minWidth: '180px', boxShadow: '0 8px 32px rgba(0,0,0,0.7)', zIndex: 200 }}>
+                  <div style={{ position: 'absolute', top: 'calc(100% + 8px)', left: 0, background: '#fff', border: '1px solid rgba(0,0,0,0.09)', borderRadius: '12px', overflow: 'hidden', minWidth: '180px', boxShadow: '0 8px 32px rgba(0,0,0,0.1)', zIndex: 200 }}>
                     <button
                       onClick={() => { setDropdownOpen(false); router.push('/dashboard') }}
-                      style={{ width: '100%', padding: '11px 16px', background: 'none', border: 'none', color: '#fff', fontSize: '13px', fontWeight: 500, cursor: 'pointer', textAlign: 'start', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: '8px' }}
-                      onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.08)')}
+                      style={{ width: '100%', padding: '11px 16px', background: 'none', border: 'none', color: '#0f0a1e', fontSize: '13px', fontWeight: 500, cursor: 'pointer', textAlign: 'start', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: '8px' }}
+                      onMouseEnter={e => (e.currentTarget.style.background = 'rgba(0,0,0,0.04)')}
                       onMouseLeave={e => (e.currentTarget.style.background = 'none')}>
                       <span>📊</span>
                       {ar ? 'لوحة التحكم' : 'Dashboard'}
                     </button>
-                    <div style={{ height: '1px', background: 'rgba(255,255,255,0.08)', margin: '0 12px' }} />
+                    <div style={{ height: '1px', background: 'rgba(0,0,0,0.06)', margin: '0 12px' }} />
                     <button
                       onClick={async () => { setDropdownOpen(false); await supabase.auth.signOut(); setUserEmail(null) }}
-                      style={{ width: '100%', padding: '11px 16px', background: 'none', border: 'none', color: '#ff6b6b', fontSize: '13px', fontWeight: 500, cursor: 'pointer', textAlign: 'start', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: '8px' }}
-                      onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,107,107,0.1)')}
+                      style={{ width: '100%', padding: '11px 16px', background: 'none', border: 'none', color: '#dc2626', fontSize: '13px', fontWeight: 500, cursor: 'pointer', textAlign: 'start', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: '8px' }}
+                      onMouseEnter={e => (e.currentTarget.style.background = 'rgba(220,38,38,0.06)')}
                       onMouseLeave={e => (e.currentTarget.style.background = 'none')}>
                       <span>🚪</span>
                       {ar ? 'تسجيل خروج' : 'Logout'}
@@ -560,9 +560,9 @@ export default function Page() {
       {/* ── HERO ───────────────────────────────────────────────────────────── */}
       <section className="relative flex flex-col items-center text-center px-5 sm:px-8 pt-36 sm:pt-44 pb-28 overflow-hidden">
         <div className="absolute inset-0 pointer-events-none"
-          style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
+          style={{ backgroundImage: 'radial-gradient(circle, rgba(124,58,237,0.07) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
         <div className="absolute inset-0 pointer-events-none"
-          style={{ background: 'radial-gradient(ellipse 85% 60% at 50% 0%, transparent 0%, #080808 75%)' }} />
+          style={{ background: 'radial-gradient(ellipse 85% 60% at 50% 0%, transparent 0%, #f8f7ff 75%)' }} />
         <div className="orb-pulse absolute pointer-events-none"
           style={{ top: '-200px', left: '50%', transform: 'translateX(-50%)', width: '720px', height: '560px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(124,58,237,0.22) 0%, transparent 68%)', filter: 'blur(48px)' }} />
 
@@ -570,7 +570,7 @@ export default function Page() {
           {/* Badge */}
           <div className="hu hu1 flex justify-center mb-8">
             <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium"
-              style={{ border: '1px solid rgba(139,92,246,0.28)', backgroundColor: 'rgba(139,92,246,0.08)', color: 'rgba(255,255,255,0.7)' }}>
+              style={{ border: '1px solid rgba(124,58,237,0.25)', backgroundColor: 'rgba(124,58,237,0.07)', color: 'rgba(15,10,30,0.65)' }}>
               <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: '#8b5cf6' }} />
               {t.hero.badge}
             </span>
@@ -579,34 +579,34 @@ export default function Page() {
           {/* Headline */}
           <h1 className="hu hu2 font-bold leading-tight mb-5"
             style={{ fontSize: 'clamp(2rem, 6vw, 3.5rem)', letterSpacing: '-0.03em', lineHeight: 1.15 }}>
-            <span style={{ color: '#f5f5f5' }}>{t.hero.h1a}</span>
+            <span style={{ color: '#0f0a1e' }}>{t.hero.h1a}</span>
             <br />
             <span className="bg-clip-text text-transparent"
-              style={{ backgroundImage: 'linear-gradient(135deg, #c4b5fd 0%, #8b5cf6 45%, #6366f1 100%)' }}>
+              style={{ backgroundImage: 'linear-gradient(135deg, #7c3aed 0%, #4f46e5 60%, #6366f1 100%)' }}>
               {t.hero.h1b}
             </span>
           </h1>
 
           {/* Sub */}
           <p className="hu hu3 text-base sm:text-lg max-w-xl mx-auto mb-3 leading-relaxed"
-            style={{ color: 'rgba(255,255,255,0.42)' }}>
+            style={{ color: 'rgba(15,10,30,0.52)' }}>
             {lang === 'ar'
               ? <>ارفع صور منتجاتك فقط، و-<span dir="ltr" style={{ unicodeBidi: 'isolate' }}>Instok</span> يبني المتجر ويجهز المنتجات تلقائياً.</>
               : t.hero.sub}
           </p>
           <p className="hu hu3 text-base sm:text-lg max-w-xl mx-auto mb-12 leading-relaxed font-semibold"
-            style={{ color: 'rgba(255,255,255,0.75)' }}>
+            style={{ color: '#0f0a1e' }}>
             {t.hero.sub2}
           </p>
 
           {/* Platform flow */}
           <div className="hu hu4 flex justify-center mb-12" dir="ltr">
             <div className="inline-flex items-center gap-3 sm:gap-4 px-4 sm:px-5 py-3.5 rounded-2xl"
-              style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', backdropFilter: 'blur(8px)' }}>
+              style={{ background: '#fff', border: '1px solid rgba(124,58,237,0.12)', backdropFilter: 'blur(8px)', boxShadow: '0 2px 16px rgba(124,58,237,0.06)' }}>
               <div className="flex items-center gap-2 sm:gap-2.5">
                 {PLATFORMS.map(({ label, Icon }) => (
                   <div key={label} className="flex items-center justify-center rounded-xl"
-                    style={{ width: '38px', height: '38px', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.09)', color: 'rgba(255,255,255,0.7)' }}
+                    style={{ width: '38px', height: '38px', background: 'rgba(124,58,237,0.06)', border: '1px solid rgba(124,58,237,0.1)', color: 'rgba(15,10,30,0.6)' }}
                     title={label}>
                     <Icon size={16} />
                   </div>
@@ -632,19 +632,19 @@ export default function Page() {
               style={{ background: 'linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%)', boxShadow: '0 0 45px rgba(124,58,237,0.38), 0 4px 24px rgba(0,0,0,0.35)' }}>
               {t.hero.cta}
             </button>
-            <span className="text-xs" style={{ color: 'rgba(255,255,255,0.28)' }}>{t.hero.ctaSub}</span>
+            <span className="text-xs" style={{ color: 'rgba(15,10,30,0.38)' }}>{t.hero.ctaSub}</span>
           </div>
 
           {/* Social proof bar */}
           <div className="hu hu5 flex flex-col items-center gap-2 mb-8">
             <div className="proof-pill inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs"
-              style={{ background: 'rgba(15,23,42,0.7)', border: '1px solid rgba(124,58,237,0.35)', color: 'rgba(255,255,255,0.75)', backdropFilter: 'blur(8px)' }}>
-              <span style={{ color: '#22c55e', fontSize: '8px' }}>●</span>
+              style={{ background: '#fff', border: '1px solid rgba(124,58,237,0.22)', color: 'rgba(15,10,30,0.65)', backdropFilter: 'blur(8px)', boxShadow: '0 2px 12px rgba(124,58,237,0.08)' }}>
+              <span style={{ color: '#16a34a', fontSize: '8px' }}>●</span>
               {ar ? '✦ متجرك جاهز في أقل من دقيقتين' : '✦ החנות שלך מוכנה בפחות משתי דקות'}
             </div>
             <div style={{ width: '260px', overflow: 'hidden', position: 'relative' }}>
-              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, #030712 0%, transparent 18%, transparent 82%, #030712 100%)', zIndex: 1, pointerEvents: 'none' }} />
-              <div className="ticker-track flex gap-4 text-xs" style={{ color: 'rgba(255,255,255,0.28)', whiteSpace: 'nowrap', width: 'max-content' }}>
+              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, #f8f7ff 0%, transparent 18%, transparent 82%, #f8f7ff 100%)', zIndex: 1, pointerEvents: 'none' }} />
+              <div className="ticker-track flex gap-4 text-xs" style={{ color: 'rgba(15,10,30,0.32)', whiteSpace: 'nowrap', width: 'max-content' }}>
                 {[...Array(2)].map((_, rep) => (
                   <span key={rep}>
                     {ar
@@ -670,7 +670,7 @@ export default function Page() {
       <section className="py-12 px-5 sm:px-8">
         <div className="max-w-5xl mx-auto">
           <FadeIn className="text-center mb-8">
-            <h2 className="text-2xl sm:text-3xl font-bold text-white" style={{ letterSpacing: '-0.025em' }}>
+            <h2 className="text-2xl sm:text-3xl font-bold" style={{ letterSpacing: '-0.025em', color: '#0f0a1e' }}>
               {t.features.title}
             </h2>
           </FadeIn>
@@ -688,10 +688,10 @@ export default function Page() {
       <section className="py-12 px-5 sm:px-8">
         <div className="max-w-4xl mx-auto">
           <FadeIn className="text-center mb-12">
-            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3" style={{ letterSpacing: '-0.025em' }}>
+            <h2 className="text-2xl sm:text-3xl font-bold mb-3" style={{ letterSpacing: '-0.025em', color: '#0f0a1e' }}>
               {ar ? 'من هذا... لهذا' : 'מזה... לזה'}
             </h2>
-            <p className="text-sm" style={{ color: 'rgba(255,255,255,0.38)' }}>
+            <p className="text-sm" style={{ color: 'rgba(15,10,30,0.45)' }}>
               {ar ? 'بدون خبرة تقنية. بدون تصميم. فقط بزنسك.' : 'ללא ידע טכני. ללא עיצוב. רק העסק שלך.'}
             </p>
           </FadeIn>
@@ -700,13 +700,13 @@ export default function Page() {
             {/* BEFORE */}
             <FadeIn delay={0}>
               <div className="p-7 sm:p-8 rounded-2xl h-full"
-                style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.07)' }}>
+                style={{ background: '#fff', border: '1px solid rgba(0,0,0,0.07)', boxShadow: '0 2px 12px rgba(0,0,0,0.04)' }}>
                 <div className="flex items-center gap-3 mb-7">
-                  <div className="flex items-center gap-1.5" style={{ color: 'rgba(255,255,255,0.3)' }}>
+                  <div className="flex items-center gap-1.5" style={{ color: 'rgba(15,10,30,0.3)' }}>
                     <WaIcon size={18} />
                     <IgIcon size={18} />
                   </div>
-                  <span className="text-sm font-semibold" style={{ color: 'rgba(255,255,255,0.35)' }}>
+                  <span className="text-sm font-semibold" style={{ color: 'rgba(15,10,30,0.38)' }}>
                     {ar ? 'قبل Instok' : 'לפני Instok'}
                   </span>
                 </div>
@@ -716,8 +716,8 @@ export default function Page() {
                     : ['תגובות ידניות לכל DM', 'העברות בנקאיות ומזומן', 'אין חנות, אין זהות, אין מקצועיות']
                   ).map((item, i) => (
                     <div key={i} className="flex items-center gap-3">
-                      <span className="text-lg flex-shrink-0" style={{ color: 'rgba(255,255,255,0.18)' }}>✗</span>
-                      <span className="text-sm" style={{ color: 'rgba(255,255,255,0.32)' }}>{item}</span>
+                      <span className="text-lg flex-shrink-0" style={{ color: 'rgba(15,10,30,0.2)' }}>✗</span>
+                      <span className="text-sm" style={{ color: 'rgba(15,10,30,0.42)' }}>{item}</span>
                     </div>
                   ))}
                 </div>
@@ -727,7 +727,7 @@ export default function Page() {
             {/* AFTER */}
             <FadeIn delay={110}>
               <div className="p-7 sm:p-8 rounded-2xl h-full relative overflow-hidden"
-                style={{ background: 'linear-gradient(135deg, rgba(124,58,237,0.13), rgba(79,70,229,0.08))', border: '1px solid rgba(139,92,246,0.28)', boxShadow: '0 0 60px rgba(124,58,237,0.1)' }}>
+                style={{ background: 'linear-gradient(135deg, rgba(124,58,237,0.1), rgba(79,70,229,0.06))', border: '1px solid rgba(124,58,237,0.22)', boxShadow: '0 4px 24px rgba(124,58,237,0.1)' }}>
                 <div className="absolute inset-0 pointer-events-none"
                   style={{ background: 'radial-gradient(ellipse 80% 55% at 50% 0%, rgba(124,58,237,0.18), transparent)' }} />
                 <div className="relative z-10">
@@ -747,7 +747,7 @@ export default function Page() {
                     ).map((item, i) => (
                       <div key={i} className="flex items-center gap-3">
                         <span className="text-lg flex-shrink-0" style={{ color: '#4ade80' }}>✓</span>
-                        <span className="text-sm font-medium" style={{ color: 'rgba(255,255,255,0.78)' }}>{item}</span>
+                        <span className="text-sm font-medium" style={{ color: 'rgba(15,10,30,0.82)' }}>{item}</span>
                       </div>
                     ))}
                   </div>
@@ -794,13 +794,13 @@ export default function Page() {
       {/* ── HOW IT WORKS ───────────────────────────────────────────────────── */}
       <section className="py-12 px-5 sm:px-8 relative overflow-hidden">
         <div className="absolute pointer-events-none"
-          style={{ top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: '700px', height: '500px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(79,70,229,0.07) 0%, transparent 70%)', filter: 'blur(60px)' }} />
+          style={{ top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: '700px', height: '500px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(124,58,237,0.06) 0%, transparent 70%)', filter: 'blur(60px)' }} />
         <div className="relative max-w-4xl mx-auto">
           <FadeIn className="text-center mb-8">
-            <p className="text-xs font-bold uppercase tracking-[0.15em] mb-3" style={{ color: '#8b5cf6' }}>
+            <p className="text-xs font-bold uppercase tracking-[0.15em] mb-3" style={{ color: '#7c3aed' }}>
               {t.hiw.label}
             </p>
-            <h2 className="text-2xl sm:text-3xl font-bold text-white" style={{ letterSpacing: '-0.025em' }}>
+            <h2 className="text-2xl sm:text-3xl font-bold" style={{ letterSpacing: '-0.025em', color: '#0f0a1e' }}>
               {t.hiw.title}
             </h2>
           </FadeIn>
@@ -820,10 +820,10 @@ export default function Page() {
                     )}
                   </div>
                   <div>
-                    <h3 className="text-base font-semibold text-white mb-2" style={{ letterSpacing: '-0.015em' }}>
+                    <h3 className="text-base font-semibold mb-2" style={{ letterSpacing: '-0.015em', color: '#0f0a1e' }}>
                       {step.title}
                     </h3>
-                    <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.38)' }}>
+                    <p className="text-sm leading-relaxed" style={{ color: 'rgba(15,10,30,0.48)' }}>
                       {step.desc}
                     </p>
                   </div>
@@ -838,10 +838,10 @@ export default function Page() {
       <section className="py-12 px-5 sm:px-8">
         <div className="max-w-5xl mx-auto">
           <FadeIn className="text-center mb-8">
-            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3" style={{ letterSpacing: '-0.025em' }}>
+            <h2 className="text-2xl sm:text-3xl font-bold mb-3" style={{ letterSpacing: '-0.025em', color: '#0f0a1e' }}>
               {ar ? 'متاجر بناها الذكاء الاصطناعي' : 'חנויות שנבנו על ידי AI'}
             </h2>
-            <p className="text-sm" style={{ color: 'rgba(255,255,255,0.38)' }}>
+            <p className="text-sm" style={{ color: 'rgba(15,10,30,0.45)' }}>
               {ar ? 'كل متجر هوية مختلفة — AI يفهم كل بزنس' : 'כל חנות זהות שונה — AI מבין כל עסק'}
             </p>
           </FadeIn>
@@ -849,7 +849,7 @@ export default function Page() {
           <div style={{ display: 'flex', overflowX: 'auto', gap: '24px', paddingBottom: '12px', paddingLeft: '4px', paddingRight: '4px', scrollSnapType: 'x mandatory', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none' }}>
             {/* Beauty */}
             <div style={{ flexShrink: 0, scrollSnapAlign: 'start', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px', width: '260px' }}>
-              <div className="text-sm font-semibold" style={{ color: 'rgba(255,255,255,0.7)' }}>💄 {ar ? 'متجر جمال وتجميل' : 'חנות יופי וטיפוח'}</div>
+              <div className="text-sm font-semibold" style={{ color: 'rgba(15,10,30,0.65)' }}>💄 {ar ? 'متجر جمال وتجميل' : 'חנות יופי וטיפוח'}</div>
               <div style={{ width: '260px', borderRadius: '28px', border: '2px solid #1e1e1e', overflow: 'hidden', height: '456px', boxShadow: '0 24px 70px rgba(225,29,116,0.22), 0 0 0 1px rgba(225,29,116,0.14)' }}>
                 <BeautyMiniPreview />
               </div>
@@ -857,7 +857,7 @@ export default function Page() {
 
             {/* Gaming */}
             <div style={{ flexShrink: 0, scrollSnapAlign: 'start', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px', width: '260px' }}>
-              <div className="text-sm font-semibold" style={{ color: 'rgba(255,255,255,0.7)' }}>🎮 {ar ? 'متجر ألعاب وغيمنج' : 'חנות משחקים וגיימינג'}</div>
+              <div className="text-sm font-semibold" style={{ color: 'rgba(15,10,30,0.65)' }}>🎮 {ar ? 'متجر ألعاب وغيمنج' : 'חנות משחקים וגיימינג'}</div>
               <div style={{ width: '260px', borderRadius: '28px', border: '2px solid #1a1a2e', overflow: 'hidden', height: '456px', boxShadow: '0 24px 70px rgba(124,58,237,0.28), 0 0 0 1px rgba(124,58,237,0.22)' }}>
                 <GamingMiniPreview />
               </div>
@@ -865,7 +865,7 @@ export default function Page() {
 
             {/* Luxury */}
             <div style={{ flexShrink: 0, scrollSnapAlign: 'start', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px', width: '260px' }}>
-              <div className="text-sm font-semibold" style={{ color: 'rgba(255,255,255,0.7)' }}>👑 {ar ? 'متجر فاخر وراقي' : 'חנות יוקרתית ומפוארת'}</div>
+              <div className="text-sm font-semibold" style={{ color: 'rgba(15,10,30,0.65)' }}>👑 {ar ? 'متجر فاخر وراقي' : 'חנות יוקרתית ומפוארת'}</div>
               <div style={{ width: '260px', borderRadius: '28px', border: '2px solid #1a1505', overflow: 'hidden', height: '456px', boxShadow: '0 24px 70px rgba(184,150,12,0.18), 0 0 0 1px rgba(184,150,12,0.14)' }}>
                 <LuxuryMiniPreview />
               </div>
@@ -879,14 +879,14 @@ export default function Page() {
         <FadeIn>
           <div className="max-w-4xl mx-auto">
             <div className="rounded-3xl p-10 sm:p-16 text-center relative overflow-hidden"
-              style={{ background: 'linear-gradient(135deg, rgba(124,58,237,0.11) 0%, rgba(79,70,229,0.07) 100%)', border: '1px solid rgba(139,92,246,0.18)' }}>
+              style={{ background: 'linear-gradient(135deg, rgba(124,58,237,0.08) 0%, rgba(79,70,229,0.05) 100%)', border: '1px solid rgba(124,58,237,0.18)' }}>
               <div className="absolute inset-0 pointer-events-none"
-                style={{ background: 'radial-gradient(ellipse 65% 55% at 50% 0%, rgba(124,58,237,0.16), transparent)' }} />
+                style={{ background: 'radial-gradient(ellipse 65% 55% at 50% 0%, rgba(124,58,237,0.1), transparent)' }} />
               <div className="relative z-10">
-                <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3" style={{ letterSpacing: '-0.03em' }}>
+                <h2 className="text-3xl sm:text-4xl font-bold mb-3" style={{ letterSpacing: '-0.03em', color: '#0f0a1e' }}>
                   {t.cta.title}
                 </h2>
-                <p className="text-base mb-9" style={{ color: 'rgba(255,255,255,0.4)' }}>{t.cta.sub}</p>
+                <p className="text-base mb-9" style={{ color: 'rgba(15,10,30,0.5)' }}>{t.cta.sub}</p>
                 <button onClick={() => router.push('/onboarding')}
                   className="w-full sm:w-auto text-sm font-semibold px-8 py-3.5 rounded-xl text-white transition-all duration-200 hover:opacity-90 hover:scale-[1.02]"
                   style={{ background: 'linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%)', boxShadow: '0 0 50px rgba(124,58,237,0.4)' }}>
@@ -899,16 +899,16 @@ export default function Page() {
       </section>
 
       {/* ── FOOTER ─────────────────────────────────────────────────────────── */}
-      <footer className="py-8 px-5 sm:px-8" style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+      <footer className="py-8 px-5 sm:px-8" style={{ borderTop: '1px solid rgba(0,0,0,0.08)' }}>
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-          <span className="text-sm font-bold" style={{ color: 'rgba(255,255,255,0.5)', letterSpacing: '-0.01em' }}>
-            <span>ins</span><span style={{ color: '#9945FF' }}>tok</span>
+          <span className="text-sm font-bold" style={{ color: 'rgba(15,10,30,0.5)', letterSpacing: '-0.01em' }}>
+            <span>ins</span><span style={{ color: '#7c3aed' }}>tok</span>
           </span>
           <div className="flex items-center gap-4">
-            <a href="/policy" className="text-xs" style={{ color: 'rgba(255,255,255,0.22)', textDecoration: 'none' }}>
+            <a href="/policy" className="text-xs" style={{ color: 'rgba(15,10,30,0.35)', textDecoration: 'none' }}>
               {t.footer.policy}
             </a>
-            <span className="text-xs" style={{ color: 'rgba(255,255,255,0.22)' }}>{t.footer.copy}</span>
+            <span className="text-xs" style={{ color: 'rgba(15,10,30,0.35)' }}>{t.footer.copy}</span>
           </div>
         </div>
       </footer>
@@ -924,16 +924,15 @@ function FeatureCard({ icon, title, desc }: { icon: string; title: string; desc:
   return (
     <div className="p-6 sm:p-7 rounded-2xl h-full transition-all duration-300"
       style={{
-        background: isWa ? 'linear-gradient(135deg, rgba(34,197,94,0.07), rgba(21,128,61,0.04))' : 'rgba(255,255,255,0.025)',
+        background: isWa ? 'linear-gradient(135deg, rgba(22,163,74,0.06), rgba(21,128,61,0.03))' : '#fff',
         border: isWa
-          ? `1px solid ${hovered ? 'rgba(34,197,94,0.45)' : 'rgba(34,197,94,0.25)'}`
-          : `1px solid ${hovered ? 'rgba(139,92,246,0.28)' : 'rgba(255,255,255,0.07)'}`,
-        borderTop: isWa ? '2px solid rgba(34,197,94,0.5)' : undefined,
-        backdropFilter: 'blur(12px)',
+          ? `1px solid ${hovered ? 'rgba(22,163,74,0.4)' : 'rgba(22,163,74,0.2)'}`
+          : `1px solid ${hovered ? 'rgba(124,58,237,0.22)' : 'rgba(0,0,0,0.07)'}`,
+        borderTop: isWa ? '2px solid rgba(22,163,74,0.45)' : undefined,
         transform: hovered ? 'translateY(-2px)' : 'translateY(0)',
         boxShadow: isWa
-          ? (hovered ? '0 12px 40px rgba(34,197,94,0.15)' : '0 0 24px rgba(34,197,94,0.07)')
-          : (hovered ? '0 12px 40px rgba(0,0,0,0.25)' : 'none'),
+          ? (hovered ? '0 12px 40px rgba(22,163,74,0.12)' : '0 2px 12px rgba(0,0,0,0.04)')
+          : (hovered ? '0 12px 40px rgba(124,58,237,0.1)' : '0 2px 12px rgba(0,0,0,0.04)'),
       }}
       onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
       <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-5 transition-all duration-300"
@@ -948,8 +947,8 @@ function FeatureCard({ icon, title, desc }: { icon: string; title: string; desc:
         }}>
         {icon === 'zap' ? <ZapIcon /> : icon === 'wallet' ? <WalletIcon /> : <MessageIcon />}
       </div>
-      <h3 className="text-base font-semibold text-white mb-2" style={{ letterSpacing: '-0.015em' }}>{title}</h3>
-      <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.42)' }}>{desc}</p>
+      <h3 className="text-base font-semibold mb-2" style={{ letterSpacing: '-0.015em', color: '#0f0a1e' }}>{title}</h3>
+      <p className="text-sm leading-relaxed" style={{ color: 'rgba(15,10,30,0.5)' }}>{desc}</p>
       {isWa && (
         <div className="mt-4 inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full" style={{ background: 'rgba(34,197,94,0.12)', color: '#4ade80', border: '1px solid rgba(34,197,94,0.2)' }}>
           <span style={{ fontSize: '8px' }}>●</span> Live
