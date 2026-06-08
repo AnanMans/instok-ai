@@ -40,8 +40,8 @@ type Product = {
 }
 
 const inp: React.CSSProperties = {
-  width: '100%', background: '#1a1a1a', border: '1px solid rgba(255,255,255,0.1)',
-  borderRadius: '12px', padding: '12px 14px', color: '#fff', fontSize: '14px',
+  width: '100%', background: '#fff', border: '1px solid rgba(0,0,0,0.1)',
+  borderRadius: '12px', padding: '12px 14px', color: '#0f0a1e', fontSize: '14px',
   outline: 'none', boxSizing: 'border-box', fontFamily: 'inherit',
 }
 
@@ -245,7 +245,7 @@ export default function Dashboard() {
 
   if (loading) {
     return (
-      <div style={{ minHeight: '100vh', background: '#080808', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div style={{ minHeight: '100vh', background: '#f8f7ff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <div style={{ width: '32px', height: '32px', borderRadius: '50%', border: '2px solid rgba(124,58,237,0.3)', borderTopColor: '#7c3aed', animation: 'spin 0.8s linear infinite' }} />
         <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
       </div>
@@ -253,19 +253,19 @@ export default function Dashboard() {
   }
 
   return (
-    <div dir="rtl" className={fontClass} style={{ minHeight: '100vh', background: '#080808', color: '#fff', overflowX: 'hidden' }}>
+    <div dir="rtl" className={fontClass} style={{ minHeight: '100vh', background: '#f8f7ff', color: '#0f0a1e', overflowX: 'hidden' }}>
       <style>{`input:focus,textarea:focus{border-color:rgba(124,58,237,0.6)!important;box-shadow:0 0 0 3px rgba(124,58,237,0.1)}`}</style>
 
       {/* Navbar */}
-      <nav style={{ borderBottom: '1px solid rgba(255,255,255,0.07)', padding: '0 20px', height: '56px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, background: '#080808', zIndex: 50 }}>
-        <a href="/" style={{ fontSize: '15px', fontWeight: 700, color: 'inherit', textDecoration: 'none' }}>Instok<span style={{ color: '#8b5cf6' }}>.ai</span></a>
+      <nav style={{ borderBottom: '1px solid rgba(0,0,0,0.08)', padding: '0 20px', height: '56px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, background: 'rgba(248,247,255,0.92)', backdropFilter: 'blur(12px)', zIndex: 50 }}>
+        <a href="/" style={{ fontSize: '15px', fontWeight: 700, color: '#0f0a1e', textDecoration: 'none' }}>Instok<span style={{ color: '#7c3aed' }}>.ai</span></a>
         <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
           <a href={`/store/${store?.slug}`} target="_blank" rel="noopener noreferrer"
-            style={{ fontSize: '12px', color: '#c4b5fd', textDecoration: 'none', border: '1px solid rgba(124,58,237,0.3)', borderRadius: '8px', padding: '5px 12px' }}>
+            style={{ fontSize: '12px', color: '#7c3aed', textDecoration: 'none', border: '1px solid rgba(124,58,237,0.3)', borderRadius: '8px', padding: '5px 12px' }}>
             {ar ? 'عرض المتجر' : 'צפה בחנות'}
           </a>
           <button onClick={async () => { await supabase.auth.signOut(); router.replace('/') }}
-            style={{ background: 'none', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', padding: '5px 12px', color: 'rgba(255,255,255,0.4)', fontSize: '12px', cursor: 'pointer', fontFamily: 'inherit' }}>
+            style={{ background: 'none', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '8px', padding: '5px 12px', color: 'rgba(15,10,30,0.45)', fontSize: '12px', cursor: 'pointer', fontFamily: 'inherit' }}>
             {ar ? 'خروج' : 'יציאה'}
           </button>
         </div>
@@ -274,26 +274,26 @@ export default function Dashboard() {
       <div style={{ maxWidth: '540px', margin: '0 auto', padding: '24px 16px 60px' }}>
 
         {/* ── Store card ─────────────────────────────────────── */}
-        <div style={{ background: '#111', border: `1px solid ${c0}28`, borderRadius: '18px', padding: '20px', marginBottom: '24px' }}>
+        <div style={{ background: '#fff', border: `1px solid ${c0}28`, borderRadius: '18px', padding: '20px', marginBottom: '24px', boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
             <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: `linear-gradient(135deg,${c0},${store?.colors?.[1] ?? '#4f46e5'})`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
               <span style={{ fontSize: '18px', fontWeight: 800, color: '#fff' }}>{(store?.name?.[0] ?? '?').toUpperCase()}</span>
             </div>
             <div style={{ minWidth: 0 }}>
-              <div style={{ fontSize: '17px', fontWeight: 700, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{store?.name}</div>
-              {store?.slogan && <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.3)', marginTop: '2px' }}>{store.slogan}</div>}
+              <div style={{ fontSize: '17px', fontWeight: 700, color: '#0f0a1e', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{store?.name}</div>
+              {store?.slogan && <div style={{ fontSize: '12px', color: 'rgba(15,10,30,0.35)', marginTop: '2px' }}>{store.slogan}</div>}
             </div>
           </div>
 
           <div style={{ display: 'flex', gap: '8px' }}>
             <a href={`/store/${store?.slug}`}
-              style={{ flex: 1, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '10px', padding: '9px 12px', textDecoration: 'none', overflow: 'hidden' }}>
-              <span style={{ fontSize: '11px', color: '#c4b5fd', fontFamily: 'monospace', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', display: 'block' }}>
+              style={{ flex: 1, background: 'rgba(124,58,237,0.06)', border: '1px solid rgba(124,58,237,0.15)', borderRadius: '10px', padding: '9px 12px', textDecoration: 'none', overflow: 'hidden' }}>
+              <span style={{ fontSize: '11px', color: '#7c3aed', fontFamily: 'monospace', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', display: 'block' }}>
                 instok.co.il/store/{store?.slug}
               </span>
             </a>
             <button onClick={() => { navigator.clipboard?.writeText(storeUrl); setCopied(true); setTimeout(() => setCopied(false), 2000) }}
-              style={{ flexShrink: 0, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '10px', padding: '9px 14px', color: copied ? '#22c55e' : 'rgba(255,255,255,0.4)', fontSize: '12px', cursor: 'pointer', fontFamily: 'inherit' }}>
+              style={{ flexShrink: 0, background: 'rgba(0,0,0,0.04)', border: '1px solid rgba(0,0,0,0.08)', borderRadius: '10px', padding: '9px 14px', color: copied ? '#22c55e' : 'rgba(15,10,30,0.4)', fontSize: '12px', cursor: 'pointer', fontFamily: 'inherit' }}>
               {copied ? '✓' : ar ? 'نسخ' : 'העתק'}
             </button>
           </div>
@@ -307,11 +307,11 @@ export default function Dashboard() {
         </div>
 
         {/* ── Store settings ─────────────────────────────────── */}
-        <div style={{ background: '#111', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '18px', padding: '20px', marginBottom: '24px' }}>
-          <h3 style={{ fontSize: '15px', fontWeight: 700, marginBottom: '16px', color: 'rgba(255,255,255,0.85)' }}>
+        <div style={{ background: '#fff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: '18px', padding: '20px', marginBottom: '24px', boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}>
+          <h3 style={{ fontSize: '15px', fontWeight: 700, marginBottom: '16px', color: '#0f0a1e' }}>
             {ar ? 'تعديل إعدادات المتجر' : 'עריכת הגדרות החנות'}
           </h3>
-          <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)', marginBottom: '8px' }}>
+          <p style={{ fontSize: '12px', color: 'rgba(15,10,30,0.45)', marginBottom: '8px' }}>
             {ar ? 'رقم واتساب التجاري 📱' : 'מספר וואטסאפ עסקי 📱'}
           </p>
           <div style={{ display: 'flex', gap: '8px' }}>
@@ -332,9 +332,9 @@ export default function Dashboard() {
           </div>
           {waError && <p style={{ fontSize: '12px', color: '#f87171', marginTop: '8px' }}>{waError}</p>}
 
-          <div style={{ height: '1px', background: 'rgba(255,255,255,0.07)', margin: '16px 0' }} />
+          <div style={{ height: '1px', background: 'rgba(0,0,0,0.08)', margin: '16px 0' }} />
 
-          <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)', marginBottom: '8px' }}>
+          <p style={{ fontSize: '12px', color: 'rgba(15,10,30,0.45)', marginBottom: '8px' }}>
             {ar ? 'نبذة عن متجرك — ستظهر للزبائن ✍️' : 'תיאור החנות — יוצג ללקוחות ✍️'}
           </p>
           <textarea
@@ -357,26 +357,26 @@ export default function Dashboard() {
 
         {/* ── Products section ───────────────────────────────── */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
-          <h2 style={{ fontSize: '16px', fontWeight: 700, color: 'rgba(255,255,255,0.85)', margin: 0 }}>
+          <h2 style={{ fontSize: '16px', fontWeight: 700, color: '#0f0a1e', margin: 0 }}>
             {ar ? `المنتجات (${products.length})` : `מוצרים (${products.length})`}
           </h2>
           {!store?.is_pro && (
-            <span style={{ fontSize: '11px', color: products.length >= PRODUCT_LIMIT ? '#f87171' : 'rgba(255,255,255,0.3)', background: 'rgba(255,255,255,0.05)', borderRadius: '20px', padding: '3px 10px' }}>
+            <span style={{ fontSize: '11px', color: products.length >= PRODUCT_LIMIT ? '#f87171' : 'rgba(15,10,30,0.35)', background: 'rgba(0,0,0,0.05)', borderRadius: '20px', padding: '3px 10px' }}>
               {products.length}/{PRODUCT_LIMIT}
             </span>
           )}
         </div>
 
         {products.length === 0 ? (
-          <div style={{ background: '#111', border: '1px dashed rgba(255,255,255,0.1)', borderRadius: '14px', padding: '32px', textAlign: 'center', marginBottom: '24px' }}>
+          <div style={{ background: '#fff', border: '1px dashed rgba(0,0,0,0.12)', borderRadius: '14px', padding: '32px', textAlign: 'center', marginBottom: '24px' }}>
             <div style={{ fontSize: '32px', marginBottom: '10px' }}>📦</div>
-            <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.3)' }}>{ar ? 'لا يوجد منتجات — أضف أول منتج أدناه' : 'אין מוצרים — הוסף מוצר ראשון למטה'}</p>
+            <p style={{ fontSize: '13px', color: 'rgba(15,10,30,0.35)' }}>{ar ? 'لا يوجد منتجات — أضف أول منتج أدناه' : 'אין מוצרים — הוסף מוצר ראשון למטה'}</p>
           </div>
         ) : (
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '24px' }}>
             {products.map(p => (
-              <div key={p.id} style={{ background: '#111', borderRadius: '14px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.07)', position: 'relative' }}>
-                <div style={{ aspectRatio: '1', overflow: 'hidden', background: '#1a1a1a' }}>
+              <div key={p.id} style={{ background: '#fff', borderRadius: '14px', overflow: 'hidden', border: '1px solid rgba(0,0,0,0.08)', position: 'relative', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
+                <div style={{ aspectRatio: '1', overflow: 'hidden', background: '#f0eeff' }}>
                   <img
                     src={p.image_url || 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop'}
                     alt={p.name}
@@ -385,7 +385,7 @@ export default function Dashboard() {
                   />
                 </div>
                 <div style={{ padding: '8px 10px 10px' }}>
-                  <p style={{ fontSize: '12px', fontWeight: 600, color: '#fff', marginBottom: '2px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.name}</p>
+                  <p style={{ fontSize: '12px', fontWeight: 600, color: '#0f0a1e', marginBottom: '2px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.name}</p>
                   <p style={{ fontSize: '14px', fontWeight: 700, color: c0 }}>₪{p.price}</p>
                 </div>
                 <button
@@ -400,8 +400,8 @@ export default function Dashboard() {
         )}
 
         {/* ── Add product form ───────────────────────────────── */}
-        <div style={{ background: '#111', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '18px', padding: '20px' }}>
-          <h3 style={{ fontSize: '15px', fontWeight: 700, marginBottom: '16px', color: 'rgba(255,255,255,0.85)' }}>
+        <div style={{ background: '#fff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: '18px', padding: '20px', boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}>
+          <h3 style={{ fontSize: '15px', fontWeight: 700, marginBottom: '16px', color: '#0f0a1e' }}>
             {ar ? 'إضافة منتج جديد' : 'הוספת מוצר חדש'}
           </h3>
 
@@ -411,8 +411,8 @@ export default function Dashboard() {
             <input type="file" accept="image/*" ref={fileRef} onChange={handleFileUpload} style={{ display: 'none' }} />
 
             {form.image_url ? (
-              <div style={{ borderRadius: '14px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)', background: '#1a1a1a' }}>
-                <div style={{ aspectRatio: '16/9', overflow: 'hidden', background: '#111', position: 'relative' }}>
+              <div style={{ borderRadius: '14px', overflow: 'hidden', border: '1px solid rgba(0,0,0,0.08)', background: '#f8f7ff' }}>
+                <div style={{ aspectRatio: '16/9', overflow: 'hidden', background: '#f0eeff', position: 'relative' }}>
                   <img src={form.image_url} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
                   <button
                     type="button"
@@ -455,7 +455,7 @@ export default function Dashboard() {
                   type="button"
                   onClick={() => { setUploadError(''); fileRef.current?.click() }}
                   disabled={uploadingImg}
-                  style={{ width: '100%', background: '#141414', border: '2px dashed rgba(255,255,255,0.12)', borderRadius: '16px', padding: '32px 20px', color: uploadingImg ? 'rgba(255,255,255,0.3)' : 'rgba(255,255,255,0.5)', cursor: uploadingImg ? 'default' : 'pointer', fontFamily: 'inherit', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', transition: 'border-color 0.15s' }}>
+                  style={{ width: '100%', background: '#fff', border: '2px dashed rgba(0,0,0,0.12)', borderRadius: '16px', padding: '32px 20px', color: uploadingImg ? 'rgba(15,10,30,0.3)' : 'rgba(15,10,30,0.5)', cursor: uploadingImg ? 'default' : 'pointer', fontFamily: 'inherit', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', transition: 'border-color 0.15s' }}>
                   <span style={{ fontSize: '32px' }}>{uploadingImg ? '⏳' : '📸'}</span>
                   <span style={{ fontSize: '14px', fontWeight: 600 }}>{uploadingImg ? (ar ? 'جاري الرفع...' : 'מעלה...') : (ar ? 'ارفع صورة المنتج' : 'העלה תמונת מוצר')}</span>
                   {!uploadingImg && (
@@ -530,31 +530,31 @@ export default function Dashboard() {
       {showUpgradeModal && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.85)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}
           onClick={e => { if (e.target === e.currentTarget) setShowUpgradeModal(false) }}>
-          <div dir="rtl" className={fontClass} style={{ background: '#111', borderRadius: '24px', padding: '36px 28px', maxWidth: '360px', width: '100%', border: '1px solid rgba(255,255,255,0.1)', textAlign: 'center', position: 'relative' }}>
+          <div dir="rtl" className={fontClass} style={{ background: '#fff', borderRadius: '24px', padding: '36px 28px', maxWidth: '360px', width: '100%', border: '1px solid rgba(0,0,0,0.08)', textAlign: 'center', position: 'relative', boxShadow: '0 8px 40px rgba(0,0,0,0.15)' }}>
             <button onClick={() => setShowUpgradeModal(false)}
-              style={{ position: 'absolute', top: '16px', left: '16px', background: 'none', border: 'none', color: 'rgba(255,255,255,0.3)', fontSize: '20px', cursor: 'pointer', lineHeight: 1 }}>×</button>
+              style={{ position: 'absolute', top: '16px', left: '16px', background: 'none', border: 'none', color: 'rgba(15,10,30,0.3)', fontSize: '20px', cursor: 'pointer', lineHeight: 1 }}>×</button>
 
             <div style={{ fontSize: '48px', marginBottom: '16px' }}>🚀</div>
-            <h2 style={{ fontSize: '22px', fontWeight: 800, color: '#fff', marginBottom: '8px' }}>
+            <h2 style={{ fontSize: '22px', fontWeight: 800, color: '#0f0a1e', marginBottom: '8px' }}>
               {ar ? 'وصلت إلى 10 منتجات!' : 'הגעת ל-10 מוצרים!'}
             </h2>
-            <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.5)', marginBottom: '28px', lineHeight: 1.6 }}>
+            <p style={{ fontSize: '14px', color: 'rgba(15,10,30,0.5)', marginBottom: '28px', lineHeight: 1.6 }}>
               {ar ? 'متجرك ينمو — حان وقت الترقية للنسخة المدفوعة وإضافة منتجات غير محدودة.' : 'החנות שלך צומחת — הגיע הזמן לשדרג ולהוסיף מוצרים ללא הגבלה.'}
             </p>
 
-            <div style={{ background: 'rgba(255,255,255,0.04)', borderRadius: '14px', padding: '16px', marginBottom: '24px', textAlign: 'right' }}>
+            <div style={{ background: 'rgba(124,58,237,0.06)', border: '1px solid rgba(124,58,237,0.12)', borderRadius: '14px', padding: '16px', marginBottom: '24px', textAlign: 'right' }}>
               {[
                 ar ? '✓ منتجات غير محدودة' : '✓ מוצרים ללא הגבלה',
                 ar ? '✓ إزالة شعار Instok' : '✓ הסרת לוגו Instok',
                 ar ? '✓ أولوية في الدعم' : '✓ עדיפות בתמיכה',
               ].map(f => (
-                <p key={f} style={{ fontSize: '13px', color: 'rgba(255,255,255,0.7)', margin: '6px 0', fontWeight: 500 }}>{f}</p>
+                <p key={f} style={{ fontSize: '13px', color: 'rgba(15,10,30,0.7)', margin: '6px 0', fontWeight: 500 }}>{f}</p>
               ))}
             </div>
 
             <div style={{ marginBottom: '16px' }}>
-              <span style={{ fontSize: '32px', fontWeight: 800, color: '#fff' }}>₪99</span>
-              <span style={{ fontSize: '14px', color: 'rgba(255,255,255,0.4)', marginRight: '6px' }}>
+              <span style={{ fontSize: '32px', fontWeight: 800, color: '#0f0a1e' }}>₪99</span>
+              <span style={{ fontSize: '14px', color: 'rgba(15,10,30,0.4)', marginRight: '6px' }}>
                 {ar ? '/ شهر' : '/ חודש'}
               </span>
             </div>
@@ -569,7 +569,7 @@ export default function Dashboard() {
             </a>
 
             <button onClick={() => setShowUpgradeModal(false)}
-              style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.3)', fontSize: '13px', cursor: 'pointer', fontFamily: 'inherit' }}>
+              style={{ background: 'none', border: 'none', color: 'rgba(15,10,30,0.35)', fontSize: '13px', cursor: 'pointer', fontFamily: 'inherit' }}>
               {ar ? 'ليس الآن' : 'לא עכשיו'}
             </button>
           </div>
