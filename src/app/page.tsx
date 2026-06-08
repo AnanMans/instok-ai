@@ -426,6 +426,7 @@ export default function Page() {
       setLang(saved)
     } else if (navigator.language.startsWith('he')) {
       setLang('he')
+      localStorage.setItem('instok_lang', 'he')
     }
   }, [])
 
@@ -547,7 +548,7 @@ export default function Page() {
                 )}
               </div>
             ) : (
-              <button onClick={() => router.push('/onboarding')}
+              <button onClick={() => router.push(`/onboarding?lang=${lang}`)}
                 className="text-sm font-semibold px-4 py-2 rounded-lg text-white transition-opacity hover:opacity-90"
                 style={{ background: 'linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%)' }}>
                 {t.nav.cta}
@@ -627,7 +628,7 @@ export default function Page() {
 
           {/* CTA */}
           <div className="hu hu5 flex flex-col items-center gap-3 mb-10">
-            <button onClick={() => router.push('/onboarding')}
+            <button onClick={() => router.push(`/onboarding?lang=${lang}`)}
               className="w-full sm:w-auto text-sm font-semibold px-8 py-3.5 rounded-xl text-white transition-all duration-200 hover:opacity-90 hover:scale-[1.02] active:scale-[0.98]"
               style={{ background: 'linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%)', boxShadow: '0 0 45px rgba(124,58,237,0.38), 0 4px 24px rgba(0,0,0,0.35)' }}>
               {t.hero.cta}
@@ -783,7 +784,7 @@ export default function Page() {
               </span>
             ))}
           </div>
-          <button onClick={() => router.push('/onboarding')}
+          <button onClick={() => router.push(`/onboarding?lang=${lang}`)}
             className="text-sm font-semibold px-8 py-3.5 rounded-xl transition-all duration-200 hover:opacity-90 hover:scale-[1.02] active:scale-[0.98]"
             style={{ background: 'rgba(255,255,255,0.95)', color: '#4f46e5', boxShadow: '0 8px 30px rgba(0,0,0,0.25)' }}>
             {ar ? 'ابدأ مجاناً الآن ←' : 'התחל בחינם עכשיו ←'}
@@ -887,7 +888,7 @@ export default function Page() {
                   {t.cta.title}
                 </h2>
                 <p className="text-base mb-9" style={{ color: 'rgba(15,10,30,0.5)' }}>{t.cta.sub}</p>
-                <button onClick={() => router.push('/onboarding')}
+                <button onClick={() => router.push(`/onboarding?lang=${lang}`)}
                   className="w-full sm:w-auto text-sm font-semibold px-8 py-3.5 rounded-xl text-white transition-all duration-200 hover:opacity-90 hover:scale-[1.02]"
                   style={{ background: 'linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%)', boxShadow: '0 0 50px rgba(124,58,237,0.4)' }}>
                   {t.cta.btn}
