@@ -313,7 +313,7 @@ function Dot({ active }: { active: boolean }) {
   return (
     <div style={{
       width: 20, height: 20, borderRadius: '50%', flexShrink: 0, transition: 'all 0.15s',
-      border: active ? '6px solid #7c3aed' : '1.5px solid rgba(255,255,255,0.25)',
+      border: active ? '6px solid #7c3aed' : '1.5px solid rgba(15,10,30,0.22)',
       background: 'transparent',
     }} />
   )
@@ -321,8 +321,8 @@ function Dot({ active }: { active: boolean }) {
 
 // ── Style constants ────────────────────────────────────────────────────────────
 const inp = {
-  width: '100%', background: '#1a1a1a', border: '1px solid rgba(255,255,255,0.1)',
-  borderRadius: '14px', padding: '14px 16px', color: '#fff', fontSize: '15px',
+  width: '100%', background: '#fff', border: '1px solid rgba(0,0,0,0.1)',
+  borderRadius: '14px', padding: '14px 16px', color: '#0f0a1e', fontSize: '15px',
   outline: 'none', boxSizing: 'border-box' as const, fontFamily: 'inherit',
 }
 const btnP = {
@@ -333,7 +333,7 @@ const btnP = {
   fontFamily: 'inherit',
 }
 const cardB = {
-  width: '100%', background: '#111', border: '1.5px solid rgba(255,255,255,0.08)',
+  width: '100%', background: '#fff', border: '1.5px solid rgba(0,0,0,0.08)',
   borderRadius: '16px', padding: '16px', display: 'flex', alignItems: 'center',
   gap: '12px', cursor: 'pointer', textAlign: 'start' as const, fontFamily: 'inherit',
 }
@@ -669,7 +669,7 @@ export default function Page() {
   , [customColors]) // eslint-disable-line
 
   return (
-    <div style={{ minHeight: '100vh', background: '#080808', display: 'flex', justifyContent: 'center', overflowX: 'clip', maxWidth: '100%', width: '100%', position: 'relative' }}>
+    <div style={{ minHeight: '100vh', background: '#f8f7ff', display: 'flex', justifyContent: 'center', overflowX: 'clip', maxWidth: '100%', width: '100%', position: 'relative' }}>
       <style>{`
         *{box-sizing:border-box}
         input,button,textarea{font-family:inherit}
@@ -697,20 +697,20 @@ export default function Page() {
         {step === 0 && (
           <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '32px 24px' }}>
             <div style={{ marginBottom: '16px', textAlign: 'center' }}>
-              <span style={{ fontSize: '38px', fontWeight: 800, color: '#fff', letterSpacing: '-0.03em' }}>ins</span>
+              <span style={{ fontSize: '38px', fontWeight: 800, color: '#0f0a1e', letterSpacing: '-0.03em' }}>ins</span>
               <span style={{ fontSize: '38px', fontWeight: 800, letterSpacing: '-0.03em', background: 'linear-gradient(135deg,#9945FF,#14F195)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>tok</span>
             </div>
-            <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '14px', marginBottom: '48px', textAlign: 'center' }}>{t.langSub}</p>
+            <p style={{ color: 'rgba(15,10,30,0.4)', fontSize: '14px', marginBottom: '48px', textAlign: 'center' }}>{t.langSub}</p>
             <div style={{ display: 'flex', gap: '16px', width: '100%', direction: 'ltr' }}>
               <button onClick={() => { localStorage.setItem('instok_lang', 'he'); setLang('he'); setStep(1) }}
-                style={{ flex: 1, background: '#111', border: '1.5px solid rgba(255,255,255,0.08)', borderRadius: '20px', padding: '28px 16px', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
-                <span style={{ fontSize: '18px', fontWeight: 700, color: '#fff', fontFamily: heebo.style.fontFamily }}>עברית</span>
-                <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.35)', fontFamily: heebo.style.fontFamily }}>Hebrew</span>
+                style={{ flex: 1, background: '#fff', border: '1.5px solid rgba(0,0,0,0.08)', borderRadius: '20px', padding: '28px 16px', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px', boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}>
+                <span style={{ fontSize: '18px', fontWeight: 700, color: '#0f0a1e', fontFamily: heebo.style.fontFamily }}>עברית</span>
+                <span style={{ fontSize: '12px', color: 'rgba(15,10,30,0.4)', fontFamily: heebo.style.fontFamily }}>Hebrew</span>
               </button>
               <button onClick={() => { localStorage.setItem('instok_lang', 'ar'); setLang('ar'); setStep(1) }}
-                style={{ flex: 1, background: '#111', border: '1.5px solid rgba(255,255,255,0.08)', borderRadius: '20px', padding: '28px 16px', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
-                <span style={{ fontSize: '18px', fontWeight: 700, color: '#fff', fontFamily: cairo.style.fontFamily }}>العربية</span>
-                <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.35)', fontFamily: cairo.style.fontFamily }}>Arabic</span>
+                style={{ flex: 1, background: '#fff', border: '1.5px solid rgba(0,0,0,0.08)', borderRadius: '20px', padding: '28px 16px', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px', boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}>
+                <span style={{ fontSize: '18px', fontWeight: 700, color: '#0f0a1e', fontFamily: cairo.style.fontFamily }}>العربية</span>
+                <span style={{ fontSize: '12px', color: 'rgba(15,10,30,0.4)', fontFamily: cairo.style.fontFamily }}>Arabic</span>
               </button>
             </div>
           </div>
@@ -732,7 +732,7 @@ export default function Page() {
                 {t.s3Lines[animLine]}
               </p>
             </div>
-            <div style={{ width: '100%', maxWidth: '260px', height: '3px', background: 'rgba(255,255,255,0.08)', borderRadius: '2px', overflow: 'hidden' }}>
+            <div style={{ width: '100%', maxWidth: '260px', height: '3px', background: 'rgba(0,0,0,0.08)', borderRadius: '2px', overflow: 'hidden' }}>
               <div style={{ height: '100%', width: `${animProgress}%`, background: 'linear-gradient(90deg,#7c3aed,#4f46e5)', borderRadius: '2px', transition: 'width 0.04s linear' }} />
             </div>
           </div>
@@ -740,10 +740,10 @@ export default function Page() {
 
         {/* ── Step 4: WOW Moment — full-screen hero layout ─────────────────── */}
         {step === 4 && (
-          <div key={step} className="step-enter" style={{ height: '100vh', display: 'flex', flexDirection: 'column', background: '#080808', position: 'relative', overflowX: 'clip', width: '100%', maxWidth: '100%', WebkitOverflowScrolling: 'touch' }}>
+          <div key={step} className="step-enter" style={{ height: '100vh', display: 'flex', flexDirection: 'column', background: '#f8f7ff', position: 'relative', overflowX: 'clip', width: '100%', maxWidth: '100%', WebkitOverflowScrolling: 'touch' }}>
 
             {/* Back button */}
-            <button onClick={goBack} style={{ position: 'absolute', top: '14px', right: '16px', zIndex: 20, background: 'none', border: 'none', color: 'rgba(255,255,255,0.3)', fontSize: '12px', cursor: 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: '3px', padding: '4px' }}>
+            <button onClick={goBack} style={{ position: 'absolute', top: '14px', right: '16px', zIndex: 20, background: 'none', border: 'none', color: 'rgba(15,10,30,0.35)', fontSize: '12px', cursor: 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: '3px', padding: '4px' }}>
               ← {t.back}
             </button>
 
@@ -752,7 +752,7 @@ export default function Page() {
 
               {/* DNA badge — floating above phone */}
               <div style={{ textAlign: 'center', marginBottom: '6px', minWidth: 0, maxWidth: '100%' }}>
-                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: '#111', border: '1px solid rgba(124,58,237,0.5)', borderRadius: '20px', padding: '7px 16px', boxShadow: '0 4px 24px rgba(0,0,0,0.6)' }}>
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: '#fff', border: '1px solid rgba(124,58,237,0.5)', borderRadius: '20px', padding: '7px 16px', boxShadow: '0 4px 16px rgba(0,0,0,0.1)' }}>
                   <span style={{ fontSize: '12px', fontWeight: 600, background: 'linear-gradient(135deg,#c4b5fd,#7c3aed)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                     {t.s4DNALabel}
                   </span>
@@ -760,7 +760,7 @@ export default function Page() {
                     {t.s4Archetypes.find(a => a.id === effectiveArchetype)?.label ?? archetypeLabels[effectiveArchetype]?.[lang ?? 'ar']}
                   </span>
                 </div>
-                <div style={{ fontSize: '10px', color: 'rgba(255,255,255,0.25)', marginTop: '5px' }}>{t.s4Badge}</div>
+                <div style={{ fontSize: '10px', color: 'rgba(15,10,30,0.3)', marginTop: '5px' }}>{t.s4Badge}</div>
               </div>
 
               {/* Phone mockup */}
@@ -777,7 +777,7 @@ export default function Page() {
             </div>
 
             {/* Controls panel — compact, sticky bottom */}
-            <div style={{ flexShrink: 0, padding: '8px 16px 20px', borderTop: '1px solid rgba(255,255,255,0.06)', background: '#080808', position: 'sticky', bottom: 0, zIndex: 10, minWidth: 0, maxWidth: '100%' }}>
+            <div style={{ flexShrink: 0, padding: '8px 16px 20px', borderTop: '1px solid rgba(0,0,0,0.08)', background: '#f8f7ff', position: 'sticky', bottom: 0, zIndex: 10, minWidth: 0, maxWidth: '100%' }}>
 
               {/* Mood palettes */}
               <div style={{ display: 'flex', gap: '8px', overflowX: 'auto', overflowY: 'hidden', width: '100%', minWidth: 0, maxWidth: '100%', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', paddingBottom: '4px', marginBottom: '6px' }}>
@@ -786,13 +786,13 @@ export default function Page() {
                   const isSel = selectedPalette === i
                   return (
                     <button key={i} onClick={() => { setCustomColors(p.colors); setSelectedPalette(i); setShowCustomColors(false) }}
-                      style={{ flexShrink: 0, display: 'flex', alignItems: 'center', gap: '4px', padding: '4px 8px', borderRadius: '20px', border: isSel ? '1.5px solid rgba(124,58,237,0.7)' : '1.5px solid rgba(255,255,255,0.1)', background: isSel ? 'rgba(124,58,237,0.12)' : 'rgba(255,255,255,0.04)', cursor: 'pointer', boxShadow: isSel ? '0 0 12px rgba(124,58,237,0.3)' : 'none', fontFamily: 'inherit', touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}>
+                      style={{ flexShrink: 0, display: 'flex', alignItems: 'center', gap: '4px', padding: '4px 8px', borderRadius: '20px', border: isSel ? '1.5px solid rgba(124,58,237,0.7)' : '1.5px solid rgba(0,0,0,0.1)', background: isSel ? 'rgba(124,58,237,0.12)' : 'rgba(0,0,0,0.03)', cursor: 'pointer', boxShadow: isSel ? '0 0 12px rgba(124,58,237,0.3)' : 'none', fontFamily: 'inherit', touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}>
                       <div style={{ display: 'flex', gap: '2px' }}>
                         {p.colors.map((col, ci) => (
-                          <div key={ci} style={{ width: '7px', height: '7px', borderRadius: '50%', background: col, border: '1px solid rgba(255,255,255,0.15)', flexShrink: 0 }} />
+                          <div key={ci} style={{ width: '7px', height: '7px', borderRadius: '50%', background: col, border: '1px solid rgba(0,0,0,0.12)', flexShrink: 0 }} />
                         ))}
                       </div>
-                      <span style={{ fontSize: '10px', color: isSel ? '#c4b5fd' : 'rgba(255,255,255,0.45)', fontWeight: isSel ? 600 : 400, whiteSpace: 'nowrap' }}>
+                      <span style={{ fontSize: '10px', color: isSel ? '#7c3aed' : 'rgba(15,10,30,0.5)', fontWeight: isSel ? 600 : 400, whiteSpace: 'nowrap' }}>
                         {lang === 'he' ? p.he : p.ar}
                       </span>
                     </button>
@@ -804,14 +804,14 @@ export default function Page() {
               {/* Manual color toggle */}
               <div style={{ marginBottom: '6px' }}>
                 <button onClick={() => setShowCustomColors(v => !v)}
-                  style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.3)', fontSize: '11px', cursor: 'pointer', fontFamily: 'inherit', padding: 0, display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  style={{ background: 'none', border: 'none', color: 'rgba(15,10,30,0.4)', fontSize: '11px', cursor: 'pointer', fontFamily: 'inherit', padding: 0, display: 'flex', alignItems: 'center', gap: '4px' }}>
                   {t.s4CustomManual} <span style={{ fontSize: '9px' }}>{showCustomColors ? '▲' : '▼'}</span>
                 </button>
                 {showCustomColors && (
                   <div style={{ display: 'flex', gap: '12px', marginTop: '8px', alignItems: 'center' }}>
                     {customColors.map((col, i) => (
                       <div key={i} style={{ position: 'relative', width: '28px', height: '28px' }}>
-                        <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: col, border: '2px solid rgba(255,255,255,0.2)', boxShadow: '0 2px 8px rgba(0,0,0,0.4)' }} />
+                        <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: col, border: '2px solid rgba(0,0,0,0.15)', boxShadow: '0 2px 8px rgba(0,0,0,0.15)' }} />
                         <input type="color" value={col}
                           onChange={e => { const nc = [...customColors]; nc[i] = e.target.value; setCustomColors(nc); setSelectedPalette(null) }}
                           style={{ position: 'absolute', inset: 0, opacity: 0, width: '100%', height: '100%', cursor: 'pointer', border: 'none', padding: 0 }} />
@@ -831,7 +831,7 @@ export default function Page() {
                   const isSel = selectedArchetype === item.arch
                   return (
                     <button key={item.arch} onClick={() => { setArchetypeHistory(h => [...h, selectedArchetype]); setSelectedArchetype(selectedArchetype === item.arch ? '' : item.arch) }}
-                      style={{ flex: 1, padding: '8px 4px', borderRadius: '10px', border: isSel ? `1px solid ${c0}` : '1px solid rgba(255,255,255,0.1)', background: isSel ? `${c0}18` : 'transparent', color: isSel ? '#c4b5fd' : 'rgba(255,255,255,0.4)', fontSize: '11px', cursor: 'pointer', fontFamily: 'inherit', textAlign: 'center', fontWeight: isSel ? 600 : 400, transition: 'all 0.15s', touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}>
+                      style={{ flex: 1, padding: '8px 4px', borderRadius: '10px', border: isSel ? `1px solid ${c0}` : '1px solid rgba(0,0,0,0.1)', background: isSel ? `${c0}18` : 'rgba(0,0,0,0.03)', color: isSel ? c0 : 'rgba(15,10,30,0.5)', fontSize: '11px', cursor: 'pointer', fontFamily: 'inherit', textAlign: 'center', fontWeight: isSel ? 600 : 400, transition: 'all 0.15s', touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}>
                       {item.label}
                     </button>
                   )
@@ -848,12 +848,12 @@ export default function Page() {
               <div style={{ display: 'flex', gap: '8px', alignItems: 'stretch' }}>
                 {archetypeHistory.length > 0 && (
                   <button onClick={handleBackArchetype}
-                    style={{ flexShrink: 0, background: 'none', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '14px', padding: '10px 12px', color: 'rgba(255,255,255,0.35)', fontSize: '13px', cursor: 'pointer', fontFamily: 'inherit', whiteSpace: 'nowrap', display: 'flex', alignItems: 'center', gap: '4px', touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}>
+                    style={{ flexShrink: 0, background: '#fff', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '14px', padding: '10px 12px', color: 'rgba(15,10,30,0.45)', fontSize: '13px', cursor: 'pointer', fontFamily: 'inherit', whiteSpace: 'nowrap', display: 'flex', alignItems: 'center', gap: '4px', touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}>
                     ← {lang === 'he' ? 'הקודם' : 'السابق'}
                   </button>
                 )}
                 <button onClick={handleRetryArchetype}
-                  style={{ flex: 1, background: 'none', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '14px', padding: '10px 16px', color: 'rgba(255,255,255,0.45)', fontSize: '13px', fontWeight: 500, cursor: 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'border-color 0.15s', touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}>
+                  style={{ flex: 1, background: '#fff', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '14px', padding: '10px 16px', color: 'rgba(15,10,30,0.5)', fontSize: '13px', fontWeight: 500, cursor: 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'border-color 0.15s', touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}>
                   {t.s4Retry}
                 </button>
               </div>
@@ -868,8 +868,8 @@ export default function Page() {
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(124,58,237,0.12)', border: '1px solid rgba(124,58,237,0.3)', borderRadius: '20px', padding: '5px 14px', marginBottom: '20px' }}>
                 <span style={{ fontSize: '11px', fontWeight: 700, color: '#c4b5fd' }}>✦ {ar ? 'الذكاء الاصطناعي يعمل' : 'הבינה המלאכותית עובדת'}</span>
               </div>
-              <h1 style={{ fontSize: '26px', fontWeight: 800, color: '#fff', marginBottom: '6px', letterSpacing: '-0.025em' }}>{t.spTitle}</h1>
-              <p style={{ color: 'rgba(255,255,255,0.38)', fontSize: '14px' }}>{t.spSub}</p>
+              <h1 style={{ fontSize: '26px', fontWeight: 800, color: '#0f0a1e', marginBottom: '6px', letterSpacing: '-0.025em' }}>{t.spTitle}</h1>
+              <p style={{ color: 'rgba(15,10,30,0.45)', fontSize: '14px' }}>{t.spSub}</p>
             </div>
 
             {/* Upload area */}
@@ -879,7 +879,7 @@ export default function Page() {
                 style={{ width: '100%', background: 'rgba(124,58,237,0.06)', border: '2px dashed rgba(124,58,237,0.3)', borderRadius: '20px', padding: '48px 24px', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', marginBottom: '24px', fontFamily: 'inherit', transition: 'border-color 0.2s' }}>
                 <span style={{ fontSize: '40px' }}>📸</span>
                 <span style={{ fontSize: '15px', fontWeight: 600, color: '#c4b5fd' }}>{t.spUpload}</span>
-                <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.25)' }}>JPG, PNG, WEBP</span>
+                <span style={{ fontSize: '12px', color: 'rgba(15,10,30,0.3)' }}>JPG, PNG, WEBP</span>
               </button>
             )}
 
@@ -910,20 +910,20 @@ export default function Page() {
             {aiProductDone && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', flex: 1 }}>
                 <div>
-                  <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', marginBottom: '6px', fontWeight: 500 }}>{ar ? 'اسم المنتج' : 'שם המוצר'}</p>
+                  <p style={{ fontSize: '11px', color: 'rgba(15,10,30,0.5)', marginBottom: '6px', fontWeight: 500 }}>{ar ? 'اسم المنتج' : 'שם המוצר'}</p>
                   <input type="text" placeholder={t.spNamePH} value={productForm.name}
                     onChange={e => setProductForm(f => ({ ...f, name: e.target.value }))}
                     style={{ ...inp, fontSize: '15px' }} />
                 </div>
                 <div>
-                  <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', marginBottom: '6px', fontWeight: 500 }}>{ar ? 'الوصف' : 'תיאור'}</p>
+                  <p style={{ fontSize: '11px', color: 'rgba(15,10,30,0.5)', marginBottom: '6px', fontWeight: 500 }}>{ar ? 'الوصف' : 'תיאור'}</p>
                   <textarea placeholder={t.spDescPH} value={productForm.description}
                     onChange={e => setProductForm(f => ({ ...f, description: e.target.value }))}
                     rows={3}
                     style={{ ...inp, resize: 'none', lineHeight: 1.5 } as React.CSSProperties} />
                 </div>
                 <div>
-                  <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', marginBottom: '6px', fontWeight: 500 }}>{ar ? 'السعر' : 'מחיר'}</p>
+                  <p style={{ fontSize: '11px', color: 'rgba(15,10,30,0.5)', marginBottom: '6px', fontWeight: 500 }}>{ar ? 'السعر' : 'מחיר'}</p>
                   <input type="number" inputMode="decimal" placeholder={t.spPricePH} value={productForm.price}
                     onChange={e => setProductForm(f => ({ ...f, price: e.target.value }))}
                     style={{ ...inp }} dir="ltr" />
@@ -949,15 +949,15 @@ export default function Page() {
             ))}
             <div key={step} className="step-enter" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '32px 24px', textAlign: 'center' }}>
               <div style={{ fontSize: '64px', marginBottom: '20px' }}>🎉</div>
-              <h1 style={{ fontSize: '26px', fontWeight: 800, color: '#fff', marginBottom: '6px', letterSpacing: '-0.025em' }}>{t.s7Title}</h1>
+              <h1 style={{ fontSize: '26px', fontWeight: 800, color: '#0f0a1e', marginBottom: '6px', letterSpacing: '-0.025em' }}>{t.s7Title}</h1>
               <p style={{ fontSize: '14px', color: '#22c55e', fontWeight: 600, marginBottom: '6px' }}>{t.s7Sub}</p>
               <p style={{ fontSize: '20px', fontWeight: 700, background: `linear-gradient(135deg,${c0},${c1})`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginBottom: '28px' }}>
                 {displayBrand.storeName}
               </p>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', background: '#111', border: `1px solid rgba(124,58,237,0.4)`, borderRadius: '14px', padding: '12px 16px', width: '100%', marginBottom: '24px', cursor: 'pointer' }}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', background: '#fff', border: `1px solid rgba(124,58,237,0.4)`, borderRadius: '14px', padding: '12px 16px', width: '100%', marginBottom: '24px', cursor: 'pointer', boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}
                 onClick={() => { navigator.clipboard?.writeText(storeUrl); setCopied(true); setTimeout(() => setCopied(false), 2000) }}>
-                <span style={{ flex: 1, fontSize: '13px', color: '#c4b5fd', fontFamily: 'monospace' }}>{storeUrl}</span>
-                <span style={{ fontSize: '12px', color: copied ? '#22c55e' : 'rgba(255,255,255,0.4)', fontWeight: 500, flexShrink: 0 }}>{copied ? t.s7Copied : t.s7Copy}</span>
+                <span style={{ flex: 1, fontSize: '13px', color: '#7c3aed', fontFamily: 'monospace' }}>{storeUrl}</span>
+                <span style={{ fontSize: '12px', color: copied ? '#22c55e' : 'rgba(15,10,30,0.4)', fontWeight: 500, flexShrink: 0 }}>{copied ? t.s7Copied : t.s7Copy}</span>
               </div>
               <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', marginBottom: '16px' }}>
 
@@ -998,7 +998,7 @@ export default function Page() {
                   {t.s7View}
                 </a>
                 <a href="/dashboard"
-                  style={{ flex: 1, ...btnP, textDecoration: 'none', textAlign: 'center', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)' }}>
+                  style={{ flex: 1, ...btnP, textDecoration: 'none', textAlign: 'center', background: 'rgba(0,0,0,0.06)', border: '1px solid rgba(0,0,0,0.1)', color: '#0f0a1e' }}>
                   {t.s7Go}
                 </a>
               </div>
@@ -1010,14 +1010,14 @@ export default function Page() {
         {[1, 2, 5, 6].includes(step) && (
           <>
             {showProgress && (
-              <div style={{ position: 'fixed', top: 0, left: '50%', transform: 'translateX(-50%)', width: '100%', maxWidth: '430px', height: '3px', background: 'rgba(255,255,255,0.06)', zIndex: 100 }}>
+              <div style={{ position: 'fixed', top: 0, left: '50%', transform: 'translateX(-50%)', width: '100%', maxWidth: '430px', height: '3px', background: 'rgba(0,0,0,0.08)', zIndex: 100 }}>
                 <div style={{ height: '100%', width: `${progressPct}%`, background: 'linear-gradient(90deg,#7c3aed,#4f46e5)', transition: 'width 0.5s ease' }} />
               </div>
             )}
             <div key={step} className="step-enter" style={{ padding: '24px', paddingTop: showProgress ? '27px' : '24px', paddingBottom: step === 2 ? '120px' : '40px' }}>
               {showBack && (
                 <button onClick={goBack}
-                  style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.35)', fontSize: '13px', cursor: 'pointer', padding: '4px 0', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '4px', fontFamily: 'inherit' }}>
+                  style={{ background: 'none', border: 'none', color: 'rgba(15,10,30,0.4)', fontSize: '13px', cursor: 'pointer', padding: '4px 0', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '4px', fontFamily: 'inherit' }}>
                   ← {t.back}
                 </button>
               )}
@@ -1027,28 +1027,28 @@ export default function Page() {
                 <>
                   {userEmail && (
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px', background: 'rgba(124,58,237,0.08)', border: '1px solid rgba(124,58,237,0.2)', borderRadius: '12px', padding: '10px 14px' }}>
-                      <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.6)' }}>
+                      <span style={{ fontSize: '13px', color: 'rgba(15,10,30,0.6)' }}>
                         {lang === 'ar' ? 'مرحباً' : 'שלום'}{' '}
-                        <span style={{ color: '#c4b5fd', fontWeight: 600 }}>{userEmail}</span>
+                        <span style={{ color: '#7c3aed', fontWeight: 600 }}>{userEmail}</span>
                       </span>
                       <button onClick={async () => { await supabase.auth.signOut(); setUserEmail(null) }}
-                        style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.35)', fontSize: '12px', cursor: 'pointer', fontFamily: 'inherit', padding: '0 0 0 12px' }}>
+                        style={{ background: 'none', border: 'none', color: 'rgba(15,10,30,0.4)', fontSize: '12px', cursor: 'pointer', fontFamily: 'inherit', padding: '0 0 0 12px' }}>
                         {lang === 'ar' ? 'خروج' : 'יציאה'}
                       </button>
                     </div>
                   )}
-                  <h1 style={{ fontSize: '28px', fontWeight: 800, color: '#fff', marginBottom: '6px', letterSpacing: '-0.025em' }}>{t.s1Title}</h1>
-                  <p style={{ color: 'rgba(255,255,255,0.38)', fontSize: '14px', marginBottom: '32px' }}>{t.s1Sub}</p>
+                  <h1 style={{ fontSize: '28px', fontWeight: 800, color: '#0f0a1e', marginBottom: '6px', letterSpacing: '-0.025em' }}>{t.s1Title}</h1>
+                  <p style={{ color: 'rgba(15,10,30,0.45)', fontSize: '14px', marginBottom: '32px' }}>{t.s1Sub}</p>
 
                   {/* Google button */}
                   <button
                     onClick={handleGoogleLogin}
-                    style={{ ...cardB, marginBottom: '16px', justifyContent: 'center', gap: '12px', padding: '16px', border: '1.5px solid rgba(255,255,255,0.12)' }}>
+                    style={{ ...cardB, marginBottom: '16px', justifyContent: 'center', gap: '12px', padding: '16px', border: '1.5px solid rgba(0,0,0,0.1)', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
                     <IcGoogle />
-                    <span style={{ color: '#fff', fontSize: '16px', fontWeight: 500 }}>{t.s1Google}</span>
+                    <span style={{ color: '#0f0a1e', fontSize: '16px', fontWeight: 500 }}>{t.s1Google}</span>
                   </button>
 
-                  <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.25)', textAlign: 'center', marginTop: '16px' }}>{t.s1Terms}</p>
+                  <p style={{ fontSize: '11px', color: 'rgba(15,10,30,0.3)', textAlign: 'center', marginTop: '16px' }}>{t.s1Terms}</p>
 
                   <button onClick={canNext ? goNext : undefined}
                     style={{ ...btnP, opacity: canNext ? 1 : 0.4, cursor: canNext ? 'pointer' : 'default', marginTop: '24px' }}>
@@ -1060,27 +1060,27 @@ export default function Page() {
               {/* ── Step 2: Smart Onboarding ─────────────────────────────── */}
               {step === 2 && (
                 <>
-                  <h1 style={{ fontSize: '26px', fontWeight: 800, color: '#fff', marginBottom: '4px', letterSpacing: '-0.025em' }}>{t.s2Title}</h1>
-                  <p style={{ color: 'rgba(255,255,255,0.38)', fontSize: '14px', marginBottom: '28px' }}>{t.s2Sub}</p>
+                  <h1 style={{ fontSize: '26px', fontWeight: 800, color: '#0f0a1e', marginBottom: '4px', letterSpacing: '-0.025em' }}>{t.s2Title}</h1>
+                  <p style={{ color: 'rgba(15,10,30,0.45)', fontSize: '14px', marginBottom: '28px' }}>{t.s2Sub}</p>
 
-                  <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', marginBottom: '8px', fontWeight: 500 }}>{t.s2NameLabel}</p>
+                  <p style={{ fontSize: '12px', color: 'rgba(15,10,30,0.55)', marginBottom: '8px', fontWeight: 500 }}>{t.s2NameLabel}</p>
                   <input type="text" placeholder={t.s2NamePH} value={brandName} onChange={e => setBrandName(e.target.value)}
                     style={{ ...inp, marginBottom: '6px', fontSize: '16px', borderColor: brandName ? 'rgba(124,58,237,0.4)' : undefined }} autoFocus />
-                  <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.25)', marginBottom: '24px' }}>{t.s2NameHelper}</p>
+                  <p style={{ fontSize: '11px', color: 'rgba(15,10,30,0.35)', marginBottom: '24px' }}>{t.s2NameHelper}</p>
 
-                  <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', marginBottom: '8px', fontWeight: 500 }}>{t.s2SocialLabel}</p>
+                  <p style={{ fontSize: '12px', color: 'rgba(15,10,30,0.55)', marginBottom: '8px', fontWeight: 500 }}>{t.s2SocialLabel}</p>
                   <input type="text" placeholder={t.s2SocialPH} value={socialHandle}
                     onChange={e => setSocialHandle(e.target.value.replace(/\s/g, ''))}
                     style={{ ...inp, marginBottom: '6px', direction: 'ltr', textAlign: 'left' }} dir="ltr" />
                   <p style={{ fontSize: '11px', fontWeight: 600, marginBottom: '24px', background: 'linear-gradient(90deg, #9945FF, #14F195)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>{t.s2SocialHelper}</p>
 
-                  <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', marginBottom: '10px', fontWeight: 500 }}>{t.s2CatLabel}</p>
+                  <p style={{ fontSize: '12px', color: 'rgba(15,10,30,0.55)', marginBottom: '10px', fontWeight: 500 }}>{t.s2CatLabel}</p>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: '8px', marginBottom: '24px' }}>
                     {t.s2Cats.map((cat, i) => {
                       const Icon = CAT_ICONS[i]; const sel = categories.includes(cat)
                       return (
                         <button key={cat} onClick={() => setCategories(p => sel ? p.filter(x => x !== cat) : [...p, cat])}
-                          style={{ background: sel ? 'rgba(124,58,237,0.2)' : '#111', border: sel ? '1.5px solid rgba(124,58,237,0.6)' : '1.5px solid rgba(255,255,255,0.08)', borderRadius: '12px', padding: '10px 6px', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '5px', color: sel ? '#c4b5fd' : 'rgba(255,255,255,0.5)', transition: 'all 0.15s', fontFamily: 'inherit', touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}>
+                          style={{ background: sel ? 'rgba(124,58,237,0.12)' : '#fff', border: sel ? '1.5px solid rgba(124,58,237,0.6)' : '1.5px solid rgba(0,0,0,0.08)', borderRadius: '12px', padding: '10px 6px', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '5px', color: sel ? '#7c3aed' : 'rgba(15,10,30,0.55)', transition: 'all 0.15s', fontFamily: 'inherit', touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent', boxShadow: sel ? 'none' : '0 1px 4px rgba(0,0,0,0.06)' }}>
                           <Icon />
                           <span style={{ fontSize: '10px', fontWeight: sel ? 600 : 400, textAlign: 'center', lineHeight: 1.2 }}>{cat}</span>
                         </button>
@@ -1088,38 +1088,38 @@ export default function Page() {
                     })}
                   </div>
 
-                  <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', marginBottom: '10px', fontWeight: 500 }}>{t.s2VibeLabel}</p>
+                  <p style={{ fontSize: '12px', color: 'rgba(15,10,30,0.55)', marginBottom: '10px', fontWeight: 500 }}>{t.s2VibeLabel}</p>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '8px', marginBottom: '24px' }}>
                     {t.s2Vibes.map(v => {
                       const sel = vibe === v.id
                       return (
                         <button key={v.id} onClick={() => setVibe(sel ? '' : v.id)}
-                          style={{ background: sel ? 'rgba(124,58,237,0.2)' : '#111', border: sel ? '1.5px solid rgba(124,58,237,0.6)' : '1.5px solid rgba(255,255,255,0.08)', borderRadius: '12px', padding: '10px 8px', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', fontFamily: 'inherit', transition: 'all 0.15s', touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}>
+                          style={{ background: sel ? 'rgba(124,58,237,0.12)' : '#fff', border: sel ? '1.5px solid rgba(124,58,237,0.6)' : '1.5px solid rgba(0,0,0,0.08)', borderRadius: '12px', padding: '10px 8px', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', fontFamily: 'inherit', transition: 'all 0.15s', touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent', boxShadow: sel ? 'none' : '0 1px 4px rgba(0,0,0,0.06)' }}>
                           <span style={{ fontSize: '16px' }}>{v.icon}</span>
-                          <span style={{ fontSize: '12px', color: sel ? '#c4b5fd' : 'rgba(255,255,255,0.55)', fontWeight: sel ? 600 : 400 }}>{v.label}</span>
+                          <span style={{ fontSize: '12px', color: sel ? '#7c3aed' : 'rgba(15,10,30,0.6)', fontWeight: sel ? 600 : 400 }}>{v.label}</span>
                         </button>
                       )
                     })}
                   </div>
 
-                  <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', marginBottom: '8px', fontWeight: 500 }}>{t.s2DescLabel}</p>
+                  <p style={{ fontSize: '12px', color: 'rgba(15,10,30,0.55)', marginBottom: '8px', fontWeight: 500 }}>{t.s2DescLabel}</p>
                   <input type="text" placeholder={t.s2DescPH} value={description} onChange={e => setDescription(e.target.value)} style={{ ...inp, marginBottom: '24px' }} />
 
-                  <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', marginBottom: '8px', fontWeight: 500 }}>{t.s2ImgLabel}</p>
+                  <p style={{ fontSize: '12px', color: 'rgba(15,10,30,0.55)', marginBottom: '8px', fontWeight: 500 }}>{t.s2ImgLabel}</p>
                   <input type="file" accept="image/*" ref={imgInputRef} onChange={handleImageUpload} style={{ display: 'none' }} />
                   <button onClick={() => imgInputRef.current?.click()}
-                    style={{ width: '100%', background: '#111', border: '1.5px dashed rgba(255,255,255,0.12)', borderRadius: '14px', padding: '20px', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', marginBottom: '28px', fontFamily: 'inherit' }}>
-                    {uploadedImage ? <img src={uploadedImage} alt="" style={{ width: 60, height: 60, objectFit: 'cover', borderRadius: 10 }} /> : <><span style={{ fontSize: '24px' }}>📷</span><span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.35)' }}>{t.s2ImgBtn}</span></>}
+                    style={{ width: '100%', background: '#fff', border: '1.5px dashed rgba(0,0,0,0.15)', borderRadius: '14px', padding: '20px', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', marginBottom: '28px', fontFamily: 'inherit', boxShadow: '0 1px 4px rgba(0,0,0,0.06)' }}>
+                    {uploadedImage ? <img src={uploadedImage} alt="" style={{ width: 60, height: 60, objectFit: 'cover', borderRadius: 10 }} /> : <><span style={{ fontSize: '24px' }}>📷</span><span style={{ fontSize: '13px', color: 'rgba(15,10,30,0.4)' }}>{t.s2ImgBtn}</span></>}
                   </button>
 
-                  <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', marginBottom: '8px', fontWeight: 500 }}>{t.s2WaLabel}</p>
-                  <div style={{ display: 'flex', marginBottom: '20px', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '14px', overflow: 'hidden', background: '#1a1a1a' }}>
-                    <div style={{ padding: '14px 12px', color: 'rgba(255,255,255,0.45)', fontSize: '15px', flexShrink: 0, borderLeft: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center' }}>+972</div>
+                  <p style={{ fontSize: '12px', color: 'rgba(15,10,30,0.55)', marginBottom: '8px', fontWeight: 500 }}>{t.s2WaLabel}</p>
+                  <div style={{ display: 'flex', marginBottom: '20px', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '14px', overflow: 'hidden', background: '#fff', boxShadow: '0 1px 4px rgba(0,0,0,0.06)' }}>
+                    <div style={{ padding: '14px 12px', color: 'rgba(15,10,30,0.5)', fontSize: '15px', flexShrink: 0, borderLeft: '1px solid rgba(0,0,0,0.08)', display: 'flex', alignItems: 'center' }}>+972</div>
                     <input
                       type="tel" inputMode="numeric" placeholder="05X XXX XXXX"
                       value={whatsappPhone}
                       onChange={e => setWhatsappPhone(e.target.value.replace(/\D/g, ''))}
-                      style={{ flex: 1, background: 'transparent', border: 'none', padding: '14px 16px', color: '#fff', fontSize: '15px', outline: 'none', fontFamily: 'inherit', borderBottom: whatsappPhone ? 'none' : '2px solid #ef4444' }}
+                      style={{ flex: 1, background: 'transparent', border: 'none', padding: '14px 16px', color: '#0f0a1e', fontSize: '15px', outline: 'none', fontFamily: 'inherit', borderBottom: whatsappPhone ? 'none' : '2px solid #ef4444' }}
                       dir="ltr"
                     />
                   </div>
@@ -1136,8 +1136,8 @@ export default function Page() {
               {/* ── Step 5: Payment ──────────────────────────────────────── */}
               {step === 5 && (
                 <>
-                  <h1 style={{ fontSize: '26px', fontWeight: 800, color: '#fff', marginBottom: '4px', letterSpacing: '-0.025em' }}>{t.s5Title}</h1>
-                  <p style={{ color: 'rgba(255,255,255,0.38)', fontSize: '14px', marginBottom: '24px' }}>{t.s5Sub}</p>
+                  <h1 style={{ fontSize: '26px', fontWeight: 800, color: '#0f0a1e', marginBottom: '4px', letterSpacing: '-0.025em' }}>{t.s5Title}</h1>
+                  <p style={{ color: 'rgba(15,10,30,0.45)', fontSize: '14px', marginBottom: '24px' }}>{t.s5Sub}</p>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '24px' }}>
                     <div>
                       <button onClick={() => setPayments(p => p.includes('bit') ? p.filter(x => x !== 'bit') : [...p, 'bit'])} style={payments.includes('bit') ? cardS : cardB}>
@@ -1145,18 +1145,18 @@ export default function Page() {
                         <div style={{ width: 34, height: 34, borderRadius: '50%', background: 'linear-gradient(135deg,#7c3aed,#4f46e5)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                           <span style={{ fontSize: '9px', fontWeight: 800, color: '#fff' }}>bit</span>
                         </div>
-                        <span style={{ color: '#fff', fontSize: '15px', fontWeight: 500 }}>{t.s5BitLabel}</span>
+                        <span style={{ color: '#0f0a1e', fontSize: '15px', fontWeight: 500 }}>{t.s5BitLabel}</span>
                       </button>
                       {payments.includes('bit') && (
-                        <div style={{ marginTop: '8px', background: '#111', borderRadius: '10px', padding: '10px 14px' }}>
-                          <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.45)' }}>{t.s5BitNote}</p>
+                        <div style={{ marginTop: '8px', background: 'rgba(124,58,237,0.06)', borderRadius: '10px', padding: '10px 14px', border: '1px solid rgba(124,58,237,0.15)' }}>
+                          <p style={{ fontSize: '12px', color: 'rgba(15,10,30,0.55)' }}>{t.s5BitNote}</p>
                         </div>
                       )}
                     </div>
                     <div>
                       <button onClick={() => setPayments(p => p.includes('bank') ? p.filter(x => x !== 'bank') : [...p, 'bank'])} style={payments.includes('bank') ? cardS : cardB}>
-                        <Dot active={payments.includes('bank')} /><span style={{ color: 'rgba(255,255,255,0.5)' }}><IcBank /></span>
-                        <span style={{ color: '#fff', fontSize: '15px', fontWeight: 500 }}>{t.s5BankLabel}</span>
+                        <Dot active={payments.includes('bank')} /><span style={{ color: 'rgba(15,10,30,0.4)' }}><IcBank /></span>
+                        <span style={{ color: '#0f0a1e', fontSize: '15px', fontWeight: 500 }}>{t.s5BankLabel}</span>
                       </button>
                       {payments.includes('bank') && (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '8px' }}>
@@ -1166,8 +1166,8 @@ export default function Page() {
                       )}
                     </div>
                     <button onClick={() => setPayments(p => p.includes('cash') ? p.filter(x => x !== 'cash') : [...p, 'cash'])} style={payments.includes('cash') ? cardS : cardB}>
-                      <Dot active={payments.includes('cash')} /><span style={{ color: 'rgba(255,255,255,0.5)' }}><IcCash /></span>
-                      <span style={{ color: '#fff', fontSize: '15px', fontWeight: 500 }}>{t.s5CashLabel}</span>
+                      <Dot active={payments.includes('cash')} /><span style={{ color: 'rgba(15,10,30,0.4)' }}><IcCash /></span>
+                      <span style={{ color: '#0f0a1e', fontSize: '15px', fontWeight: 500 }}>{t.s5CashLabel}</span>
                     </button>
                   </div>
                   <button onClick={canNext ? goNext : undefined} style={{ ...btnP, opacity: canNext ? 1 : 0.4, cursor: canNext ? 'pointer' : 'default' }}>{t.next}</button>
@@ -1177,16 +1177,16 @@ export default function Page() {
               {/* ── Step 6: Delivery ─────────────────────────────────────── */}
               {step === 6 && (
                 <>
-                  <h1 style={{ fontSize: '26px', fontWeight: 800, color: '#fff', marginBottom: '24px', letterSpacing: '-0.025em' }}>{t.s6Title}</h1>
+                  <h1 style={{ fontSize: '26px', fontWeight: 800, color: '#0f0a1e', marginBottom: '24px', letterSpacing: '-0.025em' }}>{t.s6Title}</h1>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '24px' }}>
                     <div>
                       <button onClick={() => setDelivery(delivery === 'self' ? '' : 'self')} style={delivery === 'self' ? cardS : cardB}>
                         <Dot active={delivery === 'self'} /><span style={{ fontSize: '20px' }}>🛵</span>
-                        <span style={{ color: '#fff', fontSize: '15px', fontWeight: 500 }}>{t.s6SelfLabel}</span>
+                        <span style={{ color: '#0f0a1e', fontSize: '15px', fontWeight: 500 }}>{t.s6SelfLabel}</span>
                       </button>
                       {delivery === 'self' && (
                         <div style={{ marginTop: '8px' }}>
-                          <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.3)', marginBottom: '6px' }}>{t.s6AreasHelper}</p>
+                          <p style={{ fontSize: '11px', color: 'rgba(15,10,30,0.4)', marginBottom: '6px' }}>{t.s6AreasHelper}</p>
                           <input type="text" placeholder={t.s6AreasPH} value={deliveryAreas} onChange={e => setDeliveryAreas(e.target.value)} style={inp} />
                         </div>
                       )}
@@ -1194,14 +1194,14 @@ export default function Page() {
                     <div>
                       <button onClick={() => setDelivery(delivery === 'pickup' ? '' : 'pickup')} style={delivery === 'pickup' ? cardS : cardB}>
                         <Dot active={delivery === 'pickup'} /><span style={{ fontSize: '20px' }}>📍</span>
-                        <span style={{ color: '#fff', fontSize: '15px', fontWeight: 500 }}>{t.s6PickupLabel}</span>
+                        <span style={{ color: '#0f0a1e', fontSize: '15px', fontWeight: 500 }}>{t.s6PickupLabel}</span>
                       </button>
                       {delivery === 'pickup' && <input type="text" placeholder={t.s6AddressPH} value={deliveryAddress} onChange={e => setDeliveryAddress(e.target.value)} style={{ ...inp, marginTop: '8px' }} />}
                     </div>
                     <div>
                       <button onClick={() => setDelivery(delivery === 'courier' ? '' : 'courier')} style={delivery === 'courier' ? cardS : cardB}>
                         <Dot active={delivery === 'courier'} /><span style={{ fontSize: '20px' }}>📦</span>
-                        <span style={{ color: '#fff', fontSize: '15px', fontWeight: 500 }}>{t.s6CourierLabel}</span>
+                        <span style={{ color: '#0f0a1e', fontSize: '15px', fontWeight: 500 }}>{t.s6CourierLabel}</span>
                       </button>
                       {delivery === 'courier' && <input type="text" placeholder={t.s6CourierPH} value={deliveryCourier} onChange={e => setDeliveryCourier(e.target.value)} style={{ ...inp, marginTop: '8px' }} />}
                     </div>

@@ -76,18 +76,18 @@ export default function AdminPage() {
 
   if (!authed) {
     return (
-      <div style={{ minHeight: '100vh', background: '#080808', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
-        <form onSubmit={handleLogin} style={{ background: '#111', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '20px', padding: '40px 32px', width: '100%', maxWidth: '360px', textAlign: 'center' }}>
+      <div style={{ minHeight: '100vh', background: '#f8f7ff', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
+        <form onSubmit={handleLogin} style={{ background: '#fff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: '20px', padding: '40px 32px', width: '100%', maxWidth: '360px', textAlign: 'center', boxShadow: '0 4px 24px rgba(0,0,0,0.08)' }}>
           <div style={{ fontSize: '36px', marginBottom: '16px' }}>🔐</div>
-          <h1 style={{ color: '#fff', fontSize: '20px', fontWeight: 700, marginBottom: '8px' }}>Admin Panel</h1>
-          <p style={{ color: 'rgba(255,255,255,0.35)', fontSize: '13px', marginBottom: '28px' }}>Instok internal dashboard</p>
+          <h1 style={{ color: '#0f0a1e', fontSize: '20px', fontWeight: 700, marginBottom: '8px' }}>Admin Panel</h1>
+          <p style={{ color: 'rgba(15,10,30,0.4)', fontSize: '13px', marginBottom: '28px' }}>Instok internal dashboard</p>
           <input
             type="password"
             placeholder="Admin password"
             value={password}
             onChange={e => setPassword(e.target.value)}
             autoFocus
-            style={{ width: '100%', background: '#1a1a1a', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', padding: '12px 14px', color: '#fff', fontSize: '14px', outline: 'none', boxSizing: 'border-box', marginBottom: '12px' }}
+            style={{ width: '100%', background: '#f8f7ff', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '12px', padding: '12px 14px', color: '#0f0a1e', fontSize: '14px', outline: 'none', boxSizing: 'border-box', marginBottom: '12px' }}
           />
           {authError && <p style={{ color: '#f87171', fontSize: '12px', marginBottom: '12px' }}>{authError}</p>}
           <button type="submit"
@@ -100,17 +100,17 @@ export default function AdminPage() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: '#080808', color: '#fff', padding: '32px 20px' }}>
+    <div style={{ minHeight: '100vh', background: '#f8f7ff', color: '#0f0a1e', padding: '32px 20px' }}>
       <div style={{ maxWidth: '700px', margin: '0 auto' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
           <div>
-            <h1 style={{ fontSize: '22px', fontWeight: 800, margin: 0 }}>Instok Admin</h1>
-            <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '13px', marginTop: '4px' }}>
+            <h1 style={{ fontSize: '22px', fontWeight: 800, margin: 0, color: '#0f0a1e' }}>Instok Admin</h1>
+            <p style={{ color: 'rgba(15,10,30,0.4)', fontSize: '13px', marginTop: '4px' }}>
               {stores.length} stores · {stores.filter(s => s.is_pro).length} pro
             </p>
           </div>
           <button onClick={() => { setAuthed(false); setPassword('') }}
-            style={{ background: 'none', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', padding: '6px 14px', color: 'rgba(255,255,255,0.4)', fontSize: '12px', cursor: 'pointer' }}>
+            style={{ background: '#fff', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '8px', padding: '6px 14px', color: 'rgba(15,10,30,0.5)', fontSize: '12px', cursor: 'pointer' }}>
             Logout
           </button>
         </div>
@@ -120,26 +120,26 @@ export default function AdminPage() {
           placeholder="Search by name or slug..."
           value={search}
           onChange={e => setSearch(e.target.value)}
-          style={{ width: '100%', background: '#1a1a1a', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', padding: '11px 16px', color: '#fff', fontSize: '14px', outline: 'none', boxSizing: 'border-box', marginBottom: '20px' }}
+          style={{ width: '100%', background: '#fff', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '12px', padding: '11px 16px', color: '#0f0a1e', fontSize: '14px', outline: 'none', boxSizing: 'border-box', marginBottom: '20px', boxShadow: '0 1px 4px rgba(0,0,0,0.06)' }}
         />
 
         {loading ? (
-          <div style={{ textAlign: 'center', padding: '60px', color: 'rgba(255,255,255,0.3)' }}>Loading...</div>
+          <div style={{ textAlign: 'center', padding: '60px', color: 'rgba(15,10,30,0.35)' }}>Loading...</div>
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             {stores.filter(s => {
               const q = search.toLowerCase()
               return !q || s.name.toLowerCase().includes(q) || s.slug.toLowerCase().includes(q)
             }).map(store => (
-              <div key={store.id} style={{ background: '#111', border: `1px solid ${store.is_pro ? 'rgba(124,58,237,0.4)' : 'rgba(255,255,255,0.08)'}`, borderRadius: '14px', padding: '16px 18px', display: 'flex', alignItems: 'center', gap: '14px' }}>
+              <div key={store.id} style={{ background: '#fff', border: `1px solid ${store.is_pro ? 'rgba(124,58,237,0.4)' : 'rgba(0,0,0,0.08)'}`, borderRadius: '14px', padding: '16px 18px', display: 'flex', alignItems: 'center', gap: '14px', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-                    <span style={{ fontSize: '15px', fontWeight: 700, color: '#fff' }}>{store.name}</span>
+                    <span style={{ fontSize: '15px', fontWeight: 700, color: '#0f0a1e' }}>{store.name}</span>
                     {store.is_pro && (
                       <span style={{ fontSize: '10px', fontWeight: 700, background: 'linear-gradient(135deg,#7c3aed,#4f46e5)', color: '#fff', borderRadius: '20px', padding: '2px 8px' }}>PRO</span>
                     )}
                   </div>
-                  <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.3)', display: 'flex', gap: '12px' }}>
+                  <div style={{ fontSize: '11px', color: 'rgba(15,10,30,0.35)', display: 'flex', gap: '12px' }}>
                     <span>/{store.slug}</span>
                     <span>{store.product_count} products</span>
                     <span>{store.lang?.toUpperCase()}</span>
