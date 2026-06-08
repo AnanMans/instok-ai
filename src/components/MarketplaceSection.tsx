@@ -196,13 +196,13 @@ export default function MarketplaceSection({ lang }: { lang: 'ar' | 'he' }) {
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '36px' }}>
           <p style={{
-            fontSize: '12px', fontWeight: 800, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '12px',
+            fontSize: '12px', fontWeight: 800, letterSpacing: ar ? '0' : '0.2em', textTransform: 'uppercase', marginBottom: '12px',
             background: 'linear-gradient(90deg, #9945FF, #14F195)',
             WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
           }}>
             {ar ? '✦ تسوّق الآن' : '✦ קנה עכשיו'}
           </p>
-          <h2 style={{ fontSize: 'clamp(24px, 4vw, 36px)', fontWeight: 900, color: '#0f0a1e', letterSpacing: '-0.03em', marginBottom: '10px', lineHeight: 1.15 }}>
+          <h2 style={{ fontSize: 'clamp(24px, 4vw, 36px)', fontWeight: 900, color: '#0f0a1e', letterSpacing: ar ? '0' : '-0.03em', marginBottom: '10px', lineHeight: 1.15 }}>
             {ar ? 'متاجر حقيقية بنيت بالذكاء الاصطناعي' : 'חנויות אמיתיות שנבנו עם AI'}
           </h2>
           <p style={{ fontSize: '14px', color: 'rgba(15,10,30,0.5)' }}>

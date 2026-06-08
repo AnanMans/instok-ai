@@ -578,7 +578,7 @@ export default function Page() {
 
           {/* Headline */}
           <h1 className="hu hu2 font-bold leading-tight mb-5"
-            style={{ fontSize: 'clamp(2rem, 6vw, 3.5rem)', letterSpacing: '-0.03em', lineHeight: 1.15 }}>
+            style={{ fontSize: 'clamp(2rem, 6vw, 3.5rem)', letterSpacing: ar ? '0' : '-0.03em', lineHeight: 1.15 }}>
             <span style={{ color: '#0f0a1e' }}>{t.hero.h1a}</span>
             <br />
             <span className="bg-clip-text text-transparent"
@@ -670,14 +670,14 @@ export default function Page() {
       <section className="py-12 px-5 sm:px-8">
         <div className="max-w-5xl mx-auto">
           <FadeIn className="text-center mb-8">
-            <h2 className="text-2xl sm:text-3xl font-bold" style={{ letterSpacing: '-0.025em', color: '#0f0a1e' }}>
+            <h2 className="text-2xl sm:text-3xl font-bold" style={{ letterSpacing: ar ? '0' : '-0.025em', color: '#0f0a1e' }}>
               {t.features.title}
             </h2>
           </FadeIn>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
             {t.features.items.map((f, i) => (
               <FadeIn key={i} delay={i * 90}>
-                <FeatureCard icon={f.icon} title={f.title} desc={f.desc} />
+                <FeatureCard icon={f.icon} title={f.title} desc={f.desc} ar={ar} />
               </FadeIn>
             ))}
           </div>
@@ -688,7 +688,7 @@ export default function Page() {
       <section className="py-12 px-5 sm:px-8">
         <div className="max-w-4xl mx-auto">
           <FadeIn className="text-center mb-12">
-            <h2 className="text-2xl sm:text-3xl font-bold mb-3" style={{ letterSpacing: '-0.025em', color: '#0f0a1e' }}>
+            <h2 className="text-2xl sm:text-3xl font-bold mb-3" style={{ letterSpacing: ar ? '0' : '-0.025em', color: '#0f0a1e' }}>
               {ar ? 'من هذا... لهذا' : 'מזה... לזה'}
             </h2>
             <p className="text-sm" style={{ color: 'rgba(15,10,30,0.45)' }}>
@@ -762,10 +762,10 @@ export default function Page() {
       <section className="py-14 px-5 sm:px-8 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%)' }}>
         <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 70% 80% at 30% 50%, rgba(255,255,255,0.07), transparent)' }} />
         <div className="relative max-w-4xl mx-auto text-center">
-          <p className="text-xs font-bold uppercase tracking-[0.18em] mb-4" style={{ color: 'rgba(255,255,255,0.55)' }}>
+          <p className="text-xs font-bold uppercase mb-4" style={{ color: 'rgba(255,255,255,0.55)', letterSpacing: ar ? '0' : '0.18em' }}>
             {ar ? 'لماذا Instok؟' : 'למה Instok?'}
           </p>
-          <h2 className="text-2xl sm:text-4xl font-bold text-white mb-5" style={{ letterSpacing: '-0.03em', lineHeight: 1.2 }}>
+          <h2 className="text-2xl sm:text-4xl font-bold text-white mb-5" style={{ letterSpacing: ar ? '0' : '-0.03em', lineHeight: 1.2 }}>
             {ar ? 'متجرك الاحترافي جاهز\nفي أقل من ٥ دقائق' : 'החנות המקצועית שלך מוכנה\nתוך פחות מ-5 דקות'}
           </h2>
           <p className="text-base mb-8 max-w-xl mx-auto" style={{ color: 'rgba(255,255,255,0.72)', lineHeight: 1.6 }}>
@@ -797,10 +797,10 @@ export default function Page() {
           style={{ top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: '700px', height: '500px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(124,58,237,0.06) 0%, transparent 70%)', filter: 'blur(60px)' }} />
         <div className="relative max-w-4xl mx-auto">
           <FadeIn className="text-center mb-8">
-            <p className="text-xs font-bold uppercase tracking-[0.15em] mb-3" style={{ color: '#7c3aed' }}>
+            <p className="text-xs font-bold uppercase mb-3" style={{ color: '#7c3aed', letterSpacing: ar ? '0' : '0.15em' }}>
               {t.hiw.label}
             </p>
-            <h2 className="text-2xl sm:text-3xl font-bold" style={{ letterSpacing: '-0.025em', color: '#0f0a1e' }}>
+            <h2 className="text-2xl sm:text-3xl font-bold" style={{ letterSpacing: ar ? '0' : '-0.025em', color: '#0f0a1e' }}>
               {t.hiw.title}
             </h2>
           </FadeIn>
@@ -820,7 +820,7 @@ export default function Page() {
                     )}
                   </div>
                   <div>
-                    <h3 className="text-base font-semibold mb-2" style={{ letterSpacing: '-0.015em', color: '#0f0a1e' }}>
+                    <h3 className="text-base font-semibold mb-2" style={{ letterSpacing: ar ? '0' : '-0.015em', color: '#0f0a1e' }}>
                       {step.title}
                     </h3>
                     <p className="text-sm leading-relaxed" style={{ color: 'rgba(15,10,30,0.48)' }}>
@@ -838,7 +838,7 @@ export default function Page() {
       <section className="py-12 px-5 sm:px-8">
         <div className="max-w-5xl mx-auto">
           <FadeIn className="text-center mb-8">
-            <h2 className="text-2xl sm:text-3xl font-bold mb-3" style={{ letterSpacing: '-0.025em', color: '#0f0a1e' }}>
+            <h2 className="text-2xl sm:text-3xl font-bold mb-3" style={{ letterSpacing: ar ? '0' : '-0.025em', color: '#0f0a1e' }}>
               {ar ? 'متاجر بناها الذكاء الاصطناعي' : 'חנויות שנבנו על ידי AI'}
             </h2>
             <p className="text-sm" style={{ color: 'rgba(15,10,30,0.45)' }}>
@@ -883,7 +883,7 @@ export default function Page() {
               <div className="absolute inset-0 pointer-events-none"
                 style={{ background: 'radial-gradient(ellipse 65% 55% at 50% 0%, rgba(124,58,237,0.1), transparent)' }} />
               <div className="relative z-10">
-                <h2 className="text-3xl sm:text-4xl font-bold mb-3" style={{ letterSpacing: '-0.03em', color: '#0f0a1e' }}>
+                <h2 className="text-3xl sm:text-4xl font-bold mb-3" style={{ letterSpacing: ar ? '0' : '-0.03em', color: '#0f0a1e' }}>
                   {t.cta.title}
                 </h2>
                 <p className="text-base mb-9" style={{ color: 'rgba(15,10,30,0.5)' }}>{t.cta.sub}</p>
@@ -918,7 +918,7 @@ export default function Page() {
 
 // ─── Feature card ─────────────────────────────────────────────────────────────
 
-function FeatureCard({ icon, title, desc }: { icon: string; title: string; desc: string }) {
+function FeatureCard({ icon, title, desc, ar }: { icon: string; title: string; desc: string; ar?: boolean }) {
   const [hovered, setHovered] = useState(false)
   const isWa = icon === 'message'
   return (
@@ -947,7 +947,7 @@ function FeatureCard({ icon, title, desc }: { icon: string; title: string; desc:
         }}>
         {icon === 'zap' ? <ZapIcon /> : icon === 'wallet' ? <WalletIcon /> : <MessageIcon />}
       </div>
-      <h3 className="text-base font-semibold mb-2" style={{ letterSpacing: '-0.015em', color: '#0f0a1e' }}>{title}</h3>
+      <h3 className="text-base font-semibold mb-2" style={{ letterSpacing: ar ? '0' : '-0.015em', color: '#0f0a1e' }}>{title}</h3>
       <p className="text-sm leading-relaxed" style={{ color: 'rgba(15,10,30,0.5)' }}>{desc}</p>
       {isWa && (
         <div className="mt-4 inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full" style={{ background: 'rgba(34,197,94,0.12)', color: '#4ade80', border: '1px solid rgba(34,197,94,0.2)' }}>
