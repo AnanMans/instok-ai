@@ -79,12 +79,6 @@ function LaunchPost({ lang, size }: { lang: Lang; size: { w: number; h: number }
       <div style={{ position: 'absolute', top: '-100px', left: '50%', transform: 'translateX(-50%)', width: '700px', height: '700px', borderRadius: '50%', background: 'radial-gradient(circle,rgba(255,255,255,0.12) 0%,transparent 65%)', pointerEvents: 'none' }} />
       <div style={{ position: 'absolute', bottom: '-80px', right: '-80px', width: '400px', height: '400px', borderRadius: '50%', background: 'radial-gradient(circle,rgba(99,102,241,0.4) 0%,transparent 65%)', pointerEvents: 'none' }} />
 
-      {/* Logo */}
-      <div dir="ltr" style={{ marginBottom: size.h > 800 ? '40px' : '20px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-        <span style={{ fontSize: size.w > 800 ? '28px' : '22px', fontWeight: 900, color: '#fff' }}>ins</span>
-        <span style={{ fontSize: size.w > 800 ? '28px' : '22px', fontWeight: 900, background: 'linear-gradient(135deg,#a78bfa,#c4b5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>tok</span>
-      </div>
-
       {/* Phone */}
       <div style={{ marginBottom: size.h > 800 ? '40px' : '20px', filter: 'drop-shadow(0 30px 60px rgba(0,0,0,0.4))' }}>
         <PhoneFrame dark>
@@ -99,9 +93,6 @@ function LaunchPost({ lang, size }: { lang: Lang; size: { w: number; h: number }
         </div>
         <div style={{ fontSize: size.w > 800 ? '20px' : '16px', color: 'rgba(255,255,255,0.75)', lineHeight: 1.5, marginBottom: '28px' }}>
           {ar ? 'ارفع صورة منتجك — الذكاء الاصطناعي يبني متجرك كاملاً' : 'העלה תמונת מוצר — ה-AI בונה לך חנות שלמה'}
-        </div>
-        <div style={{ display: 'inline-block', background: 'rgba(255,255,255,0.95)', borderRadius: '50px', padding: size.w > 800 ? '14px 36px' : '10px 26px' }}>
-          <span style={{ fontSize: size.w > 800 ? '18px' : '14px', fontWeight: 800, color: '#4f46e5' }}>instok.co.il</span>
         </div>
       </div>
     </div>
@@ -127,7 +118,7 @@ function BeforeAfterPost({ lang, size }: { lang: Lang; size: { w: number; h: num
       {/* Header */}
       <div style={{ textAlign: 'center', marginBottom: '32px' }}>
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(124,58,237,0.08)', border: '1px solid rgba(124,58,237,0.2)', borderRadius: '50px', padding: '6px 18px', marginBottom: '16px' }}>
-          <span style={{ fontSize: '12px', fontWeight: 700, color: '#7c3aed' }}>instok.co.il</span>
+          <span style={{ fontSize: '12px', fontWeight: 700, color: '#7c3aed' }}>✦ instok</span>
         </div>
         <div style={{ fontSize: isStory ? '42px' : '36px', fontWeight: 900, color: '#0f0a1e', lineHeight: 1.2 }}>
           {ar ? 'من هذا... لهذا' : 'מזה... לזה'}
@@ -174,10 +165,6 @@ function BeforeAfterPost({ lang, size }: { lang: Lang; size: { w: number; h: num
         </div>
       </div>
 
-      {/* Footer */}
-      <div style={{ marginTop: '28px', textAlign: 'center' }}>
-        <span style={{ fontSize: '15px', fontWeight: 800, color: '#7c3aed' }}>instok.co.il</span>
-      </div>
     </div>
   )
 }
@@ -235,12 +222,6 @@ function ShowcasePost({ lang, size }: { lang: Lang; size: { w: number; h: number
         ))}
       </div>
 
-      {/* Footer */}
-      <div style={{ textAlign: 'center' }}>
-        <div style={{ display: 'inline-block', background: 'linear-gradient(135deg,#7c3aed,#4f46e5)', borderRadius: '50px', padding: '12px 32px' }}>
-          <span style={{ fontSize: '16px', fontWeight: 800, color: '#fff' }}>instok.co.il</span>
-        </div>
-      </div>
     </div>
   )
 }
@@ -298,12 +279,6 @@ function AiDemoPost({ lang, size }: { lang: Lang; size: { w: number; h: number }
         ))}
       </div>
 
-      {/* Footer */}
-      <div style={{ marginTop: isStory ? '40px' : '28px', textAlign: 'center' }}>
-        <div style={{ display: 'inline-block', background: 'linear-gradient(135deg,#7c3aed,#4f46e5)', borderRadius: '50px', padding: '12px 32px' }}>
-          <span style={{ fontSize: '16px', fontWeight: 800, color: '#fff' }}>instok.co.il</span>
-        </div>
-      </div>
     </div>
   )
 }
