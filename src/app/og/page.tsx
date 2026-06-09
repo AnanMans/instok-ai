@@ -43,7 +43,7 @@ function StoreMini({ lang }: { lang: Lang }) {
   const ar = lang === 'ar'
   return (
     <div style={{ height: '100%', background: 'linear-gradient(160deg,#1a1a2e 0%,#0d0d14 100%)', padding: '12px 10px', fontFamily: ar ? cairo.style.fontFamily : heebo.style.fontFamily }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '10px' }}>
+      <div dir="ltr" style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '10px' }}>
         <div style={{ width: '24px', height: '24px', borderRadius: '8px', background: 'linear-gradient(135deg,#7c3aed,#4f46e5)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <span style={{ fontSize: '10px' }}>👑</span>
         </div>
@@ -80,7 +80,7 @@ function LaunchPost({ lang, size }: { lang: Lang; size: { w: number; h: number }
       <div style={{ position: 'absolute', bottom: '-80px', right: '-80px', width: '400px', height: '400px', borderRadius: '50%', background: 'radial-gradient(circle,rgba(99,102,241,0.4) 0%,transparent 65%)', pointerEvents: 'none' }} />
 
       {/* Logo */}
-      <div style={{ marginBottom: size.h > 800 ? '40px' : '20px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+      <div dir="ltr" style={{ marginBottom: size.h > 800 ? '40px' : '20px', display: 'flex', alignItems: 'center', gap: '6px' }}>
         <span style={{ fontSize: size.w > 800 ? '28px' : '22px', fontWeight: 900, color: '#fff' }}>ins</span>
         <span style={{ fontSize: size.w > 800 ? '28px' : '22px', fontWeight: 900, background: 'linear-gradient(135deg,#a78bfa,#c4b5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>tok</span>
       </div>
