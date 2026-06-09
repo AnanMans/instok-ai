@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Cairo, Heebo } from 'next/font/google'
 
 const cairo = Cairo({ subsets: ['arabic'], display: 'swap', weight: ['400', '600', '700', '800', '900'] })
@@ -314,6 +314,14 @@ export default function OgPage() {
   const [lang, setLang] = useState<Lang>('ar')
   const [format, setFormat] = useState<Format>('square')
   const [hideUI, setHideUI] = useState(false)
+  const [vw, setVw] = useState(600)
+
+  useEffect(() => {
+    setVw(window.innerWidth)
+    const onResize = () => setVw(window.innerWidth)
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [])
 
   const SIZE = {
     square: { w: 1080, h: 1080 },
@@ -321,8 +329,8 @@ export default function OgPage() {
   }[format]
 
   const SCALE = format === 'square'
-    ? Math.min((window?.innerWidth ? window.innerWidth - 48 : 600) / 1080, 560 / 1080)
-    : Math.min((window?.innerWidth ? window.innerWidth - 48 : 600) / 1080, 800 / 1920)
+    ? Math.min((vw - 48) / 1080, 560 / 1080)
+    : Math.min((vw - 48) / 1080, 800 / 1920)
 
   function renderPost() {
     const props = { lang, size: SIZE }
