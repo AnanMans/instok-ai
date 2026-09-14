@@ -115,6 +115,7 @@ const T = {
     s5BitNote: 'سيتم استخدام رقم واتساب التجاري تلقائياً',
     s5IbanPH: 'رقم IBAN',
     s5BankPH: 'اسم البنك',
+    s5Skip: 'تخطي، اضبط لاحقاً ←',
     s6Title: 'كيف بتوصّل البهجة لعملائك؟ 🚚',
     s6SelfLabel: 'أنا بوصّل بنفسي',
     s6PickupLabel: 'استلام من عندي',
@@ -123,6 +124,7 @@ const T = {
     s6AreasHelper: 'اكتب المناطق اللي بتوصّل إلها',
     s6AddressPH: 'عنوانك الكامل',
     s6CourierPH: 'اكتب اسم شركة الشحن',
+    s6Skip: 'تخطي، اضبط لاحقاً ←',
     s2WaLabel: 'رقم واتساب التجاري *',
     s1Terms: 'بالمتابعة أنت توافق على شروط الاستخدام وسياسة الخصوصية',
     spTitle: 'أضف منتجك الأول',
@@ -233,6 +235,7 @@ const T = {
     s5BitNote: 'מספר הוואטסאפ העסקי ישמש אוטומטית',
     s5IbanPH: 'מספר IBAN',
     s5BankPH: 'שם הבנק',
+    s5Skip: 'דלג, אגדיר אחר כך ←',
     s6Title: 'איך תשלח הזמנות?',
     s6SelfLabel: 'אני מוסר בעצמי',
     s6PickupLabel: 'איסוף עצמי',
@@ -241,6 +244,7 @@ const T = {
     s6AreasHelper: 'כתוב את האזורים',
     s6AddressPH: 'הכתובת המלאה שלך',
     s6CourierPH: 'כתוב את שם חברת המשלוח',
+    s6Skip: 'דלג, אגדיר אחר כך ←',
     s2WaLabel: 'מספר וואטסאפ עסקי *',
     s1Terms: 'בהמשך אתה מסכים לתנאי השימוש ומדיניות הפרטיות',
     spTitle: 'הוסף את המוצר הראשון שלך',
@@ -1171,6 +1175,7 @@ export default function Page() {
                     </button>
                   </div>
                   <button onClick={canNext ? goNext : undefined} style={{ ...btnP, opacity: canNext ? 1 : 0.4, cursor: canNext ? 'pointer' : 'default' }}>{t.next}</button>
+                  <button onClick={goNext} style={{ width: '100%', background: 'none', border: 'none', color: 'rgba(15,10,30,0.4)', fontSize: '13px', cursor: 'pointer', fontFamily: 'inherit', padding: '14px 0 0', textAlign: 'center' }}>{t.s5Skip}</button>
                 </>
               )}
 
@@ -1207,6 +1212,7 @@ export default function Page() {
                     </div>
                   </div>
                   <button onClick={canNext ? handleSaveDeliveryPayment : undefined} style={{ ...btnP, opacity: canNext ? 1 : 0.4, cursor: canNext ? 'pointer' : 'default' }}>{t.next}</button>
+                  <button onClick={handleSaveDeliveryPayment} style={{ width: '100%', background: 'none', border: 'none', color: 'rgba(15,10,30,0.4)', fontSize: '13px', cursor: 'pointer', fontFamily: 'inherit', padding: '14px 0 0', textAlign: 'center' }}>{t.s6Skip}</button>
                 </>
               )}
 
