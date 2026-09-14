@@ -417,6 +417,11 @@ export default function Page() {
   const [savedStoreId, setSavedStoreId] = useState('')
   const [storeSaving, setStoreSaving] = useState(false)
   const [userEmail, setUserEmail] = useState<string | null>(null)
+  const [phoneInput, setPhoneInput] = useState('')
+  const [otpStage, setOtpStage] = useState<'phone' | 'otp'>('phone')
+  const [otpCode, setOtpCode] = useState('')
+  const [otpLoading, setOtpLoading] = useState(false)
+  const [otpError, setOtpError] = useState('')
 
   const [productImageUrl, setProductImageUrl] = useState('')
   const [productForm, setProductForm] = useState({ name: '', description: '', price: '' })
@@ -465,6 +470,7 @@ export default function Page() {
 
     supabase.auth.getSession().then(async ({ data: { session } }) => {
       if (session?.user?.email) setUserEmail(session.user.email)
+      else if (session?.user?.phone) setUserEmail(session.user.phone)
       if (session) {
         const { data: existing } = await supabase
           .from('stores')
@@ -483,6 +489,29 @@ export default function Page() {
 
   const goNext = () => setStep(s => s + 1)
   const goBack = () => setStep(s => s - 1)
+
+  const toE164 = (p: string) => '+972' + p.replace(/^0/, '')
+
+  const handleSendOtp = async () => {
+    if (phoneInput.trim().length < 9) return
+    setOtpError('')
+    setOtpLoading(true)
+    const { error } = await supabase.auth.signInWithOtp({ phone: toE164(phoneInput) })
+    setOtpLoading(false)
+    if (error) { setOtpError(error.message); return }
+    setOtpStage('otp')
+  }
+
+  const handleVerifyOtp = async () => {
+    if (otpCode.trim().length < 4) return
+    setOtpError('')
+    setOtpLoading(true)
+    const { data, error } = await supabase.auth.verifyOtp({ phone: toE164(phoneInput), token: otpCode, type: 'sms' })
+    setOtpLoading(false)
+    if (error) { setOtpError(error.message); return }
+    setUserEmail(data.session?.user.phone ?? toE164(phoneInput))
+    if (!whatsappPhone) setWhatsappPhone(phoneInput)
+  }
 
   const canNext = step === 1
     ? !!userEmail
@@ -1041,10 +1070,56 @@ export default function Page() {
                       </button>
                     </div>
                   )}
-                  <h1 style={{ fontSize: '28px', fontWeight: 800, color: '#0f0a1e', marginBottom: '6px', letterSpacing: '-0.025em' }}>{t.s1Title}</h1>
-                  <p style={{ color: 'rgba(15,10,30,0.45)', fontSize: '14px', marginBottom: '32px' }}>{t.s1Sub}</p>
+                  <h1 style={{ fontSize: '28px', fontWeight: 800, color: '#0f0a1e', marginBottom: '6px', letterSpacing: '-0.025em' }}>{t.s1PhoneTitle}</h1>
+                  <p style={{ color: 'rgba(15,10,30,0.45)', fontSize: '14px', marginBottom: '32px' }}>{t.s1PhoneSub}</p>
 
-                  {/* Google button */}
+                  {otpStage === 'phone' ? (
+                    <>
+                      <div style={{ display: 'flex', gap: '8px', marginBottom: '12px' }}>
+                        <div style={{ ...inp, width: 'auto', padding: '14px 12px', color: 'rgba(15,10,30,0.45)', fontSize: '15px', flexShrink: 0 }}>+972</div>
+                        <input
+                          type="tel" inputMode="numeric" placeholder={t.s1PhonePH}
+                          value={phoneInput}
+                          onChange={e => setPhoneInput(e.target.value.replace(/\D/g, ''))}
+                          style={{ ...inp, flex: 1 }} dir="ltr"
+                        />
+                      </div>
+                      {otpError && <p style={{ color: '#ef4444', fontSize: '12px', marginBottom: '12px' }}>{otpError}</p>}
+                      <button onClick={handleSendOtp}
+                        disabled={otpLoading || phoneInput.trim().length < 9}
+                        style={{ ...btnP, opacity: (otpLoading || phoneInput.trim().length < 9) ? 0.4 : 1, cursor: (otpLoading || phoneInput.trim().length < 9) ? 'default' : 'pointer' }}>
+                        {t.s1SendCode}
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <h2 style={{ fontSize: '16px', fontWeight: 600, color: '#0f0a1e', marginBottom: '12px' }}>{t.s1OtpTitle}</h2>
+                      <input
+                        type="tel" inputMode="numeric" placeholder="••••••"
+                        value={otpCode}
+                        onChange={e => setOtpCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                        style={{ ...inp, marginBottom: '12px', textAlign: 'center', letterSpacing: '6px', fontSize: '20px' }} dir="ltr"
+                      />
+                      {otpError && <p style={{ color: '#ef4444', fontSize: '12px', marginBottom: '12px' }}>{otpError}</p>}
+                      <button onClick={handleVerifyOtp}
+                        disabled={otpLoading || otpCode.trim().length < 4}
+                        style={{ ...btnP, opacity: (otpLoading || otpCode.trim().length < 4) ? 0.4 : 1, cursor: (otpLoading || otpCode.trim().length < 4) ? 'default' : 'pointer' }}>
+                        {t.next}
+                      </button>
+                      <button onClick={handleSendOtp}
+                        style={{ width: '100%', background: 'none', border: 'none', color: 'rgba(15,10,30,0.4)', fontSize: '13px', cursor: 'pointer', fontFamily: 'inherit', padding: '14px 0 0', textAlign: 'center' }}>
+                        {t.s1OtpResend}
+                      </button>
+                    </>
+                  )}
+
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', margin: '24px 0' }}>
+                    <div style={{ flex: 1, height: '1px', background: 'rgba(15,10,30,0.08)' }} />
+                    <span style={{ fontSize: '12px', color: 'rgba(15,10,30,0.3)' }}>{lang === 'ar' ? 'أو' : 'או'}</span>
+                    <div style={{ flex: 1, height: '1px', background: 'rgba(15,10,30,0.08)' }} />
+                  </div>
+
+                  {/* Google button — fallback */}
                   <button
                     onClick={handleGoogleLogin}
                     style={{ ...cardB, marginBottom: '16px', justifyContent: 'center', gap: '12px', padding: '16px', border: '1.5px solid rgba(0,0,0,0.1)', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
@@ -1053,11 +1128,6 @@ export default function Page() {
                   </button>
 
                   <p style={{ fontSize: '11px', color: 'rgba(15,10,30,0.3)', textAlign: 'center', marginTop: '16px' }}>{t.s1Terms}</p>
-
-                  <button onClick={canNext ? goNext : undefined}
-                    style={{ ...btnP, opacity: canNext ? 1 : 0.4, cursor: canNext ? 'pointer' : 'default', marginTop: '24px' }}>
-                    {t.next}
-                  </button>
                 </>
               )}
 
